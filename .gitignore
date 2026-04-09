@@ -1,0 +1,8 @@
+scratch_*.js
+debug*.js
+.DS_Store
+node_modules/
+css/tailwind-input.css
+tailwind.config.js
+package.json
+package-lock.json
