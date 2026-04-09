@@ -172,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Xây dựng tin nhắn theo văn phong giao tiếp tự nhiên
-      let message = `Chào Xóm Lèo, mình là ${name} (${phone}).\nMình muốn đặt bàn ngày ${formattedDate} cho ${guests} người lúc ${time}`;
+      let message = `Chào Tiệm Nướng & Chill Xóm Lèo, mình là ${name} (${phone}).\nMình muốn đặt bàn ngày ${formattedDate} cho ${guests} người lúc ${time}. Ghi chú:${note}`;
       if (occasion && occasion !== 'Không có') {
         message += ` tiệc ${occasion.toLowerCase()}`;
       }
