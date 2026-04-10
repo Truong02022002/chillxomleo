@@ -991,3 +991,81 @@ input:focus, select:focus, textarea:focus {
     flex-shrink: 1;
   }
 }
+
+/* ========== BLOG SEARCH BAR ========== */
+.blog-search-wrapper {
+  max-width: 560px;
+  margin: 0 auto 3rem;
+}
+
+.blog-search-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.blog-search-icon {
+  position: absolute;
+  left: 1.25rem;
+  color: rgba(142, 139, 134, 0.5);
+  pointer-events: none;
+  transition: color 0.3s;
+}
+
+.blog-search-box:focus-within .blog-search-icon {
+  color: #C5A059;
+}
+
+#blog-search {
+  width: 100%;
+  padding: 1rem 3rem 1rem 3.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 2px;
+  color: #f5f0eb;
+  font-size: 0.9rem;
+  font-family: 'Signika', sans-serif;
+  letter-spacing: 0.02em;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+#blog-search::placeholder {
+  color: rgba(142, 139, 134, 0.4);
+  font-style: italic;
+}
+
+#blog-search:focus {
+  border-color: rgba(197, 160, 89, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.08), 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.blog-search-clear {
+  position: absolute;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: rgba(142, 139, 134, 0.5);
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: color 0.3s;
+}
+
+.blog-search-clear:hover {
+  color: #C5A059;
+}
+
+.blog-search-count {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  color: rgba(142, 139, 134, 0.5);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  min-height: 1.2em;
+}
+
+.blog-item.search-hidden {
+  display: none !important;
+}

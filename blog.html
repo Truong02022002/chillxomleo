@@ -117,6 +117,29 @@
            </button>
         </div>
 
+        <!-- Search Bar -->
+        <div class="blog-search-wrapper">
+          <div class="blog-search-box">
+            <svg class="blog-search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <path d="m21 21-4.3-4.3"></path>
+            </svg>
+            <input 
+              type="text" 
+              id="blog-search" 
+              placeholder="Tìm kiếm bài viết..." 
+              autocomplete="off"
+            />
+            <button id="blog-search-clear" class="blog-search-clear" style="display:none;" aria-label="Xóa tìm kiếm">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <p id="blog-search-count" class="blog-search-count"></p>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="blog-grid">
              
                  <article 
@@ -2401,5 +2424,74 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script>
+  // Blog Search Functionality
+  (function() {
+    const searchInput = document.getElementById('blog-search');
+    const clearBtn = document.getElementById('blog-search-clear');
+    const countEl = document.getElementById('blog-search-count');
+    const blogGrid = document.getElementById('blog-grid');
+    if (!searchInput || !blogGrid) return;
+
+    const articles = Array.from(blogGrid.querySelectorAll('.blog-item'));
+
+    // Remove Vietnamese diacritics for fuzzy matching
+    function removeDiacritics(str) {
+      return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+               .replace(/đ/g, 'd').replace(/Đ/g, 'D');
+    }
+
+    function filterArticles() {
+      const query = searchInput.value.trim().toLowerCase();
+      const queryNorm = removeDiacritics(query);
+      
+      clearBtn.style.display = query ? 'block' : 'none';
+
+      if (!query) {
+        articles.forEach(a => a.classList.remove('search-hidden'));
+        countEl.textContent = '';
+        return;
+      }
+
+      let visibleCount = 0;
+      articles.forEach(article => {
+        // Skip articles already hidden by tab filter
+        const tabHidden = article.style.display === 'none';
+        
+        const title = (article.querySelector('h2')?.textContent || '').toLowerCase();
+        const desc = (article.querySelector('p')?.textContent || '').toLowerCase();
+        const text = title + ' ' + desc;
+        const textNorm = removeDiacritics(text);
+        
+        const match = text.includes(query) || textNorm.includes(queryNorm);
+        
+        if (match) {
+          article.classList.remove('search-hidden');
+          if (!tabHidden) visibleCount++;
+        } else {
+          article.classList.add('search-hidden');
+        }
+      });
+
+      countEl.textContent = visibleCount > 0 
+        ? `Tìm thấy ${visibleCount} bài viết` 
+        : 'Không tìm thấy bài viết nào';
+    }
+
+    let debounceTimer;
+    searchInput.addEventListener('input', function() {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(filterArticles, 200);
+    });
+
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      clearBtn.style.display = 'none';
+      articles.forEach(a => a.classList.remove('search-hidden'));
+      countEl.textContent = '';
+      searchInput.focus();
+    });
+  })();
+  </script>
 </body>
 </html>
