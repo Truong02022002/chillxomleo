@@ -1,12 +1,14 @@
 :root {
   --font-signika: 'Signika', ui-sans-serif, system-ui, sans-serif;
-  --background: #090909; /* Deep Noir */
-  --foreground: #F5F2EB; /* Soft Cream */
-  --primary: #C5A059; /* Champagne Gold */
-  --secondary: #141414; /* Charcoal Accent */
-  --accent: #E25822; /* Smoke/Fire Terracotta */
-  --muted: #8E8B86;
-  --surface: #111111;
+  --background: #F5E9DA; /* Warm Cream */
+  --foreground: #3B2314; /* Dark Brown */
+  --primary: #D35400; /* Burnt Orange CTA */
+  --secondary: #EAD8C0; /* Warm Section */
+  --accent: #E67E22; /* Orange Hover */
+  --muted: #A0826D; /* Warm Muted */
+  --surface: #EAD8C0; /* Section BG */
+  --card: #FFF8F0; /* Card White */
+  --card-border: #E0C3A3; /* Card Border */
   --font-sans: 'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-serif: 'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-script: 'Dancing Script', cursive;
@@ -65,7 +67,7 @@ body {
 
 /* ========== BLOG ARTICLE H1 TITLE ========== */
 article h1 {
-  color: #F5F2EB !important;
+  color: #3B2314 !important;
 }
 
 /* ========== BLOG IMAGE SPACING & STYLING ========== */
@@ -75,16 +77,16 @@ article h1 {
   height: auto;
   margin: 3rem auto !important;
   border-radius: 16px !important;
-  border: 1px solid rgba(197, 160, 89, 0.2) !important;
-  box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.5), 0 0 25px rgba(197, 160, 89, 0.05) !important;
+  border: 1px solid rgba(211, 84, 0, 0.2) !important;
+  box-shadow: 0 15px 35px -5px rgba(59, 35, 20, 0.15), 0 0 25px rgba(211, 84, 0, 0.05) !important;
   display: block;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .prose img:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 25px 45px -10px rgba(0, 0, 0, 0.7), 0 0 35px rgba(197, 160, 89, 0.15) !important;
-  border-color: rgba(197, 160, 89, 0.4) !important;
+  box-shadow: 0 25px 45px -10px rgba(59, 35, 20, 0.2), 0 0 35px rgba(211, 84, 0, 0.1) !important;
+  border-color: rgba(211, 84, 0, 0.4) !important;
 }
 
 .prose p + p {
@@ -102,7 +104,7 @@ article h1 {
   margin-bottom: 0.5rem !important;
 }
 
-/* ========== BLOG PROSE TEXT CONTRAST (Dark Background) ========== */
+/* ========== BLOG PROSE TEXT CONTRAST (Light Background) ========== */
 .prose,
 .prose p,
 .prose li,
@@ -112,36 +114,36 @@ article h1 {
 .prose strong,
 .prose em,
 .prose blockquote {
-  color: rgba(245, 242, 235, 0.85) !important;
+  color: rgba(59, 35, 20, 0.85) !important;
 }
 
 .prose strong,
 .prose b {
-  color: #F5F2EB !important;
+  color: #3B2314 !important;
   font-weight: 700 !important;
 }
 
 .prose a {
-  color: #C5A059 !important;
+  color: #D35400 !important;
 }
 
 .prose a:hover {
-  color: #d4b06a !important;
+  color: #E67E22 !important;
 }
 
 .prose blockquote {
-  border-left-color: #C5A059 !important;
-  background: rgba(197, 160, 89, 0.05);
+  border-left-color: #D35400 !important;
+  background: rgba(211, 84, 0, 0.05);
   padding: 0.75rem 1.25rem;
   border-radius: 0 0.5rem 0.5rem 0;
 }
 
 .prose ul, .prose ol {
-  color: rgba(245, 242, 235, 0.8) !important;
+  color: rgba(59, 35, 20, 0.8) !important;
 }
 
 .prose hr {
-  border-color: rgba(245, 242, 235, 0.1) !important;
+  border-color: rgba(59, 35, 20, 0.15) !important;
 }
 
 /* Override inline black text from WordPress export */
@@ -149,7 +151,7 @@ article h1 {
 .prose [style*="color:#000"],
 .prose [style*="color: black"],
 .prose [style*="color:black"] {
-  color: rgba(245, 242, 235, 0.85) !important;
+  color: rgba(59, 35, 20, 0.85) !important;
 }
 
 /* ========== BLOG ARTICLE HEADING HIERARCHY ========== */
@@ -160,8 +162,8 @@ article h1 {
   margin-top: 2.5rem !important;
   margin-bottom: 1rem !important;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(197, 160, 89, 0.2);
-  color: #F5F2EB !important;
+  border-bottom: 2px solid rgba(211, 84, 0, 0.2);
+  color: #3B2314 !important;
 }
 
 .prose h3 {
@@ -170,9 +172,9 @@ article h1 {
   font-weight: 600 !important;
   margin-top: 2rem !important;
   margin-bottom: 0.75rem !important;
-  color: #E8E4DB !important;
+  color: #4A301E !important;
   padding-left: 0.75rem;
-  border-left: 3px solid #C5A059;
+  border-left: 3px solid #D35400;
 }
 
 .prose h4 {
@@ -181,19 +183,19 @@ article h1 {
   font-weight: 600 !important;
   margin-top: 1.5rem !important;
   margin-bottom: 0.5rem !important;
-  color: #D5D0C6 !important;
+  color: #5C3D2E !important;
 }
 
 .prose h5 {
   font-size: 1rem !important;
   font-weight: 600 !important;
-  color: #B5B0A6 !important;
+  color: #6B4C3B !important;
 }
 
 /* ========== TABLE OF CONTENTS (TOC) ========== */
 .blog-toc {
-  background: linear-gradient(135deg, #f8f6f1 0%, #f0ece3 100%);
-  border: 1px solid rgba(197, 160, 89, 0.25);
+  background: linear-gradient(135deg, #FFF8F0 0%, #F5E9DA 100%);
+  border: 1px solid rgba(211, 84, 0, 0.2);
   border-radius: 1rem;
   padding: 1.5rem 2rem;
   margin-bottom: 2.5rem;
@@ -222,7 +224,7 @@ article h1 {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, #C5A059, #E25822);
+  background: linear-gradient(to bottom, #D35400, #E67E22);
   border-radius: 4px 0 0 4px;
 }
 
@@ -231,7 +233,7 @@ article h1 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #C5A059;
+  color: #D35400;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -258,7 +260,7 @@ details[open] .blog-toc-title::after {
 .blog-toc-title svg {
   width: 16px;
   height: 16px;
-  stroke: #C5A059;
+  stroke: #D35400;
 }
 
 .blog-toc ol {
@@ -287,14 +289,14 @@ details[open] .blog-toc-title::after {
 }
 
 .blog-toc > ol > li > a:hover {
-  color: #C5A059;
+  color: #D35400;
   padding-left: 0.25rem;
 }
 
 .blog-toc > ol > li > a::before {
   content: counter(toc-counter) ".";
   font-weight: 700;
-  color: #C5A059;
+  color: #D35400;
   min-width: 1.5rem;
   font-size: 0.85rem;
 }
@@ -321,13 +323,13 @@ details[open] .blog-toc-title::after {
 }
 
 .blog-toc .toc-sub a:hover {
-  color: #C5A059;
+  color: #D35400;
   padding-left: 0.25rem;
 }
 
 .blog-toc .toc-sub a::before {
   content: "› ";
-  color: #C5A059;
+  color: #D35400;
   font-weight: 600;
 }
 
@@ -336,7 +338,7 @@ details[open] .blog-toc-title::after {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: #090909;
+  background: #F5E9DA;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -365,7 +367,7 @@ details[open] .blog-toc-title::after {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, #C5A059 20%, #C5A059 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #D35400 20%, #D35400 80%, transparent 100%);
   opacity: 0.3;
 }
 
@@ -376,7 +378,7 @@ details[open] .blog-toc-title::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(197,160,89,0.15) 8px, rgba(197,160,89,0.15) 10px);
+  background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(211,84,0,0.15) 8px, rgba(211,84,0,0.15) 10px);
 }
 
 .preloader-train {
@@ -389,7 +391,7 @@ details[open] .blog-toc-title::after {
   gap: 0;
   /* starts completely off-screen to the left */
   animation: preloader-train-run 2.2s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
-  filter: drop-shadow(0 0 10px rgba(197,160,89,0.35));
+  filter: drop-shadow(0 0 10px rgba(211,84,0,0.35));
 }
 
 .train-car {
@@ -420,7 +422,7 @@ details[open] .blog-toc-title::after {
   bottom: 38px;
   width: 6px;
   height: 6px;
-  background: rgba(197, 160, 89, 0.25);
+  background: rgba(211, 84, 0, 0.25);
   border-radius: 50%;
   animation: preloader-smoke-rise 1.5s ease-out infinite;
 }
@@ -444,7 +446,7 @@ details[open] .blog-toc-title::after {
   font-size: 0.65rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #C5A059;
+  color: #D35400;
   font-weight: 700;
   margin-bottom: 0.75rem;
   display: flex;
@@ -458,12 +460,12 @@ details[open] .blog-toc-title::after {
 .preloader-brand-main {
   font-family: 'Dancing Script', cursive;
   font-size: 2.8rem;
-  color: #F5F2EB;
+  color: #3B2314;
   line-height: 1.2;
   display: flex;
   justify-content: center;
   gap: 2px;
-  text-shadow: 0 0 30px rgba(197, 160, 89, 0.2);
+  text-shadow: 0 0 30px rgba(211, 84, 0, 0.15);
 }
 
 .preloader-brand-main span {
@@ -486,7 +488,7 @@ details[open] .blog-toc-title::after {
 .preloader-brand-sub svg {
   width: 10px;
   height: 10px;
-  fill: #C5A059;
+  fill: #D35400;
 }
 
 @keyframes preloader-brand-in {
@@ -498,7 +500,7 @@ details[open] .blog-toc-title::after {
 .preloader-progress {
   width: 120px;
   height: 1px;
-  background: rgba(245, 242, 235, 0.1);
+  background: rgba(59, 35, 20, 0.1);
   margin-top: 2rem;
   border-radius: 1px;
   overflow: hidden;
@@ -507,7 +509,7 @@ details[open] .blog-toc-title::after {
 .preloader-progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #C5A059, #E25822);
+  background: linear-gradient(90deg, #D35400, #E67E22);
   animation: preloader-fill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -523,13 +525,13 @@ details[open] .blog-toc-title::after {
 }
 
 #navbar.scrolled {
-  background: rgba(9, 9, 9, 0.75) !important;
+  background: rgba(245, 233, 218, 0.92) !important;
   backdrop-filter: blur(24px) saturate(180%);
   -webkit-backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: 1px solid rgba(245, 242, 235, 0.05);
+  border-bottom: 1px solid rgba(59, 35, 20, 0.08);
   padding-top: 0.75rem !important;
   padding-bottom: 0.75rem !important;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 30px rgba(59, 35, 20, 0.08);
 }
 
 /* ========== SCROLL REVEAL ========== */
@@ -653,8 +655,8 @@ details[open] .blog-toc-title::after {
 }
 
 .glow-shadow:hover {
-  box-shadow: 0 0 25px rgba(197, 160, 89, 0.4), 0 0 50px rgba(197, 160, 89, 0.15);
-  border-color: rgba(197, 160, 89, 0.5) !important;
+  box-shadow: 0 0 25px rgba(211, 84, 0, 0.25), 0 0 50px rgba(211, 84, 0, 0.1);
+  border-color: rgba(211, 84, 0, 0.4) !important;
 }
 
 /* 3. Glassmorphism Play Button & Ripple */
@@ -671,10 +673,10 @@ details[open] .blog-toc-title::after {
 }
 
 .glass-play-btn:hover {
-  background: rgba(197, 160, 89, 0.8);
-  border-color: #C5A059;
+  background: rgba(211, 84, 0, 0.8);
+  border-color: #D35400;
   transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(197, 160, 89, 0.5);
+  box-shadow: 0 0 30px rgba(211, 84, 0, 0.4);
 }
 
 @keyframes ripple-pulse {
@@ -686,7 +688,7 @@ details[open] .blog-toc-title::after {
   content: '';
   position: absolute;
   inset: 0;
-  border: 2px solid #C5A059;
+  border: 2px solid #D35400;
   border-radius: 50%;
   animation: ripple-pulse 2s infinite;
   pointer-events: none;
@@ -696,7 +698,7 @@ details[open] .blog-toc-title::after {
 .premium-form-wrap {
   position: relative;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(197, 160, 89, 0.2), transparent 40%, transparent 60%, rgba(226, 88, 34, 0.2));
+  background: linear-gradient(135deg, rgba(211, 84, 0, 0.15), transparent 40%, transparent 60%, rgba(230, 126, 34, 0.15));
   border-radius: 4px;
   overflow: hidden;
 }
@@ -712,7 +714,7 @@ details[open] .blog-toc-title::after {
     transparent, 
     transparent, 
     transparent, 
-    #C5A059, 
+    #D35400, 
     transparent 20%
   );
   animation: rotate-border 6s linear infinite;
@@ -722,7 +724,7 @@ details[open] .blog-toc-title::after {
 .premium-form-inner {
   position: relative;
   z-index: 1;
-  background: #090909;
+  background: #FFF8F0;
   border-radius: 3px;
 }
 
@@ -732,8 +734,8 @@ details[open] .blog-toc-title::after {
 
 /* Extra touch for inputs */
 input:focus, select:focus, textarea:focus {
-  background: rgba(17, 17, 17, 0.9) !important;
-  box-shadow: 0 0 15px rgba(197, 160, 89, 0.1) !important;
+  background: rgba(255, 248, 240, 0.95) !important;
+  box-shadow: 0 0 15px rgba(211, 84, 0, 0.08) !important;
 }
 
 /* ========== FLOATING CONTACT BUTTONS ========== */
@@ -816,16 +818,16 @@ input:focus, select:focus, textarea:focus {
 }
 
 .floating-btn.btn-booking {
-  background: var(--primary, #C5A059);
-  color: #090909;
+  background: var(--primary, #D35400);
+  color: #FFFFFF;
   animation: floating-pulse-booking 2s infinite;
   animation-delay: 0.5s;
 }
 
 @keyframes floating-pulse-booking {
-  0% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(197, 160, 89, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(197, 160, 89, 0); }
+  0% { box-shadow: 0 0 0 0 rgba(211, 84, 0, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(211, 84, 0, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(211, 84, 0, 0); }
 }
 
 @media (max-width: 768px) {
@@ -849,10 +851,10 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   width: 28px;
   height: 18px;
-  background: #090909; 
-  border: 1px solid #C5A059;
+  background: #FFF8F0; 
+  border: 1px solid #D35400;
   border-radius: 4px 10px 0 0;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+  box-shadow: inset 0 2px 4px rgba(59,35,20,0.1);
   margin-top: -9px;
   margin-left: -14px;
   animation: run-the-border 8s linear infinite;
@@ -875,9 +877,9 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   bottom: -4px; left: 3px;
   width: 5px; height: 5px;
-  background: #C5A059;
+  background: #D35400;
   border-radius: 50%;
-  box-shadow: 8px 0 0 #C5A059, 16px 0 0 #C5A059; /* 3 wheels */
+  box-shadow: 8px 0 0 #D35400, 16px 0 0 #D35400; /* 3 wheels */
 }
 
 @keyframes run-the-border {
@@ -899,10 +901,10 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   width: 24px;
   height: 16px;
-  background: #090909; 
-  border: 1px solid #8E8B86;
+  background: #FFF8F0; 
+  border: 1px solid #A0826D;
   border-radius: 2px;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+  box-shadow: inset 0 2px 4px rgba(59,35,20,0.05);
   margin-top: -8px;
   margin-left: -12px;
   animation: run-the-border 8s linear infinite;
@@ -925,9 +927,9 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   bottom: -4px; left: 3px;
   width: 6px; height: 6px;
-  background: #C5A059;
+  background: #D35400;
   border-radius: 50%;
-  box-shadow: 12px 0 0 #C5A059; /* 2 wheels */
+  box-shadow: 12px 0 0 #D35400; /* 2 wheels */
 }
 
 /* Delays for spacing */
@@ -944,57 +946,22 @@ input:focus, select:focus, textarea:focus {
 /* ========== REVIEW CARDS GRID LAYOUT ========== */
 .review-cards-wrapper {
   position: relative;
-  margin-left: -1.5rem;
-  margin-right: -1.5rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
 }
 
 .review-cards-container {
   display: flex;
-  overflow-x: auto;
+  flex-direction: column;
   gap: 1.5rem;
-  padding-bottom: 3rem;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-.review-cards-container::-webkit-scrollbar {
-  display: none;
 }
 
 .review-card {
-  min-width: 300px;
-  max-width: 400px;
-  flex-shrink: 0;
-  scroll-snap-align: center;
-}
-
-@media (min-width: 768px) {
-  .review-cards-wrapper {
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 0;
-    overflow: hidden;
-  }
+  width: 100%;
 }
 
 @media (min-width: 1024px) {
   .review-cards-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    overflow: visible;
-    scroll-snap-type: none;
-    padding-bottom: 0;
-  }
-
-  .review-card {
-    min-width: 0;
-    max-width: none;
-    flex-shrink: 1;
   }
 }
 
@@ -1019,16 +986,16 @@ input:focus, select:focus, textarea:focus {
 }
 
 .blog-search-box:focus-within .blog-search-icon {
-  color: #C5A059;
+  color: #D35400;
 }
 
 #blog-search {
   width: 100%;
   padding: 1rem 3rem 1rem 3.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 248, 240, 0.6);
+  border: 1px solid rgba(59, 35, 20, 0.12);
   border-radius: 2px;
-  color: #f5f0eb;
+  color: #3B2314;
   font-size: 0.9rem;
   font-family: 'Signika', sans-serif;
   letter-spacing: 0.02em;
@@ -1037,14 +1004,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 #blog-search::placeholder {
-  color: rgba(142, 139, 134, 0.4);
+  color: rgba(59, 35, 20, 0.35);
   font-style: italic;
 }
 
 #blog-search:focus {
-  border-color: rgba(197, 160, 89, 0.4);
-  background: rgba(255, 255, 255, 0.05);
-  box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.08), 0 4px 20px rgba(0, 0, 0, 0.2);
+  border-color: rgba(211, 84, 0, 0.4);
+  background: rgba(255, 248, 240, 0.8);
+  box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.08), 0 4px 20px rgba(59, 35, 20, 0.08);
 }
 
 .blog-search-clear {
@@ -1059,7 +1026,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 .blog-search-clear:hover {
-  color: #C5A059;
+  color: #D35400;
 }
 
 .blog-search-count {
