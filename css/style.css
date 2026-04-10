@@ -936,33 +936,48 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ========== REVIEW CARDS GRID LAYOUT ========== */
-#reviews .review-cards-container {
+.review-cards-wrapper {
+  position: relative;
+  margin-left: -1.5rem;
+  margin-right: -1.5rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.review-cards-container {
   display: flex;
   overflow-x: auto;
   gap: 1.5rem;
   padding-bottom: 3rem;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-}
-
-#reviews .review-cards-container::-webkit-scrollbar {
-  display: none;
-}
-
-#reviews .review-cards-container {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
 
-#reviews .review-card {
+.review-cards-container::-webkit-scrollbar {
+  display: none;
+}
+
+.review-card {
   min-width: 300px;
   max-width: 400px;
   flex-shrink: 0;
   scroll-snap-align: center;
 }
 
+@media (min-width: 768px) {
+  .review-cards-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    overflow: hidden;
+  }
+}
+
 @media (min-width: 1024px) {
-  #reviews .review-cards-container {
+  .review-cards-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     overflow: visible;
@@ -970,7 +985,7 @@ input:focus, select:focus, textarea:focus {
     padding-bottom: 0;
   }
 
-  #reviews .review-card {
+  .review-card {
     min-width: 0;
     max-width: none;
     flex-shrink: 1;
