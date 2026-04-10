@@ -831,10 +831,10 @@ input:focus, select:focus, textarea:focus {
 @media (max-width: 768px) {
   .floating-contact {
     bottom: 24px;
-    right: auto;
-    left: 16px;
+    right: 16px;
+    left: auto;
     transform: scale(0.85);
-    transform-origin: bottom left;
+    transform-origin: bottom right;
   }
   .floating-btn::before {
     display: none;

@@ -295,13 +295,13 @@
       <p class="max-w-md md:max-w-xl text-sm md:text-base text-foreground/70 font-light leading-relaxed mb-12 drop-shadow-md">
         Quán nướng view thung lũng đẹp nhất Đà Lạt
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full px-4 sm:px-0 justify-center items-center">
+      <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 w-full max-w-sm sm:max-w-none mx-auto justify-center items-center relative z-20 px-8 sm:px-0">
         <a href="#booking"
-          class="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] bg-primary text-background px-8 py-4 rounded-[2px] hover:bg-white hover:text-black transition-all duration-500 hover:scale-105">
+          class="text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] bg-primary text-background px-6 md:px-8 py-4 rounded-[2px] hover:bg-white hover:text-black transition-all duration-500 hover:scale-105 w-full sm:w-auto text-center border border-primary">
           Giữ Chỗ Ngay
         </a>
         <a href="menu.html"
-          class="relative group overflow-hidden border border-primary/30 px-12 py-4 rounded-[2px] transition-all duration-500">
+          class="relative group overflow-hidden border border-primary/30 px-6 md:px-12 py-4 rounded-[2px] transition-all duration-500 w-full sm:w-auto text-center bg-black/20 sm:bg-transparent backdrop-blur-sm sm:backdrop-blur-none">
           <span
             class="relative z-10 text-[10px] md:text-xs font-bold uppercase tracking-[0.2em] text-primary group-hover:text-background transition-colors duration-500">
             KHÁM PHÁ THỰC ĐƠN
@@ -314,7 +314,7 @@
     </div>
 
     <div
-      class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 text-white/50 animate-bounce">
+      class="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-4 text-white/50 animate-bounce z-10">
       <span class="text-[9px] uppercase tracking-[0.3em] font-medium text-foreground/50">Cuộn xuống</span>
       <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
     </div>
@@ -453,17 +453,17 @@
   <!-- Google Reviews Section -->
   <section id="reviews" class="py-24 md:py-32 bg-background relative border-t border-muted/10 reveal">
     <div class="container mx-auto px-6 md:px-12">
-      <div class="mb-16 md:mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
+      <div class="mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-8">
         <div>
-          <div class="flex items-center gap-4 mb-6">
+          <div class="flex items-center gap-4 mb-4 md:mb-6">
             <div class="w-12 h-[1px] bg-primary"></div>
             <span class="text-[10px] items-center uppercase tracking-[0.3em] font-bold text-primary">Chứng nhận</span>
           </div>
-          <h2 class="font-serif text-4xl md:text-5xl lg:text-6xl text-foreground leading-[1.1]">
+          <h2 class="font-serif text-3xl md:text-5xl lg:text-6xl text-foreground leading-[1.1]">
             CÂU CHUYỆN <br /> <span class="italic text-primary">Khách Hàng</span>
           </h2>
         </div>
-        <div class="flex flex-col items-end gap-2">
+        <div class="flex flex-col items-start md:items-end gap-2">
           <div class="flex text-yellow-500">
             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
               <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
@@ -777,8 +777,8 @@
     <div class="container max-w-[1050px] mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8 mb-12">
 
       <!-- Brand Column -->
-      <div class="md:col-span-5 flex flex-col items-start gap-5">
-        <a href="index.html" class="flex flex-col items-start leading-none group">
+      <div class="md:col-span-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-5">
+        <a href="index.html" class="flex flex-col items-center lg:items-start leading-none group">
           <span class="font-script text-4xl text-primary group-hover:text-foreground transition-colors">
             Tiệm Nướng & Chill Xóm Lèo
           </span>
@@ -789,7 +789,7 @@
           dừng chân của những tâm hồn đồng điệu đang tìm kiếm sự bình yên giữa cái lạnh đặc trưng của Đà Lạt.
         </p>
 
-        <div class="flex items-center gap-4">
+        <div class="flex items-center justify-center lg:justify-start gap-4">
           <a href="https://www.facebook.com/nuongxomleo" target="_blank" rel="noopener noreferrer"
             class="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-foreground/60 hover:bg-primary hover:text-[#090807] transition-all duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
@@ -813,15 +813,15 @@
             </svg>
           </a>
         </div>
-        <a href="index.html#booking" class="mt-6 inline-flex items-center justify-center bg-primary text-background px-8 py-3 rounded-[2px] text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:-translate-y-1 w-max">
+        <a href="index.html#booking" class="mt-4 lg:mt-6 inline-flex items-center justify-center bg-primary text-background px-8 py-3 rounded-[2px] text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] hover:shadow-[0_0_25px_rgba(197,160,89,0.6)] hover:-translate-y-1 w-max">
           Giữ Chỗ / Đặt Bàn
         </a>
       </div>
 
       <!-- Links Column -->
-      <div class="md:col-span-3 lg:col-start-7 flex flex-col items-start gap-5">
+      <div class="md:col-span-3 lg:col-start-7 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-5">
         <h4 class="text-[16px] font-bold uppercase tracking-[0.2em] text-foreground">Liên kết</h4>
-        <nav class="flex flex-col gap-5 text-[14px] text-foreground/40 font-medium">
+        <nav class="flex flex-col gap-4 lg:gap-5 text-[14px] text-foreground/40 font-medium">
           <a href="index.html" class="hover:text-primary transition-colors">Trang chủ</a>
           <a href="about.html" class="hover:text-primary transition-colors">Trải nghiệm</a>
           <a href="menu.html" class="hover:text-primary transition-colors">Thực Đơn</a>
@@ -832,7 +832,7 @@
       </div>
 
       <!-- Contact Column -->
-      <div class="md:col-span-4 lg:col-span-3 flex flex-col items-start gap-5">
+      <div class="md:col-span-4 lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-4 lg:gap-5">
         <h4 class="text-[16px] font-bold uppercase tracking-[0.2em] text-foreground">Liên hệ</h4>
         <div class="flex flex-col gap-4 text-[14px] text-foreground/50 leading-relaxed font-light">
           <a href="tel:0764527336"
