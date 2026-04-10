@@ -314,9 +314,9 @@
     </div>
 
     <div
-      class="hidden md:flex absolute bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-4 text-white/50 animate-bounce z-10">
+      class="flex absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 flex-col items-center gap-2 md:gap-4 text-white/50 animate-bounce z-10 pointer-events-none">
       <span class="text-[9px] uppercase tracking-[0.3em] font-medium text-foreground/50">Cuộn xuống</span>
-      <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+      <div class="w-[1px] h-8 md:h-12 bg-gradient-to-b from-primary to-transparent"></div>
     </div>
   </section>
 
@@ -862,9 +862,9 @@
       </div>
 
       <!-- Scroll to Top (Positioned) -->
-      <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
-        class="absolute left-6 md:left-12 bottom-12 w-14 h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+      <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        class="fixed left-4 md:left-6 bottom-[114px] md:bottom-12 w-12 h-12 md:w-14 md:h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50 opacity-0 pointer-events-none translate-y-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
           class="group-hover:-translate-y-1 transition-transform">
           <path d="m18 15-6-6-6 6"></path>
@@ -873,7 +873,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v9"></script>
+  <script src="js/main.js?v10"></script>
 </body>
 
 </html>
