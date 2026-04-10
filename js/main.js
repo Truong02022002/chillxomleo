@@ -164,6 +164,44 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      // --- Telegram Notification ---
+      const TELEGRAM_BOT_TOKEN = '8539178864:AAGa4wKhUsgxkY-MPRsSVRiOOs4bjY1TCQc';
+      const TELEGRAM_CHAT_ID = '-1003794348316';
+      
+      let fDate = date;
+      if (date && date.includes('-')) {
+        const p = date.split('-');
+        fDate = `${p[2]}/${p[1]}/${p[0]}`;
+      }
+
+      const tgMessage = [
+        `🔔 *ĐẶT BÀN MỚI TỪ WEBSITE*`,
+        ``,
+        `👤 Tên: *${name}*`,
+        `📞 SĐT: ${phone}`,
+        `📅 Ngày: ${fDate}`,
+        `⏰ Giờ: ${time}`,
+        `👥 Số người: ${guests}`,
+        occasion && occasion !== 'Không có' ? `🎂 Tiệc: ${occasion}` : '',
+        note ? `📝 Ghi chú: ${note}` : '',
+        ``,
+        `🌐 Nguồn: ${source}`
+      ].filter(Boolean).join('\n');
+
+      try {
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: tgMessage,
+            parse_mode: 'Markdown'
+          })
+        });
+      } catch (err) {
+        console.error("Lỗi gửi Telegram:", err);
+      }
+
       // Format ngày (từ YYYY-MM-DD sang DD/MM)
       let formattedDate = date;
       if (date && date.includes('-')) {
