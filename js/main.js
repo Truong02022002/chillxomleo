@@ -257,6 +257,16 @@ document.addEventListener('DOMContentLoaded', () => {
           <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Zalo</title><path d="M21.812 11.233c0-5.748-4.887-10.41-10.906-10.41-6.02 0-10.906 4.662-10.906 10.41 0 2.26.793 4.364 2.152 6.071l-1.393 4.296s-.096.388.243.342c.338-.046 4.398-1.579 4.398-1.579a11.026 11.026 0 0 0 5.506 1.48c6.02 0 10.906-4.662 10.906-10.41zM6.924 9.176h1.996s0 .25-.327.658c-1.393 1.76-1.558 1.956-1.558 1.956h1.885c.164 0 .327.246.327.574v.853c0 .246-.164.574-.327.574H5.37c-.164 0-.327-.246-.327-.574v-.853c0-.246.164-.574.327-.574.654-.74 1.88-2.134 1.88-2.134H5.37c-.164 0-.327-.246-.327-.574v-.853c0-.246.164-.574.327-.574zM11.666 12.02l-1.554-3.053c-.082-.164-.082-.246-.082-.328 0-.246.164-.574.328-.574h1.062c.164 0 .164.082.246.246l.898 1.724.897-1.724a.555.555 0 0 1 .246-.246h1.062c.164 0 .164.082.328.574 0 .082 0 .164-.082.328L13.5 12.02v1.205c0 .245-.164.573-.328.573h-1.18c-.164 0-.328-.246-.328-.573v-1.205zm6.549 1.127c-.246.408-.654.654-1.228.654h-.654A1.677 1.677 0 0 1 14.655 12.18c0-.98.818-1.716 1.677-1.716h.654c.574 0 .982.246 1.228.654.164.246.246.49.246.818 0 .327-.082.573-.246.818zm-.982-1.39c-.164-.164-.327-.246-.573-.246h-.41c-.49 0-.818.328-.818.818 0 .49.328.818.818.818h.41c.246 0 .41-.082.573-.246.082-.164.164-.327.164-.573 0-.243-.082-.408-.164-.571z"/></svg>
         </a>
       </div>
+      
+      <!-- Scroll to Top (Positioned dynamically) -->
+      <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+        class="fixed left-[16px] md:left-[24px] bottom-[24px] md:bottom-[24px] w-[42.5px] h-[42.5px] md:w-14 md:h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50 opacity-0 pointer-events-none translate-y-10">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="group-hover:-translate-y-1 transition-transform">
+          <path d="m18 15-6-6-6 6"></path>
+        </svg>
+      </button>
     `;
     document.body.insertAdjacentHTML('beforeend', floatingHTML);
   }

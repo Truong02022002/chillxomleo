@@ -628,10 +628,6 @@ video {
   bottom: 2.5rem;
 }
 
-.bottom-12 {
-  bottom: 3rem;
-}
-
 .bottom-2 {
   bottom: 0.5rem;
 }
@@ -654,10 +650,6 @@ video {
 
 .left-3 {
   left: 0.75rem;
-}
-
-.left-6 {
-  left: 1.5rem;
 }
 
 .left-\[16px\] {
@@ -3076,10 +3068,6 @@ video {
 
   .md\:left-1\/2 {
     left: 50%;
-  }
-
-  .md\:left-12 {
-    left: 3rem;
   }
 
   .md\:left-\[24px\] {
