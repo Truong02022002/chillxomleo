@@ -189,9 +189,16 @@ document.addEventListener('DOMContentLoaded', () => {
       ].filter(Boolean).join('\n');
 
       try {
-        const tgUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${encodeURIComponent(TELEGRAM_CHAT_ID)}&text=${encodeURIComponent(tgMessage)}&parse_mode=Markdown`;
-        const tgImg = new Image();
-        tgImg.src = tgUrl;
+        const tgData = new URLSearchParams({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: tgMessage,
+          parse_mode: 'Markdown'
+        });
+        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          body: tgData,
+          mode: 'no-cors'
+        });
       } catch (err) {
         console.error("Lỗi gửi Telegram:", err);
       }
