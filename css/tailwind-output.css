@@ -827,6 +827,14 @@ video {
   margin-left: 1rem;
 }
 
+.ml-\[0\.2em\] {
+  margin-left: 0.2em;
+}
+
+.ml-\[0\.3em\] {
+  margin-left: 0.3em;
+}
+
 .mt-0\.5 {
   margin-top: 0.125rem;
 }
