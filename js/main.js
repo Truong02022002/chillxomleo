@@ -150,57 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
       const note = document.getElementById('book_note').value;
       const source = sessionStorage.getItem('xomleo_traffic_source') || 'Không rõ';
 
-      // TODO: Replace with Real Google Apps Script URL later
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbylyRQTLSvTC1OLSKWYqWUWjVUjc3w5jSiHjaaRWnrYfnpKm74Kv5t5R7FDtKIC3tI/exec';
-
-      if (scriptURL !== 'YOUR_GOOGLE_SCRIPT_URL_HERE') {
-        try {
-          const formData = new URLSearchParams({
-            name, phone, date, time, guests, occasion, note, source
-          });
-          await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-        } catch (err) {
-          console.error("Lỗi đồng bộ Google Sheets:", err);
-        }
-      }
-
-      // --- Telegram Notification ---
-      const TELEGRAM_BOT_TOKEN = '8539178864:AAGa4wKhUsgxkY-MPRsSVRiOOs4bjY1TCQc';
-      const TELEGRAM_CHAT_ID = '-1003794348316';
-      
-      let fDate = date;
-      if (date && date.includes('-')) {
-        const p = date.split('-');
-        fDate = `${p[2]}/${p[1]}/${p[0]}`;
-      }
-
-      const tgMessage = [
-        `🔔 *ĐẶT BÀN MỚI TỪ WEBSITE*`,
-        ``,
-        `👤 Tên: *${name}*`,
-        `📞 SĐT: ${phone}`,
-        `📅 Ngày: ${fDate}`,
-        `⏰ Giờ: ${time}`,
-        `👥 Số người: ${guests}`,
-        occasion && occasion !== 'Không có' ? `🎂 Tiệc: ${occasion}` : '',
-        note ? `📝 Ghi chú: ${note}` : '',
-        ``,
-        `🌐 Nguồn: ${source}`
-      ].filter(Boolean).join('\n');
+      // Google Apps Script (handles Sheets + Telegram server-side)
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbz1NADZyRLgg7CzZLkV9GpJBZkGnA0QuVJ9Zg2mOM0fxYQSqEAxigyVrRKhrHeOiHV0/exec';
 
       try {
-        const tgData = new URLSearchParams({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: tgMessage,
-          parse_mode: 'Markdown'
+        const formData = new URLSearchParams({
+          name, phone, date, time, guests, occasion, note, source
         });
-        fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-          method: 'POST',
-          body: tgData,
-          mode: 'no-cors'
-        });
+        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       } catch (err) {
-        console.error("Lỗi gửi Telegram:", err);
+        console.error("Lỗi gửi đặt bàn:", err);
       }
 
       // Format ngày (từ YYYY-MM-DD sang DD/MM)
