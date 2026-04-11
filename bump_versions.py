@@ -9,11 +9,11 @@ for fname in files:
         content = f.read()
     
     # Update CSS versions
-    content = re.sub(r'css/tailwind-output\.css\?v\w+', 'css/tailwind-output.css?v206', content)
-    content = re.sub(r'css/style\.css\?v\w+', 'css/style.css?v206', content)
+    content = re.sub(r'css/tailwind-output\.css\?v\w+', 'css/tailwind-output.css?v207', content)
+    content = re.sub(r'css/style\.css\?v\w+', 'css/style.css?v207', content)
     
     # Update JS versions
-    content = re.sub(r'js/main\.js\?v\w+', 'js/main.js?v206', content)
+    content = re.sub(r'js/main\.js\?v\w+', 'js/main.js?v207', content)
     
     with open(fname, 'w', encoding='utf-8') as f:
         f.write(content)
