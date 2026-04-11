@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const files = ['about-en.html', 'menu-en.html', 'about-us-en.html', 'blog-en.html'];
+const files = ['en.html', 'about-en.html', 'menu-en.html', 'about-us-en.html', 'blog-en.html'];
 
 const replacements = [
   // Links
