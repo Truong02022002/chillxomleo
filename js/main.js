@@ -48,6 +48,38 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Dynamic Active Nav Highlighting ---
+  function highlightActiveNav() {
+    let currentPath = window.location.pathname.split('/').pop();
+    if (!currentPath || currentPath === '') currentPath = 'index.html';
+    
+    // Exact mapping for root or alias paths
+    if (currentPath === '/' || currentPath === '') currentPath = 'index.html';
+
+    const desktopNavLinks = document.querySelectorAll('.hidden.lg\\:flex.items-center.space-x-8 a');
+    desktopNavLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      // If href matches currentPath (or en.html for en.html)
+      if (href === currentPath) {
+        link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full bg-white/10 text-foreground';
+      } else {
+        link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground';
+      }
+    });
+
+    const mobileNavLinks = document.querySelectorAll('#mobile-menu .flex-col.gap-6.text-2xl a');
+    mobileNavLinks.forEach(link => {
+      const href = link.getAttribute('href');
+      if (href === currentPath) {
+        link.className = 'transition-colors text-primary pl-4 border-l-2 border-primary';
+      } else {
+        link.className = 'transition-colors text-foreground/70 pl-4 border-l-2 border-transparent';
+      }
+    });
+  }
+  highlightActiveNav();
+
+
   // --- Language Switcher UI Toggle ---
   const langSwitchers = document.querySelectorAll('.lang-switcher');
   
