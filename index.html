@@ -670,15 +670,19 @@
     </div>
     <div class="container mx-auto px-6 relative z-10 flex justify-center">
       <div class="w-full max-w-2xl mx-auto relative group">
-        <div class="absolute inset-0 pointer-events-none z-20">
-           <div class="border-train-wagon wagon-4"></div>
-           <div class="border-train-wagon wagon-3"></div>
-           <div class="border-train-wagon wagon-2"></div>
-           <div class="border-train-wagon wagon-1"></div>
-           <div class="border-train-loco wagon-head"></div>
+        <div id="train-track" class="absolute inset-0 pointer-events-none z-20" style="overflow:visible">
+           <div class="bt-wagon" data-car="4"></div>
+           <div class="bt-chain" data-chain="3"></div>
+           <div class="bt-wagon" data-car="3"></div>
+           <div class="bt-chain" data-chain="2"></div>
+           <div class="bt-wagon" data-car="2"></div>
+           <div class="bt-chain" data-chain="1"></div>
+           <div class="bt-wagon" data-car="1"></div>
+           <div class="bt-chain" data-chain="0"></div>
+           <div class="bt-loco" data-car="0"></div>
         </div>
         <div class="w-full premium-form-wrap" style="opacity: 1;">
-        <div class="premium-form-inner bg-background text-foreground p-6 sm:p-10 md:p-16 shadow-2xl relative rounded-xl mx-4 sm:mx-0">
+        <div class="premium-form-inner bg-background text-foreground p-6 sm:p-10 md:p-16 shadow-2xl relative mx-4 sm:mx-0">
           <div class="text-center mb-8 md:mb-10">
             <span class="text-[10px] uppercase font-bold tracking-[0.4em] text-primary block mb-2">Reserve a Table</span>
             <h2 class="font-serif text-4xl md:text-5xl leading-tight">
