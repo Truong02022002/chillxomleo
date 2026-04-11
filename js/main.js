@@ -50,7 +50,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Language Switcher UI Toggle ---
   const langSwitchers = document.querySelectorAll('.lang-switcher');
+  
+  let currentFileInitial = window.location.pathname.split('/').pop() || 'index.html';
+  const isEnPageInitial = currentFileInitial.endsWith('-en.html') || currentFileInitial === 'en.html';
+  
   let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
+  
+  // Override if URL explicitly indicates language
+  if (isEnPageInitial) currentLang = 'en';
+  else if (!isEnPageInitial && currentFileInitial !== '') currentLang = 'vn';
 
   function updateLangUI(lang) {
     langSwitchers.forEach(switcher => {
@@ -76,12 +84,43 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLang = lang;
     localStorage.setItem('xomleo_lang', lang);
     updateLangUI(lang);
-    // TODO: Connect this to actual translation logic or redirect to EN page
-    // if (lang === 'en' && !window.location.pathname.includes('en.html')) {
-    //   window.location.href = 'en.html';
-    // } else if (lang === 'vn' && window.location.pathname.includes('en.html')) {
-    //   window.location.href = 'index.html';
-    // }
+    
+    // Page mapping between VN and EN
+    const pageMap = {
+      'index.html': 'en.html',
+      'about.html': 'about-en.html',
+      'menu.html': 'menu-en.html',
+      've-chung-toi.html': 'about-us-en.html',
+      'blog.html': 'blog-en.html',
+      '': 'en.html' // handle root domain
+    };
+
+    // Reverse mapping for EN to VN
+    const reverseMap = {};
+    for (const [vn, en] of Object.entries(pageMap)) {
+      if (vn !== '') reverseMap[en] = vn;
+    }
+
+    // Get current filename
+    let currentPath = window.location.pathname;
+    let currentFile = currentPath.split('/').pop() || '';
+    
+    // Default to index.html if no file specified
+    if (Object.keys(pageMap).includes(currentFile) && currentFile === '') {
+       currentFile = 'index.html';
+    }
+
+    if (lang === 'en') {
+      // If we are on a VN page, redirect to EN page
+      if (pageMap[currentFile]) {
+        window.location.href = pageMap[currentFile] + window.location.hash;
+      }
+    } else if (lang === 'vn') {
+      // If we are on an EN page, redirect to VN page
+      if (reverseMap[currentFile]) {
+        window.location.href = reverseMap[currentFile] + window.location.hash;
+      }
+    }
   }
 
   updateLangUI(currentLang);
@@ -89,8 +128,8 @@ document.addEventListener('DOMContentLoaded', () => {
   langSwitchers.forEach(switcher => {
     const btnVN = switcher.querySelector('.data-lang-vn');
     const btnEN = switcher.querySelector('.data-lang-en');
-    if (btnVN) btnVN.addEventListener('click', () => setLanguage('vn'));
-    if (btnEN) btnEN.addEventListener('click', () => setLanguage('en'));
+    if (btnVN) btnVN.addEventListener('click', (e) => { e.preventDefault(); setLanguage('vn'); });
+    if (btnEN) btnEN.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
   });
 
   // --- Glassmorphism Navbar on Scroll ---
