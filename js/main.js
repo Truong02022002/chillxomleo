@@ -146,11 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
       // If we are on a VN page, redirect to EN page
       if (pageMap[currentFile]) {
         window.location.href = pageMap[currentFile] + window.location.hash;
+      } else if (!currentFile.endsWith('-en.html') && currentFile.endsWith('.html')) {
+        window.location.href = currentFile.replace('.html', '-en.html') + window.location.hash;
       }
     } else if (lang === 'vn') {
       // If we are on an EN page, redirect to VN page
       if (reverseMap[currentFile]) {
         window.location.href = reverseMap[currentFile] + window.location.hash;
+      } else if (currentFile.endsWith('-en.html')) {
+        window.location.href = currentFile.replace('-en.html', '.html') + window.location.hash;
       }
     }
   }
