@@ -1,0 +1,21 @@
+﻿=== ENGLISH PAGE AUDIT ===
+Found 60 English HTML files
+
+--- MAIN PAGES ---
+python : Traceback (most recent call last):
+At line:1 char:1
++ python -u audit_en.py 2>&1 | Out-File -Encoding utf8 audit_result.txt ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Traceback (most recent call last)::String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  File "E:\tiemnuongchillxomleo\project\static-html-version\audit_en.py", line 138, in <module>
+    main()
+    ~~~~^^
+  File "E:\tiemnuongchillxomleo\project\static-html-version\audit_en.py", line 95, in main
+    print(f"\n\u274c {filepath} ({len(issues)} issues)")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\truon\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 2: character maps to <undefined>

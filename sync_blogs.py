@@ -105,7 +105,7 @@ for filepath in files:
         # <a href="../blog.html" ... Quay lại thẻ bài gốc -> <a href="../blog-en.html" ... Back to Blog
         # Change <html lang="vi"> to <html lang="en">
         en_top = top_part.replace('<html lang="vi"', '<html lang="en"').replace('<html lang="vn"', '<html lang="en"')
-        en_main = main_content.replace('href="../blog.html"', 'href="../blog-en.html"').replace('Quay lại thẻ bài gốc', 'Back to Blog')
+        en_main = main_content.replace('href="../blog.html"', 'href="../blog-en.html"').replace('Quay lại thẻ bài gốc', 'Back to Blog').replace('Quay lại Blog', 'Back to Blog').replace('Mục lục bài viết', 'Table of Contents').replace('>Tin Tức</span>', '>News</span>')
         
         en_full = en_top + e_head + en_main + e_foot + bottom_part
         en_filepath = filepath.replace('.html', '-en.html')

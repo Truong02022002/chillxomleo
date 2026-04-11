@@ -256,9 +256,10 @@ document.addEventListener('DOMContentLoaded', () => {
     zaloForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
+      const isEnglish = window.location.pathname.includes('-en.html') || window.location.pathname.endsWith('/en.html') || localStorage.getItem('xomleo_lang') === 'en';
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerText;
-      submitBtn.innerText = 'ĐANG XỬ LÝ...';
+      submitBtn.innerText = isEnglish ? 'PROCESSING...' : 'ĐANG XỬ LÝ...';
       submitBtn.disabled = true;
 
       const name = document.getElementById('book_name').value;
@@ -266,7 +267,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const date = document.getElementById('book_date').value;
       const time = document.getElementById('book_time').value;
       const guests = document.getElementById('book_guests').value;
-      const occasion = document.getElementById('book_occasion') ? document.getElementById('book_occasion').value : 'Không có';
+      const occasion = document.getElementById('book_occasion') ? document.getElementById('book_occasion').value : (isEnglish ? 'None' : 'Không có');
       const note = document.getElementById('book_note').value;
       const source = sessionStorage.getItem('xomleo_traffic_source') || 'Không rõ';
 
@@ -290,12 +291,15 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Xây dựng tin nhắn theo văn phong giao tiếp tự nhiên
-      let message = `Chào Tiệm Nướng & Chill Xóm Lèo, mình là ${name} (${phone}).\nMình muốn đặt bàn ngày ${formattedDate} cho ${guests} người lúc ${time}. Ghi chú:${note}`;
-      if (occasion && occasion !== 'Không có') {
-        message += ` tiệc ${occasion.toLowerCase()}`;
+      let message = isEnglish
+        ? `Hello Tiệm Nướng & Chill Xóm Lèo, I am ${name} (${phone}).\nI want to book a table on ${formattedDate} for ${guests} people at ${time}.`
+        : `Chào Tiệm Nướng & Chill Xóm Lèo, mình là ${name} (${phone}).\nMình muốn đặt bàn ngày ${formattedDate} cho ${guests} người lúc ${time}.`;
+      
+      if (occasion && occasion !== 'Không có' && occasion !== 'None') {
+        message += isEnglish ? ` Occasion: ${occasion}.` : ` tiệc ${occasion.toLowerCase()}.`;
       }
       if (note) {
-        message += `, ghi chú: ${note}`;
+        message += isEnglish ? ` Note: ${note}` : ` ghi chú: ${note}`;
       }
 
       try {
@@ -303,14 +307,19 @@ document.addEventListener('DOMContentLoaded', () => {
         await navigator.clipboard.writeText(message);
 
         // Tạo popup thông báo sang trọng (Toast notification)
+        const toastTitle = isEnglish ? 'Booking successful!' : 'Đã lên đơn thành công!';
+        const toastDesc = isEnglish
+          ? `The system has saved the message to your device. When Zalo opens, please press <strong class="text-primary tracking-wide uppercase">"PASTE"</strong> to send your booking info to us!`
+          : `Hệ thống đã lưu tin nhắn vào máy bạn. Khi Zalo mở lên, vui lòng bấm <strong class="text-primary tracking-wide uppercase">"Dán" (Paste)</strong> để gửi thông tin cho quán nhé!`;
+
         const toast = document.createElement('div');
         toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(197,160,89,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
         toast.innerHTML = `
           <div class="w-12 h-12 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
             <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
           </div>
-          <h4 class="text-lg font-serif text-primary mb-2">Đã lên đơn thành công!</h4>
-          <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">Hệ thống đã lưu tin nhắn vào máy bạn. Khi Zalo mở lên, vui lòng bấm <strong class="text-primary tracking-wide uppercase">"Dán" (Paste)</strong> để gửi thông tin cho quán nhé!</p>
+          <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
+          <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
           <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full bg-primary animate-progress" style="width: 100%; transition: width 3s linear;"></div></div>
         `;
         document.body.appendChild(toast);
@@ -319,7 +328,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => { toast.querySelector('.animate-progress').style.width = '0%'; }, 50);
 
         // Cập nhật lại Text nút submit
-        submitBtn.innerText = 'ĐÃ LÊN ĐƠN! ĐANG MỞ ZALO...';
+        submitBtn.innerText = isEnglish ? 'BOOKED! OPENING ZALO...' : 'ĐÃ LÊN ĐƠN! ĐANG MỞ ZALO...';
 
         // Mở Zalo sau 3 giây để khách kịp đọc thông báo
         setTimeout(() => {
@@ -332,7 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       } catch (err) {
         console.error('Failed to copy text: ', err);
-        alert(`Vui lòng copy thủ công tin nhắn sau và gửi cho Zalo Xóm Lèo:\n\n${message}`);
+        const alertMsg = isEnglish
+          ? `Please manually copy the following message and send it to Zalo:\n\n${message}`
+          : `Vui lòng copy thủ công tin nhắn sau và gửi cho Zalo Xóm Lèo:\n\n${message}`;
+        alert(alertMsg);
         window.open(`https://zalo.me/0764527336?text=${encodeURIComponent(message)}`, '_blank');
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
