@@ -1,0 +1,522 @@
+[
+  {
+    "name": "/ck:ask",
+    "path": "ask.md",
+    "description": "Trả lời các câu hỏi về kỹ thuật và kiến trúc codebase.",
+    "argument_hint": [
+      "technical-question"
+    ],
+    "power_level": 1,
+    "category": "core"
+  },
+  {
+    "name": "/ck:bootstrap:auto:fast",
+    "path": "bootstrap/auto/fast.md",
+    "description": "Khởi tạo nhanh một dự án mới tự động [NHANH]",
+    "argument_hint": [
+      "user-requirements"
+    ],
+    "power_level": 3,
+    "category": "bootstrap"
+  },
+  {
+    "name": "/ck:bootstrap:auto",
+    "path": "bootstrap/auto.md",
+    "description": "Khởi tạo một dự án mới tự động",
+    "argument_hint": [
+      "user-requirements"
+    ],
+    "power_level": 4,
+    "category": "bootstrap"
+  },
+  {
+    "name": "/ck:bootstrap",
+    "path": "bootstrap.md",
+    "description": "Khởi tạo dự án mới từng bước một",
+    "argument_hint": [
+      "user-requirements"
+    ],
+    "power_level": 5,
+    "category": "core"
+  },
+  {
+    "name": "/ck:brainstorm",
+    "path": "brainstorm.md",
+    "description": "Động não lên ý tưởng cho một tính năng hoặc giải pháp",
+    "argument_hint": [
+      "question"
+    ],
+    "power_level": 2,
+    "category": "core"
+  },
+  {
+    "name": "/ck:code",
+    "path": "code.md",
+    "description": "Bắt đầu lập trình và kiểm thử theo một kế hoạch đã có",
+    "argument_hint": [
+      "plan"
+    ],
+    "power_level": 1,
+    "category": "core"
+  },
+  {
+    "name": "/ck:comment",
+    "path": "comment.md",
+    "description": "Thêm chú thích chuyên nghiệp và tài liệu vào file hiện tại.",
+    "argument_hint": [
+      "file-or-context"
+    ],
+    "power_level": 1,
+    "category": "docs"
+  },
+  {
+    "name": "/ck:content:cro",
+    "path": "content/cro.md",
+    "description": "Phân tích nội dung và tối ưu hóa tỷ lệ chuyển đổi (CRO)",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 0,
+    "category": "content"
+  },
+  {
+    "name": "/ck:content:enhance",
+    "path": "content/enhance.md",
+    "description": "Phân tích các vấn đề về nội dung và cải thiện chúng",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 0,
+    "category": "content"
+  },
+  {
+    "name": "/ck:content:fast",
+    "path": "content/fast.md",
+    "description": "Viết nội dung sáng tạo và thông minh [NHANH]",
+    "argument_hint": [
+      "user-request"
+    ],
+    "power_level": 0,
+    "category": "content"
+  },
+  {
+    "name": "/ck:content:good",
+    "path": "content/good.md",
+    "description": "Viết nội dung sáng tạo và thông minh chất lượng cao [TỐT]",
+    "argument_hint": [
+      "user-request"
+    ],
+    "power_level": 0,
+    "category": "content"
+  },
+  {
+    "name": "/ck:cook:auto:fast",
+    "path": "cook/auto/fast.md",
+    "description": "Triển khai nhanh không cần nghiên cứu sâu [\"Tin tui đi\"]",
+    "argument_hint": [
+      "tasks-or-prompt"
+    ],
+    "power_level": 1,
+    "category": "cook"
+  },
+  {
+    "name": "/ck:cook:auto",
+    "path": "cook/auto.md",
+    "description": "Tự động triển khai một tính năng",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 2,
+    "category": "cook"
+  },
+  {
+    "name": "/ck:cook",
+    "path": "cook.md",
+    "description": "Triển khai tính năng từng bước một",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 3,
+    "category": "core"
+  },
+  {
+    "name": "/ck:debug",
+    "path": "debug.md",
+    "description": "Tìm lỗi kỹ thuật và cung cấp giải pháp khắc phục.",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 2,
+    "category": "core"
+  },
+  {
+    "name": "/ck:design:3d",
+    "path": "design/3d.md",
+    "description": "Tạo thiết kế 3D tương tác với Three.js",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:design:describe",
+    "path": "design/describe.md",
+    "description": "Mô tả thiết kế dựa trên ảnh chụp màn hình hoặc video",
+    "argument_hint": [
+      "screenshot"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:design:fast",
+    "path": "design/fast.md",
+    "description": "Tạo thiết kế nhanh chóng",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:design:good",
+    "path": "design/good.md",
+    "description": "Tạo thiết kế chỉnh chu và đẹp mắt",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:design:screenshot",
+    "path": "design/screenshot.md",
+    "description": "Tạo thiết kế dựa trên ảnh chụp màn hình",
+    "argument_hint": [
+      "screenshot"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:design:video",
+    "path": "design/video.md",
+    "description": "Tạo thiết kế dựa trên video",
+    "argument_hint": [
+      "video"
+    ],
+    "power_level": 0,
+    "category": "design"
+  },
+  {
+    "name": "/ck:docs:init",
+    "path": "docs/init.md",
+    "description": "Phân tích codebase và khởi tạo tài liệu ban đầu",
+    "argument_hint": "",
+    "power_level": 4,
+    "category": "docs"
+  },
+  {
+    "name": "/ck:docs:summarize",
+    "path": "docs/summarize.md",
+    "description": "Tóm tắt tài liệu dự án",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "docs"
+  },
+  {
+    "name": "/ck:docs:update",
+    "path": "docs/update.md",
+    "description": "Phân tích codebase và cập nhật tài liệu hiện có",
+    "argument_hint": "",
+    "power_level": 3,
+    "category": "docs"
+  },
+  {
+    "name": "/ck:fix:ci",
+    "path": "fix/ci.md",
+    "description": "Phân tích log và sửa lỗi từ CI (Github Actions)",
+    "argument_hint": [
+      "github-actions-url"
+    ],
+    "power_level": 1,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:fast",
+    "path": "fix/fast.md",
+    "description": "Phân tích và sửa các lỗi nhỏ [NHANH]",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 1,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:hard",
+    "path": "fix/hard.md",
+    "description": "Sử dụng subagents để lập kế hoạch và sửa các lỗi khó",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 3,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:logs",
+    "path": "fix/logs.md",
+    "description": "Phân tích log và sửa lỗi tương ứng",
+    "argument_hint": [
+      "issue"
+    ],
+    "power_level": 1,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:test",
+    "path": "fix/test.md",
+    "description": "Chạy bộ kiểm thử và sửa các lỗi phát sinh",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 2,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:types",
+    "path": "fix/types.md",
+    "description": "Sửa các lỗi về kiểu dữ liệu (Type errors)",
+    "argument_hint": "",
+    "power_level": 1,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix:ui",
+    "path": "fix/ui.md",
+    "description": "Phân tích và sửa các lỗi giao diện (UI)",
+    "argument_hint": [
+      "issue"
+    ],
+    "power_level": 2,
+    "category": "fix"
+  },
+  {
+    "name": "/ck:fix",
+    "path": "fix.md",
+    "description": "Phân tích và sửa các lỗi nhỏ [TỰ ĐỘNG NHẬN DIỆN ĐỘ PHỨC TẠP]",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 2,
+    "category": "core"
+  },
+  {
+    "name": "/ck:git:cm",
+    "path": "git/cm.md",
+    "description": "Stage tất cả file và tạo một bản commit.",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "git"
+  },
+  {
+    "name": "/ck:git:cp",
+    "path": "git/cp.md",
+    "description": "Stage, commit và push toàn bộ code trong branch hiện tại",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "git"
+  },
+  {
+    "name": "/ck:git:pr",
+    "path": "git/pr.md",
+    "description": "Tạo Pull Request trên Github",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "git"
+  },
+  {
+    "name": "/ck:integrate:polar",
+    "path": "integrate/polar.md",
+    "description": "Tích hợp cổng thanh toán Polar.sh",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 2,
+    "category": "integrate"
+  },
+  {
+    "name": "/ck:integrate:sepay",
+    "path": "integrate/sepay.md",
+    "description": "Tích hợp cổng thanh toán SePay.vn",
+    "argument_hint": [
+      "tasks"
+    ],
+    "power_level": 2,
+    "category": "integrate"
+  },
+  {
+    "name": "/ck:journal",
+    "path": "journal.md",
+    "description": "Viết nhật ký công việc.",
+    "argument_hint": "",
+    "power_level": 1,
+    "category": "core"
+  },
+  {
+    "name": "/ck:plan:ci",
+    "path": "plan/ci.md",
+    "description": "Phân tích log CI và lập kế hoạch sửa lỗi",
+    "argument_hint": [
+      "github-actions-url"
+    ],
+    "power_level": 0,
+    "category": "plan"
+  },
+  {
+    "name": "/ck:plan:cro",
+    "path": "plan/cro.md",
+    "description": "Lập kế hoạch tối ưu hóa chuyển đổi cho nội dung",
+    "argument_hint": [
+      "issues"
+    ],
+    "power_level": 0,
+    "category": "plan"
+  },
+  {
+    "name": "/ck:plan:fast",
+    "path": "plan/fast.md",
+    "description": "Chỉ lập kế hoạch tích hợp không nghiên cứu sâu [NHANH]",
+    "argument_hint": [
+      "task"
+    ],
+    "power_level": 2,
+    "category": "plan"
+  },
+  {
+    "name": "/ck:plan:hard",
+    "path": "plan/hard.md",
+    "description": "Nghiên cứu, phân tích và lập kế hoạch triển khai chi tiết",
+    "argument_hint": [
+      "task"
+    ],
+    "power_level": 3,
+    "category": "plan"
+  },
+  {
+    "name": "/ck:plan:two",
+    "path": "plan/two.md",
+    "description": "Nghiên cứu và lập kế hoạch với 2 phương án tiếp cận",
+    "argument_hint": [
+      "task"
+    ],
+    "power_level": 4,
+    "category": "plan"
+  },
+  {
+    "name": "/ck:plan",
+    "path": "plan.md",
+    "description": "Tạo kế hoạch thông minh với gợi ý cải thiện prompt",
+    "argument_hint": [
+      "task"
+    ],
+    "power_level": 3,
+    "category": "core"
+  },
+  {
+    "name": "/ck:review:codebase",
+    "path": "review/codebase.md",
+    "description": "Quét và phân tích toàn bộ codebase.",
+    "argument_hint": [
+      "tasks-or-prompt"
+    ],
+    "power_level": 3,
+    "category": "review"
+  },
+  {
+    "name": "/ck:scout:ext",
+    "path": "scout/ext.md",
+    "description": "Tìm kiếm thông tin bên ngoài dự án",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "scout"
+  },
+  {
+    "name": "/ck:scout",
+    "path": "scout.md",
+    "description": "Tìm kiếm thông tin bên trong dự án",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "core"
+  },
+  {
+    "name": "/ck:skill:add",
+    "path": "skill/add.md",
+    "description": "Thêm một kỹ năng mới cho agent",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "skill"
+  },
+  {
+    "name": "/ck:skill:create",
+    "path": "skill/create.md",
+    "description": "Tạo một kỹ năng agent mới",
+    "argument_hint": [
+      "prompt-or-llms-or-github-url"
+    ],
+    "power_level": 0,
+    "category": "skill"
+  },
+  {
+    "name": "/ck:skill:fix-logs",
+    "path": "skill/fix-logs.md",
+    "description": "Sửa lỗi kỹ năng agent dựa trên file logs.",
+    "argument_hint": [
+      "prompt-or-path-to-skill"
+    ],
+    "power_level": 0,
+    "category": "skill"
+  },
+  {
+    "name": "/ck:skill:optimize:auto",
+    "path": "skill/optimize/auto.md",
+    "description": "Tự động tối ưu hóa kỹ năng agent",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "skill"
+  },
+  {
+    "name": "/ck:skill:optimize",
+    "path": "skill/optimize.md",
+    "description": "Tối ưu hóa kỹ năng agent thủ công",
+    "argument_hint": "",
+    "power_level": 0,
+    "category": "skill"
+  },
+  {
+    "name": "/ck:test",
+    "path": "test.md",
+    "description": "Chạy kiểm thử tại máy và phân tích báo cáo tóm tắt.",
+    "argument_hint": "",
+    "power_level": 1,
+    "category": "core"
+  },
+  {
+    "name": "/ck:use-mcp",
+    "path": "use-mcp.md",
+    "description": "Sử dụng các công cụ từ MCP servers",
+    "argument_hint": [
+      "task"
+    ],
+    "power_level": 0,
+    "category": "core"
+  },
+  {
+    "name": "/ck:watzup",
+    "path": "watzup.md",
+    "description": "Xem lại các thay đổi gần đây và tổng hợp công việc",
+    "argument_hint": "",
+    "power_level": 1,
+    "category": "core"
+  }
+]

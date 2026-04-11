@@ -862,7 +862,7 @@ input:focus, select:focus, textarea:focus {
 
 .floating-btn.btn-zalo {
   background: #0068FF; /* Zalo blue */
-  animation: floating-pulse-call 2s infinite;
+  animation: floating-pulse-zalo 2s infinite;
   animation-delay: 1s;
 }
 
@@ -904,17 +904,10 @@ input:focus, select:focus, textarea:focus {
   100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
 }
 
-.floating-btn.btn-booking {
-  background: var(--primary, #D35400);
-  color: #FFFFFF;
-  animation: floating-pulse-booking 2s infinite;
-  animation-delay: 0.5s;
-}
-
-@keyframes floating-pulse-booking {
-  0% { box-shadow: 0 0 0 0 rgba(211, 84, 0, 0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(211, 84, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(211, 84, 0, 0); }
+@keyframes floating-pulse-zalo {
+  0% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.5); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 104, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0); }
 }
 
 @media (max-width: 768px) {
