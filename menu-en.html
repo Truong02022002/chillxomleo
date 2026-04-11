@@ -37,14 +37,14 @@
       "hasMenuItem": [
         {"@type": "MenuItem", "name": "Block Beef BBQ with Salted Egg Cheese", "offers": {"@type": "Offer", "price": "210000", "priceCurrency": "VND"}},
         {"@type": "MenuItem", "name": "Salt & Pepper Grilled Beef Belly", "offers": {"@type": "Offer", "price": "155000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Ba Chỉ Cuốn Nấm Kim Châm", "offers": {"@type": "Offer", "price": "137000", "priceCurrency": "VND"}},
+        {"@type": "MenuItem", "name": "Beef Belly Enoki Rolls", "offers": {"@type": "Offer", "price": "137000", "priceCurrency": "VND"}},
         {"@type": "MenuItem", "name": "Stuffed Snails with Meat", "offers": {"@type": "Offer", "price": "165000", "priceCurrency": "VND"}},
         {"@type": "MenuItem", "name": "Shaking Sturgeon", "offers": {"@type": "Offer", "price": "165000", "priceCurrency": "VND"}}
       ]
     },
     {
       "@type": "MenuSection",
-      "name": "Lẩu",
+      "name": "Hotpot",
       "hasMenuItem": [
         {"@type": "MenuItem", "name": "Sturgeon Hotpot", "offers": {"@type": "Offer", "price": "350000", "priceCurrency": "VND"}},
         {"@type": "MenuItem", "name": "É Leaf Chicken Hotpot", "offers": {"@type": "Offer", "price": "280000", "priceCurrency": "VND"}},
@@ -168,8 +168,8 @@
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Side Dishes</button>
         <button data-filter="Hearty Meals"
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Hearty Meals</button>
-        <button data-filter="Lẩu"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Lẩu</button>
+        <button data-filter="Hotpot"
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Hotpot</button>
         <button data-filter="Bar Snacks"
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Bar Snacks</button>
         <button data-filter="Iced Tea"
@@ -180,10 +180,10 @@
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Soda</button>
         <button data-filter="Water"
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Water</button>
-        <button data-filter="Bia"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Bia</button>
-        <button data-filter="Rượu"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Rượu</button>
+        <button data-filter="Beer"
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Beer</button>
+        <button data-filter="Wine"
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Wine</button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20" id="menu-grid">
@@ -672,7 +672,7 @@
         </div>
 
 
-        <div data-category="Lẩu"
+        <div data-category="Hotpot"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img loading="lazy" decoding="async" src="img/lau-ga-la-e-da-lat.webp" alt="É Leaf Chicken Hotpot"
@@ -691,7 +691,7 @@
         </div>
 
 
-        <div data-category="Lẩu"
+        <div data-category="Hotpot"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img loading="lazy" decoding="async" src="img/lau-hai-san-da-lat.webp" alt="Seafood Hotpot"
@@ -710,7 +710,7 @@
         </div>
 
 
-        <div data-category="Lẩu"
+        <div data-category="Hotpot"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="img/lau-ca-tam-quan-nuong-da-lat.webp" loading="lazy" decoding="async" alt="Sturgeon Hotpot"
@@ -777,7 +777,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Điểm nhấn protein</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Protein-packed highlight</p>
           </div>
         </div>
 
@@ -786,18 +786,17 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="img/canh-ga-chien-nuong-mam-quan-nuong-da-lat.webp" loading="lazy" decoding="async"
-              alt="Cánh Gà Chiên Nước Mắm"
+              alt="Fish Sauce Fried Chicken Wings"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cánh Gà Chiên
-                Nước Mắm</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Fish Sauce Fried Chicken Wings</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">145,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Gấp đôi canxi</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Double the calcium</p>
           </div>
         </div>
 
@@ -806,18 +805,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20V%E1%BA%A3i%20H%E1%BA%A1t%20Chia"
-              alt="Trà Vải Hạt Chia"
+              alt="Lychee Chia Seed Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Vải Hạt
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lychee Chia Seed
                 Chia</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Thanh mát</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cool and refreshing</p>
           </div>
         </div>
 
@@ -826,18 +825,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20D%E1%BB%A9a%20%C4%90%C3%A0o"
-              alt="Trà Dứa Đào"
+              alt="Pineapple Peach Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Dứa Đào
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Pineapple Peach Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương dứa thơm</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fragrant pineapple aroma</p>
           </div>
         </div>
 
@@ -847,18 +846,17 @@
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Tr%C3%A1i%20C%C3%A2y%20Nhi%E1%BB%87t%20%C4%90%E1%BB%9Bi"
-              alt="Trà Trái Cây Nhiệt Đới"
+              alt="Tropical Fruit Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Trái Cây
-                Nhiệt Đới</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tropical Fruit Tea</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cực kì healthy</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Super healthy</p>
           </div>
         </div>
 
@@ -867,18 +865,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20%C4%90%C3%A0o%20Cam%20S%E1%BA%A3"
-              alt="Trà Đào Cam Sả"
+              alt="Peach Orange Lemongrass Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Đào Cam Sả
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Peach Orange Lemongrass Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Khởi đầu mát lạnh</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">A cool fresh start</p>
           </div>
         </div>
 
@@ -887,18 +885,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20T%E1%BA%AFc%20X%C3%AD%20Mu%E1%BB%99i"
-              alt="Trà Tắc Xí Muội"
+              alt="Kumquat Preserved Plum Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Tắc Xí Muội
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Kumquat Preserved Plum Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Chua chua ngọt ngọt</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet and sour delight</p>
           </div>
         </div>
 
@@ -907,18 +905,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20%E1%BB%94i%20H%E1%BB%93ng"
-              alt="Trà Ổi Hồng"
+              alt="Pink Guava Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Ổi Hồng
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Pink Guava Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Ngọt ngào lãng mạn</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet and romantic</p>
           </div>
         </div>
 
@@ -928,18 +926,17 @@
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Hoa%20C%C3%BAc%20T%C3%A1o%20%C4%90%E1%BB%8F"
-              alt="Trà Hoa Cúc Táo Đỏ"
+              alt="Chrysanthemum Red Date Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Hoa Cúc Táo
-                Đỏ</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Chrysanthemum Red Date Tea</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Giữ ấm dạ dày</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Warm your belly</p>
           </div>
         </div>
 
@@ -948,18 +945,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Th%E1%BA%A3o%20M%E1%BB%99c"
-              alt="Trà Thảo Mộc"
+              alt="Herbal Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Thảo Mộc
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Herbal Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Thư giãn tâm hồn</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Relax your soul</p>
           </div>
         </div>
 
@@ -969,18 +966,17 @@
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20G%E1%BB%ABng%20T%C3%A1o%20%C4%90%E1%BB%8F%20M%E1%BA%ADt%20Ong"
-              alt="Trà Gừng Táo Đỏ Mật Ong"
+              alt="Ginger Red Date Honey Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Gừng Táo Đỏ
-                Mật Ong</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ginger Red Date Honey Tea</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sưởi ấm đêm Đà Lạt</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Warm up a Da Lat night</p>
           </div>
         </div>
 
@@ -990,18 +986,17 @@
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Chanh%20N%C3%B3ng%20H%E1%BA%A1t%20Chia"
-              alt="Trà Chanh Nóng Hạt Chia"
+              alt="Hot Lemon Chia Seed Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Chanh Nóng
-                Hạt Chia</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Hot Lemon Chia Seed Tea</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Thơm nồng hạt chia</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Aromatic with chia seeds</p>
           </div>
         </div>
 
@@ -1010,12 +1005,12 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Lipton%20N%C3%B3ng"
-              alt="Trà Lipton Nóng"
+              alt="Hot Lipton Tea"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Lipton Nóng
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Hot Lipton Tea
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
@@ -1030,18 +1025,18 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20Vi%E1%BB%87t%20Qu%E1%BB%91c"
-              alt="Soda Việt Quốc"
+              alt="Vietnamese Soda"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Việt Quốc
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Vietnamese Soda
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Tươi mới rạng rỡ</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh and vibrant</p>
           </div>
         </div>
 
@@ -1059,7 +1054,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Chanh the lạnh</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cool lemon zest</p>
           </div>
         </div>
 
@@ -1085,18 +1080,18 @@
         <div data-category="Soda"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20D%C3%A2u%20T%C3%A2y" alt="Soda Dâu Tây"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20D%C3%A2u%20T%C3%A2y" alt="Strawberry Soda"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Dâu Tây
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Strawberry Soda
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Ngọt dịu</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Gently sweet</p>
           </div>
         </div>
 
@@ -1104,17 +1099,17 @@
         <div data-category="Soda"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20%C4%90%C3%A0o" alt="Soda Đào"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20%C4%90%C3%A0o" alt="Peach Soda"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Đào</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Peach Soda</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Giải nhiệt cao nguyên</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Highland refresher</p>
           </div>
         </div>
 
@@ -1132,7 +1127,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1150,7 +1145,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1168,7 +1163,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">18,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1186,7 +1181,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">34,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1195,333 +1190,333 @@
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=N%C6%B0%E1%BB%9Bc%20Su%E1%BB%91i"
-              alt="Nước Suối"
+              alt="Mineral Water"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Nước Suối</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mineral Water</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">11,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20B%E1%BA%A1c" alt="Tiger Bạc"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20B%E1%BA%A1c" alt="Tiger Silver"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Bạc</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Silver</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">28,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20N%C3%A2u" alt="Tiger Nâu"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20N%C3%A2u" alt="Tiger Brown"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Nâu</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Brown</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Xanh%20(Special)"
-              alt="Sài Gòn Xanh (Special)"
+              alt="Saigon Green (Special)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Xanh
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Saigon Green
                 (Special)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Chill" alt="Sài Gòn Chill"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Chill" alt="Saigon Chill"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Chill
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Saigon Chill
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Lager" alt="Sài Gòn Lager"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Lager" alt="Saigon Lager"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Lager
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Saigon Lager
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Bia"
+        <div data-category="Beer"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
-            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Heineken%20L%C3%B9n" alt="Heineken Lùn"
+            <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Heineken%20L%C3%B9n" alt="Heineken Small"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Heineken Lùn
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Heineken Small
               </h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Hương vị hấp dẫn wonderful</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20H%C6%B0%C6%A1ng%20%C4%90%C3%A0o%20(18%25)"
-              alt="Rượu Mơ Hương Đào (18%)"
+              alt="Apricot Wine Peach Bloom 18%"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Hương
-                Đào (18%)</h3>
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Apricot Wine Peach
+                Bloom (18%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Bình rượu êm say</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Smooth and mellow</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20300ml%20(29%25)"
-              alt="Rượu Mơ 300ml (29%)"
+              alt="Plum Wine 300ml (29%)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 300ml
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Plum Wine 300ml
                 (29%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Mơ nặng chill</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Strong plum kick</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20350ml%20(18%25)"
-              alt="Rượu Mơ 350ml (18%)"
+              alt="Plum Wine 350ml (18%)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 350ml
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Plum Wine 350ml
                 (18%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">139,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cho cặp đôi</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Perfect for two</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20500ml%20(18%25)"
-              alt="Rượu Mơ 500ml (18%)"
+              alt="Plum Wine 500ml (18%)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 500ml
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Plum Wine 500ml
                 (18%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">170,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Uống say mềm</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Blissfully smooth</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=Soju%20Mix%20V%E1%BB%8B%20360ml"
-              alt="Soju Mix Vị 360ml"
+              alt="Soju Mix Flavors 360ml"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soju Mix Vị
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soju Mix Flavors
                 360ml</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Soju chuẩn Hàn</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Authentic Korean soju</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20Vang%20Classic%20750ml"
-              alt="Rượu Vang Classic 750ml"
+              alt="Red Wine Classic 750ml"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Red Wine
                 Classic 750ml</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">190,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Rượu vang cực đã</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Delightfully bold wine</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20Vang%20Export%20750ml"
-              alt="Rượu Vang Export 750ml"
+              alt="Red Wine Export 750ml"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Red Wine
                 Export 750ml</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">210,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cao cấp vang ngoại</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Premium imported wine</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20T%C3%A1o%20M%C3%A8o%20300ml%20(29%25)"
-              alt="Rượu Táo Mèo 300ml (29%)"
+              alt="Wild Apple Wine 300ml (29%)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Wild Apple Wine
                 300ml (29%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Táo mèo nồng nàn</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Rich wild apple aroma</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20Ume%20(Classic)"
-              alt="Rượu Mơ Ume (Classic)"
+              alt="Ume Plum Wine (Classic)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Ume
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ume Plum Wine
                 (Classic)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">140,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Mơ ume đậm vị mộc</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Deep authentic ume flavor</p>
           </div>
         </div>
 
 
-        <div data-category="Rượu"
+        <div data-category="Wine"
           class="menu-item group flex flex-col sm:flex-row gap-8 items-start cursor-pointer transition-all duration-500">
           <div class="w-full sm:w-1/3 aspect-[4/5] relative overflow-hidden rounded-[2px] bg-white/5 shrink-0 hover-shine glow-shadow">
             <img
               src="https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20T%C3%A1o%20M%C3%A8o%20350ml%20(18%25)"
-              alt="Rượu Táo Mèo 350ml (18%)"
+              alt="Wild Apple Wine 350ml (18%)"
               class="object-cover absolute inset-0 w-full h-full scale-100 group-hover:scale-110 transition-all duration-700" />
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
+              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Wild Apple Wine
                 350ml (18%)</h3>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">130,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Nhẹ nhàng chớm say</p>
+            <p class="text-foreground/50 text-sm leading-relaxed font-light">Gently intoxicating</p>
           </div>
         </div>
 
