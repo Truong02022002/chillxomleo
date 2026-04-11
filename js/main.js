@@ -284,4 +284,104 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+
+  // --- Đoàn tàu chạy viền form (từng toa riêng + dây xích) ---
+  const trainTrack = document.getElementById('train-track');
+  if (trainTrack) {
+    const loco = trainTrack.querySelector('.bt-loco');
+    const wagons = Array.from(trainTrack.querySelectorAll('.bt-wagon'));
+    wagons.sort((a, b) => Number(a.dataset.car) - Number(b.dataset.car));
+    const allCars = [loco, ...wagons].filter(Boolean);
+    const chains = Array.from(trainTrack.querySelectorAll('.bt-chain'));
+    chains.sort((a, b) => Number(a.dataset.chain) - Number(b.dataset.chain));
+
+    if (allCars.length > 0) {
+      const SPEED = 80;
+      const CAR_SPACING = 50;
+      const OFFSET = 14;
+      const CORNER_R = 64;        // khớp CSS border-radius 64px
+
+      let headDist = 0;
+      let lastTime = null;
+
+      function getRoundedPerimeter(w, h, r) {
+        return 2 * (w - 2 * r) + 2 * (h - 2 * r) + 2 * Math.PI * r;
+      }
+
+      function perimeterToPos(dist, w, h, r) {
+        const sW = w - 2 * r;
+        const sH = h - 2 * r;
+        const arcLen = Math.PI * r / 2;
+        const perimeter = 2 * sW + 2 * sH + 4 * arcLen;
+        let d = ((dist % perimeter) + perimeter) % perimeter;
+
+        if (d <= sW) return { x: r + d, y: -OFFSET, a: 0 };
+        d -= sW;
+        if (d <= arcLen) {
+          const t = -Math.PI/2 + (d/arcLen) * (Math.PI/2);
+          return { x: (w-r) + (r+OFFSET)*Math.cos(t), y: r + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+        }
+        d -= arcLen;
+        if (d <= sH) return { x: w + OFFSET, y: r + d, a: 90 };
+        d -= sH;
+        if (d <= arcLen) {
+          const t = (d/arcLen) * (Math.PI/2);
+          return { x: (w-r) + (r+OFFSET)*Math.cos(t), y: (h-r) + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+        }
+        d -= arcLen;
+        if (d <= sW) return { x: (w-r) - d, y: h + OFFSET, a: 180 };
+        d -= sW;
+        if (d <= arcLen) {
+          const t = Math.PI/2 + (d/arcLen) * (Math.PI/2);
+          return { x: r + (r+OFFSET)*Math.cos(t), y: (h-r) + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+        }
+        d -= arcLen;
+        if (d <= sH) return { x: -OFFSET, y: (h-r) - d, a: 270 };
+        d -= sH;
+        const t = Math.PI + (d/arcLen) * (Math.PI/2);
+        return { x: r + (r+OFFSET)*Math.cos(t), y: r + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+      }
+
+      function tick(ts) {
+        if (!lastTime) lastTime = ts;
+        const dt = (ts - lastTime) / 1000;
+        lastTime = ts;
+
+        const rect = trainTrack.getBoundingClientRect();
+        const w = rect.width, h = rect.height, r = CORNER_R;
+        const peri = getRoundedPerimeter(w, h, r);
+
+        headDist = (headDist + SPEED * dt) % peri;
+
+        // Tính vị trí từng toa
+        const carPositions = [];
+        allCars.forEach((car, i) => {
+          const pos = perimeterToPos(headDist - i * CAR_SPACING, w, h, r);
+          const cw = car === loco ? 44 : 38;
+          const ch = car === loco ? 28 : 24;
+          car.style.left = (pos.x - cw/2) + 'px';
+          car.style.top = (pos.y - ch/2) + 'px';
+          car.style.transform = 'rotate(' + pos.a + 'deg)';
+          carPositions.push(pos);
+        });
+
+        // Vẽ dây xích ở giữa 2 toa liền kề
+        chains.forEach((chain, i) => {
+          if (i < carPositions.length - 1) {
+            const p1 = carPositions[i];     // toa trước
+            const p2 = carPositions[i + 1]; // toa sau
+            const mx = (p1.x + p2.x) / 2;
+            const my = (p1.y + p2.y) / 2;
+            const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
+            chain.style.left = (mx - 7) + 'px';
+            chain.style.top = (my - 3) + 'px';
+            chain.style.transform = 'rotate(' + angle + 'deg)';
+          }
+        });
+
+        requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+  }
 });
