@@ -48,6 +48,51 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Language Switcher UI Toggle ---
+  const langSwitchers = document.querySelectorAll('.lang-switcher');
+  let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
+
+  function updateLangUI(lang) {
+    langSwitchers.forEach(switcher => {
+      const btnVN = switcher.querySelector('.data-lang-vn');
+      const btnEN = switcher.querySelector('.data-lang-en');
+      if (!btnVN || !btnEN) return;
+      
+      if (lang === 'en') {
+        btnEN.classList.add('text-primary', 'pointer-events-none');
+        btnEN.classList.remove('hover:text-primary');
+        btnVN.classList.remove('text-primary', 'pointer-events-none');
+        btnVN.classList.add('hover:text-primary');
+      } else {
+        btnVN.classList.add('text-primary', 'pointer-events-none');
+        btnVN.classList.remove('hover:text-primary');
+        btnEN.classList.remove('text-primary', 'pointer-events-none');
+        btnEN.classList.add('hover:text-primary');
+      }
+    });
+  }
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('xomleo_lang', lang);
+    updateLangUI(lang);
+    // TODO: Connect this to actual translation logic or redirect to EN page
+    // if (lang === 'en' && !window.location.pathname.includes('en.html')) {
+    //   window.location.href = 'en.html';
+    // } else if (lang === 'vn' && window.location.pathname.includes('en.html')) {
+    //   window.location.href = 'index.html';
+    // }
+  }
+
+  updateLangUI(currentLang);
+
+  langSwitchers.forEach(switcher => {
+    const btnVN = switcher.querySelector('.data-lang-vn');
+    const btnEN = switcher.querySelector('.data-lang-en');
+    if (btnVN) btnVN.addEventListener('click', () => setLanguage('vn'));
+    if (btnEN) btnEN.addEventListener('click', () => setLanguage('en'));
+  });
+
   // --- Glassmorphism Navbar on Scroll ---
   const navbar = document.getElementById('navbar');
   if (navbar) {
