@@ -6,3 +6,6 @@ css/tailwind-input.css
 tailwind.config.js
 package.json
 package-lock.json
+
+# Dev scripts & temp files
+_dev-scripts/
