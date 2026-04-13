@@ -517,3 +517,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+// Language Switcher Logic
+document.addEventListener("DOMContentLoaded", () => {
+    const langSwitchers = document.querySelectorAll('.lang-switcher');
+    
+    if (langSwitchers.length > 0) {
+        // Find current language base on URL path
+        const currentPath = window.location.pathname;
+        // Also check if pathname has '-en'
+        const isEnglish = currentPath === '/en' || currentPath === '/en/' || currentPath.includes('-en/') || currentPath.endsWith('-en');
+        
+        langSwitchers.forEach(switcher => {
+            const btnVn = switcher.querySelector('.data-lang-vn');
+            const btnEn = switcher.querySelector('.data-lang-en');
+            
+            if (btnVn && btnEn) {
+                // Set UI state based on current language
+                if (isEnglish) {
+                    btnEn.classList.add('text-primary', 'pointer-events-none');
+                    btnEn.classList.remove('hover:text-primary');
+                    
+                    btnVn.classList.remove('text-primary', 'pointer-events-none');
+                    btnVn.classList.add('hover:text-primary');
+                } else {
+                    btnVn.classList.add('text-primary', 'pointer-events-none');
+                    btnVn.classList.remove('hover:text-primary');
+                    
+                    btnEn.classList.remove('text-primary', 'pointer-events-none');
+                    btnEn.classList.add('hover:text-primary');
+                }
+
+                // Add click events for redirecting
+                btnEn.addEventListener('click', function() {
+                    let newPath = currentPath;
+                    
+                    // Already English
+                    if (isEnglish) return;
+                    
+                    if (currentPath === '/' || currentPath === '/index.html' || currentPath === '') {
+                        newPath = '/en/';
+                    } else {
+                        // Remove trailing slash if exists
+                        let path = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
+                        // Remove /index.html if exists
+                        if (path.endsWith('/index.html')) {
+                            path = path.slice(0, -11);
+                        }
+                        newPath = path + '-en/';
+                    }
+                    window.location.href = newPath;
+                });
+
+                btnVn.addEventListener('click', function() {
+                    let newPath = currentPath;
+                    
+                    // Already Vietnamese
+                    if (!isEnglish) return;
+                    
+                    if (currentPath === '/en' || currentPath === '/en/' || currentPath === '/en/index.html') {
+                        newPath = '/';
+                    } else if (currentPath.includes('-en/')) {
+                        newPath = currentPath.replace('-en/', '/');
+                    } else if (currentPath.endsWith('-en')) {
+                        newPath = currentPath.replace('-en', '/');
+                    }
+                    
+                    window.location.href = newPath;
+                });
+            }
+        });
+    }
+});
