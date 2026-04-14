@@ -47,10 +47,10 @@
     "name": "Xom Leo Grill & Chill",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://xomleo.vn/uploads/hero_bg.jpg"
+      "url": "https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg"
     }
   },
-  "image": "https://xomleo.vn/uploads/hero_bg.jpg",
+  "image": "https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg",
   "mainEntityOfPage": "https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet"
 }
 </script>
@@ -71,13 +71,19 @@
 
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YWGENK065S');
+  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('config', 'G-YWGENK065S');
+  }, 3500);
 </script>
 </head>
 <body class="bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary overflow-x-hidden">
@@ -114,7 +120,7 @@
 
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
-        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/50 cursor-pointer group hover:bg-white/10 transition-all lang-switcher cursor-pointer">
+        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher cursor-pointer">
           <button class="hover:text-primary transition-colors data-lang-vn">VN</button>
           <span class="opacity-30">|</span>
           <button class="text-primary transition-colors pointer-events-none data-lang-en">EN</button>
@@ -134,7 +140,7 @@
         </a>
       </div>
 
-      <button id="mobile-menu-btn" class="lg:hidden relative z-50 text-foreground p-2">
+      <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="lg:hidden relative z-50 text-foreground p-2">
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -154,7 +160,7 @@
     </div>
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
-      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/50 mb-2 lang-switcher cursor-pointer">
+      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
         <button class="hover:text-primary transition-colors data-lang-vn">VN</button>
         <span class="opacity-30">|</span>
         <button class="text-primary transition-colors pointer-events-none data-lang-en">EN</button>
@@ -377,7 +383,7 @@
             Tiệm Nướng &amp; Chill Xóm Lèo
           </span>
         </a>
-        <p class="max-w-sm text-foreground/50 text-[13px] leading-relaxed font-light">
+        <p class="max-w-sm text-foreground/80 text-[13px] leading-relaxed font-light">
           Hidden among the lush pine hills — a sanctuary for kindred spirits seeking peace amidst the signature chill of Da Lat.
         </p>
         <div class="flex items-center justify-center lg:justify-start gap-3">
@@ -415,7 +421,7 @@
       <!-- Contact Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
         <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Contact</h4>
-        <div class="flex flex-col gap-3 text-[13px] text-foreground/50 leading-relaxed font-light">
+        <div class="flex flex-col gap-3 text-[13px] text-foreground/80 leading-relaxed font-light">
           <a href="tel:0764527336" class="text-foreground/80 font-bold text-base hover:text-primary transition-colors">076 452 7336</a>
           <p>
             <span class="block text-foreground/70 font-medium mb-0.5 uppercase text-[10px] tracking-widest">Opening Hours</span>

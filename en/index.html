@@ -26,7 +26,7 @@
   <meta property="og:title" content="BBQ Restaurant with Beautiful View in Da Lat - Tiệm Nướng & Chill Xóm Lèo">
   <meta property="og:description"
     content="Tiệm Nướng & Chill Xóm Lèo - Da Lat BBQ restaurant with stunning valley and sunset views. Charcoal BBQ, chill vibes, train-watching. Book your table now!">
-  <meta property="og:image" content="https://xomleo.vn/uploads/hero_bg.jpg">
+  <meta property="og:image" content="https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg">
   <meta property="og:url" content="https://xomleo.vn/en">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US" />
@@ -43,7 +43,7 @@
   "alternateName": ["Xom Leo Da Lat", "Xom Leo BBQ", "Xom Leo Grill and Chill Da Lat"],
   "description": "The most scenic BBQ restaurant in Da Lat - charcoal BBQ with stunning valley sunset and train views. Chill vibes in the misty Da Lat highlands.",
   "image": [
-    "https://xomleo.vn/uploads/hero_bg.jpg",
+    "https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg",
     "https://xomleo.vn/uploads/blogs/tiem_nuong_chill_xom_leo_khong_gian_1_1775629347956.webp",
     "https://xomleo.vn/uploads/blogs/khong_gian_tiem_nuong_chill_xom_leo_quan_nuong_da_lat_1775629352084.jpg"
   ],
@@ -160,7 +160,7 @@
     "url": "https://xomleo.vn",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://xomleo.vn/uploads/hero_bg.jpg"
+      "url": "https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg"
     }
   },
   "potentialAction": {
@@ -238,13 +238,19 @@
 
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YWGENK065S');
+  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('config', 'G-YWGENK065S');
+  }, 3500);
 </script>
 </head>
 
@@ -307,7 +313,7 @@
 
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
-        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/50 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
+        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
           <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
           <span class="opacity-30">|</span>
           <button class="hover:text-primary transition-colors data-lang-en">EN</button>
@@ -327,7 +333,7 @@
         </a>
       </div>
 
-      <button id="mobile-menu-btn" class="lg:hidden relative z-50 text-foreground p-2">
+      <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="lg:hidden relative z-50 text-foreground p-2">
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -347,7 +353,7 @@
     </div>
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
-      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/50 mb-2 lang-switcher cursor-pointer">
+      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
         <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
         <span class="opacity-30">|</span>
         <button class="hover:text-primary transition-colors data-lang-en">EN</button>
@@ -403,7 +409,7 @@
 
     <div class="absolute bottom-6 md:bottom-12 left-0 right-0 flex justify-center z-10 pointer-events-none animate-bounce">
       <div class="flex flex-col items-center gap-2 md:gap-4">
-        <span class="text-[9px] uppercase tracking-[0.3em] font-medium text-foreground/50" style="text-indent:0.3em">Scroll down</span>
+        <span class="text-[9px] uppercase tracking-[0.3em] font-medium text-foreground/80" style="text-indent:0.3em">Scroll down</span>
         <div class="w-[1px] h-8 md:h-12 bg-gradient-to-b from-primary to-transparent"></div>
       </div>
     </div>
@@ -420,7 +426,7 @@
           </div>
           <h2 class="font-serif text-3xl sm:text-4xl md:text-6xl leading-[1.1] mb-6 md:mb-8 text-foreground px-2 md:px-0">
             Where Emotions <br />
-            <span class="italic text-foreground/50">Thrive</span>
+            <span class="italic text-foreground/80">Thrive</span>
           </h2>
           <div class="space-y-6 text-foreground/60 font-light text-sm md:text-base leading-loose max-w-lg">
             <p>Hidden among the lush pine hills, Xóm Lèo is not just a BBQ restaurant. It's a sanctuary for kindred spirits seeking peace amidst the signature chill of Da Lat.</p>
@@ -463,7 +469,7 @@
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Grilled Beef Block with Salted Egg Cheese</h3>
               <span
                 class="inline-block mt-3 text-[10px] font-bold uppercase tracking-[0.2em] text-background bg-[#C5A059] px-2 py-0.5">Hot</span>
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Special best seller</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Special best seller</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">210,000đ</span>
           </div>
@@ -474,7 +480,7 @@
             <div class="pr-6 flex-1">
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Salt and Pepper Grilled Beef Belly</h3>
 
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Premium US beef</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Premium US beef</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">155,000đ</span>
           </div>
@@ -485,7 +491,7 @@
             <div class="pr-6 flex-1">
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Enoki Mushroom Beef Roll</h3>
 
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Rich and savory</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Rich and savory</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">137,000đ</span>
           </div>
@@ -496,7 +502,7 @@
             <div class="pr-6 flex-1">
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Stuffed Snails with Pork</h3>
 
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Traditional specialty</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Traditional specialty</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">165,000đ</span>
           </div>
@@ -507,7 +513,7 @@
             <div class="pr-6 flex-1">
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Shaking Sturgeon</h3>
 
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Fresh sturgeon from Don Duong</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Fresh sturgeon from Don Duong</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">165,000đ</span>
           </div>
@@ -518,7 +524,7 @@
             <div class="pr-6 flex-1">
               <h3 class="text-xl font-serif text-foreground group-hover:text-primary transition-colors">Salt Roasted Sturgeon</h3>
 
-              <p class="text-sm text-foreground/50 font-light mt-4 leading-relaxed">Spicy salt roasted sturgeon</p>
+              <p class="text-sm text-foreground/80 font-light mt-4 leading-relaxed">Spicy salt roasted sturgeon</p>
             </div>
             <span class="text-sm font-bold tracking-widest text-[#C5A059] whitespace-nowrap">199,000đ</span>
           </div>
@@ -561,7 +567,7 @@
           </div>
           <p class="text-sm font-bold tracking-widest uppercase text-foreground/80">4.7/5 ON GOOGLE</p>
           <a href="https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8" target="_blank"
-            class="text-[10px] text-foreground/50 hover:text-primary transition-colors underline underline-offset-4 mt-2">See all 1,698 reviews</a>
+            class="text-[10px] text-foreground/80 hover:text-primary transition-colors underline underline-offset-4 mt-2">See all 1,698 reviews</a>
         </div>
       </div>
 
@@ -589,7 +595,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">J</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">Juli Oanh</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Local Guide · Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Local Guide · Google Maps</p>
                 </div>
               </div>
             </div>
@@ -616,7 +622,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">N</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">Nghĩa Lê</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Google Maps</p>
                 </div>
               </div>
             </div>
@@ -643,7 +649,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">M</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">My Trieu</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Google Maps</p>
                 </div>
               </div>
             </div>
@@ -670,7 +676,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">L</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">Long Nguyen</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Google Maps</p>
                 </div>
               </div>
             </div>
@@ -697,7 +703,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">J</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">Julia Kooper</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Local Guide · Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Local Guide · Google Maps</p>
                 </div>
               </div>
             </div>
@@ -724,7 +730,7 @@
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">H</div>
                 <div>
                   <h4 class="text-sm font-medium tracking-widest text-foreground">Hyejeong Kim</h4>
-                  <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
+                  <p class="text-[10px] uppercase tracking-wider text-foreground/80">Google Maps</p>
                 </div>
               </div>
             </div>
@@ -757,20 +763,20 @@
             <h2 class="font-serif text-4xl md:text-5xl leading-tight">
               BOOK <span class="italic font-light text-primary/80">Online</span>
             </h2>
-            <p class="text-foreground/50 text-sm mt-4">Fill in the details below — our staff will contact you shortly to confirm.</p>
+            <p class="text-foreground/80 text-sm mt-4">Fill in the details below — our staff will contact you shortly to confirm.</p>
           </div>
 
           <form id="zaloBookingForm" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Your Name
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Your Name
                   *</label>
                 <input required id="book_name" type="text"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
                   placeholder="John Doe">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Phone Number
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Phone Number
                   *</label>
                 <input required id="book_phone" type="tel"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
@@ -780,33 +786,31 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Date *</label>
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block" for="book_date">Date *</label>
                 <input required id="book_date" type="date"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 [color-scheme:dark] rounded-t-sm">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Time
-                  *</label>
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block" for="book_time">Time *</label>
                 <select required id="book_time"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 appearance-none rounded-t-sm">
-                  <option value="15:00">15:30</option>
+                  <option value="15:30">15:30</option>
                   <option value="16:00">16:00</option>
-                  <option value="20:00">16:30</option>
+                  <option value="16:30">16:30</option>
                   <option value="17:00">17:00</option>
-                  <option value="19:00">19:30</option>
+                  <option value="19:30">19:30</option>
                   <option value="20:00">20:00</option>
-                  <option value="20:00">20:30</option>
-                  <option value="20:00">21:00</option>
+                  <option value="20:30">20:30</option>
+                  <option value="21:00">21:00</option>
                 </select>
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Guests
-                  *</label>
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block" for="book_guests">Guests *</label>
                 <input required id="book_guests" type="number" min="1" value="2"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 rounded-t-sm">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Occasion</label>
+                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Occasion</label>
                 <select id="book_occasion"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 appearance-none rounded-t-sm">
                   <option value="None">None</option>
@@ -818,7 +822,7 @@
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Additional Notes</label>
+              <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Additional Notes</label>
               <textarea id="book_note"
                 class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm resize-none h-20 rounded-t-sm"
                 placeholder="Any special requests? (e.g., best view table)"></textarea>
@@ -848,7 +852,7 @@
             Tiệm Nướng &amp; Chill Xóm Lèo
           </span>
         </a>
-        <p class="max-w-sm text-foreground/50 text-[13px] leading-relaxed font-light">
+        <p class="max-w-sm text-foreground/80 text-[13px] leading-relaxed font-light">
           Hidden among the lush pine hills — a sanctuary for kindred spirits seeking peace amidst the signature chill of Da Lat.
         </p>
         <div class="flex items-center justify-center lg:justify-start gap-3">
@@ -886,7 +890,7 @@
       <!-- Contact Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
         <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Contact</h4>
-        <div class="flex flex-col gap-3 text-[13px] text-foreground/50 leading-relaxed font-light">
+        <div class="flex flex-col gap-3 text-[13px] text-foreground/80 leading-relaxed font-light">
           <a href="tel:0764527336" class="text-foreground/80 font-bold text-base hover:text-primary transition-colors">076 452 7336</a>
           <p>
             <span class="block text-foreground/70 font-medium mb-0.5 uppercase text-[10px] tracking-widest">Opening Hours</span>

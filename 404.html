@@ -18,19 +18,25 @@
   <meta name="robots" content="noindex, nofollow">
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YWGENK065S');
+  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('config', 'G-YWGENK065S');
+  }, 3500);
 </script>
 
   <meta name="description" content="Trang bạn tìm kiếm không tồn tại. Quay lại trang chủ Tiệm Nướng & Chill Xóm Lèo để khám phá quán nướng view đẹp nhất Đà Lạt.">
   <meta property="og:title" content="404 - Trang không tồn tại | Tiệm Nướng & Chill Xóm Lèo">
   <meta property="og:description" content="Trang bạn tìm kiếm không tồn tại. Quay lại trang chủ để khám phá quán nướng view đẹp nhất Đà Lạt.">
-  <meta property="og:image" content="https://xomleo.vn/uploads/hero_bg.jpg">
+  <meta property="og:image" content="https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg">
   <meta property="og:url" content="https://xomleo.vn/404.html">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
@@ -42,7 +48,7 @@
       <h1 class="text-8xl font-serif font-bold text-primary mb-4">404</h1>
       <p class="text-2xl font-serif text-foreground mb-2">Trang không tìm thấy</p>
       <p class="text-muted mb-2">Page Not Found</p>
-      <p class="text-foreground/50 mb-8">Trang bạn đang tìm không tồn tại hoặc đã được di chuyển.<br>The page you're looking for doesn't exist or has been moved.</p>
+      <p class="text-foreground/80 mb-8">Trang bạn đang tìm không tồn tại hoặc đã được di chuyển.<br>The page you're looking for doesn't exist or has been moved.</p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a href="/" class="bg-primary text-background px-8 py-3 rounded-full font-bold hover:bg-white hover:text-black transition-all duration-300 shadow-lg">
           🇻🇳 Trang chủ

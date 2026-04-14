@@ -24,7 +24,7 @@
   <link rel="canonical" href="https://xomleo.vn/menu-en">
   <meta property="og:title" content="Menu - Xom Leo Da Lat BBQ | BBQ & Hotpot Specialties">
   <meta property="og:description" content="Explore the full menu of Xom Leo Da Lat BBQ: Block beef with salted egg cheese, Sturgeon Hotpot, fish sauce chicken wings. Prices from 35K VND. View full menu!">
-  <meta property="og:image" content="https://xomleo.vn/uploads/hero_bg.jpg">
+  <meta property="og:image" content="https://xomleo.vn/images/1_quan_nuong_da_lat_xom_leo.jpg">
   <meta property="og:url" content="https://xomleo.vn/menu-en">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="en_US" />
@@ -68,13 +68,19 @@
 
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YWGENK065S');
+  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('config', 'G-YWGENK065S');
+  }, 3500);
 </script>
 </head>
 
@@ -113,7 +119,7 @@
 
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
-        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/50 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
+        <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
           <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
           <span class="opacity-30">|</span>
           <button class="hover:text-primary transition-colors data-lang-en">EN</button>
@@ -133,7 +139,7 @@
         </a>
       </div>
 
-      <button id="mobile-menu-btn" class="lg:hidden relative z-50 text-foreground p-2">
+      <button id="mobile-menu-btn" aria-label="Toggle mobile menu" class="lg:hidden relative z-50 text-foreground p-2">
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
@@ -153,7 +159,7 @@
     </div>
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
-      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/50 mb-2 lang-switcher cursor-pointer">
+      <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
         <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
         <span class="opacity-30">|</span>
         <button class="hover:text-primary transition-colors data-lang-en">EN</button>
@@ -181,30 +187,30 @@
         <button data-filter="All"
           class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-primary border-b border-primary active-tab">All</button>
         <button data-filter="Best Seller"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Best
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Best
           Seller</button>
         <button data-filter="Table BBQ"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Table BBQ</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Table BBQ</button>
         <button data-filter="Side Dishes"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Side Dishes</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Side Dishes</button>
         <button data-filter="Hearty Meals"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Hearty Meals</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Hearty Meals</button>
         <button data-filter="Hotpot"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Hotpot</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Hotpot</button>
         <button data-filter="Bar Snacks"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Bar Snacks</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Bar Snacks</button>
         <button data-filter="Iced Tea"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Iced Tea</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Iced Tea</button>
         <button data-filter="Hot Tea"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Hot Tea</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Hot Tea</button>
         <button data-filter="Soda"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Soda</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Soda</button>
         <button data-filter="Water"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Water</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Water</button>
         <button data-filter="Beer"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Beer</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Beer</button>
         <button data-filter="Wine"
-          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/50 hover:text-foreground border-b border-transparent">Wine</button>
+          class="menu-filter-btn text-xs uppercase tracking-[0.2em] font-medium pb-2 transition-all text-foreground/80 hover:text-foreground border-b border-transparent">Wine</button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-20" id="menu-grid">
@@ -223,7 +229,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">210,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Special Best Seller</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Special Best Seller</p>
           </div>
         </div>
 
@@ -241,7 +247,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Premium US Beef</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Premium US Beef</p>
           </div>
         </div>
 
@@ -259,7 +265,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">137,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Rich and fresh</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Rich and fresh</p>
           </div>
         </div>
 
@@ -277,7 +283,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">165,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Traditional specialty</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Traditional specialty</p>
           </div>
         </div>
 
@@ -295,7 +301,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">165,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh Don Duong Sturgeon</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fresh Don Duong Sturgeon</p>
           </div>
         </div>
 
@@ -313,7 +319,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">199,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Salt & Chili Roasted Sturgeon</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Salt & Chili Roasted Sturgeon</p>
           </div>
         </div>
 
@@ -330,7 +336,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">259,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Spicy Rib Tower Masterpiece</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Spicy Rib Tower Masterpiece</p>
           </div>
         </div>
 
@@ -347,7 +353,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">158,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh shrimp with rich salted egg sauce</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fresh shrimp with rich salted egg sauce</p>
           </div>
         </div>
 
@@ -365,7 +371,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">132,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fragrant and crispy skin</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fragrant and crispy skin</p>
           </div>
         </div>
 
@@ -382,7 +388,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">169,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Korean-style marinated</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Korean-style marinated</p>
           </div>
         </div>
 
@@ -400,7 +406,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">154,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Honey glazed ribs</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Honey glazed ribs</p>
           </div>
         </div>
 
@@ -418,7 +424,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">104,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Ultimate top-tier snacks</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Ultimate top-tier snacks</p>
           </div>
         </div>
 
@@ -436,7 +442,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">129,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Golden crispy perfection</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Golden crispy perfection</p>
           </div>
         </div>
 
@@ -453,7 +459,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">144,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh field frogs</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fresh field frogs</p>
           </div>
         </div>
 
@@ -471,7 +477,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">161,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Nutritious and sweet</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Nutritious and sweet</p>
           </div>
         </div>
 
@@ -488,7 +494,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet & crunchy cuttlefish</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Sweet & crunchy cuttlefish</p>
           </div>
         </div>
 
@@ -505,7 +511,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">150,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Dancing fresh shrimp</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Dancing fresh shrimp</p>
           </div>
         </div>
 
@@ -523,7 +529,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Ocean octopus</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Ocean octopus</p>
           </div>
         </div>
 
@@ -541,7 +547,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">95,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Crispy and flavorful</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Crispy and flavorful</p>
           </div>
         </div>
 
@@ -559,7 +565,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">70,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Served with spicy chili sauce</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Served with spicy chili sauce</p>
           </div>
         </div>
 
@@ -577,7 +583,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">70,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Light sweet side dish</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Light sweet side dish</p>
           </div>
         </div>
 
@@ -594,7 +600,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">95,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh Da Lat vegetables</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fresh Da Lat vegetables</p>
           </div>
         </div>
 
@@ -611,7 +617,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">140,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Rustic flavor</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Rustic flavor</p>
           </div>
         </div>
 
@@ -628,7 +634,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">120,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Shrimp & squid harmony</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Shrimp & squid harmony</p>
           </div>
         </div>
 
@@ -646,7 +652,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">132,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Delicious chewy noodles</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Delicious chewy noodles</p>
           </div>
         </div>
 
@@ -663,7 +669,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">135,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet and tender beef</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Sweet and tender beef</p>
           </div>
         </div>
 
@@ -681,7 +687,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">300,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Phu Yen essence in the heart of Da Lat</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Phu Yen essence in the heart of Da Lat</p>
           </div>
         </div>
 
@@ -699,7 +705,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">320,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Mixed sour and spicy</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Mixed sour and spicy</p>
           </div>
         </div>
 
@@ -716,7 +722,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">320,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">A must-try Da Lat specialty</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">A must-try Da Lat specialty</p>
           </div>
         </div>
 
@@ -733,7 +739,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">30,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Chewy & crispy</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Chewy & crispy</p>
           </div>
         </div>
 
@@ -750,7 +756,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Aroma that fills the neighborhood</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Aroma that fills the neighborhood</p>
           </div>
         </div>
 
@@ -767,7 +773,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Protein-packed highlight</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Protein-packed highlight</p>
           </div>
         </div>
 
@@ -785,7 +791,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">145,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Double the calcium</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Double the calcium</p>
           </div>
         </div>
 
@@ -804,7 +810,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cool and refreshing</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Cool and refreshing</p>
           </div>
         </div>
 
@@ -823,7 +829,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fragrant pineapple aroma</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fragrant pineapple aroma</p>
           </div>
         </div>
 
@@ -842,7 +848,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Super healthy</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Super healthy</p>
           </div>
         </div>
 
@@ -861,7 +867,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">A cool fresh start</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">A cool fresh start</p>
           </div>
         </div>
 
@@ -880,7 +886,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet and sour delight</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Sweet and sour delight</p>
           </div>
         </div>
 
@@ -899,7 +905,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Sweet and romantic</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Sweet and romantic</p>
           </div>
         </div>
 
@@ -918,7 +924,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Warm your belly</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Warm your belly</p>
           </div>
         </div>
 
@@ -937,7 +943,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Relax your soul</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Relax your soul</p>
           </div>
         </div>
 
@@ -956,7 +962,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Warm up a Da Lat night</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Warm up a Da Lat night</p>
           </div>
         </div>
 
@@ -975,7 +981,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Aromatic with chia seeds</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Aromatic with chia seeds</p>
           </div>
         </div>
 
@@ -994,7 +1000,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Classic</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Classic</p>
           </div>
         </div>
 
@@ -1013,7 +1019,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Fresh and vibrant</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Fresh and vibrant</p>
           </div>
         </div>
 
@@ -1030,7 +1036,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Cool lemon zest</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Cool lemon zest</p>
           </div>
         </div>
 
@@ -1047,7 +1053,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Blue ocean vibe</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Blue ocean vibe</p>
           </div>
         </div>
 
@@ -1065,7 +1071,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Gently sweet</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Gently sweet</p>
           </div>
         </div>
 
@@ -1082,7 +1088,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Highland refresher</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Highland refresher</p>
           </div>
         </div>
 
@@ -1099,7 +1105,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1116,7 +1122,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1133,7 +1139,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">18,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1150,7 +1156,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">34,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1168,7 +1174,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">11,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1185,7 +1191,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">28,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1202,7 +1208,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1221,7 +1227,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1239,7 +1245,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1257,7 +1263,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1275,7 +1281,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Refreshing taste</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Refreshing taste</p>
           </div>
         </div>
 
@@ -1295,7 +1301,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Smooth and mellow</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Smooth and mellow</p>
           </div>
         </div>
 
@@ -1314,7 +1320,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Strong plum kick</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Strong plum kick</p>
           </div>
         </div>
 
@@ -1333,7 +1339,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">139,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Perfect for two</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Perfect for two</p>
           </div>
         </div>
 
@@ -1352,7 +1358,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">170,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Blissfully smooth</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Blissfully smooth</p>
           </div>
         </div>
 
@@ -1371,7 +1377,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Authentic Korean soju</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Authentic Korean soju</p>
           </div>
         </div>
 
@@ -1390,7 +1396,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">190,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Delightfully bold wine</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Delightfully bold wine</p>
           </div>
         </div>
 
@@ -1409,7 +1415,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">210,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Premium imported wine</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Premium imported wine</p>
           </div>
         </div>
 
@@ -1429,7 +1435,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Rich wild apple aroma</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Rich wild apple aroma</p>
           </div>
         </div>
 
@@ -1448,7 +1454,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">140,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Deep authentic ume flavor</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Deep authentic ume flavor</p>
           </div>
         </div>
 
@@ -1468,7 +1474,7 @@
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">130,000đ</span>
             </div>
             <div class="w-full h-[1px] bg-[#8E8B86]/20 mb-4"></div>
-            <p class="text-foreground/50 text-sm leading-relaxed font-light">Gently intoxicating</p>
+            <p class="text-foreground/80 text-sm leading-relaxed font-light">Gently intoxicating</p>
           </div>
         </div>
 
@@ -1485,9 +1491,9 @@
 
               filterBtns.forEach(b => {
                 b.classList.remove('text-primary', 'border-primary', 'active-tab');
-                b.classList.add('text-foreground/50', 'border-transparent');
+                b.classList.add('text-foreground/80', 'border-transparent');
               });
-              btn.classList.remove('text-foreground/50', 'border-transparent');
+              btn.classList.remove('text-foreground/80', 'border-transparent');
               btn.classList.add('text-primary', 'border-primary', 'active-tab');
 
               menuItems.forEach(item => {
@@ -1523,7 +1529,7 @@
             Tiệm Nướng &amp; Chill Xóm Lèo
           </span>
         </a>
-        <p class="max-w-sm text-foreground/50 text-[13px] leading-relaxed font-light">
+        <p class="max-w-sm text-foreground/80 text-[13px] leading-relaxed font-light">
           Hidden among the lush pine hills — a sanctuary for kindred spirits seeking peace amidst the signature chill of Da Lat.
         </p>
         <div class="flex items-center justify-center lg:justify-start gap-3">
@@ -1561,7 +1567,7 @@
       <!-- Contact Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
         <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Contact</h4>
-        <div class="flex flex-col gap-3 text-[13px] text-foreground/50 leading-relaxed font-light">
+        <div class="flex flex-col gap-3 text-[13px] text-foreground/80 leading-relaxed font-light">
           <a href="tel:0764527336" class="text-foreground/80 font-bold text-base hover:text-primary transition-colors">076 452 7336</a>
           <p>
             <span class="block text-foreground/70 font-medium mb-0.5 uppercase text-[10px] tracking-widest">Opening Hours</span>

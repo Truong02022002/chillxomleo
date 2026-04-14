@@ -83,14 +83,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Language Switcher UI Toggle ---
   const langSwitchers = document.querySelectorAll('.lang-switcher');
   
-  let currentFileInitial = window.location.pathname.split('/').pop() || 'index.html';
-  const isEnPageInitial = currentFileInitial.endsWith('-en.html') || currentFileInitial === 'en.html';
+  let currentPathForInit = window.location.pathname;
+  if (currentPathForInit.endsWith('/index.html')) currentPathForInit = currentPathForInit.replace('/index.html', '');
+  if (currentPathForInit.endsWith('/')) currentPathForInit = currentPathForInit.slice(0, -1);
+  const pathSegment = currentPathForInit.split('/').pop() || '';
+  
+  const isEnPageInitial = pathSegment === 'en' || pathSegment.endsWith('-en') || currentPathForInit.endsWith('-en.html') || currentPathForInit.endsWith('en.html');
   
   let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
   
   // Override if URL explicitly indicates language
   if (isEnPageInitial) currentLang = 'en';
-  else if (!isEnPageInitial && currentFileInitial !== '') currentLang = 'vn';
+  else if (!isEnPageInitial && currentPathForInit !== '') currentLang = 'vn';
 
   function updateLangUI(lang) {
     langSwitchers.forEach(switcher => {
@@ -117,45 +121,56 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('xomleo_lang', lang);
     updateLangUI(lang);
     
-    // Page mapping between VN and EN
-    const pageMap = {
-      'index.html': 'en.html',
-      'about.html': 'about-en.html',
-      'menu.html': 'menu-en.html',
-      've-chung-toi.html': 'about-us-en.html',
-      'blog.html': 'blog-en.html',
-      '': 'en.html' // handle root domain
-    };
-
-    // Reverse mapping for EN to VN
-    const reverseMap = {};
-    for (const [vn, en] of Object.entries(pageMap)) {
-      if (vn !== '') reverseMap[en] = vn;
-    }
-
-    // Get current filename
-    let currentPath = window.location.pathname;
-    let currentFile = currentPath.split('/').pop() || '';
+    let path = window.location.pathname;
+    // Support file:// or basic .html serving
+    const isHtmlFile = path.endsWith('.html');
+    if (path.endsWith('/index.html')) path = path.replace('/index.html', '/');
+    if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
     
-    // Default to index.html if no file specified
-    if (Object.keys(pageMap).includes(currentFile) && currentFile === '') {
-       currentFile = 'index.html';
-    }
+    let newPath = '';
+    const segment = path.split('/').pop() || '';
 
     if (lang === 'en') {
-      // If we are on a VN page, redirect to EN page
-      if (pageMap[currentFile]) {
-        window.location.href = pageMap[currentFile] + window.location.hash;
-      } else if (!currentFile.endsWith('-en.html') && currentFile.endsWith('.html')) {
-        window.location.href = currentFile.replace('.html', '-en.html') + window.location.hash;
+      if (isHtmlFile) {
+        if (segment === 'index.html' || segment === '') newPath = path.replace(/index\.html$/, 'en.html');
+        else if (segment === 'about.html') newPath = path.replace('about.html', 'about-en.html');
+        else if (segment === 'menu.html') newPath = path.replace('menu.html', 'menu-en.html');
+        else if (segment === 've-chung-toi.html') newPath = path.replace('ve-chung-toi.html', 'about-us-en.html');
+        else if (segment === 'blog.html') newPath = path.replace('blog.html', 'blog-en.html');
+        else if (!segment.endsWith('-en.html')) newPath = path.replace('.html', '-en.html');
+      } else {
+        if (path === '') newPath = '/en/';
+        else if (path === '/about') newPath = '/about-en/';
+        else if (path === '/menu') newPath = '/menu-en/';
+        else if (path === '/ve-chung-toi') newPath = '/about-us-en/';
+        else if (path === '/blog') newPath = '/blog-en/';
+        else if (!segment.endsWith('-en')) newPath = path + '-en/';
       }
     } else if (lang === 'vn') {
-      // If we are on an EN page, redirect to VN page
-      if (reverseMap[currentFile]) {
-        window.location.href = reverseMap[currentFile] + window.location.hash;
-      } else if (currentFile.endsWith('-en.html')) {
-        window.location.href = currentFile.replace('-en.html', '.html') + window.location.hash;
+      if (isHtmlFile) {
+        if (segment === 'en.html') newPath = path.replace(/en\.html$/, 'index.html');
+        else if (segment === 'about-en.html') newPath = path.replace('about-en.html', 'about.html');
+        else if (segment === 'menu-en.html') newPath = path.replace('menu-en.html', 'menu.html');
+        else if (segment === 'about-us-en.html') newPath = path.replace('about-us-en.html', 've-chung-toi.html');
+        else if (segment === 'blog-en.html') newPath = path.replace('blog-en.html', 'blog.html');
+        else if (segment.endsWith('-en.html')) newPath = path.replace('-en.html', '.html');
+      } else {
+        if (path === '/en') newPath = '/';
+        else if (path === '/about-en') newPath = '/about/';
+        else if (path === '/menu-en') newPath = '/menu/';
+        else if (path === '/about-us-en') newPath = '/ve-chung-toi/';
+        else if (path === '/blog-en') newPath = '/blog/';
+        else if (segment.endsWith('-en')) newPath = path.substring(0, path.length - 3) + '/';
       }
+    }
+    
+    // Ensure trailing slash for non-html paths
+    if (newPath && !newPath.endsWith('.html') && !newPath.endsWith('/')) {
+        newPath += '/';
+    }
+
+    if (newPath && newPath !== window.location.pathname) {
+      window.location.href = newPath + window.location.hash;
     }
   }
 
