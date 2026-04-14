@@ -50,27 +50,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Dynamic Active Nav Highlighting ---
   function highlightActiveNav() {
-    let currentPath = window.location.pathname.split('/').pop();
-    if (!currentPath || currentPath === '') currentPath = 'index.html';
-    
-    // Exact mapping for root or alias paths
-    if (currentPath === '/' || currentPath === '') currentPath = 'index.html';
-
+    const path = window.location.pathname;
     const desktopNavLinks = document.querySelectorAll('.hidden.lg\\:flex.items-center.space-x-8 a');
+    const mobileNavLinks = document.querySelectorAll('#mobile-menu .flex-col.gap-6.text-2xl a');
+
+    function isMatch(href, currentPath) {
+      if (!href) return false;
+      // Normalize both paths for comparison
+      const normHref = href.endsWith('/') ? href.slice(0, -1) : href;
+      const normPath = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
+      
+      if (normHref === normPath) return true;
+      if (normHref === '' && (normPath === '/' || normPath === '/index.html' || normPath === '/en' || normPath === '/en/index.html')) return true;
+      if (normHref === '/en' && (normPath === '/en/' || normPath === '/en/index.html')) return true;
+      return false;
+    }
+
     desktopNavLinks.forEach(link => {
       const href = link.getAttribute('href');
-      // If href matches currentPath (or en.html for en.html)
-      if (href === currentPath) {
+      if (isMatch(href, path)) {
         link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full bg-white/10 text-foreground';
       } else {
         link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground';
       }
     });
 
-    const mobileNavLinks = document.querySelectorAll('#mobile-menu .flex-col.gap-6.text-2xl a');
     mobileNavLinks.forEach(link => {
       const href = link.getAttribute('href');
-      if (href === currentPath) {
+      if (isMatch(href, path)) {
         link.className = 'transition-colors text-primary pl-4 border-l-2 border-primary';
       } else {
         link.className = 'transition-colors text-foreground/70 pl-4 border-l-2 border-transparent';
@@ -122,55 +129,56 @@ document.addEventListener('DOMContentLoaded', () => {
     updateLangUI(lang);
     
     let path = window.location.pathname;
-    // Support file:// or basic .html serving
-    const isHtmlFile = path.endsWith('.html');
-    if (path.endsWith('/index.html')) path = path.replace('/index.html', '/');
-    if (path.length > 1 && path.endsWith('/')) path = path.slice(0, -1);
+    try { path = decodeURIComponent(path); } catch(e) {}
+    
+    // Normalize path: lowercase, remove index.html, remove trailing slash
+    path = path.toLowerCase().replace(/\/index\.html$/, '').replace(/\/$/, '');
+    if (!path) path = '/';
+    
+    const pageMap = {
+      'vn_to_en': {
+        '/': '/en/',
+        '/about': '/about-en/',
+        '/menu': '/menu-en/',
+        '/ve-chung-toi': '/about-us-en/',
+        '/blog': '/blog-en/'
+      },
+      'en_to_vn': {
+        '/en': '/',
+        '/about-en': '/about/',
+        '/menu-en': '/menu/',
+        '/about-us-en': '/ve-chung-toi/',
+        '/blog-en': '/blog/'
+      }
+    };
     
     let newPath = '';
-    const segment = path.split('/').pop() || '';
-
+    
     if (lang === 'en') {
-      if (isHtmlFile) {
-        if (segment === 'index.html' || segment === '') newPath = path.replace(/index\.html$/, 'en.html');
-        else if (segment === 'about.html') newPath = path.replace('about.html', 'about-en.html');
-        else if (segment === 'menu.html') newPath = path.replace('menu.html', 'menu-en.html');
-        else if (segment === 've-chung-toi.html') newPath = path.replace('ve-chung-toi.html', 'about-us-en.html');
-        else if (segment === 'blog.html') newPath = path.replace('blog.html', 'blog-en.html');
-        else if (!segment.endsWith('-en.html')) newPath = path.replace('.html', '-en.html');
-      } else {
-        if (path === '') newPath = '/en/';
-        else if (path === '/about') newPath = '/about-en/';
-        else if (path === '/menu') newPath = '/menu-en/';
-        else if (path === '/ve-chung-toi') newPath = '/about-us-en/';
-        else if (path === '/blog') newPath = '/blog-en/';
-        else if (!segment.endsWith('-en')) newPath = path + '-en/';
+      if (pageMap.vn_to_en[path]) {
+        newPath = pageMap.vn_to_en[path];
+      } else if (!path.endsWith('-en') && !path.startsWith('/en')) {
+        newPath = path + '-en/';
       }
     } else if (lang === 'vn') {
-      if (isHtmlFile) {
-        if (segment === 'en.html') newPath = path.replace(/en\.html$/, 'index.html');
-        else if (segment === 'about-en.html') newPath = path.replace('about-en.html', 'about.html');
-        else if (segment === 'menu-en.html') newPath = path.replace('menu-en.html', 'menu.html');
-        else if (segment === 'about-us-en.html') newPath = path.replace('about-us-en.html', 've-chung-toi.html');
-        else if (segment === 'blog-en.html') newPath = path.replace('blog-en.html', 'blog.html');
-        else if (segment.endsWith('-en.html')) newPath = path.replace('-en.html', '.html');
-      } else {
-        if (path === '/en') newPath = '/';
-        else if (path === '/about-en') newPath = '/about/';
-        else if (path === '/menu-en') newPath = '/menu/';
-        else if (path === '/about-us-en') newPath = '/ve-chung-toi/';
-        else if (path === '/blog-en') newPath = '/blog/';
-        else if (segment.endsWith('-en')) newPath = path.substring(0, path.length - 3) + '/';
+      if (pageMap.en_to_vn[path]) {
+        newPath = pageMap.en_to_vn[path];
+      } else if (path.endsWith('-en')) {
+        newPath = path.substring(0, path.length - 3) + '/';
+      } else if (path.startsWith('/en')) {
+        newPath = path.replace('/en', '') + '/';
       }
     }
     
-    // Ensure trailing slash for non-html paths
-    if (newPath && !newPath.endsWith('.html') && !newPath.endsWith('/')) {
-        newPath += '/';
-    }
-
-    if (newPath && newPath !== window.location.pathname) {
-      window.location.href = newPath + window.location.hash;
+    // Final cleanup of newPath
+    if (newPath) {
+      if (!newPath.startsWith('/')) newPath = '/' + newPath;
+      // Ensure specific mapped paths keep their trailing slash if intended, 
+      // but blog posts already get it from the logic above.
+      
+      if (newPath !== window.location.pathname) {
+        window.location.href = newPath;
+      }
     }
   }
 
@@ -524,76 +532,4 @@ document.addEventListener('DOMContentLoaded', () => {
       requestAnimationFrame(tick);
     }
   }
-});
-
-// Language Switcher Logic
-document.addEventListener("DOMContentLoaded", () => {
-    const langSwitchers = document.querySelectorAll('.lang-switcher');
-    
-    if (langSwitchers.length > 0) {
-        // Find current language base on URL path
-        const currentPath = window.location.pathname;
-        // Also check if pathname has '-en'
-        const isEnglish = currentPath === '/en' || currentPath === '/en/' || currentPath.includes('-en/') || currentPath.endsWith('-en');
-        
-        langSwitchers.forEach(switcher => {
-            const btnVn = switcher.querySelector('.data-lang-vn');
-            const btnEn = switcher.querySelector('.data-lang-en');
-            
-            if (btnVn && btnEn) {
-                // Set UI state based on current language
-                if (isEnglish) {
-                    btnEn.classList.add('text-primary', 'pointer-events-none');
-                    btnEn.classList.remove('hover:text-primary');
-                    
-                    btnVn.classList.remove('text-primary', 'pointer-events-none');
-                    btnVn.classList.add('hover:text-primary');
-                } else {
-                    btnVn.classList.add('text-primary', 'pointer-events-none');
-                    btnVn.classList.remove('hover:text-primary');
-                    
-                    btnEn.classList.remove('text-primary', 'pointer-events-none');
-                    btnEn.classList.add('hover:text-primary');
-                }
-
-                // Add click events for redirecting
-                btnEn.addEventListener('click', function() {
-                    let newPath = currentPath;
-                    
-                    // Already English
-                    if (isEnglish) return;
-                    
-                    if (currentPath === '/' || currentPath === '/index.html' || currentPath === '') {
-                        newPath = '/en/';
-                    } else {
-                        // Remove trailing slash if exists
-                        let path = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
-                        // Remove /index.html if exists
-                        if (path.endsWith('/index.html')) {
-                            path = path.slice(0, -11);
-                        }
-                        newPath = path + '-en/';
-                    }
-                    window.location.href = newPath;
-                });
-
-                btnVn.addEventListener('click', function() {
-                    let newPath = currentPath;
-                    
-                    // Already Vietnamese
-                    if (!isEnglish) return;
-                    
-                    if (currentPath === '/en' || currentPath === '/en/' || currentPath === '/en/index.html') {
-                        newPath = '/';
-                    } else if (currentPath.includes('-en/')) {
-                        newPath = currentPath.replace('-en/', '/');
-                    } else if (currentPath.endsWith('-en')) {
-                        newPath = currentPath.replace('-en', '/');
-                    }
-                    
-                    window.location.href = newPath;
-                });
-            }
-        });
-    }
 });
