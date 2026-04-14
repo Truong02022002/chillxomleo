@@ -316,6 +316,10 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
         <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
         <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
+        <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0068FF] hover:bg-[#0055DD] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 mb-3 shadow-lg hover:shadow-[#0068FF]/30 hover:-translate-y-0.5">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12.49 10.272v-.45h-.886v3.39h.886v-1.86c0-.675.27-1.08.81-1.08h.54v-.9h-.63c-.36 0-.585.18-.72.45zm-3.96.45c-.36 0-.63.27-.63.63s.27.63.63.63.63-.27.63-.63-.27-.63-.63-.63zm0 1.71c-.585 0-1.08-.495-1.08-1.08s.495-1.08 1.08-1.08 1.08.495 1.08 1.08-.495 1.08-1.08 1.08zM12 1.5C6.21 1.5 1.5 5.888 1.5 11.272c0 2.378.892 4.567 2.37 6.276L2.5 21.5l4.164-1.457A11.252 11.252 0 0 0 12 21.045c5.79 0 10.5-4.388 10.5-9.773S17.79 1.5 12 1.5z"/></svg>
+          ${isEnglish ? 'Chat via Zalo' : 'Nhắn qua Zalo'}
+        </a>
         <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full bg-primary animate-progress" style="width: 100%; transition: width 5s linear;"></div></div>
       `;
       document.body.appendChild(toast);
