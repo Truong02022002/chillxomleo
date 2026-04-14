@@ -329,8 +329,8 @@
         </a>
       </div>
 
-      <button id="mobile-menu-btn" class="lg:hidden relative z-50 text-foreground p-2">
-        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <button id="mobile-menu-btn" class="lg:hidden relative z-50 text-foreground p-2" aria-label="Mở menu điều hướng">
+        <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
         </svg>
       </button>
@@ -339,7 +339,7 @@
 
   <!-- MOBILE MENU OVERLAY -->
   <div id="mobile-menu"
-    class="fixed inset-0 z-40 bg-background/95 backdrop-blur-2xl flex flex-col pt-32 px-10 gap-10 translate-x-full transition-transform duration-500">
+    class="fixed inset-0 z-40 bg-background backdrop-blur-2xl flex flex-col pt-32 px-10 gap-10 translate-x-full transition-transform duration-500">
     <div class="flex flex-col gap-6 text-2xl font-script tracking-widest">
       <a href="/" class="transition-colors text-foreground/70">Trang chủ</a>
       <a href="about" class="transition-colors text-foreground/70">Trải nghiệm</a>
@@ -358,7 +358,7 @@
       <a href="/#booking"
         class="bg-primary text-background py-4 rounded-xl text-center font-bold tracking-widest">ĐẶT BÀN NGAY</a>
       <div class="flex justify-between items-center px-4">
-        <span class="text-[12px] uppercase tracking-widest text-foreground/40">Hotline:</span>
+        <span class="text-[12px] uppercase tracking-widest text-foreground/60">Hotline:</span>
         <span class="text-primary font-bold">076 452 7336</span>
       </div>
     </div>
@@ -368,7 +368,7 @@
   <section
     class="relative h-screen min-h-[600px] md:min-h-[800px] w-full flex items-center justify-center overflow-hidden bg-background">
     <div class="absolute inset-0 z-0">
-      <video autoPlay loop muted playsInline
+      <video autoPlay loop muted playsInline aria-hidden="true"
         class="absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
         <source src="uploads/1775619540162-191150330-xomleo-desktop.mp4" type="video/mp4" />
       </video>
@@ -600,7 +600,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">J</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">Juli Oanh</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">Juli Oanh</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Local Guide · Google Maps</p>
                 </div>
               </div>
@@ -627,7 +627,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">N</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">Nghĩa Lê</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">Nghĩa Lê</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
                 </div>
               </div>
@@ -654,7 +654,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">M</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">My Trieu</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">My Trieu</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
                 </div>
               </div>
@@ -681,7 +681,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">L</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">Long Nguyen</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">Long Nguyen</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
                 </div>
               </div>
@@ -708,7 +708,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">J</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">Julia Kooper</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">Julia Kooper</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Local Guide · Google Maps</p>
                 </div>
               </div>
@@ -735,7 +735,7 @@
               <div class="flex items-center gap-4 mt-auto">
                 <div class="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-serif">H</div>
                 <div>
-                  <h4 class="text-sm font-medium tracking-widest text-foreground">Hyejeong Kim</h4>
+                  <p class="text-sm font-medium tracking-widest text-foreground">Hyejeong Kim</p>
                   <p class="text-[10px] uppercase tracking-wider text-foreground/50">Google Maps</p>
                 </div>
               </div>
@@ -747,7 +747,7 @@
   </section>
 
   <section id="booking" class="py-48 bg-surface text-foreground relative flex items-center justify-center">
-    <div class="absolute inset-0 opacity-10 bg-[url(https://www.transparenttextures.com/patterns/noise-lines.webp)]">
+    <div class="absolute inset-0 opacity-10 bg-[url(uploads/patterns/noise-lines.webp)]">
     </div>
     <div class="container mx-auto px-6 relative z-10 flex justify-center">
       <div class="w-full max-w-2xl mx-auto relative group">
@@ -775,14 +775,14 @@
           <form id="zaloBookingForm" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Tên Của Bạn
+                <label for="book_name" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Tên Của Bạn
                   *</label>
                 <input required id="book_name" type="text"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
                   placeholder="Nguyễn Văn A">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Số Điện Thoại
+                <label for="book_phone" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Số Điện Thoại
                   *</label>
                 <input required id="book_phone" type="tel"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
@@ -792,46 +792,46 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Ngày *</label>
+                <label for="book_date" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Ngày *</label>
                 <input required id="book_date" type="date"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 [color-scheme:dark] rounded-t-sm">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Thời Gian
+                <label for="book_time" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Thời Gian
                   *</label>
                 <select required id="book_time"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 appearance-none rounded-t-sm">
-                  <option value="15:00">15:30</option>
+                  <option value="15:30">15:30</option>
                   <option value="16:00">16:00</option>
-                  <option value="20:00">16:30</option>
+                  <option value="16:30">16:30</option>
                   <option value="17:00">17:00</option>
-                  <option value="19:00">19:30</option>
+                  <option value="19:30">19:30</option>
                   <option value="20:00">20:00</option>
-                  <option value="20:00">20:30</option>
-                  <option value="20:00">21:00</option>
+                  <option value="20:30">20:30</option>
+                  <option value="21:00">21:00</option>
                 </select>
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Số Người
+                <label for="book_guests" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Số Người
                   *</label>
                 <input required id="book_guests" type="number" min="1" value="2"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 rounded-t-sm">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Loại
+                <label for="book_occasion" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Loại
                   Tiệc</label>
                 <select id="book_occasion"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 appearance-none rounded-t-sm">
                   <option value="Không có">Không có</option>
                   <option value="Sinh nhật">Sinh nhật</option>
                   <option value="Kỉ niệm">Kỉ niệm</option>
-                  <option value="Kỉ niệm">Cầu Hôn</option>
+                  <option value="Cầu Hôn">Cầu Hôn</option>
                 </select>
               </div>
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Ghi Chú
+              <label for="book_note" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/50 block">Ghi Chú
                 Thêm</label>
               <textarea id="book_note"
                 class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm resize-none h-20 rounded-t-sm"
@@ -862,21 +862,21 @@
             Tiệm Nướng &amp; Chill Xóm Lèo
           </span>
         </a>
-        <p class="max-w-sm text-foreground/50 text-[13px] leading-relaxed font-light">
+        <p class="max-w-sm text-foreground/60 text-[13px] leading-relaxed font-light">
           Ẩn mình giữa đồi thông xanh ngát — chốn dừng chân của những tâm hồn tìm kiếm sự bình yên giữa cái lạnh Đà Lạt.
         </p>
         <div class="flex items-center justify-center lg:justify-start gap-3">
-          <a href="https://www.tiktok.com/@tiemnuongchillxomleo" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.tiktok.com/@tiemnuongchillxomleo" target="_blank" rel="noopener noreferrer" aria-label="TikTok Xóm Lèo"
             class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-foreground/60 hover:bg-primary hover:text-[#090807] transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg>
           </a>
-          <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer"
+          <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" aria-label="Chat Zalo Xóm Lèo"
             class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-foreground/60 hover:bg-[#0068FF] hover:text-white transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12.49 10.272v-.45h-.886v3.39h.886v-1.86c0-.675.27-1.08.81-1.08h.54v-.9h-.63c-.36 0-.585.18-.72.45zm-3.96.45c-.36 0-.63.27-.63.63s.27.63.63.63.63-.27.63-.63-.27-.63-.63-.63zm0 1.71c-.585 0-1.08-.495-1.08-1.08s.495-1.08 1.08-1.08 1.08.495 1.08 1.08-.495 1.08-1.08 1.08zM12 1.5C6.21 1.5 1.5 5.888 1.5 11.272c0 2.378.892 4.567 2.37 6.276L2.5 21.5l4.164-1.457A11.252 11.252 0 0 0 12 21.045c5.79 0 10.5-4.388 10.5-9.773S17.79 1.5 12 1.5zM6.61 13.212h-.886v-3.39h-.886v-.81h2.658v.81h-.886v3.39zm4.95-4.2h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72zm5.175-2.52h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.49 10.272v-.45h-.886v3.39h.886v-1.86c0-.675.27-1.08.81-1.08h.54v-.9h-.63c-.36 0-.585.18-.72.45zm-3.96.45c-.36 0-.63.27-.63.63s.27.63.63.63.63-.27.63-.63-.27-.63-.63-.63zm0 1.71c-.585 0-1.08-.495-1.08-1.08s.495-1.08 1.08-1.08 1.08.495 1.08 1.08-.495 1.08-1.08 1.08zM12 1.5C6.21 1.5 1.5 5.888 1.5 11.272c0 2.378.892 4.567 2.37 6.276L2.5 21.5l4.164-1.457A11.252 11.252 0 0 0 12 21.045c5.79 0 10.5-4.388 10.5-9.773S17.79 1.5 12 1.5zM6.61 13.212h-.886v-3.39h-.886v-.81h2.658v.81h-.886v3.39zm4.95-4.2h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72zm5.175-2.52h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72z"/></svg>
           </a>
-          <a href="https://www.google.com/maps?cid=11166661116585636255" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.google.com/maps?cid=11166661116585636255" target="_blank" rel="noopener noreferrer" aria-label="Xem bản đồ Google Maps Xóm Lèo"
             class="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-foreground/60 hover:bg-primary hover:text-[#090807] transition-all duration-300">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
           </a>
         </div>
         <a href="/#booking" class="mt-1 inline-flex items-center justify-center bg-primary text-background px-6 py-2.5 rounded-[2px] text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(197,160,89,0.3)] hover:-translate-y-0.5 w-max">
@@ -886,8 +886,8 @@
 
       <!-- Links Column -->
       <div class="lg:col-span-2 lg:col-start-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên kết</h4>
-        <nav class="flex flex-col gap-2.5 text-[13px] text-foreground/40 font-medium">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên kết</h3>
+        <nav class="flex flex-col gap-2.5 text-[13px] text-foreground/60 font-medium">
           <a href="/" class="hover:text-primary transition-colors">Trang chủ</a>
           <a href="about" class="hover:text-primary transition-colors">Trải nghiệm</a>
           <a href="menu" class="hover:text-primary transition-colors">Thực Đơn</a>
@@ -899,8 +899,8 @@
 
       <!-- Contact Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên hệ</h4>
-        <div class="flex flex-col gap-3 text-[13px] text-foreground/50 leading-relaxed font-light">
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên hệ</h3>
+        <div class="flex flex-col gap-3 text-[13px] text-foreground/60 leading-relaxed font-light">
           <a href="tel:0764527336" class="text-foreground/80 font-bold text-base hover:text-primary transition-colors">076 452 7336</a>
           <p>
             <span class="block text-foreground/70 font-medium mb-0.5 uppercase text-[10px] tracking-widest">Thời gian mở cửa</span>
@@ -915,7 +915,7 @@
 
       <!-- Map Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-end gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Bản đồ</h4>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Bản đồ</h3>
         <div class="relative group w-full max-w-[300px] lg:max-w-none">
           <div class="relative h-[160px] lg:h-[180px] w-full rounded-xl overflow-hidden border border-white/10 shadow-lg">
             <div class="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-surface/20 via-transparent to-transparent"></div>
@@ -923,6 +923,7 @@
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d160!2d108.4944158!3d11.9543314!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317113a6b8038e99%3A0x9af7f31f3d40f19f!2zVGnhu4dtIE7GsOG7m25nICYgQ2hpbGwgWMOzbSBMw6hv!5e0!3m2!1sen!2s!4v1775574489541!5m2!1sen!2s"
               width="100%" height="100%" style="border: 0" allowfullscreen loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
+              title="Bản đồ Google Maps - Tiệm Nướng & Chill Xóm Lèo, 113 Huỳnh Tấn Phát, Đà Lạt"
               class="grayscale-[30%] contrast-110 opacity-85 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"></iframe>
           </div>
           <a href="https://www.google.com/maps?cid=11166661116585636255" target="_blank" rel="noopener noreferrer"
@@ -938,7 +939,7 @@
     <!-- Decorative Bottom Bar -->
     <div class="border-t border-white/5 py-4 container mx-auto px-6 relative">
       <div class="flex justify-center items-center">
-        <p class="text-[10px] uppercase tracking-[0.3em] text-foreground/20 font-medium">
+        <p class="text-[10px] uppercase tracking-[0.3em] text-foreground/50 font-medium">
           © 2026 Tiệm Nướng &amp; Chill Xóm Lèo. Đà Lạt, Việt Nam.
         </p>
       </div>
