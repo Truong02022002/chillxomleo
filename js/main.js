@@ -302,53 +302,42 @@ document.addEventListener('DOMContentLoaded', () => {
         message += isEnglish ? ` Note: ${note}` : ` ghi chú: ${note}`;
       }
 
-      try {
-        // Copy to clipboard for phòng hờ
-        await navigator.clipboard.writeText(message);
+      // Tạo popup thông báo cảm ơn sang trọng
+      const toastTitle = isEnglish ? '✨ Booking Received!' : '✨ Đặt bàn thành công!';
+      const toastDesc = isEnglish
+        ? `Thank you <strong class="text-primary">${name}</strong> for your reservation!<br>Our staff will contact you shortly at <strong class="text-primary">${phone}</strong> to confirm your booking.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${guests} guests</span>`
+        : `Cảm ơn <strong class="text-primary">${name}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ sớm liên hệ lại qua số <strong class="text-primary">${phone}</strong> để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${guests} khách</span>`;
 
-        // Tạo popup thông báo sang trọng (Toast notification)
-        const toastTitle = isEnglish ? 'Booking successful!' : 'Đã lên đơn thành công!';
-        const toastDesc = isEnglish
-          ? `The system has saved the message to your device. When Zalo opens, please press <strong class="text-primary tracking-wide uppercase">"PASTE"</strong> to send your booking info to us!`
-          : `Hệ thống đã lưu tin nhắn vào máy bạn. Khi Zalo mở lên, vui lòng bấm <strong class="text-primary tracking-wide uppercase">"Dán" (Paste)</strong> để gửi thông tin cho quán nhé!`;
+      const toast = document.createElement('div');
+      toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(197,160,89,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
+      toast.innerHTML = `
+        <div class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
+        <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
+        <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full bg-primary animate-progress" style="width: 100%; transition: width 5s linear;"></div></div>
+      `;
+      document.body.appendChild(toast);
 
-        const toast = document.createElement('div');
-        toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(197,160,89,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
-        toast.innerHTML = `
-          <div class="w-12 h-12 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
-            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-          </div>
-          <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
-          <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
-          <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full bg-primary animate-progress" style="width: 100%; transition: width 3s linear;"></div></div>
-        `;
-        document.body.appendChild(toast);
+      // Hiệu ứng thanh chạy
+      setTimeout(() => { toast.querySelector('.animate-progress').style.width = '0%'; }, 50);
 
-        // Hiệu ứng thanh chạy
-        setTimeout(() => { toast.querySelector('.animate-progress').style.width = '0%'; }, 50);
+      // Cập nhật lại Text nút submit
+      submitBtn.innerText = isEnglish ? '✓ BOOKING SENT!' : '✓ ĐÃ GỬI ĐẶT BÀN!';
 
-        // Cập nhật lại Text nút submit
-        submitBtn.innerText = isEnglish ? 'BOOKED! OPENING ZALO...' : 'ĐÃ LÊN ĐƠN! ĐANG MỞ ZALO...';
-
-        // Mở Zalo sau 3 giây để khách kịp đọc thông báo
-        setTimeout(() => {
-          document.body.removeChild(toast);
-          window.open(`https://zalo.me/0764527336?text=${encodeURIComponent(message)}`, '_blank');
-          zaloForm.reset();
-          submitBtn.innerText = originalText;
-          submitBtn.disabled = false;
-        }, 3000);
-
-      } catch (err) {
-        console.error('Failed to copy text: ', err);
-        const alertMsg = isEnglish
-          ? `Please manually copy the following message and send it to Zalo:\n\n${message}`
-          : `Vui lòng copy thủ công tin nhắn sau và gửi cho Zalo Xóm Lèo:\n\n${message}`;
-        alert(alertMsg);
-        window.open(`https://zalo.me/0764527336?text=${encodeURIComponent(message)}`, '_blank');
+      // Tự động ẩn popup sau 5 giây
+      setTimeout(() => {
+        if (document.body.contains(toast)) {
+          toast.style.opacity = '0';
+          toast.style.transform = 'translate(-50%, -20px)';
+          toast.style.transition = 'opacity 0.5s, transform 0.5s';
+          setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 500);
+        }
+        zaloForm.reset();
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
-      }
+      }, 5000);
     });
   }
 
