@@ -238,13 +238,19 @@
 
 
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-YWGENK065S');
+  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
+  setTimeout(function() {
+    var script = document.createElement('script');
+    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+    script.async = true;
+    document.head.appendChild(script);
+    gtag('config', 'G-YWGENK065S');
+  }, 3500);
 </script>
 </head>
 
@@ -367,8 +373,8 @@
   <!-- HERO -->
   <section
     class="relative h-screen min-h-[600px] md:min-h-[800px] w-full flex items-center justify-center overflow-hidden bg-background">
-    <div class="absolute inset-0 z-0">
-      <video autoPlay loop muted playsInline aria-hidden="true"
+    <div class="absolute inset-0 z-0 bg-black">
+      <video autoPlay loop muted playsInline preload="metadata" poster="uploads/hero_bg.jpg" aria-hidden="true"
         class="absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
         <source src="uploads/1775619540162-191150330-xomleo-desktop.mp4" type="video/mp4" />
       </video>
@@ -438,9 +444,9 @@
         </div>
         <div
           class="group order-1 lg:order-2 relative h-[350px] sm:h-[400px] md:h-[700px] w-full max-w-md mx-auto lg:ml-auto overflow-hidden rounded-2xl shadow-2xl cursor-pointer">
-          <img src="uploads/1775619688243-610230636-img2.webp"
+          <img src="uploads/1775619688243-610230636-img2.webp" loading="lazy"
             class="absolute inset-0 w-full h-[110%] -top-[5%] object-cover transition-all duration-1000 object-center hover-shine glow-shadow group-hover:scale-105 group-hover:rotate-1"
-            alt="Story">
+            alt="Không gian nướng chill tại Tiệm Nướng Xóm Lèo Đà Lạt với view thung lũng lãng mạn">
         </div>
       </div>
     </div>
