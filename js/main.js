@@ -1,20 +1,65 @@
 // --- Tracking Traffic Source ---
 function captureTrafficSource() {
   const urlParams = new URLSearchParams(window.location.search);
+
+  // 1. UTM Parameters (ưu tiên cao nhất)
   if (urlParams.get('utm_source')) {
+    // Lưu thêm medium & campaign vào session để gửi form
+    if (urlParams.get('utm_medium')) sessionStorage.setItem('xomleo_utm_medium', urlParams.get('utm_medium'));
+    if (urlParams.get('utm_campaign')) sessionStorage.setItem('xomleo_utm_campaign', urlParams.get('utm_campaign'));
     return urlParams.get('utm_source') + (urlParams.get('utm_medium') ? ` / ${urlParams.get('utm_medium')}` : '');
   }
 
+  // 2. Referrer-based detection
   const referrer = document.referrer;
-  if (!referrer) return 'Zalo / Gõ URL trực tiếp';
+  if (!referrer) {
+    // Kiểm tra Zalo in-app browser (User-Agent)
+    const ua = navigator.userAgent.toLowerCase();
+    if (ua.includes('zalo')) return 'Zalo';
+    return 'Trực tiếp (Gõ URL / Bookmark)';
+  }
 
-  const host = new URL(referrer).hostname.toLowerCase();
-  if (host.includes('facebook') || host.includes('fb.')) return 'Facebook';
-  if (host.includes('tiktok.com')) return 'TikTok';
-  if (host.includes('google.')) return 'Google Search';
-  if (host.includes('instagram.com')) return 'Instagram';
+  try {
+    const host = new URL(referrer).hostname.toLowerCase();
+    const path = new URL(referrer).pathname.toLowerCase();
 
-  return 'Web khác: ' + host;
+    // Mạng xã hội
+    if (host.includes('facebook') || host.includes('fb.') || host.includes('fbcdn')) return 'Facebook';
+    if (host.includes('instagram.com')) return 'Instagram';
+    if (host.includes('tiktok.com')) return 'TikTok';
+    if (host.includes('youtube.com') || host.includes('youtu.be')) return 'YouTube';
+    if (host.includes('twitter.com') || host.includes('x.com') || host.includes('t.co')) return 'Twitter / X';
+    if (host.includes('threads.net')) return 'Threads';
+    if (host.includes('pinterest.com') || host.includes('pin.it')) return 'Pinterest';
+    if (host.includes('linkedin.com')) return 'LinkedIn';
+
+    // Công cụ tìm kiếm
+    if (host.includes('google.') && (path.includes('/maps') || host.includes('maps.google'))) return 'Google Maps';
+    if (host.includes('google.')) return 'Google Search';
+    if (host.includes('bing.com')) return 'Bing';
+    if (host.includes('coccoc.com')) return 'Cốc Cốc';
+    if (host.includes('yahoo.com') || host.includes('search.yahoo')) return 'Yahoo';
+    if (host.includes('duckduckgo.com')) return 'DuckDuckGo';
+
+    // Ứng dụng Việt Nam
+    if (host.includes('zalo.me') || host.includes('zaloapp.com') || host.includes('chat.zalo')) return 'Zalo';
+    if (host.includes('shopee.vn')) return 'Shopee';
+    if (host.includes('grab.com')) return 'Grab';
+    if (host.includes('foody.vn') || host.includes('shopeefood')) return 'ShopeeFood / Foody';
+
+    // Travel & Review
+    if (host.includes('tripadvisor.com')) return 'TripAdvisor';
+    if (host.includes('booking.com')) return 'Booking.com';
+    if (host.includes('agoda.com')) return 'Agoda';
+    if (host.includes('traveloka.com')) return 'Traveloka';
+
+    // Nội bộ (từ chính website)
+    if (host.includes('xomleo.vn')) return 'Nội bộ';
+
+    return 'Web khác: ' + host;
+  } catch (e) {
+    return 'Web khác';
+  }
 }
 
 // Lưu nguồn truy cập ngay khi load trang vào session
@@ -293,13 +338,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const occasion = document.getElementById('book_occasion') ? document.getElementById('book_occasion').value : (isEnglish ? 'None' : 'Không có');
       const note = document.getElementById('book_note').value;
       const source = sessionStorage.getItem('xomleo_traffic_source') || 'Không rõ';
+      const medium = sessionStorage.getItem('xomleo_utm_medium') || '';
+      const campaign = sessionStorage.getItem('xomleo_utm_campaign') || '';
 
       // Google Apps Script (handles Sheets + Telegram server-side)
       const scriptURL = 'https://script.google.com/macros/s/AKfycbz1NADZyRLgg7CzZLkV9GpJBZkGnA0QuVJ9Zg2mOM0fxYQSqEAxigyVrRKhrHeOiHV0/exec';
 
       try {
         const formData = new URLSearchParams({
-          name, phone, date, time, guests, occasion, note, source
+          name, phone, date, time, guests, occasion, note, source, medium, campaign
         });
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       } catch (err) {
