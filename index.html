@@ -14,12 +14,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
 
-  <link rel="stylesheet" href="css/tailwind-output.css?v210">
-  <link rel="stylesheet" href="css/style.css?v210">
+  <!-- Critical CSS loaded first -->
+  <link rel="stylesheet" href="css/style.css?v211">
+
+  <!-- Non-critical CSS: defer tailwind -->
+  <link rel="stylesheet" href="css/tailwind-output.css?v211" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/tailwind-output.css?v211"></noscript>
+
+  <!-- Google Fonts: non-render-blocking -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <title>Quán Nướng View Đẹp Đà Lạt - Tiệm Nướng & Chill Xóm Lèo</title>
 
   <meta name="description"
@@ -955,7 +962,7 @@
     </div>
   </footer>
 
-  <script src="js/main.js?v210"></script>
+  <script src="js/main.js?v211" defer></script>
 </body>
 
 </html>

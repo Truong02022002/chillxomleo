@@ -443,18 +443,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!document.querySelector('.floating-contact')) {
     const floatingHTML = `
       <div class="floating-contact">
-                <a href="tel:0764527336" class="floating-btn btn-call" data-tooltip="Gọi ngay">
+                <a href="tel:0764527336" class="floating-btn btn-call" data-tooltip="Gọi ngay" aria-label="Gọi điện 076 452 7336">
           <svg viewBox="0 0 24 24">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
           </svg>
         </a>
-        <a href="https://zalo.me/0764527336" target="_blank" class="floating-btn btn-zalo" data-tooltip="Chat Zalo">
+        <a href="https://zalo.me/0764527336" target="_blank" class="floating-btn btn-zalo" data-tooltip="Chat Zalo" aria-label="Chat Zalo 076 452 7336">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.49 10.272v-.45h-.886v3.39h.886v-1.86c0-.675.27-1.08.81-1.08h.54v-.9h-.63c-.36 0-.585.18-.72.45zm-3.96.45c-.36 0-.63.27-.63.63s.27.63.63.63.63-.27.63-.63-.27-.63-.63-.63zm0 1.71c-.585 0-1.08-.495-1.08-1.08s.495-1.08 1.08-1.08 1.08.495 1.08 1.08-.495 1.08-1.08 1.08zM12 1.5C6.21 1.5 1.5 5.888 1.5 11.272c0 2.378.892 4.567 2.37 6.276L2.5 21.5l4.164-1.457A11.252 11.252 0 0 0 12 21.045c5.79 0 10.5-4.388 10.5-9.773S17.79 1.5 12 1.5zM6.61 13.212h-.886v-3.39h-.886v-.81h2.658v.81h-.886v3.39zm4.95-4.2h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72zm5.175-2.52h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72z"/></svg>
         </a>
       </div>
       
       <!-- Scroll to Top (Positioned dynamically) -->
-      <button id="scrollToTopBtn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      <button id="scrollToTopBtn" aria-label="Cuộn lên đầu trang" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
         class="fixed left-[16px] md:left-[24px] bottom-[24px] md:bottom-[24px] w-[42.5px] h-[42.5px] md:w-14 md:h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50 opacity-0 pointer-events-none translate-y-10">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -466,18 +466,25 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.insertAdjacentHTML('beforeend', floatingHTML);
   }
 
-  // --- Scroll to Top Button Visibility ---
+  // --- Scroll to Top Button Visibility (optimized with rAF to prevent forced reflow) ---
   const scrollToTopBtn = document.getElementById('scrollToTopBtn');
   if (scrollToTopBtn) {
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) {
-        scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
-        scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
-      } else {
-        scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
-        scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+      if (!scrollTicking) {
+        requestAnimationFrame(() => {
+          if (window.scrollY > 300) {
+            scrollToTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-10');
+            scrollToTopBtn.classList.add('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          } else {
+            scrollToTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-10');
+            scrollToTopBtn.classList.remove('opacity-100', 'pointer-events-auto', 'translate-y-0');
+          }
+          scrollTicking = false;
+        });
+        scrollTicking = true;
       }
-    });
+    }, { passive: true });
   }
 
   // --- Đoàn tàu chạy viền form (từng toa riêng + dây xích) ---
