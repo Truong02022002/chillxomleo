@@ -256,7 +256,7 @@ document.addEventListener('DOMContentLoaded', () => {
     zaloForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const isEnglish = window.location.pathname.includes('-en.html') || window.location.pathname.endsWith('/en.html') || localStorage.getItem('xomleo_lang') === 'en';
+      const isEnglish = window.location.pathname.includes('/en/') || window.location.pathname.includes('/en.');
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerText;
       submitBtn.innerText = isEnglish ? 'PROCESSING...' : 'ĐANG XỬ LÝ...';
