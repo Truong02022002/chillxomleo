@@ -12,6 +12,12 @@
   <link rel="manifest" href="/uploads/site.webmanifest" />
   <meta name="theme-color" content="#c0613a" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://script.google.com https://www.google-analytics.com;">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -852,6 +858,12 @@
               <textarea id="book_note"
                 class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm resize-none h-20 rounded-t-sm"
                 placeholder="Ghi chú (Ví dụ: bàn view đẹp, setup sinh nhật)"></textarea>
+            </div>
+
+            <!-- Honeypot anti-spam (hidden from real users) -->
+            <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;height:0;width:0;overflow:hidden;">
+              <label for="book_honeypot">Để trống ô này</label>
+              <input type="text" name="website" id="book_honeypot" tabindex="-1" autocomplete="off" value="">
             </div>
 
             <button type="submit"

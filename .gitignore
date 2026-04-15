@@ -1,3 +1,7 @@
+# Sensitive environment files
+.env
+.env.*
+
 scratch_*.js
 debug*.js
 .DS_Store
