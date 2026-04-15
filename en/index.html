@@ -16,6 +16,7 @@
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://script.google.com https://www.google-analytics.com;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -847,6 +848,10 @@
               class="w-full mt-4 bg-primary text-background py-4 text-xs font-bold uppercase tracking-[0.2em] hover:bg-white hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(197,160,89,0.3)] transition-all duration-300 rounded-sm">
               Confirm Booking
             </button>
+            <p class="text-[10px] text-foreground/40 text-center mt-2 font-light leading-relaxed">
+              🔒 Your information is secure and only used to confirm your booking.
+              <a href="/chinh-sach-bao-mat/" class="underline hover:text-primary transition-colors">Privacy Policy</a>
+            </p>
           </form>
         </div>
       </div>
@@ -899,6 +904,7 @@
           <a href="/about-us-en/" class="hover:text-primary transition-colors">About Us</a>
           <a href="/blog-en/" class="hover:text-primary transition-colors">Blog</a>
           <a href="/#booking" class="hover:text-primary transition-colors">Book Table</a>
+          <a href="/chinh-sach-bao-mat/" class="hover:text-primary transition-colors">Privacy Policy</a>
         </nav>
       </div>
 

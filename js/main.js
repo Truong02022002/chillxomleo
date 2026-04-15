@@ -325,6 +325,47 @@ document.addEventListener('DOMContentLoaded', () => {
     return div.innerHTML;
   }
 
+  // --- Input Validation ---
+  function validateBookingInput(name, phone, guests, note, isEnglish) {
+    const errors = [];
+    // Name: 1-50 chars, no dangerous chars
+    if (!name || name.trim().length === 0) {
+      errors.push(isEnglish ? 'Please enter your name' : 'Vui lòng nhập tên');
+    } else if (name.length > 50) {
+      errors.push(isEnglish ? 'Name must be under 50 characters' : 'Tên không quá 50 ký tự');
+    } else if (/[<>{}\[\]\\]/.test(name)) {
+      errors.push(isEnglish ? 'Name contains invalid characters' : 'Tên chứa ký tự không hợp lệ');
+    }
+    // Phone: Vietnamese format
+    const phoneClean = phone.replace(/[\s\-\.]/g, '');
+    if (!/^(\+84|0)\d{9,10}$/.test(phoneClean)) {
+      errors.push(isEnglish ? 'Please enter a valid phone number (e.g. 0901234567)' : 'Số điện thoại không hợp lệ (VD: 0901234567)');
+    }
+    // Guests: 1-50
+    const guestsNum = parseInt(guests);
+    if (isNaN(guestsNum) || guestsNum < 1 || guestsNum > 50) {
+      errors.push(isEnglish ? 'Number of guests must be 1-50' : 'Số khách phải từ 1-50');
+    }
+    // Note: max 200 chars
+    if (note && note.length > 200) {
+      errors.push(isEnglish ? 'Notes must be under 200 characters' : 'Ghi chú không quá 200 ký tự');
+    }
+    return errors;
+  }
+
+  // --- Rate Limiting (30s cooldown) ---
+  function canSubmitForm() {
+    const lastSubmit = sessionStorage.getItem('xomleo_last_booking');
+    if (lastSubmit) {
+      const elapsed = Date.now() - parseInt(lastSubmit);
+      if (elapsed < 30000) return Math.ceil((30000 - elapsed) / 1000);
+    }
+    return 0;
+  }
+  function markFormSubmitted() {
+    sessionStorage.setItem('xomleo_last_booking', Date.now().toString());
+  }
+
   // --- Zalo Booking Form Submit ---
   const zaloForm = document.getElementById('zaloBookingForm');
   if (zaloForm) {
@@ -339,24 +380,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const isEnglish = window.location.pathname.includes('/en/') || window.location.pathname.includes('/en.');
+
+      // Rate limiting check
+      const cooldown = canSubmitForm();
+      if (cooldown > 0) {
+        alert(isEnglish
+          ? `Please wait ${cooldown} seconds before submitting again.`
+          : `Vui lòng đợi ${cooldown} giây trước khi gửi lại.`);
+        return;
+      }
+
+      const nameVal = document.getElementById('book_name').value;
+      const phoneVal = document.getElementById('book_phone').value;
+      const guestsVal = document.getElementById('book_guests').value;
+      const noteVal = document.getElementById('book_note').value;
+
+      // Input validation
+      const validationErrors = validateBookingInput(nameVal, phoneVal, guestsVal, noteVal, isEnglish);
+      if (validationErrors.length > 0) {
+        alert(validationErrors.join('\n'));
+        return;
+      }
+
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
       const originalText = submitBtn.innerText;
       submitBtn.innerText = isEnglish ? 'PROCESSING...' : 'ĐANG XỬ LÝ...';
       submitBtn.disabled = true;
 
-      const name = document.getElementById('book_name').value;
-      const phone = document.getElementById('book_phone').value;
+      // Mark rate limit
+      markFormSubmitted();
+
+      const name = nameVal;
+      const phone = phoneVal;
       const date = document.getElementById('book_date').value;
       const time = document.getElementById('book_time').value;
-      const guests = document.getElementById('book_guests').value;
+      const guests = guestsVal;
       const occasion = document.getElementById('book_occasion') ? document.getElementById('book_occasion').value : (isEnglish ? 'None' : 'Không có');
-      const note = document.getElementById('book_note').value;
+      const note = noteVal;
       const source = sessionStorage.getItem('xomleo_traffic_source') || 'Không rõ';
       const medium = sessionStorage.getItem('xomleo_utm_medium') || '';
       const campaign = sessionStorage.getItem('xomleo_utm_campaign') || '';
 
-      // Google Apps Script (handles Sheets + Telegram server-side)
-      const scriptURL = 'https://script.google.com/macros/s/AKfycbz1NADZyRLgg7CzZLkV9GpJBZkGnA0QuVJ9Zg2mOM0fxYQSqEAxigyVrRKhrHeOiHV0/exec';
+      // Google Apps Script (obfuscated endpoint)
+      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6MU5BRFp5UkxnZzdDelpMa1Y5R3BKQlprR25BMFF1Vko5WmcybU9NMGZYWVFTcUVBeGlneVZyUktockhFT2lIVjAvZXhlYw==';
+      const scriptURL = atob(_0x);
 
       try {
         const formData = new URLSearchParams({
