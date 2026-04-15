@@ -338,8 +338,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Phone: Vietnamese format
     const phoneClean = phone.replace(/[\s\-\.]/g, '');
-    if (!/^(\+84|0)\d{9,10}$/.test(phoneClean)) {
-      errors.push(isEnglish ? 'Please enter a valid phone number (e.g. 0901234567)' : 'Số điện thoại không hợp lệ (VD: 0901234567)');
+    if (!/^(\+?\d{1,4})?\d{6,15}$/.test(phoneClean)) {
+      errors.push(isEnglish ? 'Please enter a valid phone number (6-15 digits)' : 'Số điện thoại không hợp lệ (6-15 chữ số)');
     }
     // Guests: 1-50
     const guestsNum = parseInt(guests);
