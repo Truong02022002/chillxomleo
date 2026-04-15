@@ -422,7 +422,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const campaign = sessionStorage.getItem('xomleo_utm_campaign') || '';
 
       // Google Apps Script (obfuscated endpoint)
-      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6MU5BRFp5UkxnZzdDelpMa1Y5R3BKQlprR25BMFF1Vko5WmcybU9NMGZYWVFTcUVBeGlneVZyUktockhFT2lIVjAvZXhlYw==';
+      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6Q1VaY1BjREhrOXV2ZU5jRGdZSk9vNzc4cDBpUVBvUzh3d1lpZ2F6OUwyVElaTWlkMzZVMzM1NDJoWDZBRFRKVEgvZXhlYw==';
       const scriptURL = atob(_0x);
 
       try {
