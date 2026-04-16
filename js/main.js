@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Normalize both paths for comparison
       const normHref = href.endsWith('/') ? href.slice(0, -1) : href;
       const normPath = currentPath.endsWith('/') ? currentPath.slice(0, -1) : currentPath;
-      
+
       if (normHref === normPath) return true;
       if (normHref === '' && (normPath === '/' || normPath === '/index.html' || normPath === '/en' || normPath === '/en/index.html')) return true;
       if (normHref === '/en' && (normPath === '/en/' || normPath === '/en/index.html')) return true;
@@ -134,16 +134,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Language Switcher UI Toggle ---
   const langSwitchers = document.querySelectorAll('.lang-switcher');
-  
+
   let currentPathForInit = window.location.pathname;
   if (currentPathForInit.endsWith('/index.html')) currentPathForInit = currentPathForInit.replace('/index.html', '');
   if (currentPathForInit.endsWith('/')) currentPathForInit = currentPathForInit.slice(0, -1);
   const pathSegment = currentPathForInit.split('/').pop() || '';
-  
+
   const isEnPageInitial = pathSegment === 'en' || pathSegment.endsWith('-en') || currentPathForInit.endsWith('-en.html') || currentPathForInit.endsWith('en.html');
-  
+
   let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
-  
+
   // Override if URL explicitly indicates language
   if (isEnPageInitial) currentLang = 'en';
   else if (!isEnPageInitial && currentPathForInit !== '') currentLang = 'vn';
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const btnVN = switcher.querySelector('.data-lang-vn');
       const btnEN = switcher.querySelector('.data-lang-en');
       if (!btnVN || !btnEN) return;
-      
+
       if (lang === 'en') {
         btnEN.classList.add('text-primary', 'pointer-events-none');
         btnEN.classList.remove('hover:text-primary');
@@ -172,14 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
     currentLang = lang;
     localStorage.setItem('xomleo_lang', lang);
     updateLangUI(lang);
-    
+
     let path = window.location.pathname;
-    try { path = decodeURIComponent(path); } catch(e) {}
-    
+    try { path = decodeURIComponent(path); } catch (e) { }
+
     // Normalize path: lowercase, remove index.html, remove trailing slash
     path = path.toLowerCase().replace(/\/index\.html$/, '').replace(/\/$/, '');
     if (!path) path = '/';
-    
+
     const pageMap = {
       'vn_to_en': {
         '/': '/en/',
@@ -196,9 +196,9 @@ document.addEventListener('DOMContentLoaded', () => {
         '/blog-en': '/blog/'
       }
     };
-    
+
     let newPath = '';
-    
+
     if (lang === 'en') {
       if (pageMap.vn_to_en[path]) {
         newPath = pageMap.vn_to_en[path];
@@ -214,13 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
         newPath = path.replace('/en', '') + '/';
       }
     }
-    
+
     // Final cleanup of newPath
     if (newPath) {
       if (!newPath.startsWith('/')) newPath = '/' + newPath;
       // Ensure specific mapped paths keep their trailing slash if intended, 
       // but blog posts already get it from the logic above.
-      
+
       if (newPath !== window.location.pathname) {
         window.location.href = newPath;
       }
@@ -422,12 +422,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const campaign = sessionStorage.getItem('xomleo_utm_campaign') || '';
 
       // Google Apps Script (obfuscated endpoint)
-      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6Q1VaY1BjREhrOXV2ZU5jRGdZSk9vNzc4cDBpUVBvUzh3d1lpZ2F6OUwyVElaTWlkMzZVMzM1NDJoWDZBRFRKVEgvZXhlYw==';
+      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dmNCVk1VVTU1RWlsTHEtV2VLZ3d1b0RfcF8yQTIzWC1CY3R5eklRdzI4NEhuT3ZLRHZ0b3hIcjc5dzBtc0psenRQdy9leGVj';
       const scriptURL = atob(_0x);
 
       try {
         const formData = new URLSearchParams({
-          name, phone, date, time, guests, occasion, note, source, medium, campaign
+          name, phone, date, time, guests, occasion, note, source, medium, campaign, brand: 'xomleo'
         });
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       } catch (err) {
@@ -445,7 +445,7 @@ document.addEventListener('DOMContentLoaded', () => {
       let message = isEnglish
         ? `Hello Tiệm Nướng & Chill Xóm Lèo, I am ${name} (${phone}).\nI want to book a table on ${formattedDate} for ${guests} people at ${time}.`
         : `Chào Tiệm Nướng & Chill Xóm Lèo, mình là ${name} (${phone}).\nMình muốn đặt bàn ngày ${formattedDate} cho ${guests} người lúc ${time}.`;
-      
+
       if (occasion && occasion !== 'Không có' && occasion !== 'None') {
         message += isEnglish ? ` Occasion: ${occasion}.` : ` tiệc ${occasion.toLowerCase()}.`;
       }
@@ -606,28 +606,28 @@ document.addEventListener('DOMContentLoaded', () => {
         if (d <= sW) return { x: r + d, y: -OFFSET, a: 0 };
         d -= sW;
         if (d <= arcLen) {
-          const t = -Math.PI/2 + (d/arcLen) * (Math.PI/2);
-          return { x: (w-r) + (r+OFFSET)*Math.cos(t), y: r + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+          const t = -Math.PI / 2 + (d / arcLen) * (Math.PI / 2);
+          return { x: (w - r) + (r + OFFSET) * Math.cos(t), y: r + (r + OFFSET) * Math.sin(t), a: (t + Math.PI / 2) * 180 / Math.PI };
         }
         d -= arcLen;
         if (d <= sH) return { x: w + OFFSET, y: r + d, a: 90 };
         d -= sH;
         if (d <= arcLen) {
-          const t = (d/arcLen) * (Math.PI/2);
-          return { x: (w-r) + (r+OFFSET)*Math.cos(t), y: (h-r) + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+          const t = (d / arcLen) * (Math.PI / 2);
+          return { x: (w - r) + (r + OFFSET) * Math.cos(t), y: (h - r) + (r + OFFSET) * Math.sin(t), a: (t + Math.PI / 2) * 180 / Math.PI };
         }
         d -= arcLen;
-        if (d <= sW) return { x: (w-r) - d, y: h + OFFSET, a: 180 };
+        if (d <= sW) return { x: (w - r) - d, y: h + OFFSET, a: 180 };
         d -= sW;
         if (d <= arcLen) {
-          const t = Math.PI/2 + (d/arcLen) * (Math.PI/2);
-          return { x: r + (r+OFFSET)*Math.cos(t), y: (h-r) + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+          const t = Math.PI / 2 + (d / arcLen) * (Math.PI / 2);
+          return { x: r + (r + OFFSET) * Math.cos(t), y: (h - r) + (r + OFFSET) * Math.sin(t), a: (t + Math.PI / 2) * 180 / Math.PI };
         }
         d -= arcLen;
-        if (d <= sH) return { x: -OFFSET, y: (h-r) - d, a: 270 };
+        if (d <= sH) return { x: -OFFSET, y: (h - r) - d, a: 270 };
         d -= sH;
-        const t = Math.PI + (d/arcLen) * (Math.PI/2);
-        return { x: r + (r+OFFSET)*Math.cos(t), y: r + (r+OFFSET)*Math.sin(t), a: (t+Math.PI/2)*180/Math.PI };
+        const t = Math.PI + (d / arcLen) * (Math.PI / 2);
+        return { x: r + (r + OFFSET) * Math.cos(t), y: r + (r + OFFSET) * Math.sin(t), a: (t + Math.PI / 2) * 180 / Math.PI };
       }
 
       function tick(ts) {
@@ -647,8 +647,8 @@ document.addEventListener('DOMContentLoaded', () => {
           const pos = perimeterToPos(headDist - i * CAR_SPACING, w, h, r);
           const cw = car === loco ? 44 : 38;
           const ch = car === loco ? 28 : 24;
-          car.style.left = (pos.x - cw/2) + 'px';
-          car.style.top = (pos.y - ch/2) + 'px';
+          car.style.left = (pos.x - cw / 2) + 'px';
+          car.style.top = (pos.y - ch / 2) + 'px';
           car.style.transform = 'rotate(' + pos.a + 'deg)';
           carPositions.push(pos);
         });
