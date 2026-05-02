@@ -1,60 +1,93 @@
 // --- Tracking Traffic Source ---
 function captureTrafficSource() {
   const urlParams = new URLSearchParams(window.location.search);
+  const ua = navigator.userAgent || '';
 
-  // 1. UTM Parameters (ưu tiên cao nhất)
+  // 1. UTM Parameters (highest priority — campaign tag chủ động)
   if (urlParams.get('utm_source')) {
-    // Lưu thêm medium & campaign vào session để gửi form
-    if (urlParams.get('utm_medium')) sessionStorage.setItem('xomleo_utm_medium', urlParams.get('utm_medium'));
+    if (urlParams.get('utm_medium'))   sessionStorage.setItem('xomleo_utm_medium',   urlParams.get('utm_medium'));
     if (urlParams.get('utm_campaign')) sessionStorage.setItem('xomleo_utm_campaign', urlParams.get('utm_campaign'));
+    if (urlParams.get('utm_term'))     sessionStorage.setItem('xomleo_utm_term',     urlParams.get('utm_term'));
+    if (urlParams.get('utm_content'))  sessionStorage.setItem('xomleo_utm_content',  urlParams.get('utm_content'));
     return urlParams.get('utm_source') + (urlParams.get('utm_medium') ? ` / ${urlParams.get('utm_medium')}` : '');
   }
 
-  // 2. Referrer-based detection
-  const referrer = document.referrer;
-  if (!referrer) {
-    // Kiểm tra Zalo in-app browser (User-Agent)
-    const ua = navigator.userAgent.toLowerCase();
-    if (ua.includes('zalo')) return 'Zalo';
-    return 'Trực tiếp (Gõ URL / Bookmark)';
+  // 2. Click-ID parameters (link qua tracker/redirect thường mất referrer nhưng giữ click-id)
+  if (urlParams.get('ttclid'))  return 'TikTok Ads';
+  if (urlParams.get('fbclid'))  return 'Facebook Ads';
+  if (urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid')) return 'Google Ads';
+  if (urlParams.get('msclkid')) return 'Bing Ads';
+  if (urlParams.get('zarsrc') || urlParams.get('zalo_source')) return 'Zalo';
+
+  // 3. In-app browser detection (UA-based — referrer thường rỗng nên phải bắt trước)
+  if (/musical_ly|trill|bytedance|ttwebview|aweme|tiktok/i.test(ua)) return 'TikTok (in-app)';
+  if (/fban|fbav|fb_iab|fb4a|fbios/i.test(ua)) {
+    return /messenger/i.test(ua) ? 'Messenger (in-app)' : 'Facebook (in-app)';
   }
+  if (/instagram/i.test(ua))                return 'Instagram (in-app)';
+  if (/barcelona/i.test(ua))                return 'Threads (in-app)';
+  if (/zalo/i.test(ua))                     return 'Zalo (in-app)';
+  if (/twitterandroid|twitter for/i.test(ua)) return 'Twitter / X (in-app)';
+  if (/linkedinapp/i.test(ua))              return 'LinkedIn (in-app)';
+  if (/pinterest/i.test(ua))                return 'Pinterest (in-app)';
+  if (/snapchat/i.test(ua))                 return 'Snapchat (in-app)';
+  if (/line\//i.test(ua))                   return 'LINE (in-app)';
+
+  // 4. Referrer-based detection
+  const referrer = document.referrer;
+  if (!referrer) return 'Trực tiếp (Gõ URL / Bookmark)';
 
   try {
-    const host = new URL(referrer).hostname.toLowerCase();
-    const path = new URL(referrer).pathname.toLowerCase();
+    const refUrl = new URL(referrer);
+    const host = refUrl.hostname.toLowerCase();
+    const path = refUrl.pathname.toLowerCase();
 
-    // Mạng xã hội
-    if (host.includes('facebook') || host.includes('fb.') || host.includes('fbcdn')) return 'Facebook';
-    if (host.includes('instagram.com')) return 'Instagram';
-    if (host.includes('tiktok.com')) return 'TikTok';
-    if (host.includes('youtube.com') || host.includes('youtu.be')) return 'YouTube';
-    if (host.includes('twitter.com') || host.includes('x.com') || host.includes('t.co')) return 'Twitter / X';
-    if (host.includes('threads.net')) return 'Threads';
-    if (host.includes('pinterest.com') || host.includes('pin.it')) return 'Pinterest';
-    if (host.includes('linkedin.com')) return 'LinkedIn';
+    // Internal trước (rút ngắn flow)
+    if (host.includes('xomleo.vn')) return 'Nội bộ';
 
-    // Công cụ tìm kiếm
-    if (host.includes('google.') && (path.includes('/maps') || host.includes('maps.google'))) return 'Google Maps';
-    if (host.includes('google.')) return 'Google Search';
-    if (host.includes('bing.com')) return 'Bing';
-    if (host.includes('coccoc.com')) return 'Cốc Cốc';
-    if (host.includes('yahoo.com') || host.includes('search.yahoo')) return 'Yahoo';
+    // Subdomain Google specific (PHẢI check trước host.includes('google.'))
+    if (host === 'mail.google.com')  return 'Gmail';
+    if (host === 'meet.google.com')  return 'Google Meet';
+    if (host === 'chat.google.com')  return 'Google Chat';
+    if (host === 'lens.google.com')  return 'Google Lens';
+    if (host === 'play.google.com')  return 'Google Play';
+    if (host.startsWith('news.google.')) return 'Google News';
+    if (host.startsWith('maps.google.') || (host.includes('google.') && path.startsWith('/maps'))) return 'Google Maps';
+
+    // Mạng xã hội (kể cả subdomain redirect: l.facebook.com, lm.facebook.com, m.facebook.com, l.instagram.com)
+    if (host.endsWith('facebook.com') || host === 'fb.com' || host === 'fb.me' || host.endsWith('.fb.com')) return 'Facebook';
+    if (host.endsWith('messenger.com')) return 'Messenger';
+    if (host.endsWith('instagram.com') || host === 'l.instagram.com') return 'Instagram';
+    if (host.endsWith('tiktok.com') || host === 'vt.tiktok.com' || host === 'vm.tiktok.com') return 'TikTok';
+    if (host.endsWith('youtube.com') || host === 'youtu.be' || host === 'm.youtube.com') return 'YouTube';
+    if (host === 't.co' || host.endsWith('twitter.com') || host.endsWith('x.com')) return 'Twitter / X';
+    if (host.endsWith('threads.net')) return 'Threads';
+    if (host.endsWith('pinterest.com') || host === 'pin.it') return 'Pinterest';
+    if (host.endsWith('linkedin.com') || host === 'lnkd.in') return 'LinkedIn';
+    if (host.endsWith('reddit.com')) return 'Reddit';
+    if (host.endsWith('snapchat.com')) return 'Snapchat';
+    if (host === 't.me' || host.endsWith('telegram.org') || host.endsWith('telegram.me')) return 'Telegram';
+    if (host.endsWith('discord.com') || host.endsWith('discord.gg')) return 'Discord';
+
+    // Search engines (sau khi đã loại trừ subdomain Google specific ở trên)
+    if (host.includes('google.'))      return 'Google Search';
+    if (host.includes('bing.com'))     return 'Bing';
+    if (host.includes('coccoc.com'))   return 'Cốc Cốc';
+    if (host.includes('yahoo.'))       return 'Yahoo';
     if (host.includes('duckduckgo.com')) return 'DuckDuckGo';
+    if (host.includes('yandex.'))      return 'Yandex';
 
-    // Ứng dụng Việt Nam
+    // Apps Vietnam
     if (host.includes('zalo.me') || host.includes('zaloapp.com') || host.includes('chat.zalo')) return 'Zalo';
-    if (host.includes('shopee.vn')) return 'Shopee';
-    if (host.includes('grab.com')) return 'Grab';
+    if (host.includes('shopee.vn'))    return 'Shopee';
+    if (host.includes('grab.com'))     return 'Grab';
     if (host.includes('foody.vn') || host.includes('shopeefood')) return 'ShopeeFood / Foody';
 
     // Travel & Review
-    if (host.includes('tripadvisor.com')) return 'TripAdvisor';
-    if (host.includes('booking.com')) return 'Booking.com';
-    if (host.includes('agoda.com')) return 'Agoda';
+    if (host.includes('tripadvisor.')) return 'TripAdvisor';
+    if (host.includes('booking.com'))  return 'Booking.com';
+    if (host.includes('agoda.com'))    return 'Agoda';
     if (host.includes('traveloka.com')) return 'Traveloka';
-
-    // Nội bộ (từ chính website)
-    if (host.includes('xomleo.vn')) return 'Nội bộ';
 
     return 'Web khác: ' + host;
   } catch (e) {
@@ -62,10 +95,22 @@ function captureTrafficSource() {
   }
 }
 
-// Lưu nguồn truy cập ngay khi load trang vào session
-if (!sessionStorage.getItem('xomleo_traffic_source')) {
-  sessionStorage.setItem('xomleo_traffic_source', captureTrafficSource());
-}
+// Persist source: nếu URL hiện tại có UTM/click-id thì LUÔN ghi đè (campaign mới override),
+// không có thì chỉ ghi nếu chưa có (giữ first-touch trong session).
+(function persistTrafficSource() {
+  try {
+    const p = new URLSearchParams(window.location.search);
+    const hasUtm     = !!p.get('utm_source');
+    const hasClickId = !!(p.get('ttclid') || p.get('fbclid') || p.get('gclid') ||
+                          p.get('gbraid') || p.get('wbraid') || p.get('msclkid'));
+    const stored = sessionStorage.getItem('xomleo_traffic_source');
+    if (!stored || hasUtm || hasClickId) {
+      sessionStorage.setItem('xomleo_traffic_source', captureTrafficSource());
+      sessionStorage.setItem('xomleo_landing_page', window.location.pathname + window.location.search);
+      sessionStorage.setItem('xomleo_landing_referrer', document.referrer || '');
+    }
+  } catch (e) { /* sessionStorage có thể bị tắt — bỏ qua */ }
+})();
 
 document.addEventListener('DOMContentLoaded', () => {
   // --- Mobile Menu Toggle ---
@@ -326,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Input Validation ---
-  function validateBookingInput(name, phone, guests, note, isEnglish) {
+  function validateBookingInput(name, phone, guests, note, date, time, isEnglish) {
     const errors = [];
     // Name: 1-50 chars, no dangerous chars
     if (!name || name.trim().length === 0) {
@@ -350,6 +395,27 @@ document.addEventListener('DOMContentLoaded', () => {
     if (note && note.length > 200) {
       errors.push(isEnglish ? 'Notes must be under 200 characters' : 'Ghi chú không quá 200 ký tự');
     }
+    // Date + Time: không cho đặt quá khứ. Nếu hôm nay, time phải >= now + 30min (đủ để NV nhắn Zalo xác nhận trước khi khách tới).
+    if (date) {
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const [yy, mm, dd] = date.split('-').map(Number);
+      const picked = new Date(yy, (mm || 1) - 1, dd || 1);
+      if (isNaN(picked.getTime())) {
+        errors.push(isEnglish ? 'Invalid date' : 'Ngày không hợp lệ');
+      } else if (picked < today) {
+        errors.push(isEnglish ? 'Booking date cannot be in the past' : 'Không thể đặt bàn cho ngày trong quá khứ');
+      } else if (picked.getTime() === today.getTime() && time) {
+        const [hh, mi] = time.split(':').map(Number);
+        const pickedDateTime = new Date(yy, mm - 1, dd, hh || 0, mi || 0);
+        const minLeadTime = new Date(now.getTime() + 30 * 60 * 1000); // +30 phút
+        if (pickedDateTime < minLeadTime) {
+          errors.push(isEnglish
+            ? 'Please book at least 30 minutes in advance so our staff can confirm via Zalo'
+            : 'Vui lòng đặt trước ít nhất 30 phút để nhân viên kịp xác nhận qua Zalo');
+        }
+      }
+    }
     return errors;
   }
 
@@ -369,6 +435,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Zalo Booking Form Submit ---
   const zaloForm = document.getElementById('zaloBookingForm');
   if (zaloForm) {
+    // Chặn chọn ngày quá khứ ở native date picker
+    const dateInput = document.getElementById('book_date');
+    if (dateInput) {
+      const todayISO = new Date().toISOString().split('T')[0];
+      dateInput.min = todayISO;
+      if (!dateInput.value) dateInput.value = todayISO; // default là hôm nay
+    }
+
     zaloForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -394,9 +468,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const phoneVal = document.getElementById('book_phone').value;
       const guestsVal = document.getElementById('book_guests').value;
       const noteVal = document.getElementById('book_note').value;
+      const dateVal = document.getElementById('book_date').value;
+      const timeVal = document.getElementById('book_time').value;
 
       // Input validation
-      const validationErrors = validateBookingInput(nameVal, phoneVal, guestsVal, noteVal, isEnglish);
+      const validationErrors = validateBookingInput(nameVal, phoneVal, guestsVal, noteVal, dateVal, timeVal, isEnglish);
       if (validationErrors.length > 0) {
         alert(validationErrors.join('\n'));
         return;
@@ -420,6 +496,8 @@ document.addEventListener('DOMContentLoaded', () => {
       const source = sessionStorage.getItem('xomleo_traffic_source') || 'Không rõ';
       const medium = sessionStorage.getItem('xomleo_utm_medium') || '';
       const campaign = sessionStorage.getItem('xomleo_utm_campaign') || '';
+      const term = sessionStorage.getItem('xomleo_utm_term') || '';
+      const content = sessionStorage.getItem('xomleo_utm_content') || '';
 
       // Google Apps Script (obfuscated endpoint)
       const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dmNCVk1VVTU1RWlsTHEtV2VLZ3d1b0RfcF8yQTIzWC1CY3R5eklRdzI4NEhuT3ZLRHZ0b3hIcjc5dzBtc0psenRQdy9leGVj';
@@ -427,7 +505,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       try {
         const formData = new URLSearchParams({
-          name, phone, date, time, guests, occasion, note, source, medium, campaign, brand: 'xomleo'
+          name, phone, date, time, guests, occasion, note,
+          source, medium, campaign, term, content,
+          landing_page:     sessionStorage.getItem('xomleo_landing_page')     || window.location.pathname,
+          landing_referrer: sessionStorage.getItem('xomleo_landing_referrer') || document.referrer || '',
+          submit_page:      window.location.pathname,
+          brand: 'xomleo'
         });
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
       } catch (err) {
