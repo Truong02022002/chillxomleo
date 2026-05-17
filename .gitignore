@@ -29,3 +29,7 @@ seo_autofix*.ps1
 rewrite_kw.ps1
 fix_*.ps1
 rename_*.ps1
+
+# Off-page outreach templates (local-only, never publish)
+OUTREACH-TEMPLATES.md
+outreach-*.md

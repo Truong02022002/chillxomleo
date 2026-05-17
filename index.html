@@ -314,6 +314,13 @@
 
 <!-- Google tag (gtag.js) -->
 <script>
+  // Register Service Worker (cache static assets 1 year, bypass GitHub Pages 10-min TTL)
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('/sw.js').catch(function(){});
+    });
+  }
+
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
