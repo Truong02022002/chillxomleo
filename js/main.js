@@ -330,7 +330,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }, 900);
     };
 
-    const minShowTime = 3200; // minimum display time in ms (increased for cinematic effect)
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const minShowTime = isMobile ? 400 : 1200;
+    const failsafe = isMobile ? 1200 : 2500;
     const startTime = Date.now();
 
     const tryHide = () => {
@@ -343,8 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
       tryHide();
     } else {
       window.addEventListener('load', tryHide, { once: true });
-      // Failsafe: always hide after 3.5s
-      setTimeout(hidePreloader, 3500);
+      setTimeout(hidePreloader, failsafe);
     }
   }
 
