@@ -22,12 +22,15 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
+  <!-- LCP preload — hero poster image -->
+  <link rel="preload" as="image" href="/uploads/1775619688243-610230636-img2.webp" fetchpriority="high" media="(max-width: 768px)">
+
   <!-- Critical CSS loaded first -->
-  <link rel="stylesheet" href="css/style.css?v212">
+  <link rel="stylesheet" href="css/style.css?v213">
 
   <!-- Non-critical CSS: defer tailwind -->
-  <link rel="stylesheet" href="css/tailwind-output.css?v212" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/tailwind-output.css?v212"></noscript>
+  <link rel="stylesheet" href="css/tailwind-output.css?v213" media="print" onload="this.media='all'">
+  <noscript><link rel="stylesheet" href="css/tailwind-output.css?v213"></noscript>
 
   <!-- Google Fonts: non-render-blocking -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap">
@@ -388,9 +391,10 @@
   <section
     class="relative h-screen min-h-[600px] md:min-h-[800px] w-full flex items-center justify-center overflow-hidden bg-background">
     <div class="absolute inset-0 z-0 bg-black">
+      <img src="uploads/1775619688243-610230636-img2.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async"
+        class="md:hidden absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
       <video autoPlay loop muted playsInline preload="metadata" poster="uploads/1775619688243-610230636-img2.webp" aria-hidden="true"
-        class="absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
-        <source src="uploads/tiktok-1.mp4" type="video/mp4" media="(max-width: 768px)" />
+        class="hidden md:block absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
         <source src="uploads/1775619540162-191150330-xomleo-desktop.mp4" type="video/mp4" />
       </video>
       <div class="absolute inset-0 bg-gradient-to-b from-background/80 via-transparent to-background/95"></div>
@@ -1032,7 +1036,7 @@
     </div>
   </footer>
 
-  <script src="js/main.min.js?v212" defer></script>
+  <script src="js/main.min.js?v213" defer></script>
 </body>
 
 </html>
