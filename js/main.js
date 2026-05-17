@@ -284,15 +284,22 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Glassmorphism Navbar on Scroll ---
   const navbar = document.getElementById('navbar');
   if (navbar) {
+    let navTicking = false;
+    let lastScrolled = null;
     const onScroll = () => {
-      if (window.scrollY > 60) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      if (navTicking) return;
+      navTicking = true;
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 60;
+        if (scrolled !== lastScrolled) {
+          navbar.classList.toggle('scrolled', scrolled);
+          lastScrolled = scrolled;
+        }
+        navTicking = false;
+      });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll(); // run once on load to set initial state
+    onScroll();
   }
 
   // --- Cinematic Pre-loader ---
@@ -750,9 +757,19 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
+        if (trainVisible) requestAnimationFrame(tick);
+      }
+      let trainVisible = false;
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver((entries) => {
+          const wasVisible = trainVisible;
+          trainVisible = entries[0].isIntersecting;
+          if (trainVisible && !wasVisible) requestAnimationFrame(tick);
+        }, { threshold: 0.1 }).observe(trainTrack);
+      } else {
+        trainVisible = true;
         requestAnimationFrame(tick);
       }
-      requestAnimationFrame(tick);
     }
   }
 });
