@@ -25,12 +25,31 @@
   <!-- LCP preload — hero poster image -->
   <link rel="preload" as="image" href="/uploads/1775619688243-610230636-img2.webp" fetchpriority="high" media="(max-width: 768px)">
 
-  <!-- Critical CSS loaded first -->
-  <link rel="stylesheet" href="css/style.css?v213">
+  <!-- Critical CSS inlined to avoid render-blocking + FOUC during preloader -->
+  <style>
+    :root{--font-signika:'Signika',ui-sans-serif,system-ui,sans-serif;--background:#F5E9DA;--foreground:#3B2314;--primary:#D35400;--secondary:#EAD8C0;--surface:#EAD8C0;--font-script:'Dancing Script',cursive}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{background-color:var(--background);color:var(--foreground);font-family:var(--font-signika);margin:0;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    .bg-background{background-color:var(--background)}
+    .text-foreground{color:var(--foreground)}
+    .bg-primary{background-color:var(--primary)}
+    .text-primary{color:var(--primary)}
+    .font-script{font-family:var(--font-script)}
+    .container{width:100%;max-width:1200px;margin:0 auto;padding:0 1rem}
+    #preloader{position:fixed;inset:0;z-index:99999;background:var(--background);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s cubic-bezier(.4,0,.2,1),visibility .8s}
+    #preloader.hide{opacity:0;visibility:hidden;pointer-events:none}
+    #navbar{position:fixed;top:0;left:0;right:0;z-index:50;transition:all .5s}
+    section{position:relative}
+    h1{margin:0;font-weight:700;line-height:1.1}
+    img,video{max-width:100%;height:auto;display:block}
+  </style>
 
-  <!-- Non-critical CSS: defer tailwind -->
-  <link rel="stylesheet" href="css/tailwind-output.css?v213" media="print" onload="this.media='all'">
-  <noscript><link rel="stylesheet" href="css/tailwind-output.css?v213"></noscript>
+  <!-- Non-critical CSS: async-load both stylesheets -->
+  <link rel="preload" as="style" href="css/style.css?v214" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/style.css?v214"></noscript>
+  <link rel="preload" as="style" href="css/tailwind-output.css?v214" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="css/tailwind-output.css?v214"></noscript>
 
   <!-- Google Fonts: non-render-blocking -->
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap">
