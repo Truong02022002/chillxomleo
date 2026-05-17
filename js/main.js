@@ -307,7 +307,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const brandMain = document.querySelector('.preloader-brand-main');
   const brandContainer = document.querySelector('.preloader-brand');
 
-  if (preloader) {
+  // Mobile: remove preloader DOM entirely (CSS already hidden via media query, this cleans up the work)
+  if (preloader && window.matchMedia('(max-width: 768px)').matches) {
+    if (preloader.parentNode) preloader.parentNode.removeChild(preloader);
+  } else if (preloader) {
     // Split brand text into characters for cinematic reveal
     if (brandMain) {
       const text = brandMain.textContent.trim();
