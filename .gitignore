@@ -13,3 +13,19 @@ package-lock.json
 
 # Dev scripts & temp files
 _dev-scripts/
+
+# Claude Code project config — do NOT publish to GitHub Pages
+.claude/
+.claude.json
+
+# Local audit / scratch outputs (must not leak to public)
+seo_audit_stdout.txt
+audit_result.txt
+search_results.txt
+temp_comp.txt
+*.bak_*
+*_backup_*/
+seo_autofix*.ps1
+rewrite_kw.ps1
+fix_*.ps1
+rename_*.ps1
