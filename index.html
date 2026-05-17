@@ -25,6 +25,9 @@
   <!-- LCP preload — hero poster image -->
   <link rel="preload" as="image" href="/uploads/1775619688243-610230636-img2.webp" fetchpriority="high" media="(max-width: 768px)">
 
+  <!-- Mobile: skip preloader entirely for faster FCP/LCP (desktop keeps cinematic) -->
+  <style>@media (max-width:768px){#preloader{display:none!important}}</style>
+
   <!-- Critical CSS loaded first (blocking — required to avoid CLS) -->
   <link rel="stylesheet" href="css/style.css?v215">
 
@@ -1158,7 +1161,7 @@
     </div>
   </footer>
 
-  <script src="js/main.min.js?v216" defer></script>
+  <script src="js/main.min.js?v217" defer></script>
 </body>
 
 </html>
