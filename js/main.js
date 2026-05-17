@@ -332,8 +332,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const minShowTime = isMobile ? 400 : 1200;
-    const failsafe = isMobile ? 1200 : 2500;
     const startTime = Date.now();
+
+    // Wait for Tailwind CSS specifically before hiding preloader
+    // (Tailwind is async-loaded, hiding too early causes CLS layout shift)
+    const isTailwindReady = () => {
+      for (const sheet of document.styleSheets) {
+        if (sheet.href && sheet.href.includes('tailwind-output')) {
+          try { if (sheet.cssRules && sheet.cssRules.length > 0) return true; }
+          catch (e) { return true; /* cross-origin assumes loaded */ }
+        }
+      }
+      return false;
+    };
 
     const tryHide = () => {
       const elapsed = Date.now() - startTime;
@@ -341,11 +352,22 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(hidePreloader, remaining);
     };
 
-    if (document.readyState === 'complete') {
+    const pollUntilReady = () => {
+      if (isTailwindReady() || Date.now() - startTime > 5000) {
+        tryHide();
+      } else {
+        setTimeout(pollUntilReady, 100);
+      }
+    };
+
+    if (document.readyState === 'complete' && isTailwindReady()) {
       tryHide();
     } else {
-      window.addEventListener('load', tryHide, { once: true });
-      setTimeout(hidePreloader, failsafe);
+      window.addEventListener('load', pollUntilReady, { once: true });
+      // Hard failsafe at 5s — absolute last resort
+      setTimeout(() => {
+        if (preloader && !preloader.classList.contains('hide')) hidePreloader();
+      }, 5000);
     }
   }
 
