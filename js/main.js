@@ -575,7 +575,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const safePhone = escapeHTML(phone);
       const safeGuests = escapeHTML(guests);
 
-      const toastTitle = isEnglish ? '✨ Booking Received!' : '✨ Đặt bàn thành công!';
+      const toastTitle = isEnglish ? '✨ Booking Received!' : '✨ Đã gửi thông tin đặt bàn';
       const toastDesc = isEnglish
         ? `Thank you <strong class="text-primary">${safeName}</strong> for your reservation!<br>Our staff will contact you shortly at <strong class="text-primary">${safePhone}</strong> to confirm your booking.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} guests</span>`
         : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ sớm liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
