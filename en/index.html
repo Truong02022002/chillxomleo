@@ -48,8 +48,27 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://xomleo.vn/#organization",
+  "name": "Tiệm Nướng & Chill Xóm Lèo",
+  "url": "https://xomleo.vn",
+  "logo": {
+    "@type": "ImageObject",
+    "url": "https://xomleo.vn/uploads/1775619688243-610230636-img2.webp"
+  },
+  "sameAs": [
+    "https://www.facebook.com/nuongxomleo",
+    "https://www.tiktok.com/@tiemnuongchillxomleo",
+    "https://www.google.com/maps?cid=11166661116585636255"
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "Restaurant",
   "@id": "https://xomleo.vn/#restaurant",
+  "parentOrganization": {"@id": "https://xomleo.vn/#organization"},
   "name": "Tiệm Nướng & Chill Xóm Lèo",
   "alternateName": ["Xom Leo Da Lat", "Xom Leo BBQ", "Xom Leo Grill and Chill Da Lat"],
   "description": "The most scenic BBQ restaurant in Da Lat - charcoal BBQ with stunning valley sunset and train views. Chill vibes in the misty Da Lat highlands.",
@@ -104,8 +123,7 @@
   "sameAs": [
     "https://www.facebook.com/nuongxomleo",
     "https://www.tiktok.com/@tiemnuongchillxomleo",
-    "https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8",
-    "https://xomleo.vn"
+    "https://www.google.com/maps?cid=11166661116585636255"
   ],
   "potentialAction": {
     "@type": "ReserveAction",
@@ -138,15 +156,7 @@
   "name": "Tiệm Nướng & Chill Xóm Lèo - Đà Lạt",
   "alternateName": "Xom Leo Da Lat",
   "url": "https://xomleo.vn",
-  "publisher": {
-    "@type": "Organization",
-    "name": "Tiệm Nướng & Chill Xóm Lèo - Đà Lạt",
-    "url": "https://xomleo.vn",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://xomleo.vn/uploads/1775619688243-610230636-img2.webp"
-    }
-  },
+  "publisher": {"@id": "https://xomleo.vn/#organization"},
   "potentialAction": {
     "@type": "SearchAction",
     "target": "https://xomleo.vn/blog?q={search_term_string}",
