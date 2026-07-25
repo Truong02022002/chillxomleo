@@ -3,14 +3,14 @@
 // for GitHub Pages 10-minute Cache-Control limit.
 // Strategy: stale-while-revalidate for assets, network-first for HTML.
 
-const CACHE_VERSION = 'xomleo-v1-20260517';
+const CACHE_VERSION = 'xomleo-v1-20260725';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
 const STATIC_ASSETS = [
   '/css/style.css?v215',
   '/css/tailwind-output.css?v215',
-  '/js/main.min.js?v213',
+  '/js/main.min.js?v218',
   '/uploads/1775619688243-610230636-img2.webp',
   '/uploads/favicon-32x32.png',
   '/uploads/favicon-16x16.png'
