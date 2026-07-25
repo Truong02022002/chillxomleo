@@ -14,13 +14,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com;">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://script.google.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; frame-src https://www.google.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com;">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
   <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <!-- LCP preload — hero poster image -->
   <link rel="preload" as="image" href="/uploads/1775619688243-610230636-img2.webp" fetchpriority="high" media="(max-width: 768px)">
@@ -29,6 +27,7 @@
   <style>@media (max-width:768px){#preloader{display:none!important}}</style>
 
   <!-- Critical CSS loaded first (blocking — required to avoid CLS) -->
+  <link rel="stylesheet" href="/fonts/fonts.css?v1">
   <link rel="stylesheet" href="css/style.css?v215">
 
   <!-- Non-critical CSS: defer tailwind only (smaller risk than main stylesheet) -->
@@ -36,10 +35,6 @@
   <noscript><link rel="stylesheet" href="css/tailwind-output.css?v215"></noscript>
 
   <!-- Google Fonts: non-render-blocking -->
-  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;700&family=Signika:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
   <title>Quán Nướng View Đẹp Đà Lạt 2026 | Xóm Lèo BBQ Trại Mát</title>
 
   <meta name="description"
