@@ -1,17 +1,27 @@
 User-agent: *
 Allow: /
+Disallow: /blog-translations/
+Disallow: /blog-translations-en/
 
 # AI / LLM crawlers
 User-agent: GPTBot
 Allow: /
+Disallow: /blog-translations/
+Disallow: /blog-translations-en/
 
 User-agent: ClaudeBot
 Allow: /
+Disallow: /blog-translations/
+Disallow: /blog-translations-en/
 
 User-agent: PerplexityBot
 Allow: /
+Disallow: /blog-translations/
+Disallow: /blog-translations-en/
 
 User-agent: Google-Extended
 Allow: /
+Disallow: /blog-translations/
+Disallow: /blog-translations-en/
 
 Sitemap: https://xomleo.vn/sitemap.xml
