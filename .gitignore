@@ -33,3 +33,11 @@ rename_*.ps1
 # Off-page outreach templates (local-only, never publish)
 OUTREACH-TEMPLATES.md
 outreach-*.md
+
+# SEO playbook - local only, khong publish len GitHub Pages
+skills/
+
+# Dev/fix scripts
+fix_*.js
+audit_*.js
+audit_*.py
