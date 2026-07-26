@@ -901,14 +901,25 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  // Delay loading GA4 script for 3.5 seconds to improve PageSpeed Insights
-  setTimeout(function() {
-    var script = document.createElement('script');
-    script.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
-    script.async = true;
-    document.head.appendChild(script);
-    gtag('config', 'G-YWGENK065S');
-  }, 3500);
+  // Load GA4 at the first of: user interaction, or window load.
+  // (Was a fixed 3.5s timeout, which dropped every session shorter than that.)
+  (function () {
+    var started = false;
+    function loadGA() {
+      if (started) return;
+      started = true;
+      var s = document.createElement('script');
+      s.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
+      s.async = true;
+      document.head.appendChild(s);
+      gtag('config', 'G-YWGENK065S');
+    }
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+      window.addEventListener(evt, loadGA, { once: true, passive: true });
+    });
+    if (document.readyState === 'complete') loadGA();
+    else window.addEventListener('load', loadGA, { once: true });
+  })();
 </script>
 </head>
 
