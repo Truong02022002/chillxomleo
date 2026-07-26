@@ -34,36 +34,860 @@
   <meta name="twitter:image" content="https://xomleo.vn/uploads/1775619688243-610230636-img2.webp">
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Menu",
-  "@id": "https://xomleo.vn/#menu",
-  "url": "https://xomleo.vn/menu",
-  "name": "Thực Đơn Quán Nướng Đà Lạt - Xóm Lèo",
-  "description": "Thực đơn BBQ than hồng và lẩu đặc sắc tại Tiệm Nướng & Chill Xóm Lèo Đà Lạt",
-  "inLanguage": "vi",
-  "isPartOf": {"@id": "https://xomleo.vn/#restaurant"},
-  "hasMenuSection": [
+ "@context": "https://schema.org",
+ "@type": "Menu",
+ "@id": "https://xomleo.vn/#menu",
+ "url": "https://xomleo.vn/menu/",
+ "name": "Thực Đơn Quán Nướng Đà Lạt - Xóm Lèo",
+ "description": "Thực đơn BBQ than hồng và lẩu đặc sắc tại Tiệm Nướng & Chill Xóm Lèo Đà Lạt",
+ "inLanguage": "vi",
+ "isPartOf": {
+  "@id": "https://xomleo.vn/#restaurant"
+ },
+ "hasMenuSection": [
+  {
+   "@type": "MenuSection",
+   "name": "Best Seller",
+   "hasMenuItem": [
     {
-      "@type": "MenuSection",
-      "name": "Best Seller",
-      "hasMenuItem": [
-        {"@type": "MenuItem", "name": "Bò Tảng Nướng Phô Mai Trứng Muối", "offers": {"@type": "Offer", "price": "210000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Ba Chỉ Bò Nướng Muối Tiêu", "offers": {"@type": "Offer", "price": "155000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Ba Chỉ Cuốn Nấm Kim Châm", "offers": {"@type": "Offer", "price": "137000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Ốc Nhồi Thịt", "offers": {"@type": "Offer", "price": "165000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Cá Tầm Lúc Lắc", "offers": {"@type": "Offer", "price": "165000", "priceCurrency": "VND"}}
-      ]
+     "@type": "MenuItem",
+     "name": "Bò Tảng Nướng Phô Mai Trứng Muối",
+     "description": "Best seller đặc biệt",
+     "image": "https://xomleo.vn/img/Bo_tang_nuong_pho_mai_trung_muoi.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "210000",
+      "priceCurrency": "VND"
+     }
     },
     {
-      "@type": "MenuSection",
-      "name": "Lẩu",
-      "hasMenuItem": [
-        {"@type": "MenuItem", "name": "Lẩu Cá Tầm", "offers": {"@type": "Offer", "price": "350000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Lẩu Gà Lá É", "offers": {"@type": "Offer", "price": "280000", "priceCurrency": "VND"}},
-        {"@type": "MenuItem", "name": "Lẩu Hải Sản", "offers": {"@type": "Offer", "price": "320000", "priceCurrency": "VND"}}
-      ]
+     "@type": "MenuItem",
+     "name": "Ba Chỉ Bò Nướng Muối Tiêu",
+     "description": "Thịt bò mỹ thượng hạng",
+     "image": "https://xomleo.vn/img/ba-chi-bo-nuong-muoi-tieu-quan-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "155000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ba Chỉ Cuộn Nấm Kim Châm",
+     "description": "Đậm đà tươi ngon",
+     "image": "https://xomleo.vn/img/ba-chi-bo-cuon-kim-cham-tiem-nuong-va-chill-xom-leo.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "137000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ốc Nhồi Thịt",
+     "description": "Đặc sản truyền thống",
+     "image": "https://xomleo.vn/img/Oc-Nhoi-Thit.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "165000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cá Tầm Lúc Lắc",
+     "description": "Cá tầm tươi Đơn Dương",
+     "image": "https://xomleo.vn/img/ca-tam-luc-lac-quan-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "165000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cá Tầm Rang Muối",
+     "description": "Cá tầm rang muối ớt",
+     "image": "https://xomleo.vn/img/ca-tam-rang-muoi-quan-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "199000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sườn Cay Thái Lan",
+     "description": "Đỉnh cao tháp sườn cay",
+     "image": "https://xomleo.vn/img/Suon-cay-thai-lan-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "259000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tôm Chiên Trứng Muối",
+     "description": "Tôm tươi sốt trứng muối béo ngậy",
+     "image": "https://xomleo.vn/img/Tom-chien-trung-muoi-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "158000",
+      "priceCurrency": "VND"
+     }
     }
-  ]
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "BBQ Nướng Tại Bàn",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Ba Chỉ Heo Nướng Ngũ Vị",
+     "description": "Thơm nức mũi dòn da",
+     "image": "https://xomleo.vn/img/ba-chi-heo-nuong-ngu-vi-xom-leo.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "132000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ba Chỉ Heo Hàn Quốc",
+     "description": "Ướp chuẩn vị Hàn",
+     "image": "https://xomleo.vn/img/Ba-chi-heo-han-quoc-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "169000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sườn Que Nướng",
+     "description": "Sườn que ướp vị mật ong",
+     "image": "https://xomleo.vn/img/Suon-que-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "154000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Chân Gà Nướng Muối Ớt",
+     "description": "Lai rai cực đỉnh",
+     "image": "https://xomleo.vn/img/Chan-ga-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "104000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cánh Gà Nướng Muối Ớt",
+     "description": "Mái vị vàng",
+     "image": "https://xomleo.vn/img/Canh-ga-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "129000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ếch Nướng Muối Ớt",
+     "description": "Ếch đồng tươi",
+     "image": "https://xomleo.vn/img/ech-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "144000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cá Tầm Nướng",
+     "description": "Dinh dưỡng ngon ngọt",
+     "image": "https://xomleo.vn/img/ca-tam-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "161000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Mực Nướng Muối Ớt",
+     "description": "Mực ống giòn ngọt",
+     "image": "https://xomleo.vn/img/muc-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "160000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tôm Nướng Muối Ớt",
+     "description": "Tôm tươi rói nhảy múa",
+     "image": "https://xomleo.vn/img/tom-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "150000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bạch Tuộc Nướng",
+     "description": "Bạch tuộc đại dương",
+     "image": "https://xomleo.vn/img/bach-tuoc-nuong-muoi-ot-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "155000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Món Ăn Kèm",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Chả Ram Tôm Đất",
+     "description": "Giòn rụm đậm vị",
+     "image": "https://xomleo.vn/img/Cha-ram-tom-dat-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "95000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Khoai Tây Chiên",
+     "description": "Kèm tương ớt cay nồng",
+     "image": "https://xomleo.vn/img/khoai-tay-chien-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "70000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Khoai Lang Kén",
+     "description": "Món phụ ngọt nhẹ",
+     "image": "https://xomleo.vn/img/khoai-lang-ken-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "70000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Salad Trộn Dầu Giấm",
+     "description": "Rau củ Đà Lạt tươi sạch",
+     "image": "https://xomleo.vn/img/salad-tron-dau-giam-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "95000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "No Cái Bụng",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Cơm Chiên Cao Nguyên",
+     "description": "Hương vị dân dã",
+     "image": "https://xomleo.vn/img/com-chien-cao-nguyen-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "140000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cơm Chiên Hải Sản",
+     "description": "Mực tôm hoà quyện",
+     "image": "https://xomleo.vn/img/com-chien-hai-san-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "120000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Mì Xào Hải Sản",
+     "description": "Sợi mì dai ngon",
+     "image": "https://xomleo.vn/img/mi-xao-hai-san-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "132000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Mì Xào Bò",
+     "description": "Bò mềm ngọt vị",
+     "image": "https://xomleo.vn/img/mi-xao-bo-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "135000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Lẩu",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Lẩu Gà Lá É",
+     "description": "Tinh tuý Phú Yên giữa lòng Đà LẠt",
+     "image": "https://xomleo.vn/img/lau-ga-la-e-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "300000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Lẩu Hải Sản",
+     "description": "Chua cay thập cẩm",
+     "image": "https://xomleo.vn/img/lau-hai-san-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "320000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Lẩu Cá Tầm",
+     "description": "Đặc sản Đà Lạt không thể bỏ qua",
+     "image": "https://xomleo.vn/img/lau-ca-tam-quan-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "320000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Lai Rai",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Xúc Xích Đức Nướng",
+     "description": "Dai dòn",
+     "image": "https://xomleo.vn/img/xuc-xich-duc-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "30000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Ếch Chiên Nước Mắm",
+     "description": "Thơm nức xóm",
+     "image": "https://xomleo.vn/img/ech-chien-nuoc-mam-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "155000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Bò Lúc Lắc",
+     "description": "Điểm nhấn protein",
+     "image": "https://xomleo.vn/img/bo-luc-lac-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "160000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Cánh Gà Chiên Nước Mắm",
+     "description": "Gấp đôi canxi",
+     "image": "https://xomleo.vn/img/canh-ga-chien-nuong-mam-quan-nuong-da-lat.webp",
+     "offers": {
+      "@type": "Offer",
+      "price": "145000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Trà Lạnh",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Trà Vải Hạt Chia",
+     "description": "Thanh mát",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20V%E1%BA%A3i%20H%E1%BA%A1t%20Chia",
+     "offers": {
+      "@type": "Offer",
+      "price": "49000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Dứa Đào",
+     "description": "Hương dứa thơm",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20D%E1%BB%A9a%20%C4%90%C3%A0o",
+     "offers": {
+      "@type": "Offer",
+      "price": "49000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Trái Cây Nhiệt Đới",
+     "description": "Cực kì healthy",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Tr%C3%A1i%20C%C3%A2y%20Nhi%E1%BB%87t%20%C4%90%E1%BB%9Bi",
+     "offers": {
+      "@type": "Offer",
+      "price": "49000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Đào Cam Sả",
+     "description": "Khởi đầu mát lạnh",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20%C4%90%C3%A0o%20Cam%20S%E1%BA%A3",
+     "offers": {
+      "@type": "Offer",
+      "price": "44000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Tắc Xí Muội",
+     "description": "Chua chua ngọt ngọt",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20T%E1%BA%AFc%20X%C3%AD%20Mu%E1%BB%99i",
+     "offers": {
+      "@type": "Offer",
+      "price": "44000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Ổi Hồng",
+     "description": "Ngọt ngào lãng mạn",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20%E1%BB%94i%20H%E1%BB%93ng",
+     "offers": {
+      "@type": "Offer",
+      "price": "44000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Trà Nóng",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Trà Hoa Cúc Táo Đỏ",
+     "description": "Giữ ấm dạ dày",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Hoa%20C%C3%BAc%20T%C3%A1o%20%C4%90%E1%BB%8F",
+     "offers": {
+      "@type": "Offer",
+      "price": "39000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Thảo Mộc",
+     "description": "Thư giãn tâm hồn",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Th%E1%BA%A3o%20M%E1%BB%99c",
+     "offers": {
+      "@type": "Offer",
+      "price": "39000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Gừng Táo Đỏ Mật Ong",
+     "description": "Sưởi ấm đêm Đà Lạt",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20G%E1%BB%ABng%20T%C3%A1o%20%C4%90%E1%BB%8F%20M%E1%BA%ADt%20Ong",
+     "offers": {
+      "@type": "Offer",
+      "price": "39000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Chanh Nóng Hạt Chia",
+     "description": "Thơm nồng hạt chia",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Chanh%20N%C3%B3ng%20H%E1%BA%A1t%20Chia",
+     "offers": {
+      "@type": "Offer",
+      "price": "37000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Trà Lipton Nóng",
+     "description": "Classic",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tr%C3%A0%20Lipton%20N%C3%B3ng",
+     "offers": {
+      "@type": "Offer",
+      "price": "37000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Soda",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Soda Việt Quốc",
+     "description": "Tươi mới rạng rỡ",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20Vi%E1%BB%87t%20Qu%E1%BB%91c",
+     "offers": {
+      "@type": "Offer",
+      "price": "42000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Soda Chanh",
+     "description": "Chanh the lạnh",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20Chanh",
+     "offers": {
+      "@type": "Offer",
+      "price": "42000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Soda Blue",
+     "description": "Blue ocean vibe",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20Blue",
+     "offers": {
+      "@type": "Offer",
+      "price": "42000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Soda Dâu Tây",
+     "description": "Ngọt dịu",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20D%C3%A2u%20T%C3%A2y",
+     "offers": {
+      "@type": "Offer",
+      "price": "42000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Soda Đào",
+     "description": "Giải nhiệt cao nguyên",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soda%20%C4%90%C3%A0o",
+     "offers": {
+      "@type": "Offer",
+      "price": "42000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Nước",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Coca Cola",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Coca%20Cola",
+     "offers": {
+      "@type": "Offer",
+      "price": "19000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sprite",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Sprite",
+     "offers": {
+      "@type": "Offer",
+      "price": "19000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sting",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://xomleo.vn/img/sting-quan-nuong-da-lat.png",
+     "offers": {
+      "@type": "Offer",
+      "price": "18000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "StrongBow",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=StrongBow",
+     "offers": {
+      "@type": "Offer",
+      "price": "34000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Nước Suối",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=N%C6%B0%E1%BB%9Bc%20Su%E1%BB%91i",
+     "offers": {
+      "@type": "Offer",
+      "price": "11000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Bia",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Tiger Bạc",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20B%E1%BA%A1c",
+     "offers": {
+      "@type": "Offer",
+      "price": "28000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Tiger Nâu",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Tiger%20N%C3%A2u",
+     "offers": {
+      "@type": "Offer",
+      "price": "26000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sài Gòn Xanh (Special)",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Xanh%20(Special)",
+     "offers": {
+      "@type": "Offer",
+      "price": "26000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sài Gòn Chill",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Chill",
+     "offers": {
+      "@type": "Offer",
+      "price": "27000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Sài Gòn Lager",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=S%C3%A0i%20G%C3%B2n%20Lager",
+     "offers": {
+      "@type": "Offer",
+      "price": "19000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Heineken Lùn",
+     "description": "Hương vị hấp dẫn tuyệt vời",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Heineken%20L%C3%B9n",
+     "offers": {
+      "@type": "Offer",
+      "price": "27000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  },
+  {
+   "@type": "MenuSection",
+   "name": "Rượu",
+   "hasMenuItem": [
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Mơ Hương Đào (18%)",
+     "description": "Bình rượu êm say",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20H%C6%B0%C6%A1ng%20%C4%90%C3%A0o%20(18%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "160000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Mơ 300ml (29%)",
+     "description": "Mơ nặng chill",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20300ml%20(29%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "110000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Mơ 350ml (18%)",
+     "description": "Cho cặp đôi",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20350ml%20(18%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "139000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Mơ 500ml (18%)",
+     "description": "Uống say mềm",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20500ml%20(18%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "170000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Soju Mix Vị 360ml",
+     "description": "Soju chuẩn Hàn",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=Soju%20Mix%20V%E1%BB%8B%20360ml",
+     "offers": {
+      "@type": "Offer",
+      "price": "110000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Vang Classic 750ml",
+     "description": "Rượu vang cực đã",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20Vang%20Classic%20750ml",
+     "offers": {
+      "@type": "Offer",
+      "price": "190000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Vang Export 750ml",
+     "description": "Cao cấp vang ngoại",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20Vang%20Export%20750ml",
+     "offers": {
+      "@type": "Offer",
+      "price": "210000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Táo Mèo 300ml (29%)",
+     "description": "Táo mèo nồng nàn",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20T%C3%A1o%20M%C3%A8o%20300ml%20(29%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "110000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Mơ Ume (Classic)",
+     "description": "Mơ ume đậm vị mộc",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20M%C6%A1%20Ume%20(Classic)",
+     "offers": {
+      "@type": "Offer",
+      "price": "140000",
+      "priceCurrency": "VND"
+     }
+    },
+    {
+     "@type": "MenuItem",
+     "name": "Rượu Táo Mèo 350ml (18%)",
+     "description": "Nhẹ nhàng chớm say",
+     "image": "https://dummyimage.com/600x400/e55822/ffffff&text=R%C6%B0%E1%BB%A3u%20T%C3%A1o%20M%C3%A8o%20350ml%20(18%25)",
+     "offers": {
+      "@type": "Offer",
+      "price": "130000",
+      "priceCurrency": "VND"
+     }
+    }
+   ]
+  }
+ ]
 }
 </script>
   <link rel="alternate" hreflang="vi" href="https://xomleo.vn/menu/" />
@@ -256,8 +1080,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Bò Nướng
-                Muối Tiêu</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Bò Nướng
+                Muối Tiêu</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
@@ -275,8 +1099,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Cuộn Nấm
-                Kim Châm</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Cuộn Nấm
+                Kim Châm</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">137,000đ</span>
             </div>
@@ -293,8 +1117,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ốc Nhồi Thịt
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ốc Nhồi Thịt
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">165,000đ</span>
             </div>
@@ -311,8 +1135,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Lúc Lắc
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Lúc Lắc
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">165,000đ</span>
             </div>
@@ -330,8 +1154,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Rang
-                Muối</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Rang
+                Muối</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">199,000đ</span>
             </div>
@@ -348,8 +1172,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sườn Cay Thái
-                Lan</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sườn Cay Thái
+                Lan</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">259,000đ</span>
             </div>
@@ -366,8 +1190,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tôm Chiên Trứng
-                Muối</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tôm Chiên Trứng
+                Muối</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">158,000đ</span>
             </div>
@@ -385,8 +1209,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Heo
-                Nướng Ngũ Vị</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Heo
+                Nướng Ngũ Vị</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">132,000đ</span>
             </div>
@@ -403,8 +1227,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Heo Hàn
-                Quốc</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ba Chỉ Heo Hàn
+                Quốc</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">169,000đ</span>
             </div>
@@ -421,8 +1245,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sườn Que Nướng
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sườn Que Nướng
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">154,000đ</span>
             </div>
@@ -440,8 +1264,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Chân Gà Nướng
-                Muối Ớt</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Chân Gà Nướng
+                Muối Ớt</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">104,000đ</span>
             </div>
@@ -459,8 +1283,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cánh Gà Nướng
-                Muối Ớt</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cánh Gà Nướng
+                Muối Ớt</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">129,000đ</span>
             </div>
@@ -477,8 +1301,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ếch Nướng Muối
-                Ớt</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ếch Nướng Muối
+                Ớt</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">144,000đ</span>
             </div>
@@ -495,8 +1319,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Nướng
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cá Tầm Nướng
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">161,000đ</span>
             </div>
@@ -513,8 +1337,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mực Nướng Muối
-                Ớt</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mực Nướng Muối
+                Ớt</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
@@ -531,8 +1355,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tôm Nướng Muối
-                Ớt</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tôm Nướng Muối
+                Ớt</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">150,000đ</span>
             </div>
@@ -549,8 +1373,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Bạch Tuộc Nướng
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Bạch Tuộc Nướng
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
@@ -567,8 +1391,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Chả Ram Tôm Đất
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Chả Ram Tôm Đất
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">95,000đ</span>
             </div>
@@ -585,8 +1409,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Khoai Tây Chiên
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Khoai Tây Chiên
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">70,000đ</span>
             </div>
@@ -603,8 +1427,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Khoai Lang Kén
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Khoai Lang Kén
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">70,000đ</span>
             </div>
@@ -621,8 +1445,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Salad Trộn Dầu
-                Giấm</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Salad Trộn Dầu
+                Giấm</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">95,000đ</span>
             </div>
@@ -639,8 +1463,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cơm Chiên Cao
-                Nguyên</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cơm Chiên Cao
+                Nguyên</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">140,000đ</span>
             </div>
@@ -657,8 +1481,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cơm Chiên Hải
-                Sản</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cơm Chiên Hải
+                Sản</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">120,000đ</span>
             </div>
@@ -675,8 +1499,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mì Xào Hải Sản
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mì Xào Hải Sản
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">132,000đ</span>
             </div>
@@ -693,7 +1517,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mì Xào Bò</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Mì Xào Bò</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">135,000đ</span>
             </div>
@@ -710,8 +1534,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Gà Lá É
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Gà Lá É
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">300,000đ</span>
             </div>
@@ -728,8 +1552,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Hải Sản
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Hải Sản
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">320,000đ</span>
             </div>
@@ -746,7 +1570,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Cá Tầm</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Lẩu Cá Tầm</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">320,000đ</span>
             </div>
@@ -763,8 +1587,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Xúc Xích Đức
-                Nướng</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Xúc Xích Đức
+                Nướng</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">30,000đ</span>
             </div>
@@ -781,8 +1605,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ếch Chiên Nước
-                Mắm</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Ếch Chiên Nước
+                Mắm</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">155,000đ</span>
             </div>
@@ -799,7 +1623,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Bò Lúc Lắc</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Bò Lúc Lắc</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
@@ -817,8 +1641,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cánh Gà Chiên
-                Nước Mắm</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Cánh Gà Chiên
+                Nước Mắm</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">145,000đ</span>
             </div>
@@ -836,8 +1660,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Vải Hạt
-                Chia</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Vải Hạt
+                Chia</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
@@ -855,8 +1679,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Dứa Đào
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Dứa Đào
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
@@ -875,8 +1699,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Trái Cây
-                Nhiệt Đới</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Trái Cây
+                Nhiệt Đới</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">49,000đ</span>
             </div>
@@ -894,8 +1718,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Đào Cam Sả
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Đào Cam Sả
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
@@ -913,8 +1737,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Tắc Xí Muội
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Tắc Xí Muội
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
@@ -932,8 +1756,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Ổi Hồng
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Ổi Hồng
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">44,000đ</span>
             </div>
@@ -952,8 +1776,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Hoa Cúc Táo
-                Đỏ</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Hoa Cúc Táo
+                Đỏ</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
@@ -971,8 +1795,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Thảo Mộc
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Thảo Mộc
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
@@ -991,8 +1815,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Gừng Táo Đỏ
-                Mật Ong</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Gừng Táo Đỏ
+                Mật Ong</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">39,000đ</span>
             </div>
@@ -1011,8 +1835,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Chanh Nóng
-                Hạt Chia</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Chanh Nóng
+                Hạt Chia</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
             </div>
@@ -1030,8 +1854,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Lipton Nóng
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Trà Lipton Nóng
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">37,000đ</span>
             </div>
@@ -1049,8 +1873,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Việt Quốc
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Việt Quốc
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
@@ -1067,7 +1891,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Chanh</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Chanh</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
@@ -1084,7 +1908,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Blue</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Blue</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
@@ -1101,8 +1925,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Dâu Tây
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Dâu Tây
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
@@ -1119,7 +1943,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Đào</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soda Đào</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">42,000đ</span>
             </div>
@@ -1136,7 +1960,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Coca Cola</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Coca Cola</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
@@ -1153,7 +1977,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sprite</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sprite</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
@@ -1170,7 +1994,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sting</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sting</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">18,000đ</span>
             </div>
@@ -1187,7 +2011,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">StrongBow</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">StrongBow</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">34,000đ</span>
             </div>
@@ -1205,7 +2029,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Nước Suối</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Nước Suối</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">11,000đ</span>
             </div>
@@ -1222,7 +2046,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Bạc</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Bạc</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">28,000đ</span>
             </div>
@@ -1239,7 +2063,7 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Nâu</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Tiger Nâu</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
@@ -1257,8 +2081,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Xanh
-                (Special)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Xanh
+                (Special)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">26,000đ</span>
             </div>
@@ -1275,8 +2099,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Chill
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Chill
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
@@ -1293,8 +2117,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Lager
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Sài Gòn Lager
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">19,000đ</span>
             </div>
@@ -1311,8 +2135,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Heineken Lùn
-              </h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Heineken Lùn
+              </h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">27,000đ</span>
             </div>
@@ -1331,8 +2155,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Hương
-                Đào (18%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Hương
+                Đào (18%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">160,000đ</span>
             </div>
@@ -1350,8 +2174,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 300ml
-                (29%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 300ml
+                (29%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
@@ -1369,8 +2193,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 350ml
-                (18%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 350ml
+                (18%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">139,000đ</span>
             </div>
@@ -1388,8 +2212,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 500ml
-                (18%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ 500ml
+                (18%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">170,000đ</span>
             </div>
@@ -1407,8 +2231,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soju Mix Vị
-                360ml</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Soju Mix Vị
+                360ml</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
@@ -1426,8 +2250,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
-                Classic 750ml</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
+                Classic 750ml</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">190,000đ</span>
             </div>
@@ -1445,8 +2269,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
-                Export 750ml</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Vang
+                Export 750ml</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">210,000đ</span>
             </div>
@@ -1465,8 +2289,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
-                300ml (29%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
+                300ml (29%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">110,000đ</span>
             </div>
@@ -1484,8 +2308,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Ume
-                (Classic)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Mơ Ume
+                (Classic)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">140,000đ</span>
             </div>
@@ -1504,8 +2328,8 @@
           </div>
           <div class="flex-1 pt-2 w-full">
             <div class="flex justify-between items-baseline mb-4">
-              <h3 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
-                350ml (18%)</h3>
+              <h2 class="font-serif text-2xl text-foreground group-hover:text-primary transition-colors">Rượu Táo Mèo
+                350ml (18%)</h2>
               <span
                 class="text-sm tracking-widest text-[#C5A059] font-medium shrink-0 ml-4 whitespace-nowrap">130,000đ</span>
             </div>
@@ -1589,7 +2413,7 @@
 
       <!-- Links Column -->
       <div class="lg:col-span-2 lg:col-start-5 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên kết</h4>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên kết</h3>
         <nav class="flex flex-col gap-2.5 text-[13px] text-foreground/40 font-medium">
           <a href="/" class="hover:text-primary transition-colors">Trang chủ</a>
           <a href="/about/" class="hover:text-primary transition-colors">Trải nghiệm</a>
@@ -1602,7 +2426,7 @@
 
       <!-- Contact Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-start text-center lg:text-left gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên hệ</h4>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Liên hệ</h3>
         <div class="flex flex-col gap-3 text-[13px] text-foreground/80 leading-relaxed font-light">
           <a href="tel:0764527336" class="text-foreground/80 font-bold text-base hover:text-primary transition-colors">076 452 7336</a>
           <p>
@@ -1618,7 +2442,7 @@
 
       <!-- Map Column -->
       <div class="lg:col-span-3 flex flex-col items-center lg:items-end gap-3">
-        <h4 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Bản đồ</h4>
+        <h3 class="text-[13px] font-bold uppercase tracking-[0.2em] text-foreground">Bản đồ</h3>
         <div class="relative group w-full max-w-[300px] lg:max-w-none">
           <div class="relative h-[160px] lg:h-[180px] w-full rounded-xl overflow-hidden border border-white/10 shadow-lg">
             <div class="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-surface/20 via-transparent to-transparent"></div>
