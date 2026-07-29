@@ -1173,3 +1173,124 @@ input:focus, select:focus, textarea:focus {
 .blog-item.search-hidden {
   display: none !important;
 }
+
+/* ========== HERO CINEMATIC — CONTRAST ==========
+   Commit b91198b lat theme tu dark (--foreground: #F5F2EB) sang cream
+   (--foreground: #3B2314), nhung markup hero trang chu van giu art direction
+   toi (nen den + media opacity .6 + vignette rgba(9,9,9,.8)). Hau qua: chu
+   nau dam nam tren nen toi -> ~1.3:1.
+   Hero tu dinh nghia bo token sang rieng, khong dung var(--foreground). */
+.hero-cinematic {
+  --hero-fg: #F5E9DA;                      /* cream  — ~11:1 tren scrim */
+  --hero-fg-soft: rgba(245, 233, 218, .88);/*        — ~9:1  tren scrim */
+  --hero-accent: #F5A65B;                  /* cam sang — ~6:1 tren scrim */
+}
+
+/* Scrim thay cho cap gradient cu (cream .8 tren dinh lam nhat vung chua chu).
+   Giu vung chu o khoang #2d2924 -> con nhieu bien do ke ca khi video co
+   khung sang. */
+.hero-cinematic .hero-scrim {
+  background:
+    radial-gradient(ellipse 120% 100% at 50% 45%, transparent 0%, rgba(9, 9, 9, .72) 100%),
+    linear-gradient(to bottom,
+      rgba(9, 9, 9, .58) 0%,
+      rgba(9, 9, 9, .30) 26%,
+      rgba(9, 9, 9, .30) 70%,
+      rgba(9, 9, 9, .62) 100%);
+}
+
+.hero-cinematic h1 { color: var(--hero-fg); }
+.hero-cinematic [class*="text-foreground"] { color: var(--hero-fg-soft); }
+.hero-cinematic strong[class*="text-foreground"] { color: var(--hero-fg); }
+.hero-cinematic [class*="text-primary"] { color: var(--hero-accent); }
+.hero-cinematic .bg-primary { color: var(--hero-fg); }
+
+/* Navbar trong suot nam de len hero toi -> chu phai sang.
+   Khi cuon (.scrolled) navbar chuyen nen cream nen tra lai mau nau goc.
+   Duoi md navbar da co nen cream (bg-background/80) nen khong doi. */
+@media (min-width: 768px) {
+  body.home-hero-dark #navbar:not(.scrolled) [class*="text-foreground"],
+  body.home-hero-dark #navbar:not(.scrolled) #mobile-menu-btn,
+  body.home-hero-dark #navbar:not(.scrolled) a[href^="tel:"] {
+    color: rgba(245, 233, 218, .92);
+  }
+  body.home-hero-dark #navbar:not(.scrolled) [class*="text-primary"] {
+    color: #F5A65B;
+  }
+  body.home-hero-dark #navbar:not(.scrolled) .fill-primary {
+    fill: #F5A65B;
+  }
+  body.home-hero-dark #navbar:not(.scrolled) .bg-primary {
+    color: #F5E9DA;
+  }
+}
+
+/* ========== UTILITY BU CHO BAN BUILD TAILWIND THIEU ==========
+   Commit b91198b build lai tailwind-output.css va lam mat 3414 dong.
+   113 utility dang dung trong HTML khong con rule -> hong hien thi, ro nhat la:
+     - FAQ trang chu:  p-5 / space-y-3 / rounded-md / list-none / group-open:rotate-45
+     - Khoi TL;DR (110 trang blog): my-8 / p-5 / border-l-4 / bg-surface/60
+   Repo khong co package.json hay tailwind.config nen khong build lai duoc;
+   cac rule duoi day viet tay theo dung gia tri mac dinh Tailwind v3.
+   Neu sau nay dung lai pipeline Tailwind that thi xoa ca block nay. */
+
+/* --- spacing --- */
+.p-5  { padding: 1.25rem; }
+.py-12{ padding-top: 3rem; padding-bottom: 3rem; }
+.my-6 { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.my-8 { margin-top: 2rem; margin-bottom: 2rem; }
+.mt-8 { margin-top: 2rem; }
+.mt-10{ margin-top: 2.5rem; }
+.mb-5 { margin-bottom: 1.25rem; }
+
+.space-y-1 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(.25rem * (1 - var(--tw-space-y-reverse))); margin-bottom: calc(.25rem * var(--tw-space-y-reverse)); }
+.space-y-3 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(.75rem * (1 - var(--tw-space-y-reverse))); margin-bottom: calc(.75rem * var(--tw-space-y-reverse)); }
+.space-y-4 > :not([hidden]) ~ :not([hidden]) { --tw-space-y-reverse: 0; margin-top: calc(1rem  * (1 - var(--tw-space-y-reverse))); margin-bottom: calc(1rem  * var(--tw-space-y-reverse)); }
+
+/* --- border / radius --- */
+.border-l-4 { border-left-width: 4px; }
+.rounded-md { border-radius: .375rem; }
+.border-white\/6 { border-color: rgba(255, 255, 255, .06); }
+
+/* --- mau (theo token cream hien tai, KHONG phai palette dark cu) --- */
+.text-foreground\/85 { color: rgba(59, 35, 20, .85); }
+.text-foreground\/75 { color: rgba(59, 35, 20, .75); }
+.text-primary\/50    { color: rgba(211, 84, 0, .5); }
+.bg-surface\/60      { background-color: rgba(234, 216, 192, .6); }
+.bg-surface\/40      { background-color: rgba(234, 216, 192, .4); }
+.bg-white\/4         { background-color: rgba(255, 255, 255, .04); }
+
+/* --- typography --- */
+.tracking-\[0\.25em\] { letter-spacing: .25em; }
+.text-8xl { font-size: 6rem; line-height: 1; }
+.list-disc   { list-style-type: disc; }
+.list-inside { list-style-position: inside; }
+.list-none   { list-style-type: none; }
+summary.list-none::-webkit-details-marker { display: none; }
+
+/* --- filter (dung bien --tw-* san co de compose voi grayscale/opacity) --- */
+.contrast-110 {
+  --tw-contrast: contrast(1.1);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+/* --- transform theo trang thai <details open> (dau + cua FAQ) --- */
+.group[open] .group-open\:rotate-45 { transform: rotate(45deg); }
+
+/* --- hover --- */
+.hover\:underline:hover      { text-decoration-line: underline; }
+.hover\:text-white:hover     { color: #fff; }
+.hover\:bg-\[\#0068FF\]:hover{ background-color: #0068FF; }
+.hover\:bg-white\/4:hover    { background-color: rgba(255, 255, 255, .04); }
+
+/* --- responsive (md = 768px, mac dinh Tailwind) --- */
+@media (min-width: 768px) {
+  .md\:hidden        { display: none; }
+  .md\:py-28         { padding-top: 7rem; padding-bottom: 7rem; }
+  .md\:gap-16        { gap: 4rem; }
+  .md\:text-\[15px\] { font-size: 15px; }
+}
+
+/* --- misc --- */
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }
