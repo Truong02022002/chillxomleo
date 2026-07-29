@@ -2,7 +2,7 @@
   --font-signika: 'Signika', ui-sans-serif, system-ui, sans-serif;
   --background: #F5E9DA; /* Warm Cream */
   --foreground: #3B2314; /* Dark Brown */
-  --primary: #D35400; /* Burnt Orange CTA */
+  --primary: #A03F00; /* Burnt Orange CTA */
   --secondary: #EAD8C0; /* Warm Section */
   --accent: #E67E22; /* Orange Hover */
   --muted: #6B5443; /* Warm Muted (darkened for WCAG AA) */
@@ -77,16 +77,16 @@ article h1 {
   height: auto;
   margin: 3rem auto !important;
   border-radius: 16px !important;
-  border: 1px solid rgba(211, 84, 0, 0.2) !important;
-  box-shadow: 0 15px 35px -5px rgba(59, 35, 20, 0.15), 0 0 25px rgba(211, 84, 0, 0.05) !important;
+  border: 1px solid rgba(160, 63, 0, 0.2) !important;
+  box-shadow: 0 15px 35px -5px rgba(59, 35, 20, 0.15), 0 0 25px rgba(160, 63, 0, 0.05) !important;
   display: block;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .prose img:hover {
   transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 25px 45px -10px rgba(59, 35, 20, 0.2), 0 0 35px rgba(211, 84, 0, 0.1) !important;
-  border-color: rgba(211, 84, 0, 0.4) !important;
+  box-shadow: 0 25px 45px -10px rgba(59, 35, 20, 0.2), 0 0 35px rgba(160, 63, 0, 0.1) !important;
+  border-color: rgba(160, 63, 0, 0.4) !important;
 }
 
 .prose p + p {
@@ -124,7 +124,7 @@ article h1 {
 }
 
 .prose a {
-  color: #D35400 !important;
+  color: #A03F00 !important;
 }
 
 .prose a:hover {
@@ -132,8 +132,8 @@ article h1 {
 }
 
 .prose blockquote {
-  border-left-color: #D35400 !important;
-  background: rgba(211, 84, 0, 0.05);
+  border-left-color: #A03F00 !important;
+  background: rgba(160, 63, 0, 0.05);
   padding: 0.75rem 1.25rem;
   border-radius: 0 0.5rem 0.5rem 0;
 }
@@ -162,7 +162,7 @@ article h1 {
   margin-top: 2.5rem !important;
   margin-bottom: 1rem !important;
   padding-bottom: 0.5rem;
-  border-bottom: 2px solid rgba(211, 84, 0, 0.2);
+  border-bottom: 2px solid rgba(160, 63, 0, 0.2);
   color: #3B2314 !important;
 }
 
@@ -174,7 +174,7 @@ article h1 {
   margin-bottom: 0.75rem !important;
   color: #4A301E !important;
   padding-left: 0.75rem;
-  border-left: 3px solid #D35400;
+  border-left: 3px solid #A03F00;
 }
 
 .prose h4 {
@@ -195,7 +195,7 @@ article h1 {
 /* ========== TABLE OF CONTENTS (TOC) ========== */
 .blog-toc {
   background: linear-gradient(135deg, #FFF8F0 0%, #F5E9DA 100%);
-  border: 1px solid rgba(211, 84, 0, 0.2);
+  border: 1px solid rgba(160, 63, 0, 0.2);
   border-radius: 1rem;
   padding: 1.5rem 2rem;
   margin-bottom: 2.5rem;
@@ -224,7 +224,7 @@ article h1 {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, #D35400, #E67E22);
+  background: linear-gradient(to bottom, #A03F00, #E67E22);
   border-radius: 4px 0 0 4px;
 }
 
@@ -233,7 +233,7 @@ article h1 {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: #D35400;
+  color: #A03F00;
   margin-bottom: 1rem;
   display: flex;
   align-items: center;
@@ -260,7 +260,7 @@ details[open] .blog-toc-title::after {
 .blog-toc-title svg {
   width: 16px;
   height: 16px;
-  stroke: #D35400;
+  stroke: #A03F00;
 }
 
 .blog-toc ol {
@@ -289,14 +289,14 @@ details[open] .blog-toc-title::after {
 }
 
 .blog-toc > ol > li > a:hover {
-  color: #D35400;
+  color: #A03F00;
   padding-left: 0.25rem;
 }
 
 .blog-toc > ol > li > a::before {
   content: counter(toc-counter) ".";
   font-weight: 700;
-  color: #D35400;
+  color: #A03F00;
   min-width: 1.5rem;
   font-size: 0.85rem;
 }
@@ -323,13 +323,13 @@ details[open] .blog-toc-title::after {
 }
 
 .blog-toc .toc-sub a:hover {
-  color: #D35400;
+  color: #A03F00;
   padding-left: 0.25rem;
 }
 
 .blog-toc .toc-sub a::before {
   content: "› ";
-  color: #D35400;
+  color: #A03F00;
   font-weight: 600;
 }
 
@@ -367,7 +367,7 @@ details[open] .blog-toc-title::after {
   left: 0;
   right: 0;
   height: 2px;
-  background: linear-gradient(90deg, transparent 0%, #D35400 20%, #D35400 80%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, #A03F00 20%, #A03F00 80%, transparent 100%);
   opacity: 0.3;
 }
 
@@ -378,7 +378,7 @@ details[open] .blog-toc-title::after {
   left: 0;
   right: 0;
   height: 1px;
-  background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(211,84,0,0.15) 8px, rgba(211,84,0,0.15) 10px);
+  background: repeating-linear-gradient(90deg, transparent, transparent 8px, rgba(160,63,0,0.15) 8px, rgba(160,63,0,0.15) 10px);
 }
 
 .preloader-train {
@@ -390,19 +390,19 @@ details[open] .blog-toc-title::after {
   align-items: flex-end;
   gap: 0;
   animation: preloader-train-run 2.2s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
-  filter: drop-shadow(0 0 12px rgba(211,84,0,0.5));
+  filter: drop-shadow(0 0 12px rgba(160,63,0,0.5));
 }
 
 /* === Preloader Locomotive === */
 .pl-loco {
   width: 44px;
   height: 28px;
-  background: linear-gradient(180deg, #D35400 0%, #A0430A 100%);
+  background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
   border: 2px solid #E67E22;
   border-radius: 4px 14px 3px 3px;
   position: relative;
   box-shadow: 
-    0 0 15px rgba(211, 84, 0, 0.5),
+    0 0 15px rgba(160, 63, 0, 0.5),
     inset 0 3px 6px rgba(255, 200, 100, 0.3);
 }
 
@@ -414,10 +414,10 @@ details[open] .blog-toc-title::after {
   left: 8px;
   width: 8px;
   height: 10px;
-  background: linear-gradient(180deg, #2C1A0E 0%, #D35400 100%);
+  background: linear-gradient(180deg, #2C1A0E 0%, #A03F00 100%);
   border-radius: 3px 3px 0 0;
   border: 1.5px solid #E67E22;
-  box-shadow: 0 -5px 10px rgba(211, 84, 0, 0.5);
+  box-shadow: 0 -5px 10px rgba(160, 63, 0, 0.5);
 }
 
 /* Wheels + Headlight */
@@ -429,11 +429,11 @@ details[open] .blog-toc-title::after {
   width: 7px;
   height: 7px;
   background: #3B2314;
-  border: 1.5px solid #D35400;
+  border: 1.5px solid #A03F00;
   border-radius: 50%;
   box-shadow: 
-    11px 0 0 #3B2314, 11px 0 0 0 1.5px #D35400,
-    22px 0 0 #3B2314, 22px 0 0 0 1.5px #D35400,
+    11px 0 0 #3B2314, 11px 0 0 0 1.5px #A03F00,
+    22px 0 0 #3B2314, 22px 0 0 0 1.5px #A03F00,
     /* Headlight glow */
     40px -8px 15px 5px rgba(255, 220, 100, 0.8),
     40px -8px 35px 12px rgba(255, 200, 50, 0.3);
@@ -455,11 +455,11 @@ details[open] .blog-toc-title::after {
   width: 38px;
   height: 24px;
   background: linear-gradient(180deg, #E67E22 0%, #C0601A 100%);
-  border: 2px solid #D35400;
+  border: 2px solid #A03F00;
   border-radius: 4px;
   position: relative;
   box-shadow: 
-    0 0 12px rgba(211, 84, 0, 0.35),
+    0 0 12px rgba(160, 63, 0, 0.35),
     inset 0 2px 4px rgba(255, 200, 100, 0.2);
 }
 
@@ -490,11 +490,11 @@ details[open] .blog-toc-title::after {
   width: 6px;
   height: 6px;
   background: #3B2314;
-  border: 1.5px solid #D35400;
+  border: 1.5px solid #A03F00;
   border-radius: 50%;
   box-shadow: 
-    10px 0 0 #3B2314, 10px 0 0 0 1.5px #D35400,
-    20px 0 0 #3B2314, 20px 0 0 0 1.5px #D35400;
+    10px 0 0 #3B2314, 10px 0 0 0 1.5px #A03F00,
+    20px 0 0 #3B2314, 20px 0 0 0 1.5px #A03F00;
 }
 
 @keyframes preloader-train-run {
@@ -509,7 +509,7 @@ details[open] .blog-toc-title::after {
   bottom: 38px;
   width: 6px;
   height: 6px;
-  background: rgba(211, 84, 0, 0.25);
+  background: rgba(160, 63, 0, 0.25);
   border-radius: 50%;
   animation: preloader-smoke-rise 1.5s ease-out infinite;
 }
@@ -533,7 +533,7 @@ details[open] .blog-toc-title::after {
   font-size: 0.65rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #D35400;
+  color: #A03F00;
   font-weight: 700;
   margin-bottom: 0.75rem;
   display: flex;
@@ -552,7 +552,7 @@ details[open] .blog-toc-title::after {
   display: flex;
   justify-content: center;
   gap: 2px;
-  text-shadow: 0 0 30px rgba(211, 84, 0, 0.15);
+  text-shadow: 0 0 30px rgba(160, 63, 0, 0.15);
 }
 
 .preloader-brand-main span {
@@ -575,7 +575,7 @@ details[open] .blog-toc-title::after {
 .preloader-brand-sub svg {
   width: 10px;
   height: 10px;
-  fill: #D35400;
+  fill: #A03F00;
 }
 
 @keyframes preloader-brand-in {
@@ -596,7 +596,7 @@ details[open] .blog-toc-title::after {
 .preloader-progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #D35400, #E67E22);
+  background: linear-gradient(90deg, #A03F00, #E67E22);
   animation: preloader-fill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -742,8 +742,8 @@ details[open] .blog-toc-title::after {
 }
 
 .glow-shadow:hover {
-  box-shadow: 0 0 25px rgba(211, 84, 0, 0.25), 0 0 50px rgba(211, 84, 0, 0.1);
-  border-color: rgba(211, 84, 0, 0.4) !important;
+  box-shadow: 0 0 25px rgba(160, 63, 0, 0.25), 0 0 50px rgba(160, 63, 0, 0.1);
+  border-color: rgba(160, 63, 0, 0.4) !important;
 }
 
 /* 3. Glassmorphism Play Button & Ripple */
@@ -760,10 +760,10 @@ details[open] .blog-toc-title::after {
 }
 
 .glass-play-btn:hover {
-  background: rgba(211, 84, 0, 0.8);
-  border-color: #D35400;
+  background: rgba(160, 63, 0, 0.8);
+  border-color: #A03F00;
   transform: scale(1.1);
-  box-shadow: 0 0 30px rgba(211, 84, 0, 0.4);
+  box-shadow: 0 0 30px rgba(160, 63, 0, 0.4);
 }
 
 @keyframes ripple-pulse {
@@ -775,7 +775,7 @@ details[open] .blog-toc-title::after {
   content: '';
   position: absolute;
   inset: 0;
-  border: 2px solid #D35400;
+  border: 2px solid #A03F00;
   border-radius: 50%;
   animation: ripple-pulse 2s infinite;
   pointer-events: none;
@@ -785,7 +785,7 @@ details[open] .blog-toc-title::after {
 .premium-form-wrap {
   position: relative;
   padding: 1px;
-  background: linear-gradient(135deg, rgba(211, 84, 0, 0.15), transparent 40%, transparent 60%, rgba(230, 126, 34, 0.15));
+  background: linear-gradient(135deg, rgba(160, 63, 0, 0.15), transparent 40%, transparent 60%, rgba(230, 126, 34, 0.15));
   border-radius: 64px;
   overflow: hidden;
 }
@@ -801,7 +801,7 @@ details[open] .blog-toc-title::after {
     transparent, 
     transparent, 
     transparent, 
-    #D35400, 
+    #A03F00, 
     transparent 20%
   );
   animation: rotate-border 6s linear infinite;
@@ -822,7 +822,7 @@ details[open] .blog-toc-title::after {
 /* Extra touch for inputs */
 input:focus, select:focus, textarea:focus {
   background: rgba(255, 248, 240, 0.95) !important;
-  box-shadow: 0 0 15px rgba(211, 84, 0, 0.08) !important;
+  box-shadow: 0 0 15px rgba(160, 63, 0, 0.08) !important;
 }
 
 /* ========== FLOATING CONTACT BUTTONS ========== */
@@ -933,15 +933,15 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   width: 44px;
   height: 28px;
-  background: linear-gradient(180deg, #D35400 0%, #A0430A 100%);
+  background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
   border: 2px solid #E67E22;
   border-radius: 4px 14px 3px 3px;
   z-index: 52;
   pointer-events: none;
   will-change: transform;
-  filter: drop-shadow(0 0 10px rgba(211,84,0,0.45));
+  filter: drop-shadow(0 0 10px rgba(160,63,0,0.45));
   box-shadow: 
-    0 0 15px rgba(211, 84, 0, 0.5),
+    0 0 15px rgba(160, 63, 0, 0.5),
     inset 0 3px 6px rgba(255, 200, 100, 0.3);
 }
 
@@ -953,10 +953,10 @@ input:focus, select:focus, textarea:focus {
   left: 8px;
   width: 8px;
   height: 10px;
-  background: linear-gradient(180deg, #2C1A0E 0%, #D35400 100%);
+  background: linear-gradient(180deg, #2C1A0E 0%, #A03F00 100%);
   border-radius: 3px 3px 0 0;
   border: 1.5px solid #E67E22;
-  box-shadow: 0 -5px 10px rgba(211, 84, 0, 0.5);
+  box-shadow: 0 -5px 10px rgba(160, 63, 0, 0.5);
 }
 
 /* Bánh xe + đèn pha */
@@ -968,11 +968,11 @@ input:focus, select:focus, textarea:focus {
   width: 7px;
   height: 7px;
   background: #3B2314;
-  border: 1.5px solid #D35400;
+  border: 1.5px solid #A03F00;
   border-radius: 50%;
   box-shadow: 
-    11px 0 0 #3B2314, 11px 0 0 0 1.5px #D35400,
-    22px 0 0 #3B2314, 22px 0 0 0 1.5px #D35400,
+    11px 0 0 #3B2314, 11px 0 0 0 1.5px #A03F00,
+    22px 0 0 #3B2314, 22px 0 0 0 1.5px #A03F00,
     40px -8px 15px 5px rgba(255, 220, 100, 0.8),
     40px -8px 35px 12px rgba(255, 200, 50, 0.3);
 }
@@ -983,14 +983,14 @@ input:focus, select:focus, textarea:focus {
   width: 38px;
   height: 24px;
   background: linear-gradient(180deg, #E67E22 0%, #C0601A 100%);
-  border: 2px solid #D35400;
+  border: 2px solid #A03F00;
   border-radius: 4px;
   z-index: 51;
   pointer-events: none;
   will-change: transform;
-  filter: drop-shadow(0 0 8px rgba(211,84,0,0.35));
+  filter: drop-shadow(0 0 8px rgba(160,63,0,0.35));
   box-shadow: 
-    0 0 12px rgba(211, 84, 0, 0.35),
+    0 0 12px rgba(160, 63, 0, 0.35),
     inset 0 2px 4px rgba(255, 200, 100, 0.2);
 }
 
@@ -1021,11 +1021,11 @@ input:focus, select:focus, textarea:focus {
   width: 6px;
   height: 6px;
   background: #3B2314;
-  border: 1.5px solid #D35400;
+  border: 1.5px solid #A03F00;
   border-radius: 50%;
   box-shadow: 
-    10px 0 0 #3B2314, 10px 0 0 0 1.5px #D35400,
-    20px 0 0 #3B2314, 20px 0 0 0 1.5px #D35400;
+    10px 0 0 #3B2314, 10px 0 0 0 1.5px #A03F00,
+    20px 0 0 #3B2314, 20px 0 0 0 1.5px #A03F00;
 }
 
 /* Toa cuối cùng */
@@ -1111,13 +1111,13 @@ input:focus, select:focus, textarea:focus {
 .blog-search-icon {
   position: absolute;
   left: 1.25rem;
-  color: rgba(142, 139, 134, 0.5);
+  color: rgba(107, 84, 67, 0.5);
   pointer-events: none;
   transition: color 0.3s;
 }
 
 .blog-search-box:focus-within .blog-search-icon {
-  color: #D35400;
+  color: #A03F00;
 }
 
 #blog-search {
@@ -1135,14 +1135,14 @@ input:focus, select:focus, textarea:focus {
 }
 
 #blog-search::placeholder {
-  color: rgba(59, 35, 20, 0.35);
+  color: rgba(59, 35, 20, 0.7);
   font-style: italic;
 }
 
 #blog-search:focus {
-  border-color: rgba(211, 84, 0, 0.4);
+  border-color: rgba(160, 63, 0, 0.4);
   background: rgba(255, 248, 240, 0.8);
-  box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.08), 0 4px 20px rgba(59, 35, 20, 0.08);
+  box-shadow: 0 0 0 3px rgba(160, 63, 0, 0.08), 0 4px 20px rgba(59, 35, 20, 0.08);
 }
 
 .blog-search-clear {
@@ -1150,21 +1150,21 @@ input:focus, select:focus, textarea:focus {
   right: 1rem;
   background: none;
   border: none;
-  color: rgba(142, 139, 134, 0.5);
+  color: rgba(107, 84, 67, 0.5);
   cursor: pointer;
   padding: 0.25rem;
   transition: color 0.3s;
 }
 
 .blog-search-clear:hover {
-  color: #D35400;
+  color: #A03F00;
 }
 
 .blog-search-count {
   text-align: center;
   margin-top: 0.75rem;
   font-size: 0.75rem;
-  color: rgba(142, 139, 134, 0.5);
+  color: rgba(107, 84, 67, 0.5);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   min-height: 1.2em;
@@ -1175,7 +1175,7 @@ input:focus, select:focus, textarea:focus {
 }
 
 /* ========== HERO CINEMATIC — CONTRAST ==========
-   Commit b91198b lat theme tu dark (--foreground: #F5F2EB) sang cream
+   Commit b91198b lat theme tu dark (--foreground: #3B2314) sang cream
    (--foreground: #3B2314), nhung markup hero trang chu van giu art direction
    toi (nen den + media opacity .6 + vignette rgba(9,9,9,.8)). Hau qua: chu
    nau dam nam tren nen toi -> ~1.3:1.
@@ -1255,7 +1255,7 @@ input:focus, select:focus, textarea:focus {
 /* --- mau (theo token cream hien tai, KHONG phai palette dark cu) --- */
 .text-foreground\/85 { color: rgba(59, 35, 20, .85); }
 .text-foreground\/75 { color: rgba(59, 35, 20, .75); }
-.text-primary\/50    { color: rgba(211, 84, 0, .5); }
+.text-primary\/50    { color: rgba(160, 63, 0, .5); }
 .bg-surface\/60      { background-color: rgba(234, 216, 192, .6); }
 .bg-surface\/40      { background-color: rgba(234, 216, 192, .4); }
 .bg-white\/4         { background-color: rgba(255, 255, 255, .04); }
@@ -1308,3 +1308,22 @@ summary.list-none::-webkit-details-marker { display: none; }
 @media (min-width: 1024px) {
   #mobile-menu { display: none; }
 }
+
+/* ========== LINK TRONG VAN BAN: KHONG CHI PHAN BIET BANG MAU ==========
+   Lighthouse "Ban can dua vao mau sac de phan biet cac duong lien ket".
+   Link nam trong dong van ban phai co gach chan san, khong doi hover.
+   Loai tru link da co nen/vien rieng (nut, badge, the) vi chung da phan biet
+   duoc bang hinh khoi. */
+main p a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
+main li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
+footer p a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
+footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
+.prose a:not([class*="bg-"]):not([class*="border"]) {
+  text-decoration-line: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+/* Build Tailwind chi sinh cac bien the alpha .text-[#6B5443]/xx, thieu rule goc.
+   Sau khi bo alpha (vi /80 chi dat 4.35:1, duoi nguong AA 4.5:1) thi can rule nay. */
+.text-\[\#6B5443\] { color: #6B5443; }
