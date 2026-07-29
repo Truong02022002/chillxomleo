@@ -481,12 +481,35 @@
       <img src="uploads/1775619688243-610230636-img2.webp" alt="" aria-hidden="true" fetchpriority="high" decoding="async" width="1080" height="720"
         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.6;transform:scale(1.05)"
         class="md:hidden absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
-      <video autoPlay loop muted playsInline preload="metadata" poster="uploads/1775619688243-610230636-img2.webp" aria-hidden="true"
+      <!-- Video nen 11,7 MB: KHONG dat <source> san. autoplay+muted khien trinh duyet
+           tai het file ngay ca khi thang display:none, nen tren mobile (video an bang
+           `hidden md:block`) van ton tron 11,7 MB. Chi gan nguon bang JS khi >=768px,
+           va doi 'load' de khong tranh bang thong voi LCP. -->
+      <video id="hero-video" loop muted playsInline preload="none" poster="uploads/1775619688243-610230636-img2.webp" aria-hidden="true"
+        data-src="uploads/1775619540162-191150330-xomleo-desktop.mp4"
         class="hidden md:block absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
-        <source src="uploads/1775619540162-191150330-xomleo-desktop.mp4" type="video/mp4" />
       </video>
       <div class="hero-scrim" style="position:absolute;inset:0"></div>
     </div>
+    <script>
+      (function () {
+        var v = document.getElementById('hero-video');
+        if (!v || !v.dataset.src) return;
+        if (!window.matchMedia('(min-width: 768px)').matches) return;
+        if (navigator.connection && navigator.connection.saveData) return;
+        var attach = function () {
+          var s = document.createElement('source');
+          s.src = v.dataset.src;
+          s.type = 'video/mp4';
+          v.appendChild(s);
+          v.load();
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        };
+        if (document.readyState === 'complete') attach();
+        else window.addEventListener('load', attach, { once: true });
+      })();
+    </script>
 
     <div class="container mx-auto px-6 relative z-10 text-center flex flex-col items-center pt-20">
       <span

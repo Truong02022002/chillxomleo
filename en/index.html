@@ -374,13 +374,35 @@
     style="background:#0E0C0A"
     class="hero-cinematic relative h-screen min-h-[600px] md:min-h-[800px] w-full flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0 bg-black" style="background:#000">
-      <video autoPlay loop muted playsInline preload="metadata" poster="../uploads/1775619688243-610230636-img2.webp" aria-hidden="true"
+      <!-- Thuoc tinh `media` tren <source> trong <video> da bi bo khoi spec HTML,
+           trinh duyet phot lo -> ban cu luon phat tiktok-1.mp4 (3 MB) o moi khổ,
+           video desktop khong bao gio chay. Chon nguon bang JS, va chi tai sau
+           su kien 'load' de khong tranh bang thong voi LCP. -->
+      <video id="hero-video" loop muted playsInline preload="none" poster="../uploads/1775619688243-610230636-img2.webp" aria-hidden="true"
+        data-src="../uploads/1775619540162-191150330-xomleo-desktop.mp4"
         class="absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
-        <source src="../uploads/tiktok-1.mp4" type="video/mp4" media="(max-width: 768px)" />
-        <source src="../uploads/1775619540162-191150330-xomleo-desktop.mp4" type="video/mp4" />
       </video>
       <div class="hero-scrim" style="position:absolute;inset:0"></div>
     </div>
+    <script>
+      (function () {
+        var v = document.getElementById('hero-video');
+        if (!v || !v.dataset.src) return;
+        if (!window.matchMedia('(min-width: 768px)').matches) return;
+        if (navigator.connection && navigator.connection.saveData) return;
+        var attach = function () {
+          var s = document.createElement('source');
+          s.src = v.dataset.src;
+          s.type = 'video/mp4';
+          v.appendChild(s);
+          v.load();
+          var p = v.play();
+          if (p && p.catch) p.catch(function () {});
+        };
+        if (document.readyState === 'complete') attach();
+        else window.addEventListener('load', attach, { once: true });
+      })();
+    </script>
 
     <div class="container mx-auto px-6 relative z-10 text-center flex flex-col items-center pt-20">
       <span
