@@ -1294,3 +1294,17 @@ summary.list-none::-webkit-details-marker { display: none; }
 /* --- misc --- */
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+/* ========== MOBILE MENU — CHONG PHU MAN HINH ==========
+   #mobile-menu la overlay `fixed inset-0 z-40`, chi duoc day ra ngoai man hinh
+   bang class Tailwind .translate-x-full. Truoc day tailwind-output.css bi defer
+   (media=print/onload) nen trong khoang cho CSS do tai xong, overlay phu kin
+   toan trang -> bam link tren navbar la thay menu doc de len noi dung.
+   Tailwind gio da render-blocking; rule duoi day la lop phong ve thu hai,
+   dat trong style.css de luon co hieu luc ngay tu lan paint dau tien. */
+#mobile-menu.translate-x-full { transform: translateX(100%); }
+
+/* Tren desktop khong bao gio duoc hien: nut hamburger von la lg:hidden */
+@media (min-width: 1024px) {
+  #mobile-menu { display: none; }
+}
