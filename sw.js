@@ -12,7 +12,7 @@ const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 const STATIC_ASSETS = [
   '/css/style.css?v219',
   '/css/tailwind-output.css?v219',
-  '/js/main.min.js?v218',
+  '/js/main.min.js?v219',
   '/uploads/1775619688243-610230636-img2.webp',
   '/uploads/favicon-32x32.png',
   '/uploads/favicon-16x16.png'

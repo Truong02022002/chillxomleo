@@ -1341,3 +1341,25 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   background-image: url(/uploads/patterns/noise-lines.webp);
   background-repeat: repeat;
 }
+
+/* O thay cho mon chua co anh that. Truoc day dung dummyimage.com:
+   36 request ra mien ngoai moi lan tai /menu/, va anh gia bi cong bo
+   trong Schema.org nhu anh san pham. Nay ve bang CSS, khong request. */
+.menu-noimg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, #A03F00 0%, #B4590F 100%);
+}
+.menu-noimg span {
+  color: #F5E9DA;
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
