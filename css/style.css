@@ -4,7 +4,7 @@
   --foreground: #3B2314; /* Dark Brown */
   --primary: #A03F00; /* Burnt Orange CTA */
   --secondary: #EAD8C0; /* Warm Section */
-  --accent: #E67E22; /* Orange Hover */
+  --accent: #B4590F; /* Orange Hover */
   --muted: #6B5443; /* Warm Muted (darkened for WCAG AA) */
   --surface: #EAD8C0; /* Section BG */
   --card: #FFF8F0; /* Card White */
@@ -128,7 +128,7 @@ article h1 {
 }
 
 .prose a:hover {
-  color: #E67E22 !important;
+  color: #7A3000 !important;
 }
 
 .prose blockquote {
@@ -224,7 +224,7 @@ article h1 {
   left: 0;
   width: 4px;
   height: 100%;
-  background: linear-gradient(to bottom, #A03F00, #E67E22);
+  background: linear-gradient(to bottom, #A03F00, #B4590F);
   border-radius: 4px 0 0 4px;
 }
 
@@ -398,7 +398,7 @@ details[open] .blog-toc-title::after {
   width: 44px;
   height: 28px;
   background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
-  border: 2px solid #E67E22;
+  border: 2px solid #B4590F;
   border-radius: 4px 14px 3px 3px;
   position: relative;
   box-shadow: 
@@ -416,7 +416,7 @@ details[open] .blog-toc-title::after {
   height: 10px;
   background: linear-gradient(180deg, #2C1A0E 0%, #A03F00 100%);
   border-radius: 3px 3px 0 0;
-  border: 1.5px solid #E67E22;
+  border: 1.5px solid #B4590F;
   box-shadow: 0 -5px 10px rgba(160, 63, 0, 0.5);
 }
 
@@ -454,7 +454,7 @@ details[open] .blog-toc-title::after {
 .pl-wagon {
   width: 38px;
   height: 24px;
-  background: linear-gradient(180deg, #E67E22 0%, #C0601A 100%);
+  background: linear-gradient(180deg, #B4590F 0%, #C0601A 100%);
   border: 2px solid #A03F00;
   border-radius: 4px;
   position: relative;
@@ -596,7 +596,7 @@ details[open] .blog-toc-title::after {
 .preloader-progress-bar {
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, #A03F00, #E67E22);
+  background: linear-gradient(90deg, #A03F00, #B4590F);
   animation: preloader-fill 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
@@ -934,7 +934,7 @@ input:focus, select:focus, textarea:focus {
   width: 44px;
   height: 28px;
   background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
-  border: 2px solid #E67E22;
+  border: 2px solid #B4590F;
   border-radius: 4px 14px 3px 3px;
   z-index: 52;
   pointer-events: none;
@@ -955,7 +955,7 @@ input:focus, select:focus, textarea:focus {
   height: 10px;
   background: linear-gradient(180deg, #2C1A0E 0%, #A03F00 100%);
   border-radius: 3px 3px 0 0;
-  border: 1.5px solid #E67E22;
+  border: 1.5px solid #B4590F;
   box-shadow: 0 -5px 10px rgba(160, 63, 0, 0.5);
 }
 
@@ -982,7 +982,7 @@ input:focus, select:focus, textarea:focus {
   position: absolute;
   width: 38px;
   height: 24px;
-  background: linear-gradient(180deg, #E67E22 0%, #C0601A 100%);
+  background: linear-gradient(180deg, #B4590F 0%, #C0601A 100%);
   border: 2px solid #A03F00;
   border-radius: 4px;
   z-index: 51;
@@ -1069,7 +1069,7 @@ input:focus, select:focus, textarea:focus {
   left: 0;
   width: 14px;
   height: 2px;
-  background: linear-gradient(90deg, #A0826D, #8B5E3C, #A0826D);
+  background: linear-gradient(90deg, #6B5443, #8B5E3C, #6B5443);
   border-radius: 1px;
   opacity: 0.6;
 }
@@ -1199,23 +1199,28 @@ input:focus, select:focus, textarea:focus {
       rgba(9, 9, 9, .62) 100%);
 }
 
+/* Chon lop utility theo DAU TOKEN, khong dung [class*=] (khop ca hover:text-primary,
+   group-hover:text-primary -> tung son nham wordmark va nut ngon ngu tren navbar)
+   va cung khong dung [class~=] (khop token nguyen ven nen truot het bien the alpha
+   nhu text-foreground/85 -> tung lam chu hero tro lai mau nau tren nen toi).
+   Mau dung: dau chuoi, hoac ngay sau mot khoang trang. */
 .hero-cinematic h1 { color: var(--hero-fg); }
-.hero-cinematic [class*="text-foreground"] { color: var(--hero-fg-soft); }
-.hero-cinematic strong[class*="text-foreground"] { color: var(--hero-fg); }
-.hero-cinematic [class*="text-primary"] { color: var(--hero-accent); }
+.hero-cinematic :is([class^="text-primary"], [class*=" text-primary"]) { color: var(--hero-accent); }
+.hero-cinematic :is([class^="text-foreground"], [class*=" text-foreground"]) { color: var(--hero-fg-soft); }
+.hero-cinematic strong:is([class^="text-foreground"], [class*=" text-foreground"]) { color: var(--hero-fg); }
 .hero-cinematic .bg-primary { color: var(--hero-fg); }
 
 /* Navbar trong suot nam de len hero toi -> chu phai sang.
    Khi cuon (.scrolled) navbar chuyen nen cream nen tra lai mau nau goc.
    Duoi md navbar da co nen cream (bg-background/80) nen khong doi. */
 @media (min-width: 768px) {
-  body.home-hero-dark #navbar:not(.scrolled) [class*="text-foreground"],
+  body.home-hero-dark #navbar:not(.scrolled) :is([class^="text-primary"], [class*=" text-primary"]) {
+    color: #F5A65B;
+  }
+  body.home-hero-dark #navbar:not(.scrolled) :is([class^="text-foreground"], [class*=" text-foreground"]),
   body.home-hero-dark #navbar:not(.scrolled) #mobile-menu-btn,
   body.home-hero-dark #navbar:not(.scrolled) a[href^="tel:"] {
     color: rgba(245, 233, 218, .92);
-  }
-  body.home-hero-dark #navbar:not(.scrolled) [class*="text-primary"] {
-    color: #F5A65B;
   }
   body.home-hero-dark #navbar:not(.scrolled) .fill-primary {
     fill: #F5A65B;
