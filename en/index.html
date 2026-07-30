@@ -59,87 +59,112 @@
 </script>
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
-  "@id": "https://xomleo.vn/#restaurant",
-  "parentOrganization": {"@id": "https://xomleo.vn/#organization"},
-  "name": "Tiệm Nướng & Chill Xóm Lèo",
-  "alternateName": ["Xom Leo Da Lat", "Xom Leo BBQ", "Xom Leo Grill and Chill Da Lat"],
-  "description": "The most scenic BBQ restaurant in Da Lat - charcoal BBQ with stunning valley sunset and train views. Chill vibes in the misty Da Lat highlands.",
-  "image": [
-    "https://xomleo.vn/uploads/1775619688243-610230636-img2.webp",
-    "https://xomleo.vn/uploads/blogs/tiem_nuong_chill_xom_leo_khong_gian_1_1775629347956.webp",
-    "https://xomleo.vn/uploads/blogs/khong_gian_tiem_nuong_chill_xom_leo_quan_nuong_da_lat_1775629352084.jpg"
-  ],
-  "url": "https://xomleo.vn",
-  "telephone": "+84764527336",
-  "email": "lienhe.tiemnuongchill@gmail.com",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "113 Huỳnh Tấn Phát, Phường Xuân Trường",
-    "addressLocality": "Đà Lạt",
-    "addressRegion": "Lâm Đồng",
-    "postalCode": "67000",
-    "addressCountry": "VN",
-    "areaServed": {
-      "@type": "City",
-      "name": "Đà Lạt",
-      "containedInPlace": {
-        "@type": "AdministrativeArea",
-        "name": "Lâm Đồng"
-      }
-    }
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 11.9543314,
-    "longitude": 108.4944158
-  },
-  "hasMap": "https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-    "opens": "15:00",
-    "closes": "23:00"
-  },
-  "servesCuisine": ["Vietnamese BBQ", "Charcoal Grilled Meat", "Hotpot", "Da Lat BBQ Specialties"],
-  "priceRange": "$$",
-  "currenciesAccepted": "VND",
-  "paymentAccepted": "Cash, Bank Transfer",
-  "acceptsReservations": true,
-  "menu": "https://xomleo.vn/menu-en/",
-  "hasMenu": {"@id": "https://xomleo.vn/#menu-en"},
-  "areaServed": [
-    {"@type": "City", "name": "Đà Lạt"},
-    {"@type": "State", "name": "Lâm Đồng"},
-    {"@type": "Country", "name": "Vietnam"}
-  ],
-  "sameAs": [
-    "https://www.facebook.com/nuongxomleo",
-    "https://www.tiktok.com/@tiemnuongchillxomleo",
-    "https://www.google.com/maps?cid=11166661116585636255"
-  ],
-  "potentialAction": {
-    "@type": "ReserveAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://xomleo.vn/#booking",
-      "actionPlatform": ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"]
-    },
-    "result": {
-      "@type": "Reservation",
-      "name": "Book a table at Tiệm Nướng & Chill Xóm Lèo"
-    }
-  },
-  "keywords": "quán nướng Đà Lạt, quán nướng view đẹp Đà Lạt, BBQ Đà Lạt, quán nướng ngắm hoàng hôn Đà Lạt, tiệm nướng Đà Lạt, quán ăn Đà Lạt, Xóm Lèo Đà Lạt, quán nướng view train Đà Lạt",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.8",
-    "bestRating": "5",
-    "worstRating": "1",
-    "ratingCount": "1978",
-    "reviewCount": "1978"
+ "@context": "https://schema.org",
+ "@type": "Restaurant",
+ "@id": "https://xomleo.vn/#restaurant",
+ "parentOrganization": {
+  "@id": "https://xomleo.vn/#organization"
+ },
+ "name": "Tiệm Nướng & Chill Xóm Lèo",
+ "alternateName": [
+  "Xom Leo Da Lat",
+  "Xom Leo BBQ",
+  "Xom Leo Grill and Chill Da Lat"
+ ],
+ "description": "The most scenic BBQ restaurant in Da Lat - charcoal BBQ with stunning valley sunset and train views. Chill vibes in the misty Da Lat highlands.",
+ "image": [
+  "https://xomleo.vn/uploads/1775619688243-610230636-img2.webp",
+  "https://xomleo.vn/uploads/blogs/tiem_nuong_chill_xom_leo_khong_gian_1_1775629347956.webp",
+  "https://xomleo.vn/uploads/blogs/khong_gian_tiem_nuong_chill_xom_leo_quan_nuong_da_lat_1775629352084.jpg"
+ ],
+ "url": "https://xomleo.vn",
+ "telephone": "+84764527336",
+ "email": "lienhe.tiemnuongchill@gmail.com",
+ "address": {
+  "@type": "PostalAddress",
+  "streetAddress": "113 Huỳnh Tấn Phát, Phường Xuân Trường",
+  "addressLocality": "Đà Lạt",
+  "addressRegion": "Lâm Đồng",
+  "postalCode": "67000",
+  "addressCountry": "VN",
+  "areaServed": {
+   "@type": "City",
+   "name": "Đà Lạt",
+   "containedInPlace": {
+    "@type": "AdministrativeArea",
+    "name": "Lâm Đồng"
+   }
   }
+ },
+ "geo": {
+  "@type": "GeoCoordinates",
+  "latitude": 11.9543314,
+  "longitude": 108.4944158
+ },
+ "hasMap": "https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8",
+ "openingHoursSpecification": {
+  "@type": "OpeningHoursSpecification",
+  "dayOfWeek": [
+   "Monday",
+   "Tuesday",
+   "Wednesday",
+   "Thursday",
+   "Friday",
+   "Saturday",
+   "Sunday"
+  ],
+  "opens": "15:00",
+  "closes": "23:00"
+ },
+ "servesCuisine": [
+  "Vietnamese BBQ",
+  "Charcoal Grilled Meat",
+  "Hotpot",
+  "Da Lat BBQ Specialties"
+ ],
+ "priceRange": "$$",
+ "currenciesAccepted": "VND",
+ "paymentAccepted": "Cash, Bank Transfer",
+ "acceptsReservations": true,
+ "menu": "https://xomleo.vn/menu-en/",
+ "hasMenu": {
+  "@id": "https://xomleo.vn/#menu-en"
+ },
+ "areaServed": [
+  {
+   "@type": "City",
+   "name": "Đà Lạt"
+  },
+  {
+   "@type": "State",
+   "name": "Lâm Đồng"
+  },
+  {
+   "@type": "Country",
+   "name": "Vietnam"
+  }
+ ],
+ "sameAs": [
+  "https://www.facebook.com/nuongxomleo",
+  "https://www.tiktok.com/@tiemnuongchillxomleo",
+  "https://www.google.com/maps?cid=11166661116585636255"
+ ],
+ "potentialAction": {
+  "@type": "ReserveAction",
+  "target": {
+   "@type": "EntryPoint",
+   "urlTemplate": "https://xomleo.vn/#booking",
+   "actionPlatform": [
+    "http://schema.org/DesktopWebPlatform",
+    "http://schema.org/MobileWebPlatform"
+   ]
+  },
+  "result": {
+   "@type": "Reservation",
+   "name": "Book a table at Tiệm Nướng & Chill Xóm Lèo"
+  }
+ },
+ "keywords": "quán nướng Đà Lạt, quán nướng view đẹp Đà Lạt, BBQ Đà Lạt, quán nướng ngắm hoàng hôn Đà Lạt, tiệm nướng Đà Lạt, quán ăn Đà Lạt, Xóm Lèo Đà Lạt, quán nướng view train Đà Lạt"
 }
 </script>
   <script type="application/ld+json">
