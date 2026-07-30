@@ -1332,3 +1332,12 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
 /* Build Tailwind chi sinh cac bien the alpha .text-[#6B5443]/xx, thieu rule goc.
    Sau khi bo alpha (vi /80 chi dat 4.35:1, duoi nguong AA 4.5:1) thi can rule nay. */
 .text-\[\#6B5443\] { color: #6B5443; }
+
+/* Texture nen trang tri. Truoc day dung bg-[url(...)] tro ra
+   transparenttextures.com: mot bien the tra 404, hai bien the con lai bi
+   Tailwind escape hong thanh url(./&#x27;https:/...) nen deu la request phi.
+   Nay dung file local 2,4 KB, duong dan tuyet doi de chay tu moi thu muc. */
+.bg-noise {
+  background-image: url(/uploads/patterns/noise-lines.webp);
+  background-repeat: repeat;
+}
