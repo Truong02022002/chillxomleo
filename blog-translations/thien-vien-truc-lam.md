@@ -40,4 +40,4 @@ Sau khi tham quan Thiền Viện Trúc Lâm, đừng quên ghé qua **[Tiệm N�
 
 📌 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt
 
-📌 **Hotline:** 0989.765.070
+📌 **Hotline:** 076 452 7336

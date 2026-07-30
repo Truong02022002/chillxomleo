@@ -104,7 +104,7 @@ Let **Chill Stop Grill Shop** accompany you in the most memorable moments in the
 **Address:**111 Huynh Tan Phat, Ward 11, City. Da Lat.
 
 -
-**Hotline:**0989.765.070
+**Hotline:**076 452 7336
 
 -
 **Fanpage:**Chill Stop Grill Shop

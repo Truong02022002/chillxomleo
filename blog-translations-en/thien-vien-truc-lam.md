@@ -24,4 +24,4 @@ After exploring Truc Lam Zen Monastery, don't miss a visit to **[Tiệm Nướng
 
 📌 **Address:** 113 Huynh Tan Phat, Ward 11, Da Lat
 
-📌 **Hotline:** 0989.765.070
+📌 **Hotline:** 076 452 7336
