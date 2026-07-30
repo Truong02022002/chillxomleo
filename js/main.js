@@ -185,7 +185,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (currentPathForInit.endsWith('/')) currentPathForInit = currentPathForInit.slice(0, -1);
   const pathSegment = currentPathForInit.split('/').pop() || '';
 
-  const isEnPageInitial = pathSegment === 'en' || pathSegment.endsWith('-en') || currentPathForInit.endsWith('-en.html') || currentPathForInit.endsWith('en.html');
+  const isEnPageInitial = pathSegment === 'en' || pathSegment.endsWith('-en') || currentPathForInit.endsWith('-en.html') || currentPathForInit.endsWith('en.html') || currentPathForInit.startsWith('/en/');
 
   let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
 
@@ -231,14 +231,20 @@ document.addEventListener('DOMContentLoaded', () => {
         '/about': '/about-en/',
         '/menu': '/menu-en/',
         '/ve-chung-toi': '/about-us-en/',
-        '/blog': '/blog-en/'
+        '/blog': '/blog-en/',
+        '/chinh-sach-bao-mat': '/en/privacy-policy/',
+        '/dieu-khoan-su-dung': '/en/terms-of-use/',
+        '/duong-di': '/en/directions/'
       },
       'en_to_vn': {
         '/en': '/',
         '/about-en': '/about/',
         '/menu-en': '/menu/',
         '/about-us-en': '/ve-chung-toi/',
-        '/blog-en': '/blog/'
+        '/blog-en': '/blog/',
+        '/en/privacy-policy': '/chinh-sach-bao-mat/',
+        '/en/terms-of-use': '/dieu-khoan-su-dung/',
+        '/en/directions': '/duong-di/'
       }
     };
 
