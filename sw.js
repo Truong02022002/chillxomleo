@@ -5,7 +5,7 @@
 
 // Doi CACHE_VERSION moi khi bump cache-buster cua CSS/JS: handler 'activate'
 // se xoa het cache khong khop prefix, tranh de lai entry cua phien ban cu.
-const CACHE_VERSION = 'xomleo-897029a6';
+const CACHE_VERSION = 'xomleo-c0a4eb66';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 

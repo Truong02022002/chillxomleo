@@ -22,6 +22,7 @@ const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
 const ASSETS = [
+  { file: 'fonts/fonts.css', pattern: /fonts\.css\?[a-z]*[0-9a-f]+/g, name: 'fonts.css' },
   { file: 'css/style.css', pattern: /style\.css\?[a-z]*[0-9a-f]+/g, name: 'style.css' },
   { file: 'css/tailwind-output.css', pattern: /tailwind-output\.css\?[a-z]*[0-9a-f]+/g, name: 'tailwind-output.css' },
   { file: 'js/main.min.js', pattern: /main\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'main.min.js' },
