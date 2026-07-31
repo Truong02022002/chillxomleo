@@ -131,7 +131,7 @@ Featured dishes:
 
 📍 Address: 113 Huynh Tan Phat, Ward 11, Da Lat
 ⏰ Opening hours: 15:00 – 23:00 every day
-📞 Table reservation hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 Table reservation hotline: 076.45.27.336
 
 ## 10. FAQ – Frequently asked questions
 

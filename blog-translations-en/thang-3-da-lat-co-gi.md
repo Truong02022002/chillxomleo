@@ -27,10 +27,6 @@ March is the time when white flowers bloom, covering the streets of Da Lat. Stre
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ## 🎒**Experience Unique Travel Activities**
 
 ☁️**Rattan hunting at Thien Phuc Duc Hill, Cau Dat Farm**: In the early morning, you can go to famous rattan hunting locations to immerse yourself in the magnificent natural scenery.

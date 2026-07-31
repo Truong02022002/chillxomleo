@@ -74,7 +74,7 @@ Là một quán nướng với phong cách độc lạ, Xóm Lèo đẳng cấp 
 
 **Mạng xã hội:** [📩 Facebook], Google map : [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 
-**Hotline:** 076.45.27.336 / 08.99.42.84.34 / 0902.91.22.40
+**Hotline:** 076.45.27.336
 
 Tiệm Nướng & Chill Xóm Lèo không chỉ hấp dẫn bởi thực đơn phong phú với những món nướng thơm ngon, mà còn bởi không gian ấm cúng, thân thiện. Nơi đây được thiết kế với phong cách mộc mạc, tạo cảm giác gần gũi và chill đúng nghĩa. Đặc biệt, vào buổi tối, ánh đèn lung linh sẽ làm cho bữa ăn của bạn thêm phần lãng mạn.
 

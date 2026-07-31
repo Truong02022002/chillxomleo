@@ -104,7 +104,7 @@ Một vài phản hồi nổi bật từ khách hàng:
 
 📍 Địa chỉ: **113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng**
 
-📞 Hotline: 076.45.27.336 – 0899.428.434 – 0902.912.240
+📞 Hotline: 076.45.27.336
 
 📩 Đặt bàn nhanh qua fanpage: *[Tại Đây]*
 

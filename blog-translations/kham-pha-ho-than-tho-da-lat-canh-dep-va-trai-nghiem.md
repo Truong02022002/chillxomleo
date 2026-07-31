@@ -341,7 +341,7 @@ Từ các món nướng thơm nức mũi đến các món nhắm đậm đà, ph
 
 📌 **Google Map**: *[Xem trên bản đồ]*
 
-📞 Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 Hotline: 076.45.27.336
 
 👉 **Gợi ý nhỏ**: Hãy đến sớm để chọn được chỗ ngồi có view đẹp và không phải chờ đợi lâu, nhất là vào dịp cuối tuần hoặc buổi tối nhé!
 

@@ -38,7 +38,7 @@ The shop offers a cozy space with sparkling lights and unique decor. The menu he
 
 **📍 Address**: 113 Huynh Tan Phat, Ward 11, Da Lat
 
-**📞 Contact**: 076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+**📞 Contact**: 076.45.27.336
 
 **💬 Inbox**: https://m.me/nuongxomleo
 

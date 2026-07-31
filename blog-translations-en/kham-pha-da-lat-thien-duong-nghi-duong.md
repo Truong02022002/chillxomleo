@@ -38,10 +38,6 @@ Photo: Da Lat
 
 - 076.45.27.336
 
-- 08.99.42.84.34
-
-- 0902.91.22.40
-
 ### 3. Da Lat Market
 
 ![Discover Da Lat]

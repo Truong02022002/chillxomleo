@@ -86,7 +86,7 @@ Tiệm mang đến không gian ấm cúng với ánh đèn lung linh và decor �
 
 **📍 Địa chỉ**: 113 Huỳnh Tấn Phát, P.11, Đà Lạt
 
-**📞 Liên hệ**: 076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+**📞 Liên hệ**: 076.45.27.336
 
 **💬 Inbox**: [https://m.me/nuongxomleo]
 

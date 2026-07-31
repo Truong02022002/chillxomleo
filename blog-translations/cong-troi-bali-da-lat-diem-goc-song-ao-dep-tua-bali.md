@@ -259,6 +259,6 @@ Sau khi khám phá Cổng Trời Đà Lạt, hãy ghé qua *[**Tiệm Nướng &
 
 📌 **Google Maps:** [Xem Đường Đi]
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336
 
 Cổng Trời Đà Lạt không chỉ là một điểm check-in đẹp mà còn là nơi để bạn cảm nhận vẻ đẹp thiên nhiên và tìm lại sự bình yên trong tâm hồn. Ngoài những khoảnh khắc thư giãn và chiêm ngưỡng cảnh sắc thơ mộng, hãy kết hợp chuyến đi với các điểm đến lân cận để trải nghiệm trọn vẹn hơn. Đừng quên ghé qua **Tiệm Nướng & Chill Xóm Lèo** để hoàn thiện chuyến đi của bạn với một bữa ăn ngon miệng. Đà Lạt đang chờ đón bạn với những trải nghiệm tuyệt vời nhất!

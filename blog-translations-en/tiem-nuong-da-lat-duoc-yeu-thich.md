@@ -57,7 +57,7 @@ In particular, you can also enjoy hot grilled food, chill slightly and hunt for 
 Especially at Xom Leo Grill & Chill Shop, you will receive **free table decoration** upon request, creating a cozy and unique space for every gathering. Whether it's a birthday, anniversary or intimate meeting, the shop is always ready to help you design a beautiful party table, bringing a complete and memorable experience with friends and relatives.
 
 📍**Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong
-📞**Hotline:**076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+📞**Hotline:**076.45.27.336
 🌐**Reserve Table:*Here***
 📍**Directions:*Directions***
 

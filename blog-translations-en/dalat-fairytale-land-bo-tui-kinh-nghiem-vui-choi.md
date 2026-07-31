@@ -66,7 +66,7 @@ After relaxing in the fairy tale world at Da Lat Fairytale Land, don't forget to
 
 🗺️**Directions:***See Directions*
 
-📞**Hotline:**076.45.27.336 – 0899.42.84.34 – 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 📌**Reserve a table:***Here*
 

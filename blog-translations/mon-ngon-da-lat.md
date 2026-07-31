@@ -465,7 +465,7 @@ Không chỉ gây ấn tượng bởi cảnh sắc, Tiệm Nướng & Chill Xóm
 *🔥 **Đặc biệt**: View hoàng hôn – Tàu lửa – Nhà lồng cực chill.
 👉 Đặt bàn: [Fanpage]
 
-☎️ Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+☎️ Hotline: 076.45.27.336
 📍 Chỉ đường: [Xem bản đồ Google Maps]
 
 *

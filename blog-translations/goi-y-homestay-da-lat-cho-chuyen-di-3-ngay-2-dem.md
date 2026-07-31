@@ -567,7 +567,7 @@ Chuyến đi Đà Lạt sẽ trọn vẹn hơn nếu kết hợp cùng những b
 
 **📍 Chỉ Đường:** *[**Google Map**]*
 
-📞 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline: **076.45.27.336
 
 Với không gian ấm cúng và thực đơn đa dạng, Tiệm Nướng & Chill Xóm Lèo là nơi lý tưởng để tận hưởng buổi tối cùng gia đình và bạn bè.
 

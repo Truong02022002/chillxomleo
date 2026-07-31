@@ -105,7 +105,7 @@ The shop also regularly has check-in offers, birthday and anniversary combos...
 
 📸**Reserve Table**:*Here*
 
-📞**Hotline**: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞**Hotline**: 076.45.27.336
 
 👉 Set up a table **free**, reserve your spot early to have the ultimate train hunting view** and experience a complete chill evening at Xom Leo!
 

@@ -68,10 +68,6 @@ A special highlight: the restaurant offers a thrilling **"night train spotting" 
 
 076.45.27.336
 
-08.99.42.84.34
-
-0902.91.22.40
-
 ## 3. Da Lat Travel Tips
 
 **Getting There**: You can reach Da Lat by bus, plane, or by riding a motorbike for an adventurous mountain road experience.

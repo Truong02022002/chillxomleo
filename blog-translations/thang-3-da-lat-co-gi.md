@@ -76,10 +76,6 @@ Tháng 3 là lúc hoa ban trắng nở rộ, phủ đầy các con đường Đ�
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ## 🎒 **Trải Nghiệm Các Hoạt Động Du Lịch Độc Đáo**
 
 ![săn mây đà lạt ]

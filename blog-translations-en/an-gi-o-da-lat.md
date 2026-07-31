@@ -62,10 +62,6 @@ If you want to enjoy grilled food in a cozy space, come to **Xom Leo Grill & Chi
 
 076.45.27.336
 
-08.99.42.84.34
-
-0902.91.22.40
-
 **💬 Inbox**: https://m.me/nuongxomleo
 
 **🗺️ Google Maps**: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8

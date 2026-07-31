@@ -98,10 +98,6 @@ Một ly sữa đậu nành nóng hổi vào buổi tối se lạnh không chỉ
 
 - 076.45.27.336
 
-- 08.99.42.84.34
-
-- 0902.91.22.40
-
 ## Dịch Vụ Du Lịch & Lưu Trú Tại Đà Lạt
 
 Hiện nay, có rất nhiều khách sạn, homestay và resort đẹp tại Đà Lạt phù hợp với từng nhu cầu của du khách. Một số gợi ý:

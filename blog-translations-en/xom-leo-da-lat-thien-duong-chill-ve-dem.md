@@ -57,7 +57,7 @@ An indispensable destination when visiting the Xom Leo area at night is ***Xom L
 
 📍**Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 
-📞**Hotline:**076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 🌐**Fanpage:**https://www.facebook.com/nuongxomleo/
 

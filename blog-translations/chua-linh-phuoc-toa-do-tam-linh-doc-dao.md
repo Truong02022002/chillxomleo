@@ -249,6 +249,6 @@ Chiêm ngưỡng thung lũng đèn lung linh về đêm.
 
 - 
 
-**Hotline: **📞 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**Hotline: **📞 076.45.27.336
 
 **Chùa Linh Phước** không chỉ là một ngôi chùa, mà là một bảo tàng nghệ thuật khảm sành độc đáo của Việt Nam. Hãy lên lịch trình ghé thăm “Chùa Ve Chai” để tự mình cảm nhận vẻ đẹp tâm linh rực rỡ này nhé!

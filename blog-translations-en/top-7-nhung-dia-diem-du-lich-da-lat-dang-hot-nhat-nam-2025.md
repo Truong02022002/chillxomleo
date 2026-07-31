@@ -66,7 +66,7 @@ Not only the attractions, **Da Lat tourism** is also attractive by its unique cu
 
 🗺️ Google Map: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 
-📞 Hotline: 076.45.27.336 / 08.99.42.84.34 / 0902.91.22.40
+📞 Hotline: 076.45.27.336
 
 #### 🌿**Green Hills - Green Hills In Da Lat Travel Itinerary**
 

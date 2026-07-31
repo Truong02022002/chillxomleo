@@ -156,6 +156,6 @@ After exploring Da Lat Heaven's Gate, stop by *** Xom Leo Grill & Chill Shop ***
 
 📌**Google Maps:**See Directions
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336
 
 Da Lat Heaven's Gate is not only a beautiful check-in point but also a place for you to feel the natural beauty and find peace in your soul. In addition to moments of relaxation and admiring the poetic scenery, combine your trip with nearby destinations for a more complete experience. Don't forget to stop by **Xom Leo Grill & Chill Shop** to complete your trip with a delicious meal. Da Lat is waiting for you with the most wonderful experiences!

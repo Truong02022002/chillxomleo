@@ -286,6 +286,6 @@ Enjoying delicious food while enjoying the view of the city lighting up - this i
 
 **📍 Directions:***Google Map*
 
-📞**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 Da Lat always attracts tourists with its dreamy beauty, especially the hydrangea fields blooming brilliantly amid the cool green space. This is the ideal check-in point for those who love romance and want to save beautiful moments. After visiting, you can visit Xom Leo Grill & Chill Shop - a very chill outdoor grill shop in the middle of the pine forest, very popular with young people. The chilly air combined with fragrant grilled food and poetic scenery will make the trip more complete.

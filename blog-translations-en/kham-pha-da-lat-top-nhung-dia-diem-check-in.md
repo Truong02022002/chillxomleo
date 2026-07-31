@@ -34,7 +34,7 @@ As a grill shop with a unique style, classy Xom Leo is a place to both enjoy gri
 
 **Social networks:**📩 Facebook, Google map: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 
-**Hotline:**076.45.27.336 / 08.99.42.84.34 / 0902.91.22.40
+**Hotline:**076.45.27.336
 
 Xom Leo Grill & Chill Shop is not only attractive because of its rich menu with delicious grilled dishes, but also because of its cozy and friendly space. This place is designed with a rustic style, creating a true feeling of closeness and chill. Especially in the evening, sparkling lights will make your meal more romantic.
 

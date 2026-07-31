@@ -30,10 +30,6 @@ Every evening, from Xom Leo Grill & Chill Shop, you can capture the moment when 
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ### 3. 🌌 Camping on LangBiang Peak
 
 If you want a challenging and romantic experience, try camping on LangBiang peak. The feeling of looking at the city from above, the cold air and the starry sky will be a memorable experience.

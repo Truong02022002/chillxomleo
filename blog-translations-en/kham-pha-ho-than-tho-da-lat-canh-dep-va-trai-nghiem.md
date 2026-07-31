@@ -211,7 +211,7 @@ The staff here are highly appreciated for their enthusiasm and thoughtfulness. F
 
 📌**Google Map**:*View on map*
 
-📞 Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 Hotline: 076.45.27.336
 
 👉**Small suggestion**: Come early to choose a seat with a nice view and not have to wait long, especially on weekends or evenings!
 

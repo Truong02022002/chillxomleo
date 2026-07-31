@@ -258,6 +258,6 @@ Dù đi cùng người thương, bạn bè hay gia đình, ***Tiệm Nướng & 
 
 📌 **Google Maps:** [Xem đường đi]
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336
 
 **Thung lũng Tình Yêu** là điểm đến không thể bỏ qua khi bạn ghé thăm Đà Lạt. Với cảnh quan thơ mộng, không khí trong lành và nhiều hoạt động thú vị, nơi đây hứa hẹn mang đến cho bạn những trải nghiệm đáng nhớ. Đừng quên ghé qua ***Tiệm Nướng & Chill Xóm Lèo*** để hoàn thiện hành trình khám phá Đà Lạt của bạn. Chúc bạn có một chuyến đi thật trọn vẹn và đáng nhớ!

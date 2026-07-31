@@ -236,6 +236,6 @@ Sau khi dạo chơi, chụp ảnh “cháy máy” tại ***Quảng trường L�
 
 📌 **Google Maps:** [Xem Đường Đi]
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336
 
 Quảng trường Lâm Viên không chỉ là biểu tượng kiến trúc độc đáo của thành phố Đà Lạt mà còn là điểm đến lý tưởng để vui chơi, chụp ảnh và tận hưởng không khí se lạnh đặc trưng của xứ sở ngàn hoa. Sau một ngày khám phá những góc sống ảo tuyệt đẹp và tham gia các hoạt động sôi động tại quảng trường, đừng quên ghé **Tiệm Nướng & Chill Xóm Lèo gần Quảng trường Lâm Viên** để nạp lại năng lượng. Không gian ấm cúng cùng thực đơn hấp dẫn tại đây chắc chắn sẽ là cái kết hoàn hảo cho hành trình vi vu Đà Lạt đầy cảm xúc của bạn.

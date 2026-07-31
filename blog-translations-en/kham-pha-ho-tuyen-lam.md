@@ -200,4 +200,4 @@ After walking and sightseeing at ***Tuyen Lam Lake***, don't forget to stop by *
 
 📌**Google Maps:***See Directions*
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336

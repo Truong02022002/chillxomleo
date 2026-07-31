@@ -56,7 +56,7 @@ Quán không đơn thuần là nơi để ăn uống, mà còn là nơi để **
 
 📍 **Google Map:** *[Xem Chỉ Đường]*
 
-📞 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline: **076.45.27.336
 
 ## 2. Không gian chill chuẩn Đà Lạt – Đặc trưng của quán nướng Đà Lạt được yêu thích nhất
 

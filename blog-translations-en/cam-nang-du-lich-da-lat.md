@@ -372,7 +372,7 @@ The 3 days 2 nights Da Lat itinerary is the ideal choice for you to explore natu
 **Evening:****Dine at*Xom Leo Grill & Chill Shop***– Chill space in the middle of the forest, delicious grilled dishes, watching Da Lat sparkling at night.
 📍 Address:*113 Huynh Tan Phat, Ward 11, Da Lat*
 🔥 Cozy chill grill space, full of mountain town style, with a rich menu, authentic Da Lat flavors.
-👉 Book a table: Fanpage | ☎️ Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+👉 Book a table: Fanpage | ☎️ Hotline: 076.45.27.336
 📍 Directions: See Google Maps
 
 #### **Day 3:**

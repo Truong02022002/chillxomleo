@@ -142,6 +142,6 @@ After visiting the Sculpture Tunnel, stop by *** Xom Leo Grill & Chill Shop *** 
 
 📌**Google Maps:***See directions*
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336
 
 Clay tunnel is a destination not to be missed when you visit Da Lat. With unique architecture, artistic space and beautiful natural scenery, this place brings you memorable experiences. Don't forget to combine your trip with enjoying delicious food at **Xom Leo Grill & Chill Shop** to complete your journey. Da Lat is always ready to welcome you with the best things!

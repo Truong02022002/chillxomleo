@@ -36,7 +36,7 @@ One of the things that makes tourists love Da Lat is its unique cuisine. And if 
 
 📍 Address: 113 Huynh Tan Phat, Ward 11, Da Lat
 
-📞 Contact: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 Contact: 076.45.27.336
 
 💬 Book a Table:*Here*
 

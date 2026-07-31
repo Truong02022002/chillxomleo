@@ -44,7 +44,7 @@ The chilly air, the smell of grilling smoke mixed with the faint scent of pine, 
 
 ##**📍 Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong
 
-**📍 Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**📍 Hotline:**076.45.27.336
 
 **📍 Google Maps:**See driving directions
 

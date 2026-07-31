@@ -252,6 +252,6 @@ Sau khi khám phá vẻ đẹp hùng vĩ của đỉnh Langbiang, hãy dành th�
 
 📌 **Google Maps:** [Xem đường đi]
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336
 
 Đỉnh Langbiang không chỉ là biểu tượng du lịch của Đà Lạt mà còn là điểm đến lý tưởng cho những ai yêu thích khám phá và trải nghiệm. Cảnh sắc thiên nhiên hùng vĩ, câu chuyện tình yêu đầy ý nghĩa và các hoạt động thú vị tại đây sẽ mang đến cho bạn những kỷ niệm khó quên. Đừng quên ghé qua **Tiệm Nướng & Chill Xóm Lèo** để thưởng thức bữa ăn ngon lành, tạo thêm những kỷ niệm đáng nhớ trong hành trình khám phá thành phố ngàn hoa!

@@ -304,7 +304,7 @@ This is also the ideal place to have dinner in Da Lat with your loved one, group
 📍*Address: 113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 *🔥**Special**: Sunset view – Train – Extremely chill cage house.
 👉 Book a table: Fanpage
-☎️ Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+☎️ Hotline: 076.45.27.336
 📍 Directions: See Google Maps
 
 **

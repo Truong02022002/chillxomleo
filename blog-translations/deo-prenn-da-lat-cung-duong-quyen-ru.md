@@ -221,7 +221,7 @@ Tại đây, bạn có thể thưởng thức **các món nướng đậm đà h
 
 📍 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng
 
-📞 **Hotline: **076.45.27.336 – 0899.42.8434 – 0902.91.2240
+📞 **Hotline: **076.45.27.336
 
 📩 **Đặt Bàn:** *[Tại Đây]*
 

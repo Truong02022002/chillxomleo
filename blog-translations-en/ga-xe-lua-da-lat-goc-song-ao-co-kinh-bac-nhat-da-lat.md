@@ -106,7 +106,7 @@ If you are looking for a restaurant in Da Lat with delicious food, beautiful vie
 
 📍**Address**: 113 Huynh Tan Phat, Ward 11, Da Lat
 
-📞**Hotline**: 0764 527 336 – 0899 428 434 – 0902 912 240
+📞**Hotline**: 0764 527 336
 
 📩**Reserve Table**:*Here*
 

@@ -369,7 +369,7 @@ Sau khi khám phá và thưởng thức những quán cafe view đẹp, đừng 
 
 📍 **Google Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 
-📞 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline: **076.45.27.336
 
 ### 💡 **Gợi ý lịch trình khám phá Đà Lạt lý tưởng với những quán cà phê đẹp ở Đà Lạt**
 

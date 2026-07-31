@@ -147,6 +147,6 @@ After exploring the majestic beauty of Langbiang peak, take time to visit ***Xom
 
 📌**Google Maps:**See directions
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336
 
 Langbiang Peak is not only a tourist symbol of Da Lat but also an ideal destination for those who love to explore and experience. The majestic natural scenery, meaningful love story and interesting activities here will bring you unforgettable memories. Don't forget to stop by **Xom Leo Grill & Chill Shop** to enjoy a delicious meal, creating more memorable memories in your journey to explore the city of flowers!

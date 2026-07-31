@@ -407,6 +407,6 @@ Vừa tận hưởng món ngon, vừa thả hồn vào khung cảnh thành phố
 
 **📍 Chỉ Đường:** *[Google Map]*
 
-📞 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline: **076.45.27.336
 
 Đà Lạt luôn cuốn hút du khách bởi vẻ đẹp mộng mơ, đặc biệt là những cánh đồng hoa cẩm tú cầu nở rộ rực rỡ giữa không gian xanh mát. Đây là điểm check-in lý tưởng cho những ai yêu thích sự lãng mạn và muốn lưu lại những khoảnh khắc đẹp. Sau khi tham quan, bạn có thể ghé Tiệm nướng & Chill Xóm Lèo – một quán nướng ngoài trời cực chill giữa rừng thông, rất được lòng giới trẻ. Không khí se lạnh kết hợp với đồ nướng thơm lừng và khung cảnh nên thơ sẽ khiến chuyến đi thêm trọn vẹn.

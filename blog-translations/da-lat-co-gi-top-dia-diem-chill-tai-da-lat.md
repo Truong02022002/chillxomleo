@@ -90,10 +90,6 @@ Nổi bật với **bò tảng đậm đà, ba chỉ bò kim châm, ba chỉ bò
 
 076.45.27.336
 
-08.99.42.84.34
-
-0902.91.22.40
-
 ## 3. Kinh nghiệm du lịch Đà Lạt
 
 **Di chuyển**: Bạn có thể đi Đà Lạt bằng xe khách, máy bay hoặc tự lái xe máy nếu muốn trải nghiệm cung đường đồi núi.

@@ -258,6 +258,6 @@ Tại đây, bạn có thể thưởng thức những món nướng tảng nóng
 
 **Xem chỉ đường**: [Chỉ Đường]
 
-**Hotline**: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**Hotline**: 076.45.27.336
 
 Chợ đêm Đà Lạt không chỉ mang đến những trải nghiệm thú vị về văn hóa và ẩm thực mà còn là nơi để bạn tận hưởng khoảnh khắc thư giãn, vui vẻ cùng gia đình và bạn bè. Đừng quên ghé thăm **Tiệm Nướng & Chill Xóm Lèo** để có thêm một bữa ăn đáng nhớ trong hành trình khám phá Đà Lạt của mình!

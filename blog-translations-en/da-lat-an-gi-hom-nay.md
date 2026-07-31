@@ -45,10 +45,6 @@ If you want to find a cozy, chill space and enjoy delicious grilled food, then *
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ## 🍢 5. Snacks not to be missed
 
 ### 🍕 5.1. Da Lat grilled rice paper

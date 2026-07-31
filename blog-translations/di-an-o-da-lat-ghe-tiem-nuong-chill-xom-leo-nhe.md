@@ -178,7 +178,7 @@ Tiệm còn thường xuyên có **ưu đãi check-in, **combo sinh nhật, kỷ
 
 📸 **Đặt Bàn**: *[Tại Đây]*
 
-📞 **Hotline**: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline**: 076.45.27.336
 
 👉 Setup bàn **miễn phí**, giữ chỗ sớm để có **view săn xe lửa cực đỉnh** và trải nghiệm một tối chill trọn vẹn tại Xóm Lèo nhé!
 

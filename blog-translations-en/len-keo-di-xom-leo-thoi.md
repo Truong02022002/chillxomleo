@@ -46,10 +46,6 @@ Enjoying these delicious dishes with a glass of **classic Da Lat wine 🍷**, en
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ### ⛺ Camping in the middle of the pine forest
 
 Coming to **Xom Leo Da Lat**, you cannot miss the experience of camping in the lush green pine forest. Bring a tent, set up camp and enjoy the chilly Da Lat night next to the open fire 🔥. Instead of a barbecue, try a more gentle chill style - sip a glass of hot tea 🍵**, enjoy hot milk 🥛**, relax in a peaceful space and immerse yourself in nature. Surely this will be a wonderful relaxing experience, helping you feel more deeply the peace of this land.

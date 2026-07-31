@@ -40,8 +40,6 @@ A glass of hot soy milk on a cold evening not only gives you a warm feeling but 
 📌 Hotline:
 
 - 076.45.27.336
-- 08.99.42.84.34
-- 0902.91.22.40
 
 ## Travel & Accommodation Services in Da Lat
 

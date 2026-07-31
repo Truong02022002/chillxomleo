@@ -123,6 +123,6 @@ This is the ideal stop for you to relax, recharge and enjoy a perfect evening wi
 
 📌**Directions:***See Directions*
 
-📞**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 With the poetic beauty of mountain nature, open space, and modern cable car system - **Da Lat Robin Hill** is definitely an ideal destination not to be missed in the journey to explore the mountain town. From magical cloud hunting experiences, sightseeing from above, to traveling by cable car through the pine forest - all will bring you memorable emotions. And after the trip, don't hesitate to visit **Xom Leo Grill & Chill Shop** to end the long day with a warm, authentic Da Lat meal with your loved ones.

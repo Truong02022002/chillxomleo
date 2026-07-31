@@ -90,7 +90,7 @@ Một điểm đến không thể thiếu khi ghé thăm khu Xóm Lèo về đê
 
 📍 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
-📞 **Hotline: **076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+📞 **Hotline: **076.45.27.336
 
 🌐 **Fanpage:** [https://www.facebook.com/nuongxomleo/]
 

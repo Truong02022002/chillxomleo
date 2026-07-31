@@ -208,6 +208,6 @@ Sau khi chiêm ngưỡng toàn cảnh Đà Lạt mộng mơ từ đồi Robin, c
 
 📌 **Chỉ Đường:** *[Xem Chỉ Đường]*
 
-📞 **Hotline:** 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline:** 076.45.27.336
 
 Với vẻ đẹp thơ mộng của thiên nhiên núi rừng, không gian thoáng đãng, và hệ thống cáp treo hiện đại – **Đồi Robin Đà Lạt** chắc chắn là một điểm đến lý tưởng không thể bỏ lỡ trong hành trình khám phá phố núi. Từ những trải nghiệm săn mây huyền ảo, ngắm cảnh từ trên cao, đến hành trình di chuyển bằng cáp treo xuyên rừng thông – tất cả sẽ mang đến cho bạn những cảm xúc đáng nhớ. Và sau chuyến đi, đừng ngần ngại ghé **Tiệm Nướng & Chill Xóm Lèo** để kết thúc ngày dài bằng một bữa ăn ấm áp, đậm chất Đà Lạt bên người thân yêu.

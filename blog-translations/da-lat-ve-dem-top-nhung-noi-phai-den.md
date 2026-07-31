@@ -74,10 +74,6 @@ Mỗi tối, từ Tiệm Nướng & Chill Xóm Lèo, bạn có thể bắt trọ
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ### 3. 🌌 Cắm Trại Trên Đỉnh LangBiang
 
 ![đà lạt ]

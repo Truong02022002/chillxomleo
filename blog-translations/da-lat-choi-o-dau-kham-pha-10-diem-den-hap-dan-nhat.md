@@ -76,7 +76,7 @@ Một trong những điều khiến du khách yêu mến Đà Lạt chính là �
 
 📍 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt
 
-📞 Liên hệ: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 Liên hệ: 076.45.27.336
 
 💬 Đặt Bàn: *[Tại Đây]*
 

@@ -139,6 +139,6 @@ Whether traveling with loved ones, friends or family, ***Xom Leo Grill & Chill S
 
 📌**Google Maps:**See directions
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336
 
 **Valley of Love** is a destination not to be missed when you visit Da Lat. With poetic landscapes, fresh air and many interesting activities, this place promises to bring you memorable experiences. Don't forget to stop by *** Xom Leo Grill & Chill Shop *** to complete your journey to discover Da Lat. Wishing you a complete and memorable trip!

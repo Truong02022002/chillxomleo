@@ -150,6 +150,6 @@ Admire the valley of sparkling lights at night.
 **Directions:***See map here*
 
 -
-**Hotline:**📞 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**Hotline:**📞 076.45.27.336
 
 **Linh Phuoc Pagoda** is not just a temple, but a museum of unique Vietnamese mosaic art. Make a schedule to visit "Ve Chai Pagoda" to feel this brilliant spiritual beauty for yourself!

@@ -93,7 +93,7 @@ Nếu bạn đang tìm một không gian thoải mái để thư giãn và thư�
 
 **📍 Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
-**☎️ Hotline:** 076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+**☎️ Hotline:** 076.45.27.336
 
 **💬 Inbox:** [https://m.me/nuongxomleo]
 

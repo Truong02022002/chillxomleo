@@ -148,6 +148,6 @@ After walking around and taking photos at ***Lam Vien Square***, don't forget to
 
 📌**Google Maps:**See Directions
 
-📌**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌**Hotline:**076.45.27.336
 
 Lam Vien Square is not only a unique architectural symbol of Da Lat city but also an ideal destination for having fun, taking photos and enjoying the chilly atmosphere typical of the land of thousands of flowers. After a day of exploring beautiful virtual living corners and participating in exciting activities at the square, don't forget to visit **Xom Leo Grill & Chill Shop near Lam Vien Square** to recharge your energy. The cozy space and attractive menu here will definitely be the perfect ending for your emotional journey to Da Lat.

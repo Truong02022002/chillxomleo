@@ -196,7 +196,7 @@ Nếu bạn đang tìm một quán ăn ở Đà Lạt có **đồ ăn ngon, view
 
 📍 **Địa chỉ**: 113 Huỳnh Tấn Phát, P.11, Đà Lạt
 
-📞 **Hotline**: 0764 527 336 – 0899 428 434 – 0902 912 240
+📞 **Hotline**: 0764 527 336
 
 📩 **Đặt Bàn**: *[Tại Đây]*
 

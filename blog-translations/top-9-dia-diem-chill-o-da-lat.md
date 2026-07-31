@@ -197,7 +197,7 @@ Nếu bạn đã từng mơ về một bữa tiệc BBQ giữa rừng thông, á
 
 📍 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt
 📌 **Google Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
-📞 **Hotline:** 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞 **Hotline:** 076.45.27.336
 💬 **Inbox đặt bàn:** [https://m.me/nuongxomleo]
 
 Nếu chị đang tìm **quán nướng Đà Lạt chill** để vừa ăn ngon vừa “sống chậm”, thì [***Tiệm Nướng & Chill Xóm Lèo***] chắc chắn là điểm đến không thể bỏ lỡ.

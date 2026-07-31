@@ -102,10 +102,6 @@ Thưởng thức những món ngon này cùng một ly **rượu vang classic Đ
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ### ⛺ Cắm trại giữa rừng thông
 
 ![cắm trại đà lạt]

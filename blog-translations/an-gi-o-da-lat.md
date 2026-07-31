@@ -112,10 +112,6 @@ Nếu bạn muốn thưởng thức đồ nướng trong không gian ấm cúng,
 
 076.45.27.336
 
-08.99.42.84.34
-
-0902.91.22.40
-
 **💬 Inbox**: [https://m.me/nuongxomleo]
 
 **🗺️ Google Maps**: [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]

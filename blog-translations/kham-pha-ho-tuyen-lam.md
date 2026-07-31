@@ -307,4 +307,4 @@ Sau khi dạo chơi, ngắm cảnh tại ***Hồ Tuyền Lâm***, bạn đừng 
 
 📌 **Google Maps:** *[Xem Đường Đi]*
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336

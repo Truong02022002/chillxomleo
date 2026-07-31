@@ -98,7 +98,7 @@ Không chỉ có các điểm tham quan, **du lịch Đà Lạt** còn hấp d�
 
 🗺️ Google Map: [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 
-📞 Hotline: 076.45.27.336 / 08.99.42.84.34 / 0902.91.22.40
+📞 Hotline: 076.45.27.336
 
 #### 🌿 **Green Hills – Ngọn Đồi Xanh Mướt Trong Hành Trình Du Lịch Đà Lạt**
 

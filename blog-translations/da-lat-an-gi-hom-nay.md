@@ -98,10 +98,6 @@ Nếu bạn muốn tìm một không gian ấm cúng, chill nhẹ và thưởng 
 
 👉 076.45.27.336
 
-👉 08.99.42.84.34
-
-👉 0902.91.22.40
-
 ## 🍢 5. Món ăn vặt không thể bỏ lỡ
 
 ### 🍕 5.1. Bánh tráng nướng Đà Lạt

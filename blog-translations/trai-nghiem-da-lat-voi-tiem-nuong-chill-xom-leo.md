@@ -111,7 +111,7 @@ Không khí se lạnh, mùi khói nướng quyện vào hương thông thoảng 
 
 **📍 Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng
 
-**📍 Hotline:** 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**📍 Hotline:** 076.45.27.336
 
 **📍 Google Maps:** [Xem hướng dẫn đường đi]
 

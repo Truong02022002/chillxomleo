@@ -18,7 +18,7 @@ The restaurant is not simply a place to eat and drink, but also a place to **enj
 
 📍**Google Map:***See Directions*
 
-📞**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 ## 2. Da Lat's standard chill space - Characteristic of the most popular Da Lat grilled restaurant
 

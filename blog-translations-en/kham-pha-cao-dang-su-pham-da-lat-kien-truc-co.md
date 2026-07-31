@@ -89,9 +89,7 @@ A big plus point that diners will never forget is the enthusiasm and thoughtfuln
 Address: 113 Huynh Tan Phat, Ward 11, Da Lat
 
 -
-Hotline: 076.45.27.336 – 0899.42.8434 – 0902.91.2240
-
--
+Hotline: 076.45.27.336
 **Reserve Table**:*Here*
 
 -

@@ -233,6 +233,6 @@ Sau hành trình tham quan Đường Hầm Điêu Khắc, hãy ghé qua *[**Ti�
 
 📌 **Google Maps:** *[Xem đường đi]*
 
-📌 **Hotline: **076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📌 **Hotline: **076.45.27.336
 
 Đường hầm đất sét là một điểm đến không thể bỏ qua khi bạn ghé thăm Đà Lạt. Với kiến trúc độc đáo, không gian nghệ thuật và phong cảnh thiên nhiên tuyệt đẹp, nơi đây mang đến cho bạn những trải nghiệm đáng nhớ. Đừng quên kết hợp chuyến đi với việc thưởng thức món ngon tại **Tiệm Nướng & Chill Xóm Lèo** để làm trọn vẹn hành trình của bạn. Đà Lạt luôn sẵn sàng chào đón bạn với những điều tuyệt vời nhất!

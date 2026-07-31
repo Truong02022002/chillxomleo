@@ -58,7 +58,7 @@ Some outstanding feedback from customers:
 
 📍 Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong**
 
-📞 Hotline: 076.45.27.336 – 0899.428.434 – 0902.912.240
+📞 Hotline: 076.45.27.336
 
 📩 Quickly book a table via fanpage:*Here*
 

@@ -125,7 +125,7 @@ Bạn muốn thưởng thức món nướng ngon giữa không gian ấm cúng, 
 
 **📍 Địa chỉ**: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt
 
-**📞 Hotline đặt bàn**: 076.45.27.336 | 08.99.42.84.34 | 0902.91.22.40
+**📞 Hotline đặt bàn**: 076.45.27.336
 
 **💬 Đặt bàn**: [Tại Đây]
 

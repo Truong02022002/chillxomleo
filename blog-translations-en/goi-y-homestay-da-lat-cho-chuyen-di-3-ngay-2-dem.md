@@ -404,7 +404,7 @@ A trip to Da Lat will be more complete if combined with cozy meals over a charco
 
 **📍 Directions:****Google Map***
 
-📞**Hotline:**076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+📞**Hotline:**076.45.27.336
 
 With a cozy space and diverse menu, Xom Leo Grill & Chill Shop is the ideal place to enjoy the evening with family and friends.
 

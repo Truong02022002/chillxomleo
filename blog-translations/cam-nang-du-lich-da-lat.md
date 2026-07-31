@@ -599,7 +599,7 @@ Lịch trình Đà Lạt 3 ngày 2 đêm là lựa chọn lý tưởng để b�
 **Tối: ****Dùng bữa tại *[Tiệm Nướng & Chill Xóm Lèo]*** – Không gian chill giữa rừng, món nướng đậm đà, ngắm Đà Lạt lung linh về đêm.
 📍 Địa chỉ: *113 Huỳnh Tấn Phát, Phường 11, Đà Lạt*
 🔥 Không gian nướng chill ấm cúng, đậm chất phố núi, với thực đơn đậm đà, chuẩn vị Đà Lạt.
-👉 Đặt bàn: [Fanpage] | ☎️ Hotline: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+👉 Đặt bàn: [Fanpage] | ☎️ Hotline: 076.45.27.336
 📍 Chỉ đường: [Xem bản đồ Google Maps]
 
 ![Đà Lạt]

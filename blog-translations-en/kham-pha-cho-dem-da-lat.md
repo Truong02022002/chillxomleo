@@ -143,6 +143,6 @@ Here, you can enjoy hot grilled dishes, rich marinated meat, fresh Da Lat vegeta
 
 **See directions**: Directions
 
-**Hotline**: 076.45.27.336 – 08.99.42.84.34 – 0902.91.22.40
+**Hotline**: 076.45.27.336
 
 Da Lat Night Market not only brings interesting cultural and culinary experiences but is also a place for you to enjoy moments of relaxation and fun with family and friends. Don't forget to visit **Xom Leo Grill & Chill Shop** for another memorable meal on your journey to discover Da Lat!

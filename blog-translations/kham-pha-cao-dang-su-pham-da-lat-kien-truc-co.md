@@ -161,10 +161,7 @@ Một điểm cộng lớn khiến thực khách nhớ mãi không quên chính 
 
 - 
 
-Hotline: 076.45.27.336 – 0899.42.8434 – 0902.91.2240
-
-- 
-
+Hotline: 076.45.27.336
 **Đặt Bàn**: *[Tại Đây]*
 
 - 
