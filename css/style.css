@@ -1382,33 +1382,9 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   overflow: hidden;
 }
 
-.fb-head {
-  text-align: center;
-  margin-bottom: 1.5rem;
-}
-.fb-eyebrow {
-  display: block;
-  margin-bottom: 0.6rem;
-  color: #D98A4A;
-  font-size: 0.625rem;
-  font-weight: 700;
-  letter-spacing: 0.4em;
-  text-transform: uppercase;
-}
-.fb-heading {
-  margin: 0 0 0.5rem;
-  color: #F6E9D6;
-  font-family: var(--font-serif);
-  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.25rem);
-  line-height: 1.25;
-}
-.fb-sub {
-  max-width: 34rem;
-  margin: 0 auto;
-  color: rgba(239, 225, 205, 0.72);
-  font-size: 0.875rem;
-  line-height: 1.6;
-}
+/* Da go khoi tua (.fb-head/.fb-eyebrow/.fb-heading/.fb-sub): cuon menu tu no
+   da noi ro no la gi, dat them tua ben tren chi day sach xuong khoi tam nhin.
+   Section giu aria-label de trinh doc man hinh van goi ten duoc vung nay. */
 
 /* Khung dieu khien chi hien khi flipbook.js da dung xong. Khong co JS thi
    khach van co day du mon va gia o danh sach chu ngay ben duoi. */
@@ -1616,7 +1592,6 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   justify-content: center;
   overflow: auto;
 }
-.fb.is-full .fb-head { display: none; }
 .fb.is-full .fb-shell { width: 100%; }
 body.fb-lock { overflow: hidden; }
 /* Chua san cho hang chip va thanh nut: lay 74vh cho trang, phan con lai
