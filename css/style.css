@@ -1363,3 +1363,256 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   text-transform: uppercase;
   letter-spacing: 0.08em;
 }
+
+/* ============================================================
+   MENU LAT TRANG — dung o /menu/ va /menu-en/
+
+   18 trang menu ban in, lat bang CSS 3D transform.
+   Khong dung thu vien: turn.js va StPageFlip deu keo them 30-40 KB
+   JS cong mot phu thuoc CDN, ma trang nay chi can lat trang, nhay
+   muc va phong to. Toan bo logic nam trong js/flipbook.js.
+
+   Chuoi 3D BAT BUOC giu dung thu tu nay, doi la hong hieu ung:
+     .fb-stage -> cat phan tran ra ngoai (overflow)
+     .fb-persp -> dat perspective
+     .fb-book  -> transform-style: preserve-3d
+     .fb-leaf  -> phan tu duoc xoay
+   Dat overflow len .fb-persp hay .fb-book se ep chung ve flat va mat
+   sach 3D, nen cho cat phai nam o .fb-stage — ngoai chuoi perspective.
+   ============================================================ */
+
+.fb {
+  position: relative;
+  margin-bottom: 5rem;
+  padding: 2.5rem 1rem 1.75rem;
+  border: 1px solid rgba(224, 195, 163, 0.18);
+  border-radius: 6px;
+  background:
+    radial-gradient(115% 85% at 50% -10%, #4C3016 0%, #2B1909 48%, #170D04 100%);
+  color: #EFE1CD;
+  overflow: hidden;
+}
+
+.fb-head {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.fb-eyebrow {
+  display: block;
+  margin-bottom: 0.6rem;
+  color: #D98A4A;
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}
+.fb-heading {
+  margin: 0 0 0.5rem;
+  color: #F6E9D6;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, 1.1rem + 1.8vw, 2.25rem);
+  line-height: 1.25;
+}
+.fb-sub {
+  max-width: 34rem;
+  margin: 0 auto;
+  color: rgba(239, 225, 205, 0.72);
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+/* Khung dieu khien chi hien khi flipbook.js da dung xong. Khong co JS thi
+   khach van co day du mon va gia o danh sach chu ngay ben duoi. */
+.fb-shell { display: none; }
+.fb.is-ready .fb-shell { display: block; }
+.fb-noscript {
+  margin: 0.5rem auto 0;
+  max-width: 34rem;
+  color: rgba(239, 225, 205, 0.72);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Nhay nhanh toi muc */
+.fb-chips {
+  display: flex;
+  gap: 0.4rem;
+  margin: 0 auto 1.25rem;
+  padding-bottom: 0.4rem;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  justify-content: flex-start;
+  scroll-snap-type: x proximity;
+}
+@media (min-width: 640px) {
+  .fb-chips { flex-wrap: wrap; justify-content: center; overflow-x: visible; }
+}
+.fb-chip {
+  flex: 0 0 auto;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid rgba(224, 195, 163, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 248, 240, 0.04);
+  color: rgba(239, 225, 205, 0.85);
+  font-family: inherit;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  cursor: pointer;
+  scroll-snap-align: center;
+  transition: background-color 0.25s, color 0.25s, border-color 0.25s;
+}
+.fb-chip:hover { background: rgba(255, 248, 240, 0.12); color: #FFF8F0; }
+.fb-chip[aria-current="true"] {
+  border-color: #C0613A;
+  background: #A03F00;
+  color: #FFF8F0;
+}
+
+/* Cho cat khi phong to: nam NGOAI .fb-persp nen khong pha 3D. */
+.fb-viewport { position: relative; }
+.fb.is-full .fb-viewport { overflow: hidden; }
+
+.fb-stage {
+  margin: 0 auto;
+  padding: 14px 0;
+  transform-origin: center center;
+  /* Khong co dong nay thi tren dien thoai trinh duyet gianh lay cu chi keo
+     ngang de cuon trang va ban pointercancel, nen vuot lat trang khong an.
+     pan-y: doc van cuon binh thuong, ngang thi de flipbook xu ly. */
+  touch-action: pan-y;
+}
+/* Toan man hinh con phai keo ca hai chieu khi dang phong to. */
+.fb.is-full .fb-stage { touch-action: none; }
+.fb--single .fb-stage { overflow: hidden; }
+.fb--spread .fb-stage { overflow: visible; }
+.fb--spread .fb-stage { width: min(100%, 72vh * 1.5, 1040px); }
+.fb--single .fb-stage { width: min(100%, 62vh * 0.75, 420px); }
+
+.fb-persp { perspective: 1900px; }
+
+.fb-book {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.7s cubic-bezier(0.4, 0.05, 0.2, 1);
+}
+.fb--spread .fb-book { aspect-ratio: 2172 / 1448; }
+.fb--single .fb-book { aspect-ratio: 1086 / 1448; }
+/* Bia truoc va bia sau chi co mot mat: day sach sang giua cho khoi lech. */
+.fb--spread .fb-book[data-pos="start"] { transform: translateX(-25%); }
+.fb--spread .fb-book[data-pos="end"] { transform: translateX(25%); }
+
+.fb-leaf {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4, 0.05, 0.2, 1);
+}
+.fb--spread .fb-leaf { left: 50%; width: 50%; }
+.fb--single .fb-leaf { left: 0; width: 100%; }
+.fb-leaf.is-flipped { transform: rotateY(-180deg); }
+.fb-leaf.fb-noanim { transition: none; }
+
+.fb-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: #150C03;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+.fb-back { transform: rotateY(180deg); }
+/* Bong gay sach. Mat sau da xoay 180deg nen "trai" cua no la "phai" nhin
+   thay — cung mot rule cho ca hai mat deu do bong ve dung phia gay. */
+.fb--spread .fb-face::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 14%);
+  pointer-events: none;
+}
+.fb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Mat sau cua to giay cuoi (khong co trang nao) va mat sau o che doc 1 trang. */
+.fb-blank {
+  background: linear-gradient(135deg, #2A1809 0%, #1A0F05 100%);
+}
+
+.fb-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+.fb-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid rgba(224, 195, 163, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 248, 240, 0.05);
+  color: #EFE1CD;
+  cursor: pointer;
+  transition: background-color 0.25s, border-color 0.25s, opacity 0.25s;
+}
+.fb-btn:hover:not(:disabled) { background: rgba(255, 248, 240, 0.14); border-color: #C0613A; }
+.fb-btn:disabled { opacity: 0.3; cursor: default; }
+.fb-btn svg { width: 1.1rem; height: 1.1rem; fill: none; stroke: currentColor; stroke-width: 1.8; }
+.fb-btn[aria-pressed="true"] { border-color: #C0613A; background: #A03F00; color: #FFF8F0; }
+.fb-count {
+  min-width: 5.5rem;
+  color: rgba(239, 225, 205, 0.8);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Toan man hinh: khong dung Fullscreen API vi tren iOS Safari no chi chay
+   cho <video>, nen se im lang khong lam gi. Lop phu CSS chay o moi noi.
+
+   z-index 100000 de nam tren nut goi/messenger noi (9999). Rieng z-index
+   KHONG du: khoi menu nam trong <section class="relative z-10"> — mot stacking
+   context — nen du co dat bao nhieu van bi nhot ben trong lop z-10 do va chui
+   duoi thanh dieu huong z-50. Vi vay flipbook.js con chuyen tam phan tu ra
+   thang <body> khi bat, va tra ve cho cu khi tat. */
+.fb.is-full {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+.fb.is-full .fb-head { display: none; }
+.fb.is-full .fb-shell { width: 100%; }
+body.fb-lock { overflow: hidden; }
+/* Chua san cho hang chip va thanh nut: lay 74vh cho trang, phan con lai
+   khoang 120px vua du hai hang do o man hinh thap 700px. */
+.fb.is-full.fb--spread .fb-stage { width: min(100%, 74vh * 1.5, 1500px); }
+.fb.is-full.fb--single .fb-stage { width: min(100%, 74vh * 0.75, 560px); }
+.fb.is-full .fb-chips { max-width: 60rem; }
+.fb.is-full .fb-stage { cursor: grab; }
+.fb.is-full .fb-stage.is-panning { cursor: grabbing; }
+
+@media (prefers-reduced-motion: reduce) {
+  .fb-leaf, .fb-book { transition: none; }
+}

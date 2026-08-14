@@ -26,6 +26,9 @@ const ROOT = path.resolve(__dirname, '..');
 const ASSETS = [
   { file: 'css/site.css', pattern: /site\.css(\?[a-z]*[0-9a-f]+)?/g, name: 'site.css' },
   { file: 'js/main.min.js', pattern: /main\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'main.min.js' },
+  // Menu lat trang o /menu/ va /menu-en/. File rieng chu khong gop vao main.js
+  // vi main.min.js duoc minify san, gop vao se phai dung lai ca file do.
+  { file: 'js/flipbook.js', pattern: /flipbook\.js\?[a-z]*[0-9a-f]+/g, name: 'flipbook.js' },
 ];
 
 const hashOf = (rel) => crypto.createHash('sha1')
