@@ -1485,9 +1485,14 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
      ngang de cuon trang va ban pointercancel, nen vuot lat trang khong an.
      pan-y: doc van cuon binh thuong, ngang thi de flipbook xu ly. */
   touch-action: pan-y;
+  /* Bam thang vao sach la lat trang, nen con tro phai bao hieu bam duoc. */
+  cursor: pointer;
 }
 /* Toan man hinh con phai keo ca hai chieu khi dang phong to. */
 .fb.is-full .fb-stage { touch-action: none; }
+/* Dang phong to thi bam khong lat nua, chi keo de xem — doi con tro cho khop. */
+.fb.is-zoomed .fb-stage { cursor: grab; }
+.fb.is-zoomed .fb-stage.is-panning { cursor: grabbing; }
 .fb--single .fb-stage { overflow: hidden; }
 .fb--spread .fb-stage { overflow: visible; }
 .fb--spread .fb-stage { width: min(100%, 72vh * 1.5, 1040px); }
@@ -1544,6 +1549,11 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Keo chuot tren anh se khoi dong keo-tha anh cua trinh duyet va nuot mat
+     thao tac vuot lat, nen chan ca keo lan boi den. */
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  user-select: none;
 }
 /* Mat sau cua to giay cuoi (khong co trang nao) va mat sau o che doc 1 trang. */
 .fb-blank {
@@ -1614,8 +1624,6 @@ body.fb-lock { overflow: hidden; }
 .fb.is-full.fb--spread .fb-stage { width: min(100%, 74vh * 1.5, 1500px); }
 .fb.is-full.fb--single .fb-stage { width: min(100%, 74vh * 0.75, 560px); }
 .fb.is-full .fb-chips { max-width: 60rem; }
-.fb.is-full .fb-stage { cursor: grab; }
-.fb.is-full .fb-stage.is-panning { cursor: grabbing; }
 
 @media (prefers-reduced-motion: reduce) {
   .fb-leaf, .fb-book { transition: none; }

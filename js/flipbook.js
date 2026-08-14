@@ -81,6 +81,9 @@
     im.width = 1086;
     im.height = 1448;
     im.decoding = 'async';
+    // Khong tat thi keo chuot tren anh se khoi dong keo-tha anh cua trinh
+    // duyet, ban pointercancel va nuot mat thao tac vuot lat.
+    im.draggable = false;
     imgs[i] = im;
     return im;
   }
@@ -284,6 +287,9 @@
   function setZoom(z) {
     zoom = Math.max(1, Math.min(3, z));
     if (zoom === 1) { panX = 0; panY = 0; }
+    // Dang phong to thi bam khong lat nua (con tro doi thanh ban tay keo),
+    // neu khong khach vua keo xem chi tiet vua bi lat trang.
+    sec.classList.toggle('is-zoomed', zoom > 1);
     clampPan();
     applyZoom();
   }
@@ -318,9 +324,12 @@
     setZoom(zoom * (e.deltaY < 0 ? 1.15 : 1 / 1.15));
   }, { passive: false });
 
+  // Nhap dup CHI de tra ve co that. Truoc day no con dung de phong to, nhung
+  // tu khi bam vao sach la lat trang thi hai thao tac dam nhau: nhap dup de
+  // phong to se lat mat hai trang trước khi zoom kip chay. Phong to nay dung
+  // con lan chuot (may tinh) va chum hai ngon (dien thoai).
   stage.addEventListener('dblclick', function () {
-    if (!isFull()) return;
-    setZoom(zoom > 1 ? 1 : 2.2);
+    if (isFull() && zoom > 1) setZoom(1);
   });
 
   /* Mot bo xu ly con tro lo ca ba viec: vuot de lat, keo de di chuyen khi
@@ -378,9 +387,16 @@
     var dy = e.clientY - startY;
     delete pts[e.pointerId];
     var left = Object.keys(pts).length;
-    if (!cancelled && nPts === 1 && zoom === 1 &&
-        Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
-      go(dx < 0 ? 1 : -1);
+    if (!cancelled && nPts === 1 && zoom === 1) {
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)) {
+        go(dx < 0 ? 1 : -1);            // vuot
+      } else if (Math.abs(dx) < 10 && Math.abs(dy) < 10) {
+        // Bam vao sach: nua phai lat toi, nua trai lat lui — dung nhu cam
+        // cuon menu tren tay. Lay tam theo getBoundingClientRect nen da tinh
+        // ca luc sach bi day sang mot ben o trang bia va trang cuoi.
+        var r = book.getBoundingClientRect();
+        go(e.clientX < r.left + r.width / 2 ? -1 : 1);
+      }
     }
     nPts = left;
     stage.classList.remove('is-panning');
