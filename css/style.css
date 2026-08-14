@@ -1342,27 +1342,10 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   background-repeat: repeat;
 }
 
-/* O thay cho mon chua co anh that. Truoc day dung dummyimage.com:
-   36 request ra mien ngoai moi lan tai /menu/, va anh gia bi cong bo
-   trong Schema.org nhu anh san pham. Nay ve bang CSS, khong request. */
-.menu-noimg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-  text-align: center;
-  background: linear-gradient(135deg, #A03F00 0%, #B4590F 100%);
-}
-.menu-noimg span {
-  color: #F5E9DA;
-  font-size: 0.8rem;
-  font-weight: 700;
-  line-height: 1.4;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+/* Da go .menu-noimg (o thay cho mon chua co anh) cung luc bo danh sach chu
+   o /menu/: khong con the nao mang lop do nua. Cac lop .menu-item,
+   .menu-filter-btn, #menu-grid vong doi cung ket thuc o day nhung chung von
+   la lop Tailwind sinh san, khong co rule viet tay trong file nay. */
 
 /* ============================================================
    MENU LAT TRANG — dung o /menu/ va /menu-en/
@@ -1381,9 +1364,15 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
    sach 3D, nen cho cat phai nam o .fb-stage — ngoai chuoi perspective.
    ============================================================ */
 
+/* Section bao quanh /menu/ dung py-24 md:py-32 — luong padding do von tinh cho
+   danh sach 70 mon ben duoi. Bo danh sach roi thi con moi flipbook, cong them
+   pb-24 cua <main> thanh ~230px khoang trang truoc footer. Bundle Tailwind
+   khong sinh .pb-0 hay .md:pb-* nao de de len, nen ghi de bang rule tay —
+   style.css nam sau tailwind-output.css trong bundle nen thang khi ngang diem. */
+.menu-page { padding-bottom: 1.5rem; }
+
 .fb {
   position: relative;
-  margin-bottom: 5rem;
   padding: 2.5rem 1rem 1.75rem;
   border: 1px solid rgba(224, 195, 163, 0.18);
   border-radius: 6px;
@@ -1431,6 +1420,21 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   color: rgba(239, 225, 205, 0.72);
   font-size: 0.875rem;
   text-align: center;
+}
+/* Chi hien khi tat JS — trinh duyet co JS khong bao gio phan tich khoi nay. */
+.fb-fallback {
+  display: grid;
+  gap: 1rem;
+  max-width: 30rem;
+  margin: 1.5rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+.fb-fallback img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 3px;
 }
 
 /* Nhay nhanh toi muc */
