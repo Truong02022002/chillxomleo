@@ -688,6 +688,26 @@ details[open] .blog-toc-title::after {
   animation: fade-in 0.4s ease-out;
 }
 
+/* Hai class duoi day duoc dung trong HTML nhung khong co rule nao trong bundle,
+   nen truoc gio khong co tac dung gi.
+   - .border-card-border: 13 the FAQ <details> tren 4 trang roi ve vien mac dinh
+     cua preflight Tailwind (#e5e7eb, xam lanh) tren nen be am -> lac tong mau,
+     va nhay sang cam khi hover vi hover:border-primary/30 thi CO that.
+   - .animate-fade-up: dong eyebrow o hero ca hai trang chu gan class hieu ung
+     nhung khong co @keyframes nao. */
+.border-card-border {
+  border-color: var(--card-border);
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s ease-out both;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .prose h2 {
@@ -1648,3 +1668,23 @@ body.fb-lock { overflow: hidden; }
 .fb-text td:last-child { white-space: nowrap; }
 .fb-note { color: rgba(239, 225, 205, 0.6); font-size: 0.8125rem; }
 .fb-links { margin-top: 1.5rem; font-size: 0.875rem; }
+
+/* ---------------------------------------------------------------------------
+   KHOI GIAM CHUYEN DONG TOAN CUC
+   Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
+   transition cua flipbook. Cac animation lap vo han van chay: train-move,
+   cloud-drift, preloader-smoke-rise, ripple-pulse, rotate-border, va nang nhat
+   la floating-pulse-call/zalo — hai nut lien he duoc JS chen vao MOI trang nen
+   nhap nhay vinh vien o goc man hinh.
+   Dat o cuoi file de thang duoc moi khai bao phia tren.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -118,23 +118,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobile-menu');
 
   if (mobileMenuBtn && mobileMenu) {
+    const ICON_MO = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+    const ICON_DONG = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
+
+    // Panel chi bi day ra ngoai bang transform nen khi "dong" no van nam trong
+    // cay tieu diem: nguoi dung ban phim/screen reader van Tab vao 8 muc vo hinh.
+    // `inert` go han no khoi cay tieu diem lan cay tro nang.
+    const datTrangThai = (mo) => {
+      mobileMenu.classList.toggle('translate-x-full', !mo);
+      mobileMenu.inert = !mo;
+      mobileMenuBtn.setAttribute('aria-expanded', mo ? 'true' : 'false');
+      mobileMenuBtn.innerHTML = mo ? ICON_MO : ICON_DONG;
+    };
+
+    datTrangThai(!mobileMenu.classList.contains('translate-x-full'));
+
     mobileMenuBtn.addEventListener('click', () => {
-      const isClosed = mobileMenu.classList.contains('translate-x-full');
-      if (isClosed) {
-        mobileMenu.classList.remove('translate-x-full');
-        mobileMenuBtn.innerHTML = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
-      } else {
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenuBtn.innerHTML = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
-      }
+      datTrangThai(mobileMenu.classList.contains('translate-x-full'));
     });
 
     // Close menu when clicking a link
     mobileMenu.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.add('translate-x-full');
-        mobileMenuBtn.innerHTML = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
-      });
+      link.addEventListener('click', () => datTrangThai(false));
+    });
+
+    // Escape dong menu va tra tieu diem ve nut
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (mobileMenu.classList.contains('translate-x-full')) return;
+      datTrangThai(false);
+      mobileMenuBtn.focus();
     });
   }
 
@@ -343,36 +356,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const minShowTime = isMobile ? 400 : 1200;
     const startTime = Date.now();
 
-    // Wait for Tailwind CSS specifically before hiding preloader
-    // (Tailwind is async-loaded, hiding too early causes CLS layout shift)
-    const isTailwindReady = () => {
-      for (const sheet of document.styleSheets) {
-        if (sheet.href && sheet.href.includes('tailwind-output')) {
-          try { if (sheet.cssRules && sheet.cssRules.length > 0) return true; }
-          catch (e) { return true; /* cross-origin assumes loaded */ }
-        }
-      }
-      return false;
-    };
-
+    // Truoc day cho mot stylesheet ten 'tailwind-output'. File do da duoc gop vao
+    // site.css tu commit d88d2d5 nen dieu kien khong bao gio dung -> vong poll chay
+    // het timeout va preloader khoa man hinh 5,6s thay vi 1,2s.
+    // site.css la render-blocking trong <head> nen luc script nay chay CSS chac chan
+    // da parse xong; chi can doi 'load' roi ha preloader.
     const tryHide = () => {
       const elapsed = Date.now() - startTime;
       const remaining = Math.max(0, minShowTime - elapsed);
       setTimeout(hidePreloader, remaining);
     };
 
-    const pollUntilReady = () => {
-      if (isTailwindReady() || Date.now() - startTime > 5000) {
-        tryHide();
-      } else {
-        setTimeout(pollUntilReady, 100);
-      }
-    };
-
-    if (document.readyState === 'complete' && isTailwindReady()) {
+    if (document.readyState === 'complete') {
       tryHide();
     } else {
-      window.addEventListener('load', pollUntilReady, { once: true });
+      window.addEventListener('load', tryHide, { once: true });
       // Hard failsafe at 5s — absolute last resort
       setTimeout(() => {
         if (preloader && !preloader.classList.contains('hide')) hidePreloader();
@@ -587,7 +585,7 @@ document.addEventListener('DOMContentLoaded', () => {
         : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ sớm liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
 
       const toast = document.createElement('div');
-      toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(197,160,89,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
+      toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
       toast.innerHTML = `
         <div class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
           <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
@@ -628,21 +626,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (tocLinks.length > 0) {
     tocLinks.forEach(link => {
       link.addEventListener('click', (e) => {
+        const targetId = decodeURIComponent(link.getAttribute('href').substring(1));
+        const targetElement = document.getElementById(targetId);
+
+        // Không có phần tử đích thì để nguyên hành vi mặc định của trình duyệt.
+        // Nếu preventDefault ở đây, link hỏng sẽ im lặng hoàn toàn và khách tưởng
+        // trang bị lỗi — đúng cái đã xảy ra với 613 link mục lục trên bản EN.
+        if (!targetElement) return;
+
         // Ngăn trình duyệt tự động append #id vào URL
         e.preventDefault();
 
-        const targetId = decodeURIComponent(link.getAttribute('href').substring(1));
-        const targetElement = document.getElementById(targetId);
-        if (targetElement) {
-          // Tính toán vị trí cuộn có trừ hao cho fixed navbar
-          const yOffset = -100;
-          const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        // Tính toán vị trí cuộn có trừ hao cho fixed navbar
+        const yOffset = -100;
+        const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-          window.scrollTo({
-            top: y,
-            behavior: 'smooth'
-          });
-        }
+        window.scrollTo({
+          top: y,
+          behavior: reduce ? 'auto' : 'smooth'
+        });
       });
     });
   }
@@ -656,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
           </svg>
         </a>
-        <a href="https://zalo.me/0764527336" target="_blank" class="floating-btn btn-zalo" data-tooltip="Chat Zalo" aria-label="Chat Zalo 076 452 7336">
+        <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="floating-btn btn-zalo" data-tooltip="Chat Zalo" aria-label="Chat Zalo 076 452 7336">
           <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12.49 10.272v-.45h-.886v3.39h.886v-1.86c0-.675.27-1.08.81-1.08h.54v-.9h-.63c-.36 0-.585.18-.72.45zm-3.96.45c-.36 0-.63.27-.63.63s.27.63.63.63.63-.27.63-.63-.27-.63-.63-.63zm0 1.71c-.585 0-1.08-.495-1.08-1.08s.495-1.08 1.08-1.08 1.08.495 1.08 1.08-.495 1.08-1.08 1.08zM12 1.5C6.21 1.5 1.5 5.888 1.5 11.272c0 2.378.892 4.567 2.37 6.276L2.5 21.5l4.164-1.457A11.252 11.252 0 0 0 12 21.045c5.79 0 10.5-4.388 10.5-9.773S17.79 1.5 12 1.5zM6.61 13.212h-.886v-3.39h-.886v-.81h2.658v.81h-.886v3.39zm4.95-4.2h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72zm5.175-2.52h.886v4.2h-.886v-.45c-.27.36-.585.54-.99.54-.765 0-1.35-.675-1.35-1.44s.585-1.44 1.35-1.44c.405 0 .72.18.99.54v-.45zm-.99 2.52c.36 0 .675-.315.675-.72s-.315-.72-.675-.72-.675.315-.675.72.315.72.675.72z"/></svg>
         </a>
       </div>

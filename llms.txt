@@ -73,7 +73,7 @@ Cập nhật lần cuối: 2026-07-30.
 
 - [Sitemap](https://xomleo.vn/sitemap.xml): toàn bộ 126 URL của website
 - [Đặt bàn](https://xomleo.vn/#booking): form giữ chỗ trực tuyến
-- [Google Maps](https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8): vị trí và đánh giá của khách
+- [Google Maps](https://www.google.com/maps?cid=11166661116585636255): vị trí và đánh giá của khách
 - [TikTok](https://www.tiktok.com/@tiemnuongchillxomleo): video không gian quán và món ăn
 - [Facebook](https://www.facebook.com/nuongxomleo): tin tức và ưu đãi
 - [Zalo](https://zalo.me/0764527336): liên hệ nhanh và đặt bàn
