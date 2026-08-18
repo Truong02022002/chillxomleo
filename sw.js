@@ -5,12 +5,12 @@
 
 // Doi CACHE_VERSION moi khi bump cache-buster cua CSS/JS: handler 'activate'
 // se xoa het cache khong khop prefix, tranh de lai entry cua phien ban cu.
-const CACHE_VERSION = 'xomleo-6a5b4a11';
+const CACHE_VERSION = 'xomleo-9eaf3027';
 const STATIC_CACHE = `${CACHE_VERSION}-static`;
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
 const STATIC_ASSETS = [
-  '/css/site.css?h872f3d5c',
+  '/css/site.css?hf3325c19',
   '/js/main.min.js?h743c455d',
   '/uploads/1775619688243-610230636-img2.webp',
   '/uploads/favicon-32x32.png',
