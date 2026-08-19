@@ -50,22 +50,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/menu/" />
   </url>
   <url>
-    <loc>https://xomleo.vn/ve-chung-toi/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/ve-chung-toi/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/about-us-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/ve-chung-toi/" />
-  </url>
-  <url>
-    <loc>https://xomleo.vn/about-us-en/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/ve-chung-toi/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/about-us-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/ve-chung-toi/" />
-  </url>
-  <url>
     <loc>https://xomleo.vn/blog/</loc>
     <lastmod>2026-07-26</lastmod>
     <priority>0.8</priority>
@@ -224,22 +208,6 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat-en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat/" />
-  </url>
-  <url>
-    <loc>https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat/" />
-  </url>
-  <url>
-    <loc>https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat-en/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/da-lat-co-gi-top-dia-diem-chill-tai-da-lat/" />
   </url>
   <url>
     <loc>https://xomleo.vn/da-lat-ve-dem-top-nhung-noi-phai-den/</loc>
@@ -880,22 +848,6 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/top-7-nhung-dia-diem-du-lich-da-lat-dang-hot-nhat-nam-2025/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/top-7-nhung-dia-diem-du-lich-da-lat-dang-hot-nhat-nam-2025-en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/top-7-nhung-dia-diem-du-lich-da-lat-dang-hot-nhat-nam-2025/" />
-  </url>
-  <url>
-    <loc>https://xomleo.vn/top-9-dia-diem-chill-o-da-lat/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat/" />
-  </url>
-  <url>
-    <loc>https://xomleo.vn/top-9-dia-diem-chill-o-da-lat-en/</loc>
-    <lastmod>2026-07-26</lastmod>
-    <priority>0.6</priority>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat-en/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/top-9-dia-diem-chill-o-da-lat/" />
   </url>
   <url>
     <loc>https://xomleo.vn/tour-da-lat-hanh-trinh-kham-pha-thanh-pho-ngan-hoa/</loc>
