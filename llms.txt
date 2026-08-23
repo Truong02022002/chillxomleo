@@ -49,8 +49,7 @@ Cập nhật lần cuối: 2026-07-30.
 
 - [Trang chủ](https://xomleo.vn/): giới thiệu quán, view, giờ mở cửa và đặt bàn
 - [Thực đơn](https://xomleo.vn/menu/): toàn bộ 68 món BBQ, lẩu, món ăn kèm và đồ uống kèm giá
-- [Trải nghiệm](https://xomleo.vn/about/): không gian quán, view thung lũng và xe lửa cổ
-- [Về chúng tôi](https://xomleo.vn/ve-chung-toi/): câu chuyện và nguồn gốc Xóm Lèo
+- [Trải nghiệm](https://xomleo.vn/about/): không gian quán, view thung lũng, xe lửa cổ và câu chuyện Xóm Lèo
 - [Đường đi](https://xomleo.vn/duong-di/): chỉ đường chi tiết từ trung tâm Đà Lạt
 - [Blog](https://xomleo.vn/blog/): cẩm nang ăn uống và du lịch Đà Lạt
 
@@ -66,7 +65,7 @@ Cập nhật lần cuối: 2026-07-30.
 
 - [English homepage](https://xomleo.vn/en/): overview, view, opening hours and reservations
 - [English menu](https://xomleo.vn/menu-en/): full menu with prices in VND
-- [About us in English](https://xomleo.vn/about-us-en/): the story behind Xóm Lèo
+- [Experience in English](https://xomleo.vn/about-en/): the space, valley view and the story behind Xóm Lèo
 - [Directions in English](https://xomleo.vn/en/directions/): how to get here from Da Lat city centre
 
 ## Optional
