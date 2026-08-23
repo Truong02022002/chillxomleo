@@ -1,9 +1,25 @@
 :root {
-  /* MOT nguon duy nhat cho font chu cua ca site. Truoc day --font-signika thieu
-     -apple-system con --font-sans/--font-serif co, nen khi Signika chua tai xong
-     (hoac tai loi) than trang va cac heading dung .font-serif roi ve HAI font he
-     thong khac nhau. Nay ba bien deu tro ve mot chuoi -> khong the lech nua. */
-  --font-signika: 'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  /* ============ FONT CHU CUA CA SITE ============
+     Chot 23/08/2026 theo yeu cau chu quan: dung Dancing Script (chu viet tay)
+     cho TOAN BO site, khong con gioi han o logo nua.
+
+     --font-base la NGUON DUY NHAT. Bon ten duoi la BI DANH, giu vi da co cho dung:
+       --font-signika  <- tailwind-output.css (3 cho: :host/html, .font-sans,
+                          .font-serif) + 10 inline style trong HTML
+       --font-serif    <- .fb-text h2 (flipbook /menu/)
+       --font-script   <- .font-script, .preloader-brand-main
+       --font-sans     <- hien khong cho nao dung, giu cho du bo
+
+     CANH BAO CHO NGUOI DOC SAU: ten --font-signika GIO KHONG CON DUNG NGHIA,
+     no tra ve Dancing Script. Doi ten se phai sua ca file tailwind dong bang
+     lan 10 cho trong HTML nen tam giu, danh doi lay mot dong revert.
+
+     MUON QUAY LAI SIGNIKA: doi DUNG mot dong --font-base ben duoi thanh
+       'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif
+     roi chay lai build-css.js --write && cache-bust.js --write. Khong phai sua
+     cho nao khac. @font-face cua Signika van con nguyen trong fonts/fonts.css. */
+  --font-base: 'Dancing Script', cursive;
+  --font-signika: var(--font-base);
   --background: #F5E9DA; /* Warm Cream */
   --foreground: #3B2314; /* Dark Brown */
   --primary: #A03F00; /* Burnt Orange CTA */
@@ -13,11 +29,9 @@
   --surface: #EAD8C0; /* Section BG */
   --card: #FFF8F0; /* Card White */
   --card-border: #E0C3A3; /* Card Border */
-  --font-sans: var(--font-signika);
-  --font-serif: var(--font-signika);  /* site khong dung font serif that; giu ten
-                                         cho khop class .font-serif co san trong
-                                         markup, nhung van la Signika. */
-  --font-script: 'Dancing Script', cursive;  /* CHI dung cho logo/ten thuong hieu */
+  --font-sans: var(--font-base);
+  --font-serif: var(--font-base);
+  --font-script: var(--font-base);
 }
 
 body {
@@ -34,18 +48,15 @@ body {
 }
 
 /* Tailwind sinh .font-sans/.font-serif thanh "var(--font-signika),ui-sans-serif,
-   system-ui", tuc noi them duoi vao mot bien VON DA co duoi -> getComputedStyle
-   tra ve "Signika, ui-sans-serif, system-ui, -apple-system, sans-serif, ui-sans-serif,
-   system-ui", khac chuoi cua body du ve nhin giong het. Ghi de o day (style.css nam
-   SAU tailwind trong bundle, cung do uu tien nen thang) de moi phan tu tren site
-   bao cao dung mot chuoi font.
+   system-ui", tuc noi them duoi font khac vao sau bien -> nhung phan tu do se roi
+   ve ui-sans-serif chu KHONG phai cursive khi thieu glyph, tuc lech voi phan con
+   lai cua site. Ghi de o day (style.css nam SAU tailwind trong bundle, cung do uu
+   tien nen thang) de moi phan tu bao dung mot chuoi font.
    LUU Y: .font-mono cua Tailwind van con trong tailwind-output.css nhung KHONG con
-   cho nao dung. No tro toi font he thong (Consolas/SF Mono/Roboto Mono) nen hien
-   khac nhau tuy may — dung dat lai vao markup. Can chu so thang cot thi khoi lo:
-   Signika von da la tabular (rong '111' == rong '000'). */
+   cho nao dung — dung dat lai vao markup. */
 .font-sans,
 .font-serif {
-  font-family: var(--font-signika);
+  font-family: var(--font-base);
 }
 
 .container {
