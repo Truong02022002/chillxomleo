@@ -21,6 +21,7 @@ _dev-scripts/
 # Local audit / scratch outputs (must not leak to public)
 seo_audit_stdout.txt
 audit_result.txt
+audit-findings.json
 search_results.txt
 temp_comp.txt
 *.bak_*

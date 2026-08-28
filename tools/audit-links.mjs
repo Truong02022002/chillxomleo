@@ -90,10 +90,18 @@ for (const f of files) {
     }
   }
 
-  // 6) "call to action" text that lost its href — <em>/<strong>/<span> wrappers with link-ish words, no <a> inside
+  // 6) "call to action" text that lost its href — <em>/<strong> wrappers with link-ish words.
   const LINKY = /(Tại Đây|Xem bản đồ|Xem Chỉ Đường|Xem chỉ đường|See map|See Directions|Here|Book now|Đặt bàn ngay|Xem thêm)/;
   for (const m of main.matchAll(/<(em|strong)>([^<]{2,40})<\/\1>/g)) {
-    if (LINKY.test(m[2])) findings.deadAnchor.push(`${f}: <${m[1]}>${m[2]}</${m[1]}>`);
+    //    A label like <strong>Xem Chỉ Đường:</strong> is fine when the <a> sits beside it rather than
+    //    inside it, so only flag when the enclosing <p> carries no href at all.
+    if (!LINKY.test(m[2])) continue;
+    const pStart = main.lastIndexOf('<p', m.index);
+    const pEnd = main.indexOf('</p>', m.index);
+    const block = main.slice(pStart === -1 ? Math.max(0, m.index - 300) : pStart,
+                             pEnd === -1 ? m.index + 300 : pEnd);
+    if (block.includes('href=')) continue;
+    findings.deadAnchor.push(`${f}: <${m[1]}>${m[2]}</${m[1]}>`);
   }
 
   // 7) hreflang self-reference
