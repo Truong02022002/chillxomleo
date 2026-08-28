@@ -26,7 +26,10 @@
   <style>@media (max-width:768px){#preloader{display:none!important}}</style>
 
   <!-- Critical CSS loaded first (blocking — required to avoid CLS) -->
-  <link rel="stylesheet" href="css/site.css?hfd0862b6">
+  <!-- Font chu chi lo dien sau khi bundle CSS parse xong. Preload cat mat xich do. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/dancing-script-vietnamese.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/dancing-script-latin.woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css?h6fcb5fb3">
 
   <!-- Google Fonts: non-render-blocking -->
   <title>Quán Nướng View Đẹp Đà Lạt 2026 | Xóm Lèo BBQ Trại Mát</title>

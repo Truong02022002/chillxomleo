@@ -18,7 +18,10 @@
        'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif
      roi chay lai build-css.js --write && cache-bust.js --write. Khong phai sua
      cho nao khac. @font-face cua Signika van con nguyen trong fonts/fonts.css. */
-  --font-base: 'Dancing Script', cursive;
+  /* 'Dancing Script Fallback' (fonts.css) la ban do metric cua chinh Dancing Script:
+     giu nguyen so dong chu trong luc font that con dang tai, nen font-display:swap
+     khong con day bo cuc. Bo no ra thi CLS trang chu quay lai 0,114. */
+  --font-base: 'Dancing Script', 'Dancing Script Fallback', cursive;
   --font-signika: var(--font-base);
   --background: #F5E9DA; /* Warm Cream */
   --foreground: #3B2314; /* Dark Brown */
