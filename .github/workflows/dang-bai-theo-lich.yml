@@ -1,0 +1,86 @@
+name: Dang bai theo lich
+
+# Ban nhap nam o nhanh "noi-dung" — nhanh do KHONG deploy, nen Google khong thay
+# bai truoc ngay dang. Moi sang workflow nay keo ban nhap sang, xem bai nao den
+# han thi noi vao main. Pages tu build lai tu main.
+
+on:
+  schedule:
+    # 01:00 UTC = 08:00 gio Viet Nam. Cron cua GitHub luon chay theo UTC.
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+    inputs:
+      ngay:
+        description: 'Gia lap ngay hom nay (YYYY-MM-DD), de trong thi dung ngay that'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  # Tranh hai lan chay cung luc cung push vao main.
+  group: dang-bai-theo-lich
+  cancel-in-progress: false
+
+jobs:
+  dang-bai:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Keo ban nhap tu nhanh noi-dung
+        run: |
+          if git ls-remote --exit-code --heads origin noi-dung >/dev/null 2>&1; then
+            git fetch origin noi-dung
+            git checkout origin/noi-dung -- hang-doi
+            echo "Da keo hang-doi tu nhanh noi-dung"
+          else
+            echo "Chua co nhanh noi-dung — khong co gi de dang"
+          fi
+
+      - name: Dang bai den han
+        id: dang
+        env:
+          NGAY: ${{ inputs.ngay }}
+        run: |
+          if [ -n "$NGAY" ]; then
+            node tools/dang-bai-theo-lich.mjs --ngay "$NGAY"
+          else
+            node tools/dang-bai-theo-lich.mjs
+          fi
+
+      - name: Go ban nhap khoi cay lam viec
+        # Ban nhap chi duoc ton tai tren nhanh noi-dung. Buoc nay bao dam
+        # hang-doi/ khong bao gio lot vao commit cua main.
+        if: always()
+        run: |
+          git reset -- hang-doi 2>/dev/null || true
+          rm -rf hang-doi
+
+      - name: Commit va push
+        env:
+          SO_BAI: ${{ steps.dang.outputs.so_bai }}
+          DA_DANG: ${{ steps.dang.outputs.da_dang }}
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Khong co bai nao den han — khong commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit \
+            -m "Dang theo lich $SO_BAI bai: $DA_DANG" \
+            -m "Tu dong dang boi .github/workflows/dang-bai-theo-lich.yml. Ban nhap lay tu nhanh noi-dung, thu muc hang-doi/." \
+            -m "Moi bai da noi day du: thu muc bai VI + EN, the card trong /blog/ va /blog-en/, hai khoi <url> trong sitemap.xml voi lastmod dung ngay dang. tools/audit-links.mjs da chay va bao TONG 0 truoc khi commit."
+          git push

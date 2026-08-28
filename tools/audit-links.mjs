@@ -2,7 +2,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = process.cwd();
-const SKIP = new Set(['.git', '.claude', 'node_modules', 'skills', 'tools', 'uploads', 'img', 'css', 'js', 'fonts']);
+// 'hang-doi' la ban nhap cho ngay dang, chua phai trang cua site — neu quet vao
+// se bao trung title / mo coi voi chinh ban da dang.
+const SKIP = new Set(['.git', '.claude', 'node_modules', 'skills', 'tools', 'uploads', 'img', 'css', 'js', 'fonts', 'hang-doi']);
 
 // ---- collect page files ----
 function walk(dir, out = []) {
