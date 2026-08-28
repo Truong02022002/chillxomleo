@@ -38,6 +38,10 @@ outreach-*.md
 # SEO playbook - local only, khong publish len GitHub Pages
 skills/
 
+# Ban nhap bai dang — chi song o nhanh noi-dung, KHONG duoc len main
+# (main deploy thang len GitHub Pages nen bai nhap se cong khai truoc ngay dang)
+hang-doi/
+
 # Dev/fix scripts
 fix_*.js
 audit_*.js
