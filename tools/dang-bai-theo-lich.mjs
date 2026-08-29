@@ -205,6 +205,50 @@ function kiemTraBaiNhap(d) {
   return v;
 }
 
+// Dancing Script da bi thu gon con mot ban subset (xem tools/sinh-subset-font.mjs).
+// Ky tu ngoai bo subset se roi ve 'Dancing Script Fallback' = Arial thu 82%, nam
+// lan trong chu viet tay thi nhin ra ngay. Site hien khong dung ky tu nao nhu vay,
+// nhung bai dang sau nay co ten nuoc ngoai (Zurich, Malaga, Munchen...) thi lo.
+// Day chi la CANH BAO, khong chan dang bai: lech font la chuyen tham my, khong
+// dang de mot bai da len lich phai nam lai.
+// Sua khi bi canh bao: them ky tu vao tools/sinh-subset-font.mjs roi chay
+//   node tools/sinh-subset-font.mjs --ghi
+//   node tools/build-css.js --write && node tools/cache-bust.js --write
+// LUU Y: dung tuong cu them thoai mai. Do duoc 29-08-2026, hieu ung co NGUONG —
+// subset phinh len 46,7 KB la mat sach 650ms LCP vua an duoc. Them it thoi.
+function kiemPhuFont(d) {
+  const fileBo = path.join(ROOT, 'fonts/subset-kytu.txt');
+  if (!fs.existsSync(fileBo)) return;                 // chua dung subset thi bo qua
+  const bo = new Set([...fs.readFileSync(fileBo, 'utf8')].map((c) => c.codePointAt(0)));
+
+  for (const hau of ['', '-en']) {
+    const f = path.join(HANG_DOI, d.slug + hau, 'index.html');
+    if (!fs.existsSync(f)) continue;
+    let s = fs.readFileSync(f, 'utf8')
+      .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+      .replace(/<!--[\s\S]*?-->/g, ' ');
+    const thuocTinh = [...s.matchAll(/\b(alt|title|aria-label)="([^"]*)"/g)].map((m) => m[2]).join(' ');
+    s = s.replace(/<[^>]+>/g, ' ') + ' ' + thuocTinh;
+
+    const thieu = new Map();
+    for (const ch of s) {
+      const cp = ch.codePointAt(0);
+      // Chi quan tam khoang Latin/dau cau ma font CO THE ve. Emoji, mui ten, chu
+      // Han... von da roi font he thong tu truoc khi co subset — khong phai loi moi.
+      const trongTam = cp <= 0x24f || (cp >= 0x1e00 && cp <= 0x1eff)
+        || (cp >= 0x2000 && cp <= 0x206f) || cp === 0x20ab || cp === 0x20ac;
+      if (!trongTam || bo.has(cp) || /\s/.test(ch)) continue;
+      thieu.set(ch, (thieu.get(ch) || 0) + 1);
+    }
+    if (thieu.size) {
+      const ds = [...thieu.entries()].sort((a, b) => b[1] - a[1])
+        .map(([c, n]) => `${c}(U+${c.codePointAt(0).toString(16).toUpperCase()})x${n}`).join(' ');
+      canhBao.push(`${d.slug}${hau}: ${thieu.size} ky tu ngoai subset font, se ve bang Arial: ${ds}`);
+    }
+  }
+}
+
 // ---------- chay ----------
 
 const hn = homNay();
@@ -239,6 +283,7 @@ for (const d of denHan) {
   const v = kiemTraBaiNhap(d);
   if (v.length) { console.log(`  X ${d.slug}`); v.forEach((x) => loi.push(`${d.slug}: ${x}`)); }
   else console.log(`  OK ${d.slug}  (${d.ngayDang})`);
+  kiemPhuFont(d);   // canh bao thoi, khong chan dang
 }
 
 if (loi.length) {
@@ -249,6 +294,13 @@ if (loi.length) {
 
 if (THU) {
   console.log('\n[THU] Se dang ' + denHan.length + ' bai: ' + denHan.map((d) => d.slug).join(', '));
+  // In canh bao o day luon. Khoi canhBao.forEach o cuoi file nam SAU buoc ghi nen
+  // che do --thu khong bao gio chay toi — ma --thu moi la luc can doc canh bao
+  // nhat, truoc khi bai len that.
+  if (canhBao.length) {
+    console.log('\nCanh bao:');
+    canhBao.forEach((x) => console.log('  ! ' + x));
+  }
   process.exit(0);
 }
 

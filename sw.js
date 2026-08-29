@@ -5,14 +5,14 @@
 
 // Doi CACHE_VERSION moi khi bump cache-buster cua CSS/JS: handler 'activate'
 // se xoa het cache khong khop prefix, tranh de lai entry cua phien ban cu.
-const CACHE_VERSION = 'xomleo-bb6cf25a';
+const CACHE_VERSION = 'xomleo-ac8dbc33';
 // Truoc day co them STATIC_CACHE rieng, nhung moi duong DOC deu dung RUNTIME_CACHE
 // nen 5 asset precache tai ve xong khong ai doc, sau do bi tai lai lan nua.
 // Dung chung mot cache de precache thuc su co tac dung.
 const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 
 const STATIC_ASSETS = [
-  '/css/site.css?h47d4d8c8',
+  '/css/site.css?hc7967412',
   '/js/main.min.js?h659288d9',
   '/uploads/1775619688243-610230636-img2.webp',
   '/uploads/favicon-32x32.png',
@@ -22,7 +22,7 @@ const STATIC_ASSETS = [
 const STATIC_PATTERNS = [
   /\/css\//,
   /\/js\//,
-  /\/fonts\/.*\.woff2?$/,   // 6 file font self-host, truoc day khong khop pattern nao
+  /\/fonts\/.*\.woff2?$/,   // 3 file font self-host, truoc day khong khop pattern nao
   /\/img\/.*\.(webp|jpg|jpeg|png|ico|svg)$/,  // gom 18 trang menu lat gio
   /\/uploads\/.*\.(webp|jpg|jpeg|png|ico|svg|mp4|webm|woff2?)$/
 ];
