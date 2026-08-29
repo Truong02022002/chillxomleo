@@ -912,12 +912,42 @@ input:focus, select:focus, textarea:focus {
 
 .floating-btn.btn-call {
   background: #25D366; /* WhatsApp/Phone green */
-  animation: floating-pulse-call 2s infinite;
 }
 
 .floating-btn.btn-zalo {
   background: #0068FF; /* Zalo blue */
-  animation: floating-pulse-zalo 2s infinite;
+}
+
+/* Vong sang nhap nhay. Do tren ::after chu KHONG dat animation thang len nut.
+   Truoc day animate box-shadow (spread 0 -> 15px): box-shadow khong phai thuoc
+   tinh composited nen moi khung hinh phai recalc style + paint lai tren luong
+   chinh, vinh vien, vi hai nut nay position:fixed nen luon trong khung nhin.
+   Do duoc 29-08-2026 (CDP, CPU x4): RecalcStyle 19 -> 571 lan qua 12 giay,
+   luong chinh ban ~50% lien tuc; requestAnimationFrame chi duoc goi 1 lan nen
+   chac chan la CSS chu khong phai JS.
+   Nay chi animate transform + opacity -> chay o compositor, luong chinh khong
+   dong gi. ::after nen trong SUOT (chi co box-shadow lam vanh) de tam giua
+   khong phu mau len nut; dung ::after vi ::before da la tooltip.
+   KHONG dung z-index am de day ra sau nut: khi hover, .floating-btn co
+   transform:scale(1.1) tao stacking context moi, luc do con am lai ve DE len
+   nen nut lam nut bi am mau. */
+.floating-btn.btn-call::after,
+.floating-btn.btn-zalo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: floating-pulse-call 2s infinite;
+}
+
+.floating-btn.btn-call::after {
+  box-shadow: 0 0 0 7px rgba(37, 211, 102, 0.5);
+}
+
+.floating-btn.btn-zalo::after {
+  box-shadow: 0 0 0 7px rgba(0, 104, 255, 0.5);
+  animation-name: floating-pulse-zalo;
   animation-delay: 1s;
 }
 
@@ -953,16 +983,23 @@ input:focus, select:focus, textarea:focus {
   transform: translateY(-50%) scale(1);
 }
 
+/* Hai keyframes nay gio giong het nhau (mau nam o box-shadow tinh cua ::after),
+   nhung GIU ca hai ten vi .btn-zalo can animation-delay rieng va vi ghi chu
+   khoi prefers-reduced-motion cuoi file goi dich danh hai ten nay.
+   Hinh hoc khop ban box-shadow cu: nut ban kinh 25px, ::after co vanh tinh 7px
+   nen ban kinh ngoai 32px; scale 1 -> 1,3 cho ban kinh ngoai 32 -> 41,6px, xap xi
+   moc 40px cu (25 + spread 15). Moc 100% ve lai scale 1 de vong sang xuat hien
+   lai dung sat mep nut o dau chu ky, y het ban cu (spread 0). */
 @keyframes floating-pulse-call {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
 }
 
 @keyframes floating-pulse-zalo {
-  0% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0.5); }
-  70% { box-shadow: 0 0 0 15px rgba(0, 104, 255, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 104, 255, 0); }
+  0% { transform: scale(1); opacity: 0.5; }
+  70% { transform: scale(1.3); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
 }
 
 @media (max-width: 768px) {
