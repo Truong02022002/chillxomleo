@@ -986,6 +986,10 @@ input:focus, select:focus, textarea:focus {
 /* === Đầu tàu (kiểu preloader, position absolute) === */
 .bt-loco {
   position: absolute;
+  /* left/top chot 0: dong tau chay bang transform (xem js/main.js). Neu de auto,
+     vi tri tinh cua tung the anh em khac nhau nen translate se lech. */
+  left: 0;
+  top: 0;
   width: 44px;
   height: 28px;
   background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
@@ -1035,6 +1039,10 @@ input:focus, select:focus, textarea:focus {
 /* === Toa tàu (kiểu preloader, position absolute) === */
 .bt-wagon {
   position: absolute;
+  /* left/top chot 0: dong tau chay bang transform (xem js/main.js). Neu de auto,
+     vi tri tinh cua tung the anh em khac nhau nen translate se lech. */
+  left: 0;
+  top: 0;
   width: 38px;
   height: 24px;
   background: linear-gradient(180deg, #B4590F 0%, #C0601A 100%);
@@ -1091,6 +1099,10 @@ input:focus, select:focus, textarea:focus {
 /* === Dây xích nối giữa các toa === */
 .bt-chain {
   position: absolute;
+  /* left/top chot 0: dong tau chay bang transform (xem js/main.js). Neu de auto,
+     vi tri tinh cua tung the anh em khac nhau nen translate se lech. */
+  left: 0;
+  top: 0;
   width: 14px;
   height: 6px;
   z-index: 53;
@@ -1443,8 +1455,17 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
 
 /* Khung dieu khien chi hien khi flipbook.js da dung xong. Khong co JS thi
    khach van co day du mon va gia o danh sach chu ngay ben duoi. */
-.fb-shell { display: none; }
-.fb.is-ready .fb-shell { display: block; }
+/* KHONG dung display:none o day. Do duoc (CDP, CPU x6, 400 Kbps): tren may cham,
+   trang ve xong TRUOC khi flipbook.js (defer) gan .is-ready, roi ca khung cao ~500px
+   bat ra day .fb-text va moi thu ben duoi xuong -> CLS 0,2172. Cloudflare Web
+   Analytics ngay 29-08-2026 xac nhan /menu/ Poor 100% ngoai thuc dia.
+   Giu khoi trong bo cuc va chi an bang visibility de trinh duyet TU TINH chieu cao
+   that. Khong hardcode duoc chieu cao: mobile ve 1 trang ti le 3:4, desktop ve 2
+   trang 3:2, chips khi 1 hang khi 2 hang.
+   Khong co JS thi the <style> trong <noscript> o menu/index.html tra lai display:none,
+   neu khong khach se thay mot o toi rong khong ngay tren danh sach mon. */
+.fb-shell { visibility: hidden; }
+.fb.is-ready .fb-shell { visibility: visible; }
 .fb-noscript {
   margin: 0.5rem auto 0;
   max-width: 34rem;
@@ -1470,6 +1491,8 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
 
 /* Nhay nhanh toi muc */
 .fb-chips {
+  /* JS bom chip vao sau, de trong thi cao 0 roi bat len 39px. Giu cho mot hang. */
+  min-height: 39px;
   display: flex;
   gap: 0.4rem;
   margin: 0 auto 1.25rem;

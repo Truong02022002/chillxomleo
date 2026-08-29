@@ -772,9 +772,12 @@ document.addEventListener('DOMContentLoaded', () => {
           const pos = perimeterToPos(headDist - i * CAR_SPACING, w, h, r);
           const cw = car === loco ? 44 : 38;
           const ch = car === loco ? 28 : 24;
-          car.style.left = (pos.x - cw / 2) + 'px';
-          car.style.top = (pos.y - ch / 2) + 'px';
-          car.style.transform = 'rotate(' + pos.a + 'deg)';
+          // Chay bang transform chu KHONG phai left/top. left/top la thuoc tinh bo cuc
+          // nen moi khung hinh Chrome ghi mot layout shift; Cloudflare Web Analytics
+          // 29-08-2026 chi dich danh #train-track>div.bt-loco la nguon CLS lon nhat trang
+          // chu (3 lan/6 gio). Probe tu dong khong bat duoc vi tau nam cuoi trang, ngoai
+          // khung nhin — CLS chi dem phan tu TRONG khung nhin, ma khach thi cuon xuong.
+          car.style.transform = 'translate(' + (pos.x - cw / 2) + 'px,' + (pos.y - ch / 2) + 'px) rotate(' + pos.a + 'deg)';
           carPositions.push(pos);
         });
 
@@ -786,9 +789,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const mx = (p1.x + p2.x) / 2;
             const my = (p1.y + p2.y) / 2;
             const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-            chain.style.left = (mx - 7) + 'px';
-            chain.style.top = (my - 3) + 'px';
-            chain.style.transform = 'rotate(' + angle + 'deg)';
+            chain.style.transform = 'translate(' + (mx - 7) + 'px,' + (my - 3) + 'px) rotate(' + angle + 'deg)';
           }
         });
 

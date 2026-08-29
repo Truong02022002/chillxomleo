@@ -19,8 +19,6 @@
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
 
-  <!-- LCP preload — hero poster image -->
-  <link rel="preload" as="image" href="/uploads/1775619688243-610230636-img2.webp" fetchpriority="high" media="(max-width: 768px)">
 
   <!-- Mobile: skip preloader entirely for faster FCP/LCP (desktop keeps cinematic) -->
   <style>@media (max-width:768px){#preloader{display:none!important}}</style>
@@ -29,7 +27,7 @@
   <!-- Font chu chi lo dien sau khi bundle CSS parse xong. Preload cat mat xich do. -->
   <link rel="preload" as="font" type="font/woff2" href="/fonts/dancing-script-vietnamese.woff2" crossorigin>
   <link rel="preload" as="font" type="font/woff2" href="/fonts/dancing-script-latin.woff2" crossorigin>
-  <link rel="stylesheet" href="css/site.css?h6fcb5fb3">
+  <link rel="stylesheet" href="css/site.css?hba269291">
 
   <!-- Google Fonts: non-render-blocking -->
   <title>Quán Nướng View Đẹp Đà Lạt 2026 | Xóm Lèo BBQ Trại Mát</title>
@@ -432,7 +430,13 @@
     style="position:relative;height:100vh;min-height:600px;width:100%;overflow:hidden;background:#0E0C0A;display:flex;align-items:center;justify-content:center"
     class="hero-cinematic relative h-screen min-h-[600px] md:min-h-[800px] w-full flex items-center justify-center overflow-hidden">
     <div style="position:absolute;inset:0;background:#000;z-index:0" class="absolute inset-0 z-0 bg-black">
-      <img src="uploads/1775619688243-610230636-img2.webp" alt="Không gian nướng chill tại Tiệm Nướng Xóm Lèo Đà Lạt với view thung lũng lãng mạn" aria-hidden="true" fetchpriority="high" decoding="async" width="600" height="900"
+      <!-- KHONG preload va KHONG fetchpriority=high cho anh nay. Do duoc 29-08-2026:
+           phan tu LCP cua trang chu LUON la <h1>; anh nay chua bao gio la ung vien LCP
+           (aria-hidden, opacity .6, nam duoi .hero-scrim). Nhung no nang 86 KB, khi duoc
+           uu tien cao thi gianh bang thong dung luc site.css?hba269291 + woff2 dang can, day LCP tu
+           1730ms len 2178ms (3/3 lan, Lighthouse mobile). Bo uu tien thi Speed Index KHONG
+           doi, vi anh nam duoi lop phu toi. Dung "toi uu" nguoc lai. -->
+      <img src="uploads/1775619688243-610230636-img2.webp" alt="Không gian nướng chill tại Tiệm Nướng Xóm Lèo Đà Lạt với view thung lũng lãng mạn" aria-hidden="true" decoding="async" width="600" height="900"
         style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0.6;transform:scale(1.05)"
         class="md:hidden absolute inset-0 w-full h-full object-cover object-center scale-105 opacity-60">
       <!-- Video nen 11,7 MB: KHONG dat <source> san. autoplay+muted khien trinh duyet
@@ -1166,7 +1170,7 @@
     </div>
   </footer>
 
-  <script src="js/main.min.js?h4e9e6520" defer></script>
+  <script src="js/main.min.js?h659288d9" defer></script>
 </body>
 
 </html>
