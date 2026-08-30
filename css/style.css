@@ -1765,6 +1765,34 @@ body.fb-lock { overflow: hidden; }
 .fb-links { margin-top: 1.5rem; font-size: 0.875rem; }
 
 /* ---------------------------------------------------------------------------
+   BO QUA DUNG BO CUC CHO PHAN DUOI MAN HINH
+   Trace truoc moc FCP (CDP, CPU x4 + Slow 4G, 30-08-2026) cho thay Layout la
+   viec ton nhat: 650ms, gap 5 lan RecalcStyle (130ms) va gap 12 lan ParseHTML
+   (52ms). Ly do: ca site dung Dancing Script cho MOI text node (xem --font-base),
+   ma trang chu cao 10.199px trong khi khung nhin chi 823px — trinh duyet dung
+   chu viet tay cho ca 9.376px nam ngoai man hinh truoc khi ve duoc gi.
+   content-visibility:auto cho phep hoan viec do den luc cuon toi.
+
+   A/B tren may (15 vong xen ke): trung vi LCP 1532ms -> 1080ms, thang 11/15.
+
+   contain-intrinsic-size la chieu cao THAT do o khung 412px. Tu khoa 'auto' de
+   trinh duyet nho lai so do that sau lan ve dau, khong phu thuoc con so cung.
+   Da kiem: chieu cao trang truoc khi cuon 11.130px (uoc luong hoi du), SAU khi
+   cuon het ve dung 10.199px — bang het ban khong dung content-visibility, tung
+   section cao y het. Tuc la KHONG doi bo cuc, chi lech do dai thanh cuon luc dau
+   roi tu sua. CLS = 0 o ca hai, do CO CUON het trang.
+
+   KHONG dat cho section hero: no nam tren man hinh, hoan lai chi lam cham.
+   --------------------------------------------------------------------------- */
+section#story          { content-visibility: auto; contain-intrinsic-size: auto 1100px; }
+section#menu           { content-visibility: auto; contain-intrinsic-size: auto 1228px; }
+section#reviews        { content-visibility: auto; contain-intrinsic-size: auto 2127px; }
+section#booking        { content-visibility: auto; contain-intrinsic-size: auto 1383px; }
+section#faq            { content-visibility: auto; contain-intrinsic-size: auto 1064px; }
+section#about-trai-mat { content-visibility: auto; contain-intrinsic-size: auto 1019px; }
+footer                 { content-visibility: auto; contain-intrinsic-size: auto 1123px; }
+
+/* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
    transition cua flipbook. Cac animation lap vo han van chay: train-move,
