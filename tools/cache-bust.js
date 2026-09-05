@@ -27,12 +27,18 @@ const ASSETS = [
   { file: 'css/site.css', pattern: /site\.css(\?[a-z]*[0-9a-f]+)?/g, name: 'site.css' },
   { file: 'js/main.min.js', pattern: /main\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'main.min.js' },
   // Menu lat trang o /menu/ va /menu-en/. File rieng chu khong gop vao main.js
-  // vi main.min.js duoc minify san, gop vao se phai dung lai ca file do.
-  { file: 'js/flipbook.js', pattern: /flipbook\.js\?[a-z]*[0-9a-f]+/g, name: 'flipbook.js' },
+  // de khoi phai dung lai ca bundle chinh chi vi sua flipbook.
+  // Ca hai ban .min deu do tools/build-js.js sinh ra tu file nguon cung ten.
+  { file: 'js/flipbook.min.js', pattern: /flipbook(\.min)?\.js\?[a-z]*[0-9a-f]+/g, name: 'flipbook.min.js' },
 ];
 
+// Chuan hoa xuong dong TRUOC khi bam. Repo dat core.autocrlf=true va khong co
+// .gitattributes, nen ban lam viec tren Windows la CRLF con git luu LF: bam thang
+// byte tren dia thi Windows va Linux ra hai hash khac nhau, HTML da commit se tro
+// toi ban khong ai dung duoc va cache-bust o may khac luon bao lech.
 const hashOf = (rel) => crypto.createHash('sha1')
-  .update(fs.readFileSync(path.join(ROOT, rel))).digest('hex').slice(0, 8);
+  .update(fs.readFileSync(path.join(ROOT, rel), 'utf8').split('\r\n').join('\n'))
+  .digest('hex').slice(0, 8);
 
 const targets = [];
 (function walk(dir) {

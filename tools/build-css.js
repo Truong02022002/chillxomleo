@@ -85,7 +85,9 @@ function minify(css) {
 
 const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const joined = SOURCES.map(read).join('\n');
-const srcHash = crypto.createHash('sha1').update(joined).digest('hex').slice(0, 12);
+// Chuan hoa xuong dong truoc khi bam — xem giai thich trong tools/cache-bust.js.
+// Khong co buoc nay thi che do kiem bao LECH tren may co kieu xuong dong khac.
+const srcHash = crypto.createHash('sha1').update(joined.split('\r\n').join('\n')).digest('hex').slice(0, 12);
 const body = minify(joined);
 
 // KIEM CHUNG: dem so khoi '{' la KHONG DU. Lan truoc minify bo mat dau cach to hop
