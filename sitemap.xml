@@ -322,6 +322,22 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/kham-pha-cho-dem-da-lat/" />
   </url>
   <url>
+    <loc>https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu-en/</loc>
+    <lastmod>2026-09-05</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/kham-pha-da-lat-thanh-pho-suong-mu/" />
+  </url>
+  <url>
     <loc>https://xomleo.vn/kham-pha-ho-than-tho-da-lat-canh-dep-va-trai-nghiem/</loc>
     <lastmod>2026-08-19</lastmod>
     <priority>0.6</priority>
