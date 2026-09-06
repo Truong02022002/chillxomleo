@@ -812,15 +812,15 @@
           <form id="zaloBookingForm" class="space-y-6">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Your Name
+                <label for="book_name" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Your Name
                   *</label>
-                <input required id="book_name" type="text"
+                <input required autocomplete="name" id="book_name" type="text"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
                   placeholder="John Doe">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Zalo or WhatsApp *</label>
-                <input required id="book_phone" type="tel"
+                <label for="book_phone" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Zalo or WhatsApp *</label>
+                <input required autocomplete="tel" id="book_phone" type="tel"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm rounded-t-sm"
                   placeholder="+84 901 234 567">
               </div>
@@ -852,7 +852,7 @@
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 rounded-t-sm">
               </div>
               <div class="space-y-2">
-                <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Occasion</label>
+                <label for="book_occasion" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Occasion</label>
                 <select id="book_occasion"
                   class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm text-foreground/80 appearance-none rounded-t-sm">
                   <option value="None">None</option>
@@ -864,7 +864,7 @@
             </div>
 
             <div class="space-y-2">
-              <label class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Additional Notes</label>
+              <label for="book_note" class="text-[10px] uppercase tracking-[0.2em] font-medium text-foreground/80 block">Additional Notes</label>
               <textarea id="book_note"
                 class="w-full bg-surface border-b border-muted/20 py-3 px-2 outline-none focus:bg-surface/80 focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-300 text-sm resize-none h-20 rounded-t-sm"
                 placeholder="Any special requests? (e.g., best view table)"></textarea>
