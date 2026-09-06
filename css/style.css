@@ -1,27 +1,35 @@
 :root {
   /* ============ FONT CHU CUA CA SITE ============
-     Chot 23/08/2026 theo yeu cau chu quan: dung Dancing Script (chu viet tay)
-     cho TOAN BO site, khong con gioi han o logo nua.
+     Chot 06/09/2026 theo yeu cau chu quan, thay cho quyet dinh 23/08/2026:
+       than bai + dieu huong  -> Signika  (doc duoc, 121 bai dai, co bai 6.000 tu)
+       tieu de h1/h2/h3       -> Dancing Script  (giu net chu viet tay)
+       logo + trang tri       -> Dancing Script  (.font-script)
 
-     --font-base la NGUON DUY NHAT. Bon ten duoi la BI DANH, giu vi da co cho dung:
-       --font-signika  <- tailwind-output.css (3 cho: :host/html, .font-sans,
-                          .font-serif) + 10 inline style trong HTML
+     VI SAO KHONG BO HAN Dancing Script: da do A/B 5 vong xen ke, CPU x4 + Slow 4G,
+     trang /cam-nang-du-lich-da-lat/, trung vi FCP:
+       moi chu Dancing Script (cu)        2220ms   1 font  38 KB
+       than bai Signika + tieu de DS      2224ms   3 font  91 KB   <- dang dung
+       chi logo DS, tieu de sans          1760ms   3 font  91 KB
+       chi logo DS, than bai font he thong 1700ms  1 font  38 KB
+     Tuc la 0,5 giay chi lay duoc khi TIEU DE thoi dung Dancing Script — vi h1 la
+     phan tu LCP. Giu tieu de chu viet tay thi khong con gi de toi uu ve font.
+     CLS = 0 o ca bon phuong an.
+
+     --font-base = font than bai. --font-script = font chu viet tay.
+       --font-signika  <- tailwind-output.css (:host/html, .font-sans, .font-serif)
+                          + 10 inline style trong HTML. Ten nay GIO DUNG NGHIA
+                          tro lai: no thuc su tra ve Signika.
        --font-serif    <- .fb-text h2 (flipbook /menu/)
-       --font-script   <- .font-script, .preloader-brand-main
        --font-sans     <- hien khong cho nao dung, giu cho du bo
 
-     CANH BAO CHO NGUOI DOC SAU: ten --font-signika GIO KHONG CON DUNG NGHIA,
-     no tra ve Dancing Script. Doi ten se phai sua ca file tailwind dong bang
-     lan 10 cho trong HTML nen tam giu, danh doi lay mot dong revert.
-
-     MUON QUAY LAI SIGNIKA: doi DUNG mot dong --font-base ben duoi thanh
-       'Signika', ui-sans-serif, system-ui, -apple-system, sans-serif
-     roi chay lai build-css.js --write && cache-bust.js --write. Khong phai sua
-     cho nao khac. @font-face cua Signika van con nguyen trong fonts/fonts.css. */
+     MUON QUAY LAI TOAN BO Dancing Script (trang thai truoc 06/09): doi
+     --font-base ve 'Dancing Script','Dancing Script Fallback',cursive VA gop lai
+     khoi .font-sans/.font-serif/h1,h2,h3 ben duoi thanh mot. Roi chay
+     build-css.js --write && cache-bust.js --write. */
   /* 'Dancing Script Fallback' (fonts.css) la ban do metric cua chinh Dancing Script:
      giu nguyen so dong chu trong luc font that con dang tai, nen font-display:swap
      khong con day bo cuc. Bo no ra thi CLS trang chu quay lai 0,114. */
-  --font-base: 'Dancing Script', 'Dancing Script Fallback', cursive;
+  --font-base: 'Signika', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-signika: var(--font-base);
   --background: #F5E9DA; /* Warm Cream */
   --foreground: #3B2314; /* Dark Brown */
@@ -34,7 +42,7 @@
   --card-border: #E0C3A3; /* Card Border */
   --font-sans: var(--font-base);
   --font-serif: var(--font-base);
-  --font-script: var(--font-base);
+  --font-script: 'Dancing Script', 'Dancing Script Fallback', cursive;
 }
 
 body {
@@ -57,9 +65,16 @@ body {
    tien nen thang) de moi phan tu bao dung mot chuoi font.
    LUU Y: .font-mono cua Tailwind van con trong tailwind-output.css nhung KHONG con
    cho nao dung — dung dat lai vao markup. */
-.font-sans,
-.font-serif {
+.font-sans {
   font-family: var(--font-base);
+}
+
+/* Tieu de giu Dancing Script. Phai phu CA HAI duong vi mot so heading mang class
+   .font-serif (343 cho tren 121 trang) con mot so khong mang class font nao —
+   chi dat mot trong hai se ra trang nua chu viet tay nua chu thuong. */
+.font-serif,
+h1, h2, h3 {
+  font-family: var(--font-script);
 }
 
 .container {
