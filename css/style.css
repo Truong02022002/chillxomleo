@@ -19,7 +19,9 @@
        --font-signika  <- tailwind-output.css (:host/html, .font-sans, .font-serif)
                           + 10 inline style trong HTML. Ten nay GIO DUNG NGHIA
                           tro lai: no thuc su tra ve Signika.
-       --font-serif    <- .fb-text h2 (flipbook /menu/)
+       --font-serif    <- .fb-text h2 (flipbook /menu/). Tro sang --font-script
+                          de tieu de menu khop voi h1/h2/h3 phan con lai cua site:
+                          .fb-text h2 co do uu tien (0,1,1) nen thang rule "h1,h2,h3".
        --font-sans     <- hien khong cho nao dung, giu cho du bo
 
      MUON QUAY LAI TOAN BO Dancing Script (trang thai truoc 06/09): doi
@@ -41,7 +43,7 @@
   --card: #FFF8F0; /* Card White */
   --card-border: #E0C3A3; /* Card Border */
   --font-sans: var(--font-base);
-  --font-serif: var(--font-base);
+  --font-serif: var(--font-script);
   --font-script: 'Dancing Script', 'Dancing Script Fallback', cursive;
 }
 
