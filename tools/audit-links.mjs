@@ -58,7 +58,9 @@ for (const f of files) {
 
   const stub = /meta http-equiv="refresh"/i.test(s);
   // 2) H1 count
-  const h1 = (s.match(/<h1[\s>]/g) || []).length;
+  // bo chu thich truoc khi dem: index.html co chu <h1> nam trong mot comment giai thich
+  // ve LCP, khong phai the that — dem thang tren `s` thi bao nham "2 x H1".
+  const h1 = (s.replace(/<!--[\s\S]*?-->/g, ' ').match(/<h1[\s>]/g) || []).length;
   if (h1 !== 1 && !stub) findings.h1.push(`${f}: ${h1} x H1`);
 
   // 3) duplicate <title>
