@@ -661,4 +661,20 @@
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
+  <url>
+    <loc>https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat-en/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/dat-tiec-sinh-nhat-o-da-lat/" />
+  </url>
 </urlset>
