@@ -65,6 +65,30 @@
    KHI DOI --font-base SANG FONT KHAC: phai do lai 82% neu khong fallback se
    lech nguoc lai. Kich ban do o tools/ khong luu; do lai bang cach so chieu cao
    .container trong section.hero-cinematic truoc/sau khi font ve. */
+/* Signika la font THAN BAI tu 06-09-2026 (truoc do than bai dung Dancing Script).
+   Luc doi font, ban fallback khop metric chi duoc lam cho Dancing Script — Signika
+   khong co, nen font-display:swap van lam chu chay lai khi font that ve.
+   Do ngay 09-09-2026 (Chrome, be rong 390px): tren /dieu-khoan-su-dung/ chu dich
+   len 26px o moc 259ms va 283ms, dung luc Signika + Dancing Script nap xong;
+   CLS con lai 0,156 chi do rieng viec doi font nay.
+
+   So do lay theo dung cach da lam cho Dancing Script o duoi: quet size-adjust
+   70-130% roi so chieu cao that cua mot khoi van ban tieng Viet rong 360px.
+   Dai cho chieu cao TRUNG KHIT la 88-98%, lay 93% cho can dai.
+   ascent/descent = so do that cua Signika (94%/29% cua em, doc bang canvas
+   measureText) chia cho 0,93 vi size-adjust co lai ca hai so do do.
+
+   KHI DOI FONT THAN BAI SANG FONT KHAC: phai do lai 93%, neu khong fallback se
+   lech nguoc lai. */
+@font-face{
+  font-family: 'Signika Fallback';
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans');
+  size-adjust: 93%;
+  ascent-override: 101%;
+  descent-override: 31%;
+  line-gap-override: 0%;
+}
+
 @font-face{
   font-family: 'Dancing Script Fallback';
   src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans');

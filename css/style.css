@@ -31,7 +31,7 @@
   /* 'Dancing Script Fallback' (fonts.css) la ban do metric cua chinh Dancing Script:
      giu nguyen so dong chu trong luc font that con dang tai, nen font-display:swap
      khong con day bo cuc. Bo no ra thi CLS trang chu quay lai 0,114. */
-  --font-base: 'Signika', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-base: 'Signika', 'Signika Fallback', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-signika: var(--font-base);
   --background: #F5E9DA; /* Warm Cream */
   --foreground: #3B2314; /* Dark Brown */
@@ -256,6 +256,27 @@ article h1 {
   width: -moz-fit-content;
   width: fit-content;
   max-width: 100%;
+}
+
+/* Sau trang tien ich (chinh sach, dieu khoan, duong di — ca hai ban ngon ngu)
+   truoc day chua chieu cao thanh nav bang JS: HTML dat san
+   style="padding-top:120px", roi mot script chay luc 'load' ghi de bang
+   navbar.offsetHeight. Tren dien thoai nav cao 69px nen ca trang bi keo len 51px
+   NGAY SAU KHI TAI XONG.
+   Do ngay 09-09-2026 (be rong 390px): /chinh-sach-bao-mat/ CLS = 0,34 — gap ba
+   lan nguong 0,1 cua Core Web Vitals; nguon xe dich chinh la div.policy-section.
+   Loi nay co TU TRUOC dot ra soat nay (do lai o commit ae315ee2 van 0,34).
+   Dat thang bang CSS thi khong con lan ghi de nao sau khi tai, CLS ve 0.
+   Hai gia tri nay khop voi scroll-padding-top ben duoi — cung la "chua cho
+   thanh nav co dinh", sua thi sua ca hai. */
+#policy-main {
+  padding-top: 5rem;
+}
+
+@media (min-width: 768px) {
+  #policy-main {
+    padding-top: 7rem;
+  }
 }
 
 /* WCAG 1.4.1: link nam trong doan van phai phan biet duoc voi chu thuong bang
