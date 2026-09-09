@@ -61,7 +61,8 @@ function dungArticle(t, lang) {
   const ngay = lang === 'vi' ? ngayVI(d.ngayDang) : ngayEN(d.ngayDang);
   const tacGia = lang === 'vi' ? TACGIA : TACGIA_EN;
   const boiChu = lang === 'vi' ? 'Bài viết bởi ' : 'Written by ';
-  const veBlog = lang === 'vi' ? 'Quay lại Blog' : 'Back to Blog';
+  const nhanTrangChu = lang === 'vi' ? 'Trang chủ' : 'Home';
+  const linkTrangChu = lang === 'vi' ? '/' : '/en/';
   const nhanTomTat = lang === 'vi' ? 'Tóm tắt nhanh' : 'Quick answer';
   const nhanMucLuc = lang === 'vi' ? 'Mục lục' : 'Contents';
   const nhanAnh = lang === 'vi' ? 'Ảnh: ' : 'Photo: ';
@@ -94,10 +95,15 @@ function dungArticle(t, lang) {
   };
 
   return `<article class="container mx-auto px-6 md:px-12 max-w-4xl pt-32 pb-24">
-            <a href="${linkBlog}" class="inline-flex items-center gap-2 text-sm text-[#6B5443] hover:text-[#A03F00] mb-10 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>
-            ${veBlog}
-            </a>
+            <nav aria-label="Breadcrumb" class="mb-10">
+              <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#6B5443]">
+                <li><a href="${linkTrangChu}" class="hover:text-[#A03F00] transition-colors">${nhanTrangChu}</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><a href="${linkBlog}" class="hover:text-[#A03F00] transition-colors">Blog</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><span aria-current="page" class="text-[#3B2314] font-medium">${esc(t.h1)}</span></li>
+              </ol>
+            </nav>
 
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#A03F00] bg-[#A03F00]/10 px-3 py-1.5 rounded-sm">${nhan}</span>
