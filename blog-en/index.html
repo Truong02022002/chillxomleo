@@ -113,15 +113,15 @@
         <a href="/menu-en/"
           class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Menu</a>
         <a href="/blog-en/"
-          class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Blog</a>
+          aria-current="page" class="transition-all duration-300 relative py-1 px-3 rounded-full bg-white/10 text-foreground">Blog</a>
       </div>
 
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
         <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
-          <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+          <a href="/blog/" hreflang="vi" lang="vi" class="hover:text-primary transition-colors data-lang-vn" aria-label="Chuyển sang tiếng Việt">VN</a>
           <span class="opacity-30">|</span>
-          <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+          <a href="/blog-en/" hreflang="en" lang="en" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-en" aria-label="Currently viewing the English version">EN</a>
         </div>
 
         <a href="/en/#booking"
@@ -153,14 +153,14 @@
       <a href="/en/" class="transition-colors text-foreground/70">Home</a>
       <a href="/about-en/" class="transition-colors text-foreground/70">Experience</a>
       <a href="/menu-en/" class="transition-colors text-foreground/70">Menu</a>
-      <a href="/blog-en/" class="transition-colors text-foreground/70">Blog</a>
+      <a href="/blog-en/" aria-current="page" class="transition-colors text-primary pl-4 border-l-2 border-primary">Blog</a>
     </div>
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
       <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
-        <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+        <a href="/blog/" hreflang="vi" lang="vi" class="hover:text-primary transition-colors data-lang-vn" aria-label="Chuyển sang tiếng Việt">VN</a>
         <span class="opacity-30">|</span>
-        <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+        <a href="/blog-en/" hreflang="en" lang="en" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-en" aria-label="Currently viewing the English version">EN</a>
       </div>
 
       <a href="/en/#booking"
@@ -182,13 +182,13 @@
         </div>
 
         <div class="flex justify-center gap-6 mb-16">
-           <button 
+           <button type="button"
              data-tab="News"
              class="blog-tab-btn px-8 border-b-2 pb-2 font-bold tracking-widest text-sm transition-colors border-primary text-primary active-tab"
            >
              LATEST NEWS
            </button>
-           <button 
+           <button type="button"
              data-tab="Events"
              class="blog-tab-btn px-8 border-b-2 pb-2 font-bold tracking-widest text-sm transition-colors border-transparent text-foreground/80 hover:text-foreground"
            >
@@ -216,7 +216,7 @@
               </svg>
             </button>
           </div>
-          <p id="blog-search-count" class="blog-search-count"></p>
+          <p id="blog-search-count" class="blog-search-count" role="status" aria-live="polite"></p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10" id="blog-grid">
@@ -1618,6 +1618,20 @@
               const blogItems = document.querySelectorAll('.blog-item');
               const emptyState = document.getElementById('empty-state');
 
+              // Chuyen muc khong con bai nao thi an nut di: truoc day tab "Su kien"
+              // rong hoan toan nhung van hien, bam vao chi ra man hinh trong.
+              let soChuyenMucConBai = 0;
+              filterBtns.forEach(btn => {
+                  const tab = btn.getAttribute('data-tab') || '';
+                  const coBai = Array.prototype.some.call(blogItems, function (item) {
+                      return (item.getAttribute('data-category') || '').includes(tab);
+                  });
+                  if (coBai) soChuyenMucConBai++; else btn.style.display = 'none';
+              });
+              // Con dung mot chuyen muc thi thanh tab khong con y nghia.
+              const thanhTab = filterBtns[0] && filterBtns[0].parentElement;
+              if (thanhTab && soChuyenMucConBai < 2) thanhTab.style.display = 'none';
+
               filterBtns.forEach(btn => {
                   btn.addEventListener('click', () => {
                       const filterValue = btn.getAttribute('data-tab');
@@ -1625,18 +1639,17 @@
                       filterBtns.forEach(b => {
                           b.classList.remove('border-primary', 'text-primary', 'active-tab');
                           b.classList.add('border-transparent', 'text-foreground/80');
+                          b.setAttribute('aria-pressed', 'false');
                       });
                       btn.classList.remove('border-transparent', 'text-foreground/80');
                       btn.classList.add('border-primary', 'text-primary', 'active-tab');
-
-                      let visibleCount = 0;
+                      btn.setAttribute('aria-pressed', 'true');
 
                       blogItems.forEach(item => {
                           const itemCat = item.getAttribute('data-category');
                           if (itemCat && itemCat.includes(filterValue)) {
                               item.style.display = 'flex';
                               setTimeout(() => { item.style.opacity = '1'; item.style.transform = 'scale(1)'; }, 50);
-                              visibleCount++;
                           } else {
                               item.style.opacity = '0';
                               item.style.transform = 'scale(0.95)';
@@ -1644,11 +1657,9 @@
                           }
                       });
 
-                      if(visibleCount === 0) {
-                          setTimeout(() => { emptyState.style.display = 'block'; }, 300);
-                      } else {
-                          emptyState.style.display = 'none';
-                      }
+                      // O dem va thong bao rong do khoi tim kiem quan ly, de hai bo loc
+                      // khong ghi de ket qua cua nhau.
+                      if (window.__xlBlogRefresh) window.__xlBlogRefresh();
                   });
               });
 
@@ -1703,6 +1714,8 @@
           <a href="/en/directions/" class="hover:text-primary transition-colors">Directions &amp; address</a>
           <a href="/blog-en/" class="hover:text-primary transition-colors">Blog</a>
           <a href="/en/#booking" class="hover:text-primary transition-colors">Book Table</a>
+          <a href="/en/privacy-policy/" class="hover:text-primary transition-colors">Privacy Policy</a>
+          <a href="/en/terms-of-use/" class="hover:text-primary transition-colors">Terms of Use</a>
         </nav>
       </div>
 
@@ -1754,7 +1767,7 @@
     </div>
   </footer>
 
-  <script src="../js/main.min.js?h2f3e3043" defer></script>
+  <script src="../js/main.min.js?he5cf7d5c" defer></script>
   <script>
   // Blog Search Functionality
   (function() {
@@ -1772,42 +1785,66 @@
                .replace(/đ/g, 'd').replace(/Đ/g, 'D');
     }
 
+    const emptyState = document.getElementById('empty-state');
+
+    // Truoc day ham nay doc article.style.display de biet bai co bi tab an khong.
+    // Gia tri do duoc khoi tab ghi tre 300ms nen tim kiem doc phai ban cu; ngoai ra
+    // bai khop nam o chuyen muc khac khong duoc dem, khien o dem bao "khong tim thay"
+    // trong khi van con ket qua. Nay xet truc tiep theo data-category.
+    function tabDangChon() {
+      const btn = document.querySelector('.blog-tab-btn.active-tab');
+      return btn ? (btn.getAttribute('data-tab') || '') : '';
+    }
+
     function filterArticles() {
       const query = searchInput.value.trim().toLowerCase();
       const queryNorm = removeDiacritics(query);
-      
+      const tab = tabDangChon();
+
       clearBtn.style.display = query ? 'block' : 'none';
 
       if (!query) {
         articles.forEach(a => a.classList.remove('search-hidden'));
         countEl.textContent = '';
+        if (emptyState) emptyState.style.display = 'none';
         return;
       }
 
-      let visibleCount = 0;
+      let trongTab = 0;
+      let tabKhac = 0;
       articles.forEach(article => {
-        // Skip articles already hidden by tab filter
-        const tabHidden = article.style.display === 'none';
-        
         const title = (article.querySelector('h2')?.textContent || '').toLowerCase();
         const desc = (article.querySelector('p')?.textContent || '').toLowerCase();
         const text = title + ' ' + desc;
         const textNorm = removeDiacritics(text);
-        
+
         const match = text.includes(query) || textNorm.includes(queryNorm);
-        
+
         if (match) {
           article.classList.remove('search-hidden');
-          if (!tabHidden) visibleCount++;
+          if (!tab || (article.getAttribute('data-category') || '').includes(tab)) trongTab++;
+          else tabKhac++;
         } else {
           article.classList.add('search-hidden');
         }
       });
 
-      countEl.textContent = visibleCount > 0 
-        ? `Tìm thấy ${visibleCount} bài viết` 
-        : 'Không tìm thấy bài viết nào';
+      countEl.textContent = trongTab > 0
+        ? (tabKhac > 0 ? `Found ${trongTab} articles • ${tabKhac} more match in another category` : `Found ${trongTab} articles`)
+        : (tabKhac > 0 ? `Nothing in this category • ${tabKhac} match in another category` : 'No articles found');
+
+      if (emptyState) {
+        emptyState.style.display = trongTab === 0 ? 'block' : 'none';
+        if (trongTab === 0) {
+          emptyState.textContent = tabKhac > 0
+            ? 'No articles match in this category. Switch category or clear the search.'
+            : 'No articles found. Try another keyword or clear the search.';
+        }
+      }
     }
+
+    // Khoi loc chuyen muc goi lai ham nay moi khi doi tab.
+    window.__xlBlogRefresh = filterArticles;
 
     let debounceTimer;
     searchInput.addEventListener('input', function() {
@@ -1817,10 +1854,16 @@
 
     clearBtn.addEventListener('click', function() {
       searchInput.value = '';
-      clearBtn.style.display = 'none';
-      articles.forEach(a => a.classList.remove('search-hidden'));
-      countEl.textContent = '';
+      filterArticles();
       searchInput.focus();
+    });
+
+    // Escape trong o tim kiem = xoa bo loc.
+    searchInput.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || !searchInput.value) return;
+      e.preventDefault();
+      searchInput.value = '';
+      filterArticles();
     });
   })();
   </script>

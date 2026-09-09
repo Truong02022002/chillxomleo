@@ -156,9 +156,9 @@
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
         <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
-          <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+          <a href="/len-keo-di-xom-leo-thoi/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
           <span class="opacity-30">|</span>
-          <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+          <a href="/len-keo-di-xom-leo-thoi-en/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
         </div>
 
         <a href="/#booking"
@@ -195,9 +195,9 @@
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
       <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
-        <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+        <a href="/len-keo-di-xom-leo-thoi/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
         <span class="opacity-30">|</span>
-        <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+        <a href="/len-keo-di-xom-leo-thoi-en/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
       </div>
 
       <a href="/#booking"
@@ -213,10 +213,15 @@
   <main class="relative bg-background text-foreground min-h-screen">
 
         <article class="container mx-auto px-6 md:px-12 max-w-4xl pt-32 pb-24">
-            <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-[#6B5443] hover:text-[#A03F00] mb-10 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-            Quay lại thẻ bài gốc
-            </a>
+            <nav aria-label="Breadcrumb" class="mb-10">
+              <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#6B5443]">
+                <li><a href="/" class="hover:text-[#A03F00] transition-colors">Trang chủ</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><a href="/blog/" class="hover:text-[#A03F00] transition-colors">Blog</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><span aria-current="page" class="text-[#3B2314] font-medium">8/3 – Lên kèo đến Tiệm Nướng & Chill Xóm Lèo: Trốn phố, chạm bình yên</span></li>
+              </ol>
+            </nav>
             
             <header class="mb-12">
             <div class="flex items-center gap-3 mb-6">
@@ -316,7 +321,7 @@
 <p style="text-align: left;">Thưởng thức những món ngon này cùng một ly <strong>rượu vang classic Đà Lạt 🍷</strong>, tận hưởng không khí se lạnh và không gian yên bình, chắc chắn sẽ mang lại cho bạn một bữa ăn trọn vẹn và đáng nhớ.</p>
 <p>📌 Inbox: <a class="" href="https://m.me/nuongxomleo" rel="noopener">Xem hướng dẫn đường đi</a><br>
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường Xuân Trường, Đà Lạt, Lâm Đồng 67000<br>
-📌 Google Map: <a class="" href="https://www.google.com/maps?cid=11166661116585636255" rel="noopener" target="_blank">Tại đây</a><br>
+📌 Google Map: <a class="" href="https://www.google.com/maps?cid=11166661116585636255" rel="noopener" target="_blank">Mở bản đồ Xóm Lèo</a><br>
 📌 Hotline:</p>
 <p>👉 076.45.27.336</p>
 <h3 id="cam-trai-giua-rung-thong">⛺ Cắm trại giữa rừng thông</h3>
@@ -407,10 +412,12 @@
         <nav class="flex flex-col gap-2.5 text-[13px] text-foreground/70 font-medium">
           <a href="/" class="hover:text-primary transition-colors">Trang chủ</a>
           <a href="/about/" class="hover:text-primary transition-colors">Trải nghiệm</a>
-          <a href="/menu/" class="hover:text-primary transition-colors">Thực Đơn</a>
+          <a href="/menu/" class="hover:text-primary transition-colors">Menu</a>
           <a href="/duong-di/" class="hover:text-primary transition-colors">Đường đi &amp; địa chỉ</a>
           <a href="/blog/" class="hover:text-primary transition-colors">Blog</a>
           <a href="/#booking" class="hover:text-primary transition-colors">Đặt bàn</a>
+          <a href="/chinh-sach-bao-mat/" class="hover:text-primary transition-colors">Chính sách bảo mật</a>
+          <a href="/dieu-khoan-su-dung/" class="hover:text-primary transition-colors">Điều khoản sử dụng</a>
         </nav>
       </div>
 
@@ -462,7 +469,7 @@
     </div>
   </footer>
 
-  <script src="../js/main.min.js?h2f3e3043" defer></script>
+  <script src="../js/main.min.js?he5cf7d5c" defer></script>
 </body>
 </html>
 

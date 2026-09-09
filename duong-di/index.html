@@ -70,8 +70,8 @@
    "@context": "https://schema.org",
    "@type": "BreadcrumbList",
    "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://xomleo.vn/" },
-    { "@type": "ListItem", "position": 2, "name": "Đường đi", "item": "https://xomleo.vn/duong-di/" }
+    {"@type": "ListItem", "position": 1, "name": "Trang chủ", "item": "https://xomleo.vn/"},
+    {"@type": "ListItem", "position": 2, "name": "Đường đi & địa chỉ", "item": "https://xomleo.vn/duong-di/"}
    ]
   }
   </script>
@@ -213,17 +213,17 @@
       </a>
 
       <div class="hidden lg:flex items-center space-x-8 text-[13px] font-medium tracking-wide">
-        <a href="/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/85 hover:text-foreground">Trang chủ</a>
-        <a href="/about/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/85 hover:text-foreground">Trải nghiệm</a>
-        <a href="/menu/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/85 hover:text-foreground">Menu</a>
-        <a href="/blog/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/85 hover:text-foreground">Blog</a>
+        <a href="/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Trang chủ</a>
+        <a href="/about/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Trải nghiệm</a>
+        <a href="/menu/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Menu</a>
+        <a href="/blog/" class="transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground">Blog</a>
       </div>
 
       <div class="hidden lg:flex items-center space-x-3">
         <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
-          <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+          <a href="/duong-di/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
           <span class="opacity-30">|</span>
-          <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+          <a href="/en/directions/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
         </div>
         <a href="/#booking" class="bg-primary hover:bg-white hover:text-black text-background px-6 py-2.5 rounded-full text-[13px] font-bold transition-all duration-300 shadow-lg shadow-primary/20">Đặt bàn</a>
         <a href="tel:0764527336" class="flex items-center gap-2 border border-white/10 bg-white/5 hover:bg-white/10 px-4 py-2.5 rounded-full text-[12px] font-medium transition-all">
@@ -245,16 +245,16 @@
   <!-- MOBILE MENU OVERLAY -->
   <div id="mobile-menu" class="fixed inset-0 z-40 bg-background backdrop-blur-2xl flex flex-col pt-32 px-10 gap-10 translate-x-full transition-transform duration-500">
     <div class="flex flex-col gap-6 text-2xl font-script tracking-widest">
-      <a href="/" class="transition-colors text-foreground/85">Trang chủ</a>
-      <a href="/about/" class="transition-colors text-foreground/85">Trải nghiệm</a>
-      <a href="/menu/" class="transition-colors text-foreground/85">Menu</a>
-      <a href="/blog/" class="transition-colors text-foreground/85">Blog</a>
+      <a href="/" class="transition-colors text-foreground/70">Trang chủ</a>
+      <a href="/about/" class="transition-colors text-foreground/70">Trải nghiệm</a>
+      <a href="/menu/" class="transition-colors text-foreground/70">Menu</a>
+      <a href="/blog/" class="transition-colors text-foreground/70">Blog</a>
     </div>
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
-        <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+        <a href="/duong-di/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
         <span class="opacity-30">|</span>
-        <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+        <a href="/en/directions/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
       </div>
       <a href="/#booking" class="bg-primary text-background py-4 rounded-xl text-center font-bold tracking-widest">ĐẶT BÀN NGAY</a>
       <div class="flex justify-between items-center px-4">
@@ -267,6 +267,13 @@
   <!-- MAIN CONTENT -->
   <main id="policy-main" class="min-h-screen pb-20 px-6 md:px-10" style="padding-top: 120px;">
     <div class="dir-section">
+      <nav aria-label="Breadcrumb" class="mb-6">
+        <ol class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] text-foreground/70">
+          <li><a href="/" class="hover:text-primary transition-colors">Trang chủ</a></li>
+          <li aria-hidden="true" class="text-foreground/40">&rsaquo;</li>
+          <li><span aria-current="page" class="text-foreground font-medium">Đường đi &amp; địa chỉ</span></li>
+        </ol>
+      </nav>
 
       <!-- Hero -->
       <div class="dir-hero">
@@ -407,7 +414,7 @@
           </a>
         </div>
         <a href="/#booking" class="mt-1 inline-flex items-center justify-center bg-primary text-background px-6 py-2.5 rounded-[2px] text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-white hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(160,63,0,0.3)] hover:-translate-y-0.5 w-max">
-          Đặt bàn / Book a Table
+          Giữ Chỗ / Đặt Bàn
         </a>
       </div>
 
@@ -472,7 +479,7 @@
     </div>
   </footer>
 
-  <script src="/js/main.min.js?h2f3e3043" defer></script>
+  <script src="/js/main.min.js?he5cf7d5c" defer></script>
   <script>
     function syncPadding(){var n=document.getElementById('navbar'),m=document.getElementById('policy-main');if(n&&m){m.style.paddingTop=n.offsetHeight+'px';}}
     window.addEventListener('load',syncPadding);window.addEventListener('resize',syncPadding);

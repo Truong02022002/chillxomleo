@@ -156,9 +156,9 @@
       <div class="hidden lg:flex items-center space-x-3">
         <!-- Language Switcher -->
         <div class="flex items-center gap-2 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 text-[11px] font-bold text-foreground/80 cursor-pointer group hover:bg-white/10 transition-all lang-switcher">
-          <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+          <a href="/trai-nghiem-da-lat-voi-tiem-nuong-chill-xom-leo/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
           <span class="opacity-30">|</span>
-          <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+          <a href="/trai-nghiem-da-lat-voi-tiem-nuong-chill-xom-leo-en/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
         </div>
 
         <a href="/#booking"
@@ -195,9 +195,9 @@
     <div class="flex flex-col gap-4 mt-auto pb-20">
       <!-- Mobile Language Switcher -->
       <div class="flex justify-center items-center gap-4 text-sm font-bold text-foreground/80 mb-2 lang-switcher cursor-pointer">
-        <button class="text-primary transition-colors pointer-events-none data-lang-vn">VN</button>
+        <a href="/trai-nghiem-da-lat-voi-tiem-nuong-chill-xom-leo/" hreflang="vi" lang="vi" aria-current="true" class="text-primary transition-colors pointer-events-none data-lang-vn" aria-label="Đang xem bản tiếng Việt">VN</a>
         <span class="opacity-30">|</span>
-        <button class="hover:text-primary transition-colors data-lang-en">EN</button>
+        <a href="/trai-nghiem-da-lat-voi-tiem-nuong-chill-xom-leo-en/" hreflang="en" lang="en" class="hover:text-primary transition-colors data-lang-en" aria-label="Switch to English">EN</a>
       </div>
 
       <a href="/#booking"
@@ -213,10 +213,15 @@
   <main class="relative bg-background text-foreground min-h-screen">
 
         <article class="container mx-auto px-6 md:px-12 max-w-4xl pt-32 pb-24">
-            <a href="/blog/" class="inline-flex items-center gap-2 text-sm text-[#6B5443] hover:text-[#A03F00] mb-10 transition-colors">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 19-7-7 7-7"/><path d="M19 12H5"/></svg>
-            Quay lại thẻ bài gốc
-            </a>
+            <nav aria-label="Breadcrumb" class="mb-10">
+              <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-[#6B5443]">
+                <li><a href="/" class="hover:text-[#A03F00] transition-colors">Trang chủ</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><a href="/blog/" class="hover:text-[#A03F00] transition-colors">Blog</a></li>
+                <li aria-hidden="true" class="text-[#6B5443]/40">&rsaquo;</li>
+                <li><span aria-current="page" class="text-[#3B2314] font-medium">Trải nghiệm Đà Lạt trọn vẹn tại Tiệm Nướng & Chill Xóm Lèo – Không gian ẩm thực & chill tuyệt vời</span></li>
+              </ol>
+            </nav>
             
             <header class="mb-12">
             <div class="flex items-center gap-3 mb-6">
@@ -352,7 +357,7 @@
 <p><strong>📍 Địa chỉ:</strong> 113 Huỳnh Tấn Phát, Phường Xuân Trường, Đà Lạt, Lâm Đồng</p>
 <p><strong>📍 Hotline:</strong> 076.45.27.336</p>
 <p><strong>📍 Google Maps:</strong> <a class="" href="https://m.me/nuongxomleo" rel="noopener">Xem hướng dẫn đường đi</a></p>
-<p><strong>📍 Inbox đặt bàn:</strong> <a class="" href="https://www.google.com/maps?cid=11166661116585636255" rel="noopener" target="_blank">Tại đây</a></p>
+<p><strong>📍 Inbox đặt bàn:</strong> <a class="" href="https://www.google.com/maps?cid=11166661116585636255" rel="noopener" target="_blank">Mở bản đồ Xóm Lèo</a></p>
 <p>Trong danh sách các <strong>địa điểm ăn uống ở Đà Lạt</strong>, <strong>Tiệm Nướng &amp; Chill Xóm Lèo</strong> nổi bật với không gian mở, thiết kế thân thiện với thiên nhiên và phong cách phục vụ thân thiện. Đây là <strong><a href="https://xomleo.vn/">quán nướng Đà Lạt</a></strong> cực kỳ được yêu thích bởi người địa phương và du khách.</p>
 <h2 id="4-ly-do-vi-sao-tiem-nuong-amp-chill-xom-leo-la-noi-khi-trai-"><strong>4. Lý do vì sao Tiệm Nướng &amp; Chill Xóm Lèo là nơi khi trải nghiệm Đà Lạt nên đến</strong></h2>
 <h3 id="4-1-khong-gian-chill-chuan-gu-gioi-tre-cho-mot-trai-nghiem-d">4.1 Không gian chill chuẩn gu giới trẻ cho một trải nghiệm Đà Lạt tuyệt vời</h3>
@@ -548,10 +553,12 @@
         <nav class="flex flex-col gap-2.5 text-[13px] text-foreground/70 font-medium">
           <a href="/" class="hover:text-primary transition-colors">Trang chủ</a>
           <a href="/about/" class="hover:text-primary transition-colors">Trải nghiệm</a>
-          <a href="/menu/" class="hover:text-primary transition-colors">Thực Đơn</a>
+          <a href="/menu/" class="hover:text-primary transition-colors">Menu</a>
           <a href="/duong-di/" class="hover:text-primary transition-colors">Đường đi &amp; địa chỉ</a>
           <a href="/blog/" class="hover:text-primary transition-colors">Blog</a>
           <a href="/#booking" class="hover:text-primary transition-colors">Đặt bàn</a>
+          <a href="/chinh-sach-bao-mat/" class="hover:text-primary transition-colors">Chính sách bảo mật</a>
+          <a href="/dieu-khoan-su-dung/" class="hover:text-primary transition-colors">Điều khoản sử dụng</a>
         </nav>
       </div>
 
@@ -603,7 +610,7 @@
     </div>
   </footer>
 
-  <script src="../js/main.min.js?h2f3e3043" defer></script>
+  <script src="../js/main.min.js?he5cf7d5c" defer></script>
 </body>
 </html>
 

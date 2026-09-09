@@ -173,8 +173,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const href = link.getAttribute('href');
       if (isMatch(href, path)) {
         link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full bg-white/10 text-foreground';
+        link.setAttribute('aria-current', 'page');
       } else {
         link.className = 'transition-all duration-300 relative py-1 px-3 rounded-full text-foreground/70 hover:text-foreground';
+        link.removeAttribute('aria-current');
       }
     });
 
@@ -182,8 +184,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const href = link.getAttribute('href');
       if (isMatch(href, path)) {
         link.className = 'transition-colors text-primary pl-4 border-l-2 border-primary';
+        link.setAttribute('aria-current', 'page');
       } else {
         link.className = 'transition-colors text-foreground/70 pl-4 border-l-2 border-transparent';
+        link.removeAttribute('aria-current');
       }
     });
   }
@@ -586,7 +590,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const toast = document.createElement('div');
       toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
       toast.innerHTML = `
+        <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
         <div class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
           <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
@@ -606,8 +615,17 @@ document.addEventListener('DOMContentLoaded', () => {
       // Cập nhật lại Text nút submit
       submitBtn.innerText = isEnglish ? '✓ BOOKING SENT!' : '✓ ĐÃ GỬI ĐẶT BÀN!';
 
-      // Tự động ẩn popup sau 5 giây
-      setTimeout(() => {
+      // Dong toast: dung chung cho nut X va cho bo dem 5 giay, de du dong bang
+      // cach nao thi form van duoc mo khoa lai (khong de nguoi dung ket o trang
+      // thai nut submit disabled).
+      let daDong = false;
+      let hetGio;
+      const bamEsc = (e) => { if (e.key === 'Escape') dongToast(); };
+      const dongToast = () => {
+        if (daDong) return;
+        daDong = true;
+        clearTimeout(hetGio);
+        document.removeEventListener('keydown', bamEsc);
         if (document.body.contains(toast)) {
           toast.style.opacity = '0';
           toast.style.transform = 'translate(-50%, -20px)';
@@ -617,7 +635,13 @@ document.addEventListener('DOMContentLoaded', () => {
         zaloForm.reset();
         submitBtn.innerText = originalText;
         submitBtn.disabled = false;
-      }, 5000);
+      };
+
+      toast.querySelector('[data-toast-close]').addEventListener('click', dongToast);
+      document.addEventListener('keydown', bamEsc);
+
+      // Tự động ẩn popup sau 5 giây
+      hetGio = setTimeout(dongToast, 5000);
     });
   }
 
