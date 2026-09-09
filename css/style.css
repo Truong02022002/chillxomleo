@@ -264,6 +264,17 @@ article h1 {
   outline: none;
 }
 
+/* `outline: none` o tren go luon vien focus cua nut mo/dong muc luc — do bang
+   Chrome ngay 09-09-2026: trong 43 phan tu tab duoc tren mot bai blog, day la
+   phan tu DUY NHAT khong doi gi khi nhan focus, nen nguoi dung ban phim mat dau
+   vet hoan toan. Tra lai vien cho ban phim; chuot van khong thay vien nho
+   :focus-visible. */
+.blog-toc summary:focus-visible {
+  outline: 2px solid #A03F00;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 .blog-toc summary::-webkit-details-marker {
   display: none;
 }
