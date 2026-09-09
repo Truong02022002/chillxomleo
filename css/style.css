@@ -258,6 +258,25 @@ article h1 {
   max-width: 100%;
 }
 
+/* Thanh dieu huong la position:fixed (cao ~69px tren dien thoai, ~100px tren may
+   tinh) nen moi lan trinh duyet cuon mot phan tu vao khung nhin — nhay theo neo
+   #id, hoac tu dong cuon khi phan tu nhan tieu diem bang phim Tab — phan tu do
+   nam LOT duoi thanh nav.
+   Do ngay 09-09-2026: o be rong 390px co 5 link (Giữ Chỗ Ngay, KHÁM PHÁ THỰC ĐƠN,
+   Đọc thêm câu chuyện, TOÀN BỘ THỰC ĐƠN...) bi che hoan toan khi focus; nhay toi
+   /#booking cung dua tieu de len top:0 tuc la khuat sau thanh nav cao 100px.
+   scroll-padding-top xu ly ca hai truong hop o mot cho. (js/main.js con mot cach
+   tru hao thu cong rieng cho muc luc bai viet — de nguyen, khong xung dot.) */
+html {
+  scroll-padding-top: 5rem;
+}
+
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 7rem;
+  }
+}
+
 /* Skip link — bo qua khoi dieu huong lap lai.
    Truoc day khong trang nao co. Luat "bypass blocks" cua axe van dat vi moi trang
    deu co landmark <main>, nhung landmark chi giup nguoi dung trinh doc man hinh;
@@ -1335,7 +1354,9 @@ input:focus, select:focus, textarea:focus {
   text-align: center;
   margin-top: 0.75rem;
   font-size: 0.75rem;
-  color: rgba(107, 84, 67, 0.5);
+  /* Tung la rgba(107,84,67,.5): do duoc 2,15:1, duoi nguong 4,5:1 cua WCAG.
+     Bo alpha thi van mau do nhung dat 5,9:1, du nhat de doc nhu chu phu. */
+  color: #6B5443;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   min-height: 1.2em;

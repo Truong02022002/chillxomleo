@@ -23,7 +23,7 @@ for (const f of files) {
   pages.set(route, f);
 }
 
-const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [] };
+const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [] };
 const inbound = new Map(); // route -> count
 const titles = new Map();
 
@@ -147,6 +147,17 @@ for (const [route, f] of pages) {
   if (!inbound.get(route)) findings.orphan.push(`${route}  (${f})`);
 }
 
+// iframe phai co title, va nhieu iframe tren cung trang phai co ten khac nhau —
+// nguoi dung tro nang chi nghe title de biet dang o khung nao.
+for (const [route, f] of pages) {
+  const found = [...stripped.get(f).matchAll(/<iframe[^>]*>/g)].map(m => m[0]);
+  if (!found.length) continue;
+  const ts = found.map(x => (x.match(/title="([^"]*)"/) || [, null])[1]);
+  ts.forEach((t, i) => { if (!t) findings.iframeTitle.push(`${route}: iframe #${i + 1} không có title`); });
+  const co = ts.filter(Boolean);
+  if (new Set(co).size < co.length) findings.iframeTitle.push(`${route}: ${co.length} iframe nhưng chỉ ${new Set(co).size} title khác nhau`);
+}
+
 for (const [t, fs_] of titles) if (fs_.length > 1) findings.dupTitle.push(`"${t.slice(0, 60)}" -> ${fs_.join(', ')}`);
 
 // ---- report ----
@@ -155,6 +166,7 @@ const LABEL = {
   emptyHref: 'href rỗng', danglingToc: 'Anchor mục lục không tồn tại', orphan: 'Trang mồ côi (0 inbound)',
   sitemapMissing: 'Thiếu trong sitemap', sitemapStale: 'Sitemap trỏ trang không tồn tại',
   h1: 'H1 sai số lượng', dupTitle: 'Title trùng', hreflang: 'hreflang thiếu self-ref',
+  iframeTitle: 'iframe thiếu title hoặc trùng title',
 };
 console.log(`Quét ${files.length} file HTML, ${smLocs.length} URL sitemap\n`);
 let total = 0;
