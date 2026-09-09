@@ -258,6 +258,45 @@ article h1 {
   max-width: 100%;
 }
 
+/* Skip link — bo qua khoi dieu huong lap lai.
+   Truoc day khong trang nao co. Luat "bypass blocks" cua axe van dat vi moi trang
+   deu co landmark <main>, nhung landmark chi giup nguoi dung trinh doc man hinh;
+   nguoi dung ban phim SANG MAT van phai Tab qua ~8 muc (4 link menu + 2 nut ngon
+   ngu + 2 CTA) trên tung trang moi toi duoc noi dung.
+   An ngoai khung nhin cho toi khi nhan tieu diem — khong dung display:none vi
+   the se bi loai khoi cay tieu diem, Tab khong toi duoc. */
+.skip-link {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;                 /* tren navbar (z-50), duoi preloader (99999) */
+  transform: translateY(-120%);
+  padding: 0.75rem 1.25rem;
+  background: #A03F00;
+  color: #FFF8F0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  transition: transform 0.15s ease;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+  outline: 2px solid #FFF8F0;
+  outline-offset: -4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-link { transition: none; }
+}
+
+/* <main> nhan tieu diem qua tabindex="-1" nhung khong phai la phan tu tuong tac,
+   nen khong ve vien quanh ca trang khi skip link nhay toi. */
+main:focus {
+  outline: none;
+}
+
 .blog-toc summary {
   list-style: none;
   cursor: pointer;

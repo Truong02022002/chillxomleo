@@ -22,7 +22,7 @@
   <!-- Critical CSS loaded first -->
   <!-- Font chu chi lo dien sau khi bundle CSS parse xong. Preload cat mat xich do. -->
   <link rel="preload" as="font" type="font/woff2" href="/fonts/dancing-script-subset.woff2" crossorigin>
-  <link rel="stylesheet" href="../css/site.css?h8e3cd673">
+  <link rel="stylesheet" href="../css/site.css?h432f49d1">
 
   <!-- Non-critical CSS: defer tailwind -->
 
@@ -186,6 +186,7 @@
 </head>
 
 <body class="bg-background text-foreground antialiased selection:bg-primary/30 selection:text-primary overflow-x-hidden">
+  <a class="skip-link" href="#policy-main">Bỏ qua điều hướng, tới nội dung chính</a>
 
   <!-- NAVBAR -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-3 md:py-6 bg-background/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none border-b border-white/5 md:border-none">
@@ -255,7 +256,7 @@
   </div>
 
   <!-- MAIN CONTENT -->
-  <main id="policy-main" class="min-h-screen pb-20 px-6 md:px-10" style="padding-top: 120px;">
+  <main tabindex="-1" id="policy-main" class="min-h-screen pb-20 px-6 md:px-10" style="padding-top: 120px;">
     <div class="policy-section">
       <nav aria-label="Breadcrumb" class="mb-6">
         <ol class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[13px] text-foreground/70">
