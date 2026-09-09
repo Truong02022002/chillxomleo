@@ -258,6 +258,36 @@ article h1 {
   max-width: 100%;
 }
 
+/* WCAG 1.4.1: link nam trong doan van phai phan biet duoc voi chu thuong bang
+   thu khac ngoai mau — TRU khi mau link chenh voi chu than bai tu 3:1 tro len.
+   Do ngay 09-09-2026 tren nen kem (#F5E9DA) voi chu than bai rgba(59,35,20,.85):
+     #A03F00 (mau link chuan cua site) -> 1,46:1
+     #3366ff (mau link tu thoi WordPress) -> 2,04:1
+     #3B2314 / #333333 (nhieu link cu dung dung mau chu) -> 1,53:1 / 1,32:1
+   Khong mau nao du 3:1, nen bat buoc phai gach chan. axe bao 37 link tren 14
+   trang; con so that lon hon vi luat cua axe chi bat mot so truong hop.
+   Dung !important: 141 link con mang style="text-decoration:none" noi tuyen tu
+   ban WordPress cu, ma style noi tuyen thang moi selector thong thuong.
+   Pham vi: cac khoi chu trong than bai. Muc luc (.blog-toc) nam NGOAI .prose
+   nen khong bi anh huong. Rieng link chi boc mot tam anh thi khong gach chan —
+   gach chan o do chi la mot vach thua duoi anh. */
+.prose p a,
+.prose li a,
+.prose td a,
+.prose h2 a,
+.prose h3 a,
+.prose h4 a,
+.prose h5 a,
+.prose h6 a {
+  text-decoration: underline !important;
+  text-underline-offset: 0.15em;
+}
+
+.prose a:has(> img),
+.prose a:has(> picture) {
+  text-decoration: none !important;
+}
+
 /* Thanh dieu huong la position:fixed (cao ~69px tren dien thoai, ~100px tren may
    tinh) nen moi lan trinh duyet cuon mot phan tu vao khung nhin — nhay theo neo
    #id, hoac tu dong cuon khi phan tu nhan tieu diem bang phim Tab — phan tu do
