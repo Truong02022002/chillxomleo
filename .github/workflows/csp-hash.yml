@@ -1,0 +1,56 @@
+name: Dong bo hash CSP
+
+# CSP cua moi trang liet ke hash sha256 cua tung script noi tuyen (xem
+# tools/csp-hash.mjs). Sua script noi tuyen ma quen chay tool thi trinh duyet
+# chan script do — GA mat so lieu, o tim kiem blog chet — ma khong hien loi gi.
+# Workflow nay chay sau moi lan push co doi file .html: lech thi tu ghi lai va push.
+#
+# Push bang GITHUB_TOKEN khong kich hoat workflow nao khac (nen khong tu goi lai
+# chinh no), nhung VAN kich hoat GitHub Pages build — da doi chieu: commit
+# 738b14d7 cua bot dang-bai-theo-lich -> "pages build and deployment" 19 giay sau.
+# Cung vi vay, bai dang theo lich KHONG di qua day: dang-bai-theo-lich.yml tu chay.
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  # Chung nhom voi dang-bai-theo-lich de hai workflow khong cung push mot luc.
+  group: dang-bai-theo-lich
+  cancel-in-progress: false
+
+jobs:
+  dong-bo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Tinh lai hash CSP
+        run: node tools/csp-hash.mjs --write
+
+      - name: Commit va push neu co doi
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Hash CSP da khop — khong co gi de sua."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit \
+            -m "Dong bo hash CSP cho script noi tuyen" \
+            -m "Tu dong boi .github/workflows/csp-hash.yml sau commit ${GITHUB_SHA::8}: co script noi tuyen doi noi dung ma the CSP chua cap nhat hash. Xem tools/csp-hash.mjs."
+          git push

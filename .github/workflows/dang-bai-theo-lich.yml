@@ -59,6 +59,13 @@ jobs:
             node tools/dang-bai-theo-lich.mjs
           fi
 
+      - name: Dong bo hash CSP
+        # Ban nhap co the mang doan script cu hoac chua co CSP (bai dat tiec 08-09
+        # len song voi ban GA cu). Push cua bot o duoi KHONG kich hoat csp-hash.yml,
+        # nen phai tu chay o day. Chi chay khi co bai vua dang.
+        if: steps.dang.outputs.so_bai
+        run: node tools/csp-hash.mjs --write
+
       - name: Go ban nhap khoi cay lam viec
         # Ban nhap chi duoc ton tai tren nhanh noi-dung. Buoc nay bao dam
         # hang-doi/ khong bao gio lot vao commit cua main.
