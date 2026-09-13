@@ -59,6 +59,13 @@ jobs:
             node tools/dang-bai-theo-lich.mjs
           fi
 
+      - name: Nhet CSS vao bai moi
+        # Ban nhap cu tren nhanh noi-dung con <link> toi css/site.css. Tu 13-09-2026 moi trang
+        # nhet thang bundle vao <style id="site-css"> (xem tools/build-css.js); buoc nay thay
+        # <link> bang CSS hien hanh, trang da dung thi khong doi gi.
+        if: steps.dang.outputs.so_bai
+        run: node tools/build-css.js --write
+
       - name: Dong bo hash CSP
         # Ban nhap co the mang doan script cu hoac chua co CSP (bai dat tiec 08-09
         # len song voi ban GA cu). Push cua bot o duoi KHONG kich hoat csp-hash.yml,

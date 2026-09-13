@@ -10,9 +10,12 @@
  * vi sao tung rule ton tai. Chi bundle la file duoc trinh duyet nap.
  *
  * Cach dung:
- *   node tools/build-css.js          # kiem tra bundle con khop nguon khong (exit 1 neu lech)
- *   node tools/build-css.js --write  # dung lai bundle
- * Sau khi --write PHAI chay tiep: node tools/cache-bust.js --write
+ *   node tools/build-css.js          # kiem tra: bundle khop nguon VA moi trang da nhet dung CSS (exit 1 neu lech)
+ *   node tools/build-css.js --write  # dung lai bundle roi nhet vao <style id="site-css"> cua moi trang
+ *
+ * Tu 13-09-2026 trang KHONG nap css/site.css bang <link> nua ma nhet thang bundle vao
+ * <style id="site-css">: PSI van bao "Yeu cau chan hien thi 530ms" cho chinh file nay.
+ * Xem khoi "Nhet CSS vao tung trang" o cuoi file.
  *
  * Thu tu gop: fonts -> tailwind -> style (style cuoi de rule viet tay thang khi
  * trung do uu tien voi Tailwind; da doi chieu chi .font-script va .container trung
@@ -160,21 +163,71 @@ if (cSrc !== cOut) {
 
 const built = '/* BUNDLE TU DONG SINH — DUNG SUA TRUC TIEP.\n' +
   '   Nguon: ' + SOURCES.join(' + ') + '\n' +
-  '   Sua nguon roi chay: node tools/build-css.js --write && node tools/cache-bust.js --write\n' +
+  '   Sua nguon roi chay: node tools/build-css.js --write\n' +
   '   src-hash: ' + srcHash + ' */\n' + body + '\n';
 
 const bundlePath = path.join(ROOT, BUNDLE);
 const current = fs.existsSync(bundlePath) ? fs.readFileSync(bundlePath, 'utf8') : '';
 const currentHash = (current.match(/src-hash: ([0-9a-f]+)/) || [])[1];
 
+// ---------- Nhet CSS vao tung trang ----------
+// PSI bao "Yeu cau chan hien thi 530ms" cho chinh css/site.css. Ngay 13-09-2026 nhet TOAN BO
+// bundle vao <style id="site-css">: A/B Lighthouse tren localhost LCP -527ms, bo cuc 516/517
+// phan tu giong het, CLS khong doi. KHONG duoc tach "critical CSS" + nap phan con lai bat dong
+// bo: lan thu 17-05-2026 (revert ab158903) lam CLS 0,021 -> 1,025 vi trang ve khi con thieu style.
+// css/site.css van duoc dung de doi chieu va cho ban nhap cu con <link> (dang-bai-theo-lich.yml
+// chay --write sau khi dang de thay <link> do).
+const RE_LINK = /<link rel="stylesheet" href="(?:\.\.\/)*\/?css\/site\.css(?:\?[a-z]*[0-9a-f]+)?">/g;
+const RE_STYLE = /<style id="site-css"[^>]*>[\s\S]*?<\/style>/g;
+if (/<\/style/i.test(body)) { console.error('LOI: bundle chua "</style" — khong nhet vao HTML duoc. Dung lai.'); process.exit(2); }
+const theMoi = '<style id="site-css" data-src-hash="' + srcHash + '">' + body + '</style>';
+
+const trang = [];
+(function walk(dir) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (['.git', 'node_modules', '.claude', 'skills', 'tools'].includes(e.name)) continue;
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) walk(p);
+    else if (e.name.endsWith('.html')) trang.push(p);
+  }
+})(ROOT);
+
+let conLink = 0, cssCu = 0, daDung = 0;
+const canGhi = [];
+for (const f of trang) {
+  const s = fs.readFileSync(f, 'utf8');
+  const soLink = (s.match(RE_LINK) || []).length;
+  const styles = s.match(RE_STYLE) || [];
+  if (!soLink && !styles.length) continue;               // stub chuyen huong khong nap CSS
+  if (soLink + styles.length > 1) {
+    console.error('LOI: ' + path.relative(ROOT, f) + ' nap site.css ' + (soLink + styles.length) + ' lan. Dung lai.');
+    process.exit(2);
+  }
+  if (soLink) conLink++;
+  else if (styles[0] !== theMoi) cssCu++;
+  else { daDung++; continue; }
+  canGhi.push([f, s.replace(RE_LINK, () => theMoi).replace(RE_STYLE, () => theMoi)]);
+}
+
 if (process.argv.includes('--write')) {
   fs.writeFileSync(bundlePath, built);
+  for (const [f, s] of canGhi) fs.writeFileSync(f, s);
   const gz = require('zlib').gzipSync(Buffer.from(body), { level: 9 }).length;
   console.log('da dung ' + BUNDLE + ': ' + (body.length / 1024).toFixed(1) + ' KB (' +
     (gz / 1024).toFixed(1) + ' KB gzip) | ' + selOut.length + ' selector | src-hash ' + srcHash);
+  console.log('nhet CSS: ' + canGhi.length + ' trang cap nhat (' + conLink + ' tu <link>, ' + cssCu +
+    ' CSS cu), ' + daDung + ' trang da dung');
   process.exit(0);
 }
-if (currentHash === srcHash) { console.log('bundle khop nguon (src-hash ' + srcHash + ')'); process.exit(0); }
-console.error('LECH: bundle dung tu nguon khac (' + (currentHash || 'chua co') + ' != ' + srcHash + ').');
-console.error('Chay: node tools/build-css.js --write && node tools/cache-bust.js --write');
-process.exit(1);
+let lech = false;
+if (currentHash !== srcHash) {
+  console.error('LECH: bundle dung tu nguon khac (' + (currentHash || 'chua co') + ' != ' + srcHash + ').');
+  lech = true;
+}
+if (conLink || cssCu) {
+  console.error('LECH: ' + conLink + ' trang con <link> toi site.css, ' + cssCu + ' trang nhet CSS cu.');
+  lech = true;
+}
+if (lech) { console.error('Chay: node tools/build-css.js --write'); process.exit(1); }
+console.log('bundle khop nguon (src-hash ' + srcHash + '), ' + daDung + ' trang da nhet dung CSS');
+process.exit(0);

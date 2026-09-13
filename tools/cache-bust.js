@@ -21,10 +21,10 @@ const path = require('path');
 const crypto = require('crypto');
 
 const ROOT = path.resolve(__dirname, '..');
-// css/site.css la BUNDLE do tools/build-css.js sinh ra tu 3 file nguon.
-// Trang chi nap bundle nay, khong nap truc tiep 3 file nguon nua.
+// css/site.css KHONG con o day: tu 13-09-2026 bundle CSS duoc nhet thang vao
+// <style id="site-css"> cua tung trang (tools/build-css.js --write), khong trang nao nap
+// no qua URL nua nen khong co gi de dat cache-buster.
 const ASSETS = [
-  { file: 'css/site.css', pattern: /site\.css(\?[a-z]*[0-9a-f]+)?/g, name: 'site.css' },
   { file: 'js/main.min.js', pattern: /main\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'main.min.js' },
   // Menu lat trang o /menu/ va /menu-en/. File rieng chu khong gop vao main.js
   // de khoi phai dung lai ca bundle chinh chi vi sua flipbook.

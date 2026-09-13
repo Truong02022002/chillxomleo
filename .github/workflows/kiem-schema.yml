@@ -1,9 +1,12 @@
-name: Kiem structured data
+name: Kiem structured data va CSS
 
 # Chay tools/kiem-schema.mjs tren toan site sau moi lan push co doi file .html. Workflow nay
 # chi DOC — khong sua, khong push. Co LOI thi run do va GitHub gui mail cho chu repo; canh bao
 # chi nam trong log. Muc dich: bat schema bi mat, trung hoac sai sau khi sua khuon trang,
 # nav, footer, CSP... ma khong ai de y.
+#
+# Buoc thu hai kiem CSS nhet trong trang (<style id="site-css">) con khop bundle: sua
+# css/style.css ma quen `node tools/build-css.js --write` thi 123 trang van chay CSS cu.
 #
 # Bai dang theo lich khong di qua day (push cua bot khong kich hoat workflow khac), nen
 # dang-bai-theo-lich.yml tu chay kiem-schema TRUOC khi commit.
@@ -11,7 +14,7 @@ name: Kiem structured data
 on:
   push:
     branches: [main]
-    paths: ['**.html', 'tools/kiem-schema.mjs']
+    paths: ['**.html', 'tools/kiem-schema.mjs', 'css/**', 'fonts/fonts.css', 'tools/build-css.js']
   workflow_dispatch:
 
 permissions:
@@ -31,3 +34,7 @@ jobs:
 
       - name: Kiem schema toan site
         run: node tools/kiem-schema.mjs
+
+      - name: Kiem CSS nhet trong trang con khop bundle
+        if: always()
+        run: node tools/build-css.js
