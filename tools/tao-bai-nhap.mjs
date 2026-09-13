@@ -15,6 +15,10 @@ const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
 const TACGIA = 'Bếp trưởng Xóm Lèo';
 const TACGIA_EN = 'Xom Leo Head Chef';
+// Ten quan trong schema theo ngon ngu trang (chu site chot 12-09-2026): ban EN dung ten
+// tieng Anh va giu ten Viet o alternateName de Google van noi duoc voi ho so Maps.
+const TEN_QUAN = 'Tiệm Nướng & Chill Xóm Lèo';
+const TEN_QUAN_EN = 'Xom Leo Grill & Chill';
 
 const fileND = process.argv[2];
 if (!fileND) { console.error('Thieu duong dan file noi dung.'); process.exit(1); }
@@ -87,11 +91,14 @@ function dungArticle(t, lang) {
   const ldFaq = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
+    '@id': `https://xomleo.vn/${d.slug}${hau}/#faq`,
     mainEntity: t.faq.map((q) => ({
       '@type': 'Question',
       name: q.hoi,
       acceptedAnswer: { '@type': 'Answer', text: q.dap.replace(/<[^>]+>/g, '') },
     })),
+    inLanguage: lang,
+    isPartOf: { '@id': 'https://xomleo.vn/#website' },
   };
 
   return `<article class="container mx-auto px-6 md:px-12 max-w-4xl pt-32 pb-24">
@@ -166,32 +173,45 @@ function dungHead(khung, t, lang) {
   h = h.replace(/(<link rel="alternate" hreflang="en" href=")[^"]*(")/, (_, a, b) => a + urlEn + b);
   h = h.replace(/(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/, (_, a, b) => a + urlVi + b);
 
+  // Cau truc @id da chot khi ra soat schema 12-09-2026 — giu dung nhu cac bai dang song,
+  // tools/kiem-schema.mjs se bao neu lech.
+  const tenQuan = lang === 'vi' ? TEN_QUAN : TEN_QUAN_EN;
+  const tenPhu = lang === 'vi' ? {} : { alternateName: TEN_QUAN };
   const ldArticle = {
-    '@context': 'https://schema.org', '@type': 'Article',
+    '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#article`,
     headline: t.title, description: t.moTa, url,
     datePublished: d.ngayDang, dateModified: d.ngayDang,
     author: {
-      '@type': 'Person', name: lang === 'vi' ? TACGIA : TACGIA_EN,
+      '@type': 'Person', '@id': 'https://xomleo.vn/#bep-truong', name: lang === 'vi' ? TACGIA : TACGIA_EN,
       jobTitle: lang === 'vi' ? 'Bếp trưởng & Chủ quán' : 'Head Chef & Owner',
-      worksFor: { '@type': 'Organization', name: 'Tiệm Nướng & Chill Xóm Lèo', url: 'https://xomleo.vn' },
+      worksFor: { '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', name: tenQuan, url: 'https://xomleo.vn/', ...tenPhu },
       url: lang === 'vi' ? 'https://xomleo.vn/about/' : 'https://xomleo.vn/about-en/',
       sameAs: ['https://www.facebook.com/nuongxomleo', 'https://www.tiktok.com/@tiemnuongchillxomleo'],
     },
     publisher: {
-      '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', url: 'https://xomleo.vn',
-      name: 'Tiệm Nướng & Chill Xóm Lèo',
+      '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', url: 'https://xomleo.vn/',
+      name: tenQuan, ...tenPhu,
       logo: { '@type': 'ImageObject', url: 'https://xomleo.vn/uploads/1775619688243-610230636-img2.webp' },
     },
-    image: anhUrl, mainEntityOfPage: url, inLanguage: lang,
+    image: anhUrl,
+    // WebPage noi tuyen la cho duy nhat gan duoc BreadcrumbList vao graph (breadcrumb chi hop le
+    // tren WebPage, khong hop le tren Article). name lay tu h1 — ten trang nguoi dung thay.
+    mainEntityOfPage: {
+      '@type': 'WebPage', '@id': url, url, name: t.h1, description: t.moTa, inLanguage: lang,
+      isPartOf: { '@id': 'https://xomleo.vn/#website' },
+      breadcrumb: { '@id': `${url}#breadcrumb` },
+    },
+    inLanguage: lang,
     articleSection: lang === 'vi' ? 'Cẩm nang du lịch Đà Lạt' : 'Da Lat travel guide',
     isPartOf: { '@id': 'https://xomleo.vn/#website' },
   };
   const ldCrumb = {
-    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList', '@id': `${url}#breadcrumb`,
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: lang === 'vi' ? 'Trang chủ' : 'Home', item: lang === 'vi' ? 'https://xomleo.vn' : 'https://xomleo.vn/en/' },
+      { '@type': 'ListItem', position: 1, name: lang === 'vi' ? 'Trang chủ' : 'Home', item: lang === 'vi' ? 'https://xomleo.vn/' : 'https://xomleo.vn/en/' },
       { '@type': 'ListItem', position: 2, name: 'Blog', item: lang === 'vi' ? 'https://xomleo.vn/blog/' : 'https://xomleo.vn/blog-en/' },
-      { '@type': 'ListItem', position: 3, name: t.title },
+      // Muc cuoi phai trung nhan breadcrumb dang hien tren trang, ma nhan do la h1 (xem dungArticle)
+      { '@type': 'ListItem', position: 3, name: t.h1 },
     ],
   };
 
