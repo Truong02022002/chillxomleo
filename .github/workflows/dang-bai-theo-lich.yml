@@ -66,6 +66,13 @@ jobs:
         if: steps.dang.outputs.so_bai
         run: node tools/csp-hash.mjs --write
 
+      - name: Kiem structured data
+        # Bai moi sinh tu tools/tao-bai-nhap.mjs. Co LOI schema (anh 404, thieu thuoc tinh
+        # Google bat buoc, FAQ khong hien tren trang...) thi buoc nay do, buoc commit ben
+        # duoi khong chay nen bai khong len song. Canh bao khong lam fail.
+        if: steps.dang.outputs.so_bai
+        run: node tools/kiem-schema.mjs --chi-loi
+
       - name: Go ban nhap khoi cay lam viec
         # Ban nhap chi duoc ton tai tren nhanh noi-dung. Buoc nay bao dam
         # hang-doi/ khong bao gio lot vao commit cua main.
