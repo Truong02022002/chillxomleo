@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-tf5aVDh7mPQN3UdCnbii4qvnFGA09HtAS4/DalnnjeI=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
   <meta property="og:site_name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <meta name="application-name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <link rel="icon" type="image/x-icon" href="../uploads/favicon.ico" />
@@ -157,8 +157,25 @@
       if ('requestIdleCallback' in window) requestIdleCallback(loadGA, { timeout: 2000 });
       else setTimeout(loadGA, 200);
     }
-    if (document.readyState === 'complete') napKhiRanh();
-    else window.addEventListener('load', napKhiRanh, { once: true });
+    // Doi them lan hien hinh dau tien (FCP) roi moi tinh chuyen ranh. Do 13-09-2026:
+    // tren may do tai nhanh (PSI), gtag/js tai xong TRUOC luc Chrome dua trang len
+    // man hinh nen Lighthouse cong ca 171 KB vao LCP -> 81 diem, LCP 4,3s. Doi FCP
+    // thi GA luon den sau. Moc an toan 4s cho trinh duyet khong bao paint (tab an,
+    // Safari cu) -> van khong mat phien. Nhanh tuong tac o tren khong doi.
+    function sauKhiHienHinh(cb) {
+      var daChay = false;
+      function chay() { if (!daChay) { daChay = true; cb(); } }
+      setTimeout(chay, 4000);
+      try {
+        if (performance.getEntriesByName('first-contentful-paint').length) return chay();
+        new PerformanceObserver(function (ds) {
+          if (ds.getEntriesByName('first-contentful-paint').length) chay();
+        }).observe({ type: 'paint', buffered: true });
+      } catch (e) { chay(); }
+    }
+    function khiLoad() { sauKhiHienHinh(napKhiRanh); }
+    if (document.readyState === 'complete') khiLoad();
+    else window.addEventListener('load', khiLoad, { once: true });
   })();
 </script>
 </head>
