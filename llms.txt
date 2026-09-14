@@ -1,6 +1,6 @@
 # Tiệm Nướng & Chill Xóm Lèo
 
-> Quán nướng (BBQ restaurant) tại Đà Lạt với view thung lũng Trại Mát 180°, ngắm hoàng hôn và xe lửa cổ chạy ngang. Phục vụ BBQ than hồng, lẩu, hải sản. 4.8/5 với hơn 1.978 đánh giá Google.
+> Quán nướng (BBQ restaurant) tại Đà Lạt với view thung lũng Trại Mát 180°, ngắm hoàng hôn và xe lửa cổ chạy ngang. Phục vụ BBQ than hồng, lẩu, hải sản. 4.8/5 với khoảng 1.978 đánh giá Google (tháng 7/2026).
 
 **Thông tin cốt lõi**
 
@@ -16,7 +16,7 @@
 **Đặc điểm nổi bật**
 
 - View thung lũng Trại Mát 180°, ngắm hoàng hôn
-- Xe lửa cổ Đà Lạt – Trại Mát chạy ngang qua quán, thường khoảng 19:00–20:00
+- Tàu du lịch Đà Lạt – Trại Mát chạy ngang qua quán; hai chuyến tàu đêm (rời Ga Đà Lạt 18:15 và 20:20) ngang quán khoảng 18:40–19:00 và 20:45–21:10, tàu chỉ chạy khi đủ khách
 - Khu trong nhà ấm cúng và khu ngoài trời; có mền và trà nóng khi trời lạnh
 - Hỗ trợ trang trí sinh nhật, kỷ niệm, liên hoan miễn phí
 - Có bãi đậu xe trong khuôn viên, sức chứa khoảng 15 ô tô
@@ -39,11 +39,11 @@
 - Mở cửa lúc mấy giờ? 15:00–23:00 hàng ngày.
 - Ở đâu? 113 Huỳnh Tấn Phát, Phường Xuân Trường - Đà Lạt, cách trung tâm ~5 km hướng Trại Mát.
 - Có cần đặt bàn trước không? Nên đặt trước vào cuối tuần và ngày lễ, qua website hoặc hotline 076 452 7336.
-- View có gì đặc biệt? Thung lũng Trại Mát 180°, hoàng hôn, và xe lửa cổ chạy qua khoảng 19:00–20:00.
+- View có gì đặc biệt? Thung lũng Trại Mát 180°, hoàng hôn, và tàu đêm chạy ngang khoảng 18:40–19:00, 20:45–21:10 (chỉ chạy khi đủ khách).
 - Đi tới bằng cách nào? Từ trung tâm theo Trần Hưng Đạo → Hùng Vương → Huỳnh Tấn Phát, chạy hướng Trại Mát.
 - Phù hợp với ai? Cặp đôi, nhóm bạn, gia đình; có setup sinh nhật/kỷ niệm miễn phí.
 
-Cập nhật lần cuối: 2026-07-30.
+Cập nhật lần cuối: 2026-09-14.
 
 ## Trang chính
 
@@ -70,7 +70,7 @@ Cập nhật lần cuối: 2026-07-30.
 
 ## Optional
 
-- [Sitemap](https://xomleo.vn/sitemap.xml): toàn bộ 126 URL của website
+- [Sitemap](https://xomleo.vn/sitemap.xml): toàn bộ 86 URL của website
 - [Đặt bàn](https://xomleo.vn/#booking): form giữ chỗ trực tuyến
 - [Google Maps](https://www.google.com/maps?cid=11166661116585636255): vị trí và đánh giá của khách
 - [TikTok](https://www.tiktok.com/@tiemnuongchillxomleo): video không gian quán và món ăn
