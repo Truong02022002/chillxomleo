@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' 'sha256-WRZS/cbgwJ6Y8aMozgtRsYwrM6PNnEuOx3/R3XkscMA=' 'sha256-Dzhb2B04Yrns0j6Pbq/59W55seSUlcmYuLaa4wY79VA=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' 'sha256-1layoZgp6rUyWx2K4+SqeSknSeItYMUmXXZjs/yvR9Q=' 'sha256-Dzhb2B04Yrns0j6Pbq/59W55seSUlcmYuLaa4wY79VA=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
   <meta property="og:site_name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <meta name="application-name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <link rel="icon" type="image/x-icon" href="../uploads/favicon.ico" />
@@ -201,7 +201,11 @@
             <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground drop-shadow-xl">Da Lat BBQ Blog – Xom Leo Diary & Special Offers</h1>
         </div>
 
-        <div class="flex justify-center gap-6 mb-16">
+        <!-- Thanh tab AN SAN: hien chi mot chuyen muc con bai nen tab vo nghia. Truoc day script
+             ben duoi moi an no luc DOMContentLoaded; neu trang da hien hinh truoc do thi o tim
+             kiem va luoi bai bi keo len ~100px (CLS 0,075 tren Lighthouse mobile, 14-09-2026).
+             Script hien lai thanh tab khi co tu 2 chuyen muc co bai tro len. -->
+        <div class="flex justify-center gap-6 mb-16" style="display:none">
            <button type="button"
              data-tab="News"
              class="blog-tab-btn px-8 border-b-2 pb-2 font-bold tracking-widest text-sm transition-colors border-primary text-primary active-tab"
@@ -1648,9 +1652,10 @@
                   });
                   if (coBai) soChuyenMucConBai++; else btn.style.display = 'none';
               });
-              // Con dung mot chuyen muc thi thanh tab khong con y nghia.
+              // Con dung mot chuyen muc thi thanh tab khong con y nghia. Thanh tab duoc AN SAN
+              // trong HTML (tranh CLS khi an muon), nen o day chi HIEN lai khi co >= 2 chuyen muc.
               const thanhTab = filterBtns[0] && filterBtns[0].parentElement;
-              if (thanhTab && soChuyenMucConBai < 2) thanhTab.style.display = 'none';
+              if (thanhTab) thanhTab.style.display = soChuyenMucConBai < 2 ? 'none' : '';
 
               filterBtns.forEach(btn => {
                   btn.addEventListener('click', () => {
