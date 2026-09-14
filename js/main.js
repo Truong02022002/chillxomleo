@@ -3,13 +3,40 @@ function captureTrafficSource() {
   const urlParams = new URLSearchParams(window.location.search);
   const ua = navigator.userAgent || '';
 
+  // Trợ lý AI: nhận cả tên miền referrer lẫn giá trị utm_source mà nền tảng tự gắn
+  // (ChatGPT gắn utm_source=chatgpt.com vào link). Chung tiền tố "AI: " để lọc một lần.
+  // AI Overviews / AI Mode gửi referrer google.com nên vẫn tính là "Google Search".
+  const aiAssistant = (value) => {
+    const v = String(value || '').toLowerCase().replace(/^www\./, '');
+    if (!v) return '';
+    for (const [name, hosts] of [
+      ['ChatGPT',    ['chatgpt.com', 'chat.openai.com']],
+      ['Gemini',     ['gemini.google.com', 'bard.google.com']],
+      ['NotebookLM', ['notebooklm.google.com']],
+      ['Perplexity', ['perplexity.ai']],
+      ['Claude',     ['claude.ai']],
+      ['Copilot',    ['copilot.microsoft.com']],
+      ['DeepSeek',   ['deepseek.com']],
+      ['Grok',       ['grok.com']],
+      ['Meta AI',    ['meta.ai']],
+      ['Mistral',    ['chat.mistral.ai']],
+      ['Qwen',       ['chat.qwen.ai']],
+      ['Kimi',       ['kimi.com', 'kimi.moonshot.cn']],
+    ]) {
+      if (v === name.toLowerCase() || hosts.some((h) => v === h || v.endsWith('.' + h))) return 'AI: ' + name;
+    }
+    return '';
+  };
+
   // 1. UTM Parameters (highest priority — campaign tag chủ động)
   if (urlParams.get('utm_source')) {
     if (urlParams.get('utm_medium'))   sessionStorage.setItem('xomleo_utm_medium',   urlParams.get('utm_medium'));
     if (urlParams.get('utm_campaign')) sessionStorage.setItem('xomleo_utm_campaign', urlParams.get('utm_campaign'));
     if (urlParams.get('utm_term'))     sessionStorage.setItem('xomleo_utm_term',     urlParams.get('utm_term'));
     if (urlParams.get('utm_content'))  sessionStorage.setItem('xomleo_utm_content',  urlParams.get('utm_content'));
-    return urlParams.get('utm_source') + (urlParams.get('utm_medium') ? ` / ${urlParams.get('utm_medium')}` : '');
+    const aiUtm = aiAssistant(urlParams.get('utm_source'));
+    if (aiUtm) return aiUtm;
+    return urlParams.get('utm_source') +(urlParams.get('utm_medium') ? ` / ${urlParams.get('utm_medium')}` : '');
   }
 
   // 2. Click-ID parameters (link qua tracker/redirect thường mất referrer nhưng giữ click-id)
@@ -44,6 +71,11 @@ function captureTrafficSource() {
 
     // Internal trước (rút ngắn flow)
     if (host.includes('xomleo.vn')) return 'Nội bộ';
+
+    // Trợ lý AI phải xét TRƯỚC nhóm Google: gemini.google.com chứa 'google.' nên
+    // trước 14-09-2026 bị ghi nhầm thành 'Google Search'.
+    const aiRef = aiAssistant(host);
+    if (aiRef) return aiRef;
 
     // Subdomain Google specific (PHẢI check trước host.includes('google.'))
     if (host === 'mail.google.com')  return 'Gmail';
