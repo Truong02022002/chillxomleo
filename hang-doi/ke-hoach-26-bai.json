@@ -1,40 +1,45 @@
 {
-  "_ghiChu": "Ke hoach 26 bai, moi tuan mot bai, 04-09-2026 -> 26-02-2027. Day CHUA phai lich-dang.json — chi la ke hoach chu de. Bai nao viet xong thi moi chuyen sang lich-dang.json kem day du tieu de, tom tat, anh.",
+  "_ghiChu": "Ke hoach bai, moi tuan mot bai. Day CHUA phai lich-dang.json — chi la ke hoach chu de. Bai nao viet xong thi moi chuyen sang lich-dang.json kem day du tieu de, tom tat, anh. Soat lai 14-09-2026: 26 -> 19 bai (bo 3, gop 4 — xem _daBo va _daGop); lich doi lai 18-09-2026 -> 15-01-2027 vi lich cu da tre.",
+  "_quyTac": "Mot bai chi thanh URL moi khi co it nhat MOT du kien chua trang nao tren site (ke ca bai da dang) co. loiThe trung voi bai khac thi viet thanh MUC trong bai do, khong mo URL moi — nhieu trang cung dan ve mot quan ma chi doi doi tuong la dung dang doorway / scaled content trong spam policy cua Google. Lich bi tre thi doi lich lui lai, KHONG dang bu nhieu bai mot luc.",
   "_nhom": {
     "dip": "Dip dac biet — y dinh dat ban, site hien KHONG co bai nao",
     "mua": "Thoi diem / mua vu — site moi co dung 'Thang 3 Da Lat co gi'",
     "amThuc": "Am thuc chuyen sau — khong pham vao 'Mon ngon Da Lat' tong quat",
     "thucDung": "Cau hoi thuc dung + local Trai Mat"
   },
+  "_daBo": [
+    { "slug": "bbq-ngoai-troi-da-lat", "lyDo": "Trung CAO /about/ va quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo (chinh ke hoach cu da de nghi bo)" },
+    { "slug": "mon-nuong-than-hoa-da-lat", "lyDo": "Trung CAO tiem-nuong-da-lat-duoc-yeu-thich (8 mon nuong nen goi) (chinh ke hoach cu da de nghi bo)" },
+    { "slug": "quan-view-thung-lung-da-lat", "lyDo": "Trung CAO /about/ (Quan Nuong View Dep Da Lat) va quan-nuong-da-lat-view-xe-lua (chinh ke hoach cu da de nghi bo)" }
+  ],
+  "_daGop": [
+    { "slug": "hop-lop-o-da-lat-to-chuc-o-dau", "vao": "quan-nuong-da-lat-cho-nhom-dong", "lyDo": "loiThe 'suc chua, dat ban truoc' la loi the cua bai nhom dong" },
+    { "slug": "lien-hoan-cong-ty-o-da-lat", "vao": "quan-nuong-da-lat-cho-nhom-dong", "lyDo": "loiThe 'nhan doan, bai dau o to' trung bai nhom dong — ke hoach cu da ghi rui ro trung" },
+    { "slug": "quan-an-da-lat-co-bai-dau-o-to", "vao": "quan-nuong-da-lat-cho-nhom-dong", "lyDo": "loiThe 'bai ~15 o to' giong het bai nhom dong; bai sinh nhat da dang cung co FAQ 'Di o to co cho dau khong?'" },
+    { "slug": "tiec-ky-niem-ngay-cuoi-o-da-lat", "vao": "dat-tiec-sinh-nhat-o-da-lat (da dang)", "lyDo": "loiThe 'trang tri mien phi' da la muc 'Trang tri: tu lam hay nho quan?' cua bai sinh nhat" }
+  ],
   "bai": [
-    { "nhom": "dip", "slug": "dat-tiec-sinh-nhat-o-da-lat", "ngayDang": "2026-09-04", "yDinh": "Tim cho to chuc sinh nhat o Da Lat", "loiThe": "Quan trang tri sinh nhat MIEN PHI — co that trong llms.txt", "ruiRoTrung": null },
-    { "nhom": "dip", "slug": "quan-nuong-da-lat-cho-nhom-dong", "ngayDang": "2026-09-11", "yDinh": "Nhom 10-30 nguoi an o dau", "loiThe": "Bai dau 15 o to, khu trong nha + ngoai troi", "ruiRoTrung": null },
-    { "nhom": "dip", "slug": "quan-an-da-lat-cho-cap-doi", "ngayDang": "2026-09-18", "yDinh": "Hen ho, khong gian rieng tu", "loiThe": "View thung lung, hoang hon", "ruiRoTrung": null },
-    { "nhom": "dip", "slug": "tiec-ky-niem-ngay-cuoi-o-da-lat", "ngayDang": "2026-09-25", "yDinh": "Ky niem cuoi", "loiThe": "Trang tri mien phi", "ruiRoTrung": null },
-    { "nhom": "dip", "slug": "hop-lop-o-da-lat-to-chuc-o-dau", "ngayDang": "2026-10-02", "yDinh": "Hop lop / hop nhom", "loiThe": "Suc chua, dat ban truoc", "ruiRoTrung": null },
-    { "nhom": "dip", "slug": "lien-hoan-cong-ty-o-da-lat", "ngayDang": "2026-10-09", "yDinh": "Team building / tat nien cong ty", "loiThe": "Nhan doan, bai dau o to", "ruiRoTrung": "quan-nuong-da-lat-cho-nhom-dong — phai tach ro: bai nay goc hoa don/doan cong ty, bai kia goc suc chua va cho dau xe" },
-    { "nhom": "dip", "slug": "di-da-lat-voi-gia-dinh-co-tre-nho", "ngayDang": "2026-10-16", "yDinh": "Gia dinh co tre nho", "loiThe": "Khu trong nha am, co men", "ruiRoTrung": null },
+    { "nhom": "dip", "slug": "dat-tiec-sinh-nhat-o-da-lat", "ngayDang": "2026-09-04", "daDang": true, "yDinh": "Tim cho to chuc sinh nhat o Da Lat", "loiThe": "Quan trang tri sinh nhat MIEN PHI — co that trong llms.txt", "ruiRoTrung": null, "canBoSung": "Them muc ky niem ngay cuoi (gop tu tiec-ky-niem-ngay-cuoi-o-da-lat)" },
+    { "nhom": "dip", "slug": "quan-nuong-da-lat-cho-nhom-dong", "ngayDang": "2026-09-18", "yDinh": "Nhom 10-30 nguoi an o dau — gom ca hop lop, lien hoan / tat nien cong ty", "loiThe": "Bai dau 15 o to, khu trong nha + ngoai troi", "ruiRoTrung": "Da gop 3 bai vao day (xem _daGop): viet thanh muc rieng cho hop lop, doan cong ty (goc hoa don / doan) va cho dau o to. Muc dat ban truoc, trang tri, gio hoang hon da co o bai sinh nhat — link sang, dung chep." },
+    { "nhom": "dip", "slug": "quan-an-da-lat-cho-cap-doi", "ngayDang": "2026-09-25", "yDinh": "Hen ho, khong gian rieng tu", "loiThe": "View thung lung, hoang hon", "ruiRoTrung": "loiThe trung bai sinh nhat (muc 'Khung gio dep: hoang hon') va ngam-hoang-hon-o-da-lat. Chi viet khi co du kien RIENG cho cap doi (vi du ban goc rieng, mon cho 2 nguoi — neu quan co that); khong co thi gop thanh muc trong ngam-hoang-hon-o-da-lat." },
+    { "nhom": "dip", "slug": "di-da-lat-voi-gia-dinh-co-tre-nho", "ngayDang": "2026-10-02", "yDinh": "Gia dinh co tre nho", "loiThe": "Khu trong nha am, co men", "ruiRoTrung": null },
 
-    { "nhom": "mua", "slug": "an-khuya-o-da-lat", "ngayDang": "2026-10-23", "yDinh": "An dem sau 21h", "loiThe": "Quan mo toi 23:00", "ruiRoTrung": "da-lat-ve-dem-top-nhung-noi-phai-den — bai cu la DIEM CHOI dem, bai nay la CHO AN dem" },
-    { "nhom": "mua", "slug": "da-lat-mua-mua-thang-9-10", "ngayDang": "2026-10-30", "yDinh": "Di Da Lat mua mua co nen khong", "loiThe": "Khu trong nha, tra nong", "ruiRoTrung": null },
-    { "nhom": "mua", "slug": "da-lat-thang-11-co-gi", "ngayDang": "2026-11-06", "yDinh": "Mua co hong / da quy thang 11", "loiThe": null, "ruiRoTrung": "thang-3-da-lat-co-gi — cung khuon nhung khac thang, chap nhan duoc" },
-    { "nhom": "mua", "slug": "da-lat-thang-12-giang-sinh", "ngayDang": "2026-11-13", "yDinh": "Giang sinh o Da Lat", "loiThe": "Trang tri dip le", "ruiRoTrung": null },
-    { "nhom": "mua", "slug": "di-da-lat-troi-lanh-can-chuan-bi-gi", "ngayDang": "2026-11-20", "yDinh": "Mac gi / chuan bi gi khi lanh", "loiThe": "Quan co men va tra nong", "ruiRoTrung": null },
-    { "nhom": "mua", "slug": "da-lat-dip-tet-co-gi", "ngayDang": "2026-11-27", "yDinh": "Du lich Tet", "loiThe": "Mo cua ca ngay le", "ruiRoTrung": null },
+    { "nhom": "mua", "slug": "an-khuya-o-da-lat", "ngayDang": "2026-10-09", "yDinh": "An dem sau 21h", "loiThe": "Quan mo toi 23:00", "ruiRoTrung": "da-lat-ve-dem-top-nhung-noi-phai-den — bai cu la DIEM CHOI dem, bai nay la CHO AN dem" },
+    { "nhom": "mua", "slug": "da-lat-mua-mua-thang-9-10", "ngayDang": "2026-10-16", "yDinh": "Di Da Lat mua mua co nen khong", "loiThe": "Khu trong nha, tra nong", "ruiRoTrung": null },
+    { "nhom": "mua", "slug": "da-lat-thang-11-co-gi", "ngayDang": "2026-10-23", "yDinh": "Mua co hong / da quy thang 11", "loiThe": null, "ruiRoTrung": "thang-3-da-lat-co-gi — cung khuon nhung khac thang, chap nhan duoc" },
+    { "nhom": "mua", "slug": "da-lat-thang-12-giang-sinh", "ngayDang": "2026-10-30", "yDinh": "Giang sinh o Da Lat", "loiThe": "Trang tri dip le", "ruiRoTrung": null },
+    { "nhom": "mua", "slug": "di-da-lat-troi-lanh-can-chuan-bi-gi", "ngayDang": "2026-11-06", "yDinh": "Mac gi / chuan bi gi khi lanh", "loiThe": "Quan co men va tra nong", "ruiRoTrung": null },
+    { "nhom": "mua", "slug": "da-lat-dip-tet-co-gi", "ngayDang": "2026-11-13", "yDinh": "Du lich Tet", "loiThe": "Mo cua ca ngay le", "ruiRoTrung": null },
 
-    { "nhom": "amThuc", "slug": "an-lau-o-da-lat", "ngayDang": "2026-12-04", "yDinh": "An lau o dau", "loiThe": "Quan phuc vu lau", "ruiRoTrung": null },
-    { "nhom": "amThuc", "slug": "bbq-ngoai-troi-da-lat", "ngayDang": "2026-12-11", "yDinh": "BBQ ngoai troi", "loiThe": null, "ruiRoTrung": "CAO — pham vao /about/ va quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo. De nghi BO." },
-    { "nhom": "amThuc", "slug": "hai-san-o-da-lat", "ngayDang": "2026-12-18", "yDinh": "Hai san tren nui", "loiThe": "Ca tam, oc nhoi thit, tom", "ruiRoTrung": null },
-    { "nhom": "amThuc", "slug": "mon-nuong-than-hoa-da-lat", "ngayDang": "2026-12-25", "yDinh": "Nuong than hoa vs nuong dien", "loiThe": "Quan nuong than hong", "ruiRoTrung": "CAO — pham vao tiem-nuong-da-lat-duoc-yeu-thich (8 mon nuong nen goi). De nghi BO." },
-    { "nhom": "amThuc", "slug": "thuc-don-nhau-da-lat", "ngayDang": "2027-01-01", "yDinh": "Do nhau / moi nhau", "loiThe": null, "ruiRoTrung": "/menu/ — phai viet goc 'goi mon theo nhom bao nhieu nguoi', khong lap bang gia" },
-    { "nhom": "amThuc", "slug": "an-gi-khi-troi-mua-o-da-lat", "ngayDang": "2027-01-08", "yDinh": "Mon nong khi mua", "loiThe": "Lau, tra nong", "ruiRoTrung": "da-lat-mua-mua-thang-9-10 — mot bai ve THOI TIET, mot bai ve MON AN" },
-    { "nhom": "amThuc", "slug": "mon-cay-da-lat", "ngayDang": "2027-01-15", "yDinh": "Do cay am nguoi", "loiThe": "Suon cay Thai Lan 259.000d", "ruiRoTrung": null },
+    { "nhom": "amThuc", "slug": "an-lau-o-da-lat", "ngayDang": "2026-11-20", "yDinh": "An lau o dau", "loiThe": "Quan phuc vu lau", "ruiRoTrung": null },
+    { "nhom": "amThuc", "slug": "hai-san-o-da-lat", "ngayDang": "2026-11-27", "yDinh": "Hai san tren nui", "loiThe": "Ca tam, oc nhoi thit, tom", "ruiRoTrung": null },
+    { "nhom": "amThuc", "slug": "thuc-don-nhau-da-lat", "ngayDang": "2026-12-04", "yDinh": "Do nhau / moi nhau", "loiThe": null, "ruiRoTrung": "/menu/ — phai viet goc 'goi mon theo nhom bao nhieu nguoi', khong lap bang gia. Bai sinh nhat da co muc 'Goi y goi mon cho nhom' — bai nay phai di sau hon muc do." },
+    { "nhom": "amThuc", "slug": "an-gi-khi-troi-mua-o-da-lat", "ngayDang": "2026-12-11", "yDinh": "Mon nong khi mua", "loiThe": "Lau, tra nong", "ruiRoTrung": "da-lat-mua-mua-thang-9-10 — mot bai ve THOI TIET, mot bai ve MON AN" },
+    { "nhom": "amThuc", "slug": "mon-cay-da-lat", "ngayDang": "2026-12-18", "yDinh": "Do cay am nguoi", "loiThe": "Suon cay Thai Lan 259.000d", "ruiRoTrung": null },
 
-    { "nhom": "thucDung", "slug": "trai-mat-da-lat-co-gi", "ngayDang": "2027-01-22", "yDinh": "Trai Mat co gi choi", "loiThe": "Quan nam ngay Trai Mat", "ruiRoTrung": "CAO — ga-xe-lua va chua-linh-phuoc deu o Trai Mat. Chi viet dang hub, tro XUONG hai bai do, khong lap noi dung." },
-    { "nhom": "thucDung", "slug": "chi-phi-an-uong-o-da-lat", "ngayDang": "2027-01-29", "yDinh": "Di Da Lat het bao nhieu tien an", "loiThe": "Khoang gia that 12k-320k/mon", "ruiRoTrung": null },
-    { "nhom": "thucDung", "slug": "quan-an-da-lat-co-bai-dau-o-to", "ngayDang": "2027-02-05", "yDinh": "Di o to do xe o dau", "loiThe": "Bai trong khuon vien ~15 o to", "ruiRoTrung": null },
-    { "nhom": "thucDung", "slug": "quan-view-thung-lung-da-lat", "ngayDang": "2027-02-12", "yDinh": "Quan view thung lung", "loiThe": null, "ruiRoTrung": "CAO — pham vao /about/ (Quan Nuong View Dep Da Lat) va quan-nuong-da-lat-view-xe-lua. De nghi BO." },
-    { "nhom": "thucDung", "slug": "ngam-hoang-hon-o-da-lat", "ngayDang": "2027-02-19", "yDinh": "Ngam hoang hon", "loiThe": "View 180 do huong tay", "ruiRoTrung": "doi-robin — bai cu la diem ngam canh, bai nay la ngam hoang hon KEM CHO NGOI an uong" },
-    { "nhom": "thucDung", "slug": "dat-ban-truoc-o-da-lat-co-can-khong", "ngayDang": "2027-02-26", "yDinh": "Co can dat ban truoc khong", "loiThe": "Dat qua m.me/nuongxomleo", "ruiRoTrung": null }
+    { "nhom": "thucDung", "slug": "trai-mat-da-lat-co-gi", "ngayDang": "2026-12-25", "yDinh": "Trai Mat co gi choi", "loiThe": "Quan nam ngay Trai Mat", "ruiRoTrung": "CAO — ga-xe-lua va chua-linh-phuoc deu o Trai Mat. Chi viet dang hub, tro XUONG hai bai do, khong lap noi dung." },
+    { "nhom": "thucDung", "slug": "chi-phi-an-uong-o-da-lat", "ngayDang": "2027-01-01", "yDinh": "Di Da Lat het bao nhieu tien an", "loiThe": "Khoang gia that 12k-320k/mon", "ruiRoTrung": "Bai sinh nhat da co muc chi phi va FAQ 'Mot nguoi an het khoang bao nhieu?'. Bai nay phai noi chi phi an uong Da Lat NOI CHUNG; gia cua quan chi la mot muc." },
+    { "nhom": "thucDung", "slug": "ngam-hoang-hon-o-da-lat", "ngayDang": "2027-01-08", "yDinh": "Ngam hoang hon", "loiThe": "View 180 do huong tay", "ruiRoTrung": "doi-robin — bai cu la diem ngam canh, bai nay la ngam hoang hon KEM CHO NGOI an uong. Gio hoang hon da co o bai sinh nhat — link sang." },
+    { "nhom": "thucDung", "slug": "dat-ban-truoc-o-da-lat-co-can-khong", "ngayDang": "2027-01-15", "yDinh": "Co can dat ban truoc khong", "loiThe": "Dat qua m.me/nuongxomleo", "ruiRoTrung": "Bai sinh nhat da co muc 'Dat ban truoc bao lau la vua?' va FAQ cung y. Bai nay phai tra loi cho Da Lat NOI CHUNG (cuoi tuan, le Tet, mua cao diem); phan cua quan chi la mot muc." }
   ]
 }
