@@ -61,7 +61,7 @@ function anhBia(rel, alt) {
 
 function dungArticle(t, lang) {
   const hau = lang === 'vi' ? '' : '-en';
-  const nhan = lang === 'vi' ? 'Tin Tức' : 'News';
+  const nhan = lang === 'vi' ? 'Cẩm nang' : 'Travel Guide';
   const ngay = lang === 'vi' ? ngayVI(d.ngayDang) : ngayEN(d.ngayDang);
   const tacGia = lang === 'vi' ? TACGIA : TACGIA_EN;
   const boiChu = lang === 'vi' ? 'Bài viết bởi ' : 'Written by ';
@@ -202,7 +202,7 @@ function dungHead(khung, t, lang) {
       breadcrumb: { '@id': `${url}#breadcrumb` },
     },
     inLanguage: lang,
-    articleSection: lang === 'vi' ? 'Cẩm nang du lịch Đà Lạt' : 'Da Lat travel guide',
+    articleSection: lang === 'vi' ? 'Cẩm nang du lịch Đà Lạt' : 'Da Lat Travel Guide',
     isPartOf: { '@id': 'https://xomleo.vn/#website' },
   };
   const ldCrumb = {

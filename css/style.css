@@ -1453,6 +1453,17 @@ input:focus, select:focus, textarea:focus {
 .hero-cinematic strong:is([class^="text-foreground"], [class*=" text-foreground"]) { color: var(--hero-fg); }
 .hero-cinematic .bg-primary { color: var(--hero-fg); }
 
+/* Muc dang xem tren menu desktop (muc 149, 14-09-2026). Truoc day chi khac mau chu:
+   2,41:1 so voi muc thuong (duoi nguong 3:1), nen bg-white/10 gan nhu vo hinh tren nen
+   kem (1,02:1), con o trang chu khi navbar nam tren hero toi thi rule ben duoi to cung
+   mot mau cho moi muc nen muc dang xem khong khac gi. Gach chan de nhan ra bang hinh
+   dang chu khong chi bang mau. Nut VN/EN dung aria-current="true" nen khong bi khop. */
+#navbar a[aria-current="page"] {
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
 /* Navbar trong suot nam de len hero toi -> chu phai sang.
    Khi cuon (.scrolled) navbar chuyen nen cream nen tra lai mau nau goc.
    Duoi md navbar da co nen cream (bg-background/80) nen khong doi. */
@@ -1543,6 +1554,20 @@ summary.list-none::-webkit-details-marker { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 
+/* ========== VIDEO "BAM MOI TAI" (trang Duong di) ==========
+   iframe YouTube nam trong nguong lazy nen tai ngay khi vao trang (cung ban do: 1,24 MB,
+   do 14-09-2026). Nay la anh cho + nut phat; js/main.js thay bang iframe khi bam. */
+.video-facade { position: absolute; inset: 0; display: block; background: #0E0C0A; }
+.video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.video-facade-play {
+  position: absolute; left: 50%; top: 50%; width: 68px; height: 48px; margin: -24px 0 0 -34px;
+  border-radius: 14px; background: rgba(160, 63, 0, .92); display: flex; align-items: center;
+  justify-content: center; transition: transform .2s ease;
+}
+.video-facade:hover .video-facade-play,
+.video-facade:focus-visible .video-facade-play { transform: scale(1.08); }
+.video-facade-play svg { width: 26px; height: 26px; fill: #FFF8F0; }
+
 /* ========== MOBILE MENU — CHONG PHU MAN HINH ==========
    #mobile-menu la overlay `fixed inset-0 z-40`, chi duoc day ra ngoai man hinh
    bang class Tailwind .translate-x-full. Truoc day tailwind-output.css bi defer
@@ -1556,6 +1581,11 @@ summary.list-none::-webkit-details-marker { display: none; }
 @media (min-width: 1024px) {
   #mobile-menu { display: none; }
 }
+
+/* Menu mobile dang mo thi an cum nut goi/Messenger noi (.floating-contact, z-index 9999,
+   JS chen vao moi trang): truoc day hai nut de len dong Hotline trong menu (14-09-2026).
+   Menu da co san Dat ban + Hotline + Duong di nen an di khong mat loi lien he nao. */
+body:has(#mobile-menu:not(.translate-x-full)) .floating-contact { display: none; }
 
 /* ========== LINK TRONG VAN BAN: KHONG CHI PHAN BIET BANG MAU ==========
    Lighthouse "Ban can dua vao mau sac de phan biet cac duong lien ket".

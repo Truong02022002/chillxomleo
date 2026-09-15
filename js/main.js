@@ -729,7 +729,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
       
       <!-- Scroll to Top (Positioned dynamically) -->
-      <button id="scrollToTopBtn" aria-label="${nhan.len}" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+      <button id="scrollToTopBtn" type="button" aria-label="${nhan.len}"
         class="fixed left-[16px] md:left-[24px] bottom-[24px] md:bottom-[24px] w-[42.5px] h-[42.5px] md:w-14 md:h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50 opacity-0 pointer-events-none translate-y-10">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -744,6 +744,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Scroll to Top Button Visibility (optimized with rAF to prevent forced reflow) ---
   const scrollToTopBtn = document.getElementById('scrollToTopBtn');
   if (scrollToTopBtn) {
+    // Truoc day nut dung onclick="..." noi tuyen. CSP cua site (script-src khong co
+    // 'unsafe-hashes') CHAN moi handler noi tuyen nen bam khong cuon — do tren live
+    // 14-09-2026: console bao vi pham CSP, scrollY dung yen. Gan qua addEventListener.
+    scrollToTopBtn.addEventListener('click', () => {
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
     let scrollTicking = false;
     window.addEventListener('scroll', () => {
       if (!scrollTicking) {
@@ -761,6 +768,28 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }, { passive: true });
   }
+
+  // --- Nhung iframe ben thu ba khi BAM (ban do chan trang, video trang Duong di) ---
+  // Truoc day la <iframe loading="lazy">: ban do Google o chan trang tai 470–560 KB /
+  // 26–29 request moi khi khach cuon toi, con /duong-di/ tai 1,24 MB ngay luc vao vi video
+  // va ban do nam trong nguong lazy (do 14-09-2026). Nay HTML chi co the <a> tro sang
+  // Google Maps / YouTube — tat JS van mo duoc — va bam vao thi thay bang iframe tai cho.
+  document.querySelectorAll('a[data-nhung-iframe]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return; // mo tab moi thi de nguyen
+      e.preventDefault();
+      const f = document.createElement('iframe');
+      f.src = a.dataset.nhungIframe;
+      f.title = a.dataset.nhungTitle || '';
+      f.setAttribute('allowfullscreen', '');
+      if (a.dataset.nhungAllow) f.setAttribute('allow', a.dataset.nhungAllow);
+      if (a.dataset.nhungReferrer) f.setAttribute('referrerpolicy', a.dataset.nhungReferrer);
+      if (a.dataset.nhungClass) f.className = a.dataset.nhungClass;
+      f.style.cssText = 'position:absolute;inset:0;width:100%;height:100%;border:0';
+      a.replaceWith(f);
+      f.focus();
+    });
+  });
 
   // --- Đoàn tàu chạy viền form (từng toa riêng + dây xích) ---
   const trainTrack = document.getElementById('train-track');

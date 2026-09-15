@@ -112,15 +112,19 @@ function giuThut(cu, moi) {
   return dau + moi + cuoi;
 }
 
-// Dung mot the duy nhat — the dau tien — mang fetchpriority="high".
+// Dung mot the duy nhat — the dau tien — mang fetchpriority="high". The 2 va 3 cung KHONG lazy:
+// tu 1024px luoi 3 cot nen ca hang dau nam trong khung nhin dau (do 14-09-2026: 2 anh lazy o
+// top 474px khi /blog/ rong 1350px). Tren mobile Chrome van tai hai anh do ngay luc load vi nam
+// trong nguong lazy, nen bo lazy khong ton them byte.
 function chuanHoaUuTienAnh(html) {
   let i = 0;
   return html.replace(/<article[\s\S]*?<\/article>/g, (the) => {
     i += 1;
     let t = the;
-    if (i === 1) {
+    if (i <= 3) {
       t = t.replace(/\s*loading="lazy"/, '');
-      if (!/fetchpriority=/.test(t)) t = t.replace(/(<img\s)/, '$1fetchpriority="high" ');
+      if (i === 1) { if (!/fetchpriority=/.test(t)) t = t.replace(/(<img\s)/, '$1fetchpriority="high" '); }
+      else t = t.replace(/\s*fetchpriority="high"/, '');
     } else {
       t = t.replace(/\s*fetchpriority="high"/, '');
       if (!/loading=/.test(t)) t = t.replace(/(<img\s)/, '$1loading="lazy" ');
@@ -194,6 +198,13 @@ function kiemTraBaiNhap(d) {
     if (!s.includes(`hreflang="vi" href="https://xomleo.vn/${d.slug}/"`)) v.push(`${d.slug}${hau}: thieu hreflang vi`);
     if (!s.includes(`hreflang="en" href="https://xomleo.vn/${d.slug}-en/"`)) v.push(`${d.slug}${hau}: thieu hreflang en`);
     if ((s.match(/<h1/g) || []).length !== 1) v.push(`${d.slug}${hau}: phai co dung 1 the <h1>`);
+  }
+
+  // Bo loc tab o /blog/ an moi the co data-category khong trung nut tab nao, nen bai sai
+  // (hoac thieu) chuyen muc van len song ma khong hien tren trang Blog.
+  for (const [truong, trang] of [['danhMuc', 'blog/index.html'], ['danhMucEn', 'blog-en/index.html']]) {
+    const tab = [...fs.readFileSync(path.join(ROOT, trang), 'utf8').matchAll(/data-tab="([^"]*)"/g)].map((m) => m[1]);
+    if (!tab.includes(d[truong])) v.push(`${truong} "${d[truong]}" khong trung nut tab nao o ${trang} (${tab.join(' / ')})`);
   }
 
   if (d.anh) {
@@ -304,6 +315,31 @@ if (THU) {
   process.exit(0);
 }
 
+// ---------- dong bo boilerplate ----------
+
+// Ban nhap dung tu luc tao — co khi vai tuan truoc ngay dang — nen phan khung co the da cu
+// so voi site. Bai dat-tiec-sinh-nhat (tao 29-08, dang 08-09) len song voi doan GA nap ngay
+// luc 'load' (ban sua 13-09 cho GA doi FCP bo sot no), main.min.js khong defer (sua 05-09)
+// va thieu preload font; phat hien 14-09-2026. Lay ca ba tu trang /blog/ cung ngon ngu, vi
+// trang do luon duoc sua cung dot voi toan site. CSP: workflow chay csp-hash.mjs --write sau.
+function dongBoKhung(fileBai, fileMau) {
+  const s = fs.readFileSync(fileBai, 'utf8');
+  const mau = fs.readFileSync(fileMau, 'utf8');
+  const nl = eolCua(s);
+  const khoiGA = (h) => [...h.matchAll(/<script>([\s\S]*?)<\/script>/g)].filter((m) => m[1].includes('loadGA'));
+  let t = s;
+  const gaMau = khoiGA(mau);
+  const gaBai = khoiGA(t);
+  if (gaMau.length === 1 && gaBai.length === 1) t = t.replace(gaBai[0][0], () => gaMau[0][0].replace(/\r?\n/g, nl));
+  else canhBao.push(`${path.relative(ROOT, fileBai)}: khong dong bo duoc doan GA (trang mau ${gaMau.length} khoi, bai ${gaBai.length} khoi)`);
+  t = t.replace(/(<script src="[^"]*main\.min\.js\?[^"]*")(><\/script>)/g, '$1 defer$2');
+  const preload = (mau.match(/<link rel="preload" as="font"[^>]*>/) || [])[0];
+  if (preload && !t.includes('rel="preload" as="font"')) {
+    t = t.replace(/([ \t]*)(<style id="site-css"|<link rel="stylesheet"|<title>)/, (_, thut, the) => thut + preload + nl + thut + the);
+  }
+  if (t !== s) fs.writeFileSync(fileBai, t);
+}
+
 // ---------- ghi ----------
 
 const daDang = [];
@@ -313,6 +349,8 @@ for (const d of denHan) {
 
   chepThuMuc(path.join(HANG_DOI, d.slug), path.join(ROOT, d.slug));
   chepThuMuc(path.join(HANG_DOI, d.slug + '-en'), path.join(ROOT, d.slug + '-en'));
+  dongBoKhung(path.join(ROOT, d.slug, 'index.html'), path.join(ROOT, 'blog/index.html'));
+  dongBoKhung(path.join(ROOT, d.slug + '-en', 'index.html'), path.join(ROOT, 'blog-en/index.html'));
 
   for (const [file, lang] of [['blog/index.html', 'vi'], ['blog-en/index.html', 'en']]) {
     const moi = chenCard(path.join(ROOT, file), d, lang, tenAnh, kt);
