@@ -23,8 +23,8 @@ Rồi thêm một mục vào `lich-dang.json`:
 {
   "slug": "quan-nuong-da-lat-cho-nhom-dong",
   "ngayDang": "2026-09-12",
-  "danhMuc": "Tin Tức",
-  "danhMucEn": "News",
+  "danhMuc": "Cẩm nang",
+  "danhMucEn": "Travel Guide",
   "tieuDe": "Tiêu đề tiếng Việt (≤ 60 ký tự)",
   "tieuDeEn": "English title (≤ 60 characters)",
   "tomTat": "Tóm tắt hiện trên thẻ ở trang /blog/, 2-3 câu.",
