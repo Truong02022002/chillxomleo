@@ -38,11 +38,20 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
-        keys.filter((k) => !k.startsWith(CACHE_VERSION)).map((k) => caches.delete(k))
+    Promise.all([
+      // Navigation preload: trinh duyet gui request HTML song song luc SW dang khoi dong,
+      // thay vi doi SW chay toi handler 'fetch' moi goi fetch(). Khong bat thi moi luot
+      // dieu huong cua khach quay lai phai cong ca thoi gian khoi dong SW vao TTFB
+      // (tai lieu Chrome: toi ~0,5s tren may yeu). Trinh duyet khong ho tro thi bo qua.
+      self.registration.navigationPreload
+        ? self.registration.navigationPreload.enable().catch(() => {})
+        : null,
+      caches.keys().then((keys) =>
+        Promise.all(
+          keys.filter((k) => !k.startsWith(CACHE_VERSION)).map((k) => caches.delete(k))
+        )
       )
-    ).then(() => self.clients.claim())
+    ]).then(() => self.clients.claim())
   );
 });
 
@@ -70,7 +79,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(staleWhileRevalidate(req, event));
   } else if (req.mode === 'navigate' || req.destination === 'document') {
     // Network-first for HTML — always try fresh, fall back to cache offline
-    event.respondWith(networkFirst(req));
+    event.respondWith(networkFirst(req, event));
   }
 });
 
@@ -96,9 +105,12 @@ async function staleWhileRevalidate(req, event) {
   return res || new Response('', { status: 504, statusText: 'Offline' });
 }
 
-async function networkFirst(req) {
+async function networkFirst(req, event) {
   try {
-    const res = await fetch(req);
+    // preloadResponse = request HTML trinh duyet da gui san luc SW khoi dong (xem 'activate').
+    // undefined khi trinh duyet khong ho tro hoac khong phai dieu huong -> fetch nhu cu.
+    // Da bat preload ma bo qua no de tu fetch() thi request bi gui HAI lan.
+    const res = (event && await event.preloadResponse) || await fetch(req);
     if (res && res.status === 200) {
       const cache = await caches.open(RUNTIME_CACHE);
       cache.put(req, res.clone()).catch(() => {});

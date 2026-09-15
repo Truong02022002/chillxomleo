@@ -1417,6 +1417,24 @@ input:focus, select:focus, textarea:focus {
   display: none !important;
 }
 
+/* Luoi /blog/ + /blog-en/ co 36 the; xoa o tim kiem hien lai ca 36 va sap lai DOM nen trinh
+   duyet phai dung bo cuc ca luoi (chu viet tay) trong mot khung hinh. Do 15-09-2026 tren live,
+   Chrome 412px, CPU x6, A/B xen ke: nut xoa 304/368/312ms -> 168/152/120ms, go "ho" 168 -> 80ms;
+   CLS khi cuon het trang van 0, chieu cao trang sau khi cuon bang nhau.
+   Kich thuoc tam phai SAT that: trang khong vao bfcache thi Back khoi phuc vi tri cuon theo
+   kich thuoc tam cua cac the phia tren. Do that: 1 cot chu ~271px + anh 4:3 theo be ngang
+   (505px @360, 544px @412 -> 75vw + 235px); 2 cot 526px @768; 3 cot 495px @1024, 542px tu 1280. */
+#blog-grid > .blog-item {
+  content-visibility: auto;
+  contain-intrinsic-size: auto calc(75vw + 235px);
+}
+@media (min-width: 768px) {
+  #blog-grid > .blog-item { contain-intrinsic-size: auto 530px; }
+}
+@media (min-width: 1024px) {
+  #blog-grid > .blog-item { contain-intrinsic-size: auto 540px; }
+}
+
 /* ========== HERO CINEMATIC — CONTRAST ==========
    Commit b91198b lat theme tu dark (--foreground: #3B2314) sang cream
    (--foreground: #3B2314), nhung markup hero trang chu van giu art direction
