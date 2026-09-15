@@ -24,6 +24,16 @@ const fileND = process.argv[2];
 if (!fileND) { console.error('Thieu duong dan file noi dung.'); process.exit(1); }
 const d = JSON.parse(fs.readFileSync(fileND, 'utf8'));
 
+// Ten file anh phai la chu-thuong-gach-ngang co nghia (checklist muc 75; site da doi ten hang loat
+// ngay 15-09-2026, xem tools/anh-doi-ten.json). Chan ten kieu WordPress/Facebook/may anh.
+const TEN_ANH = /^[a-z0-9]+(-[a-z0-9]+)+\.webp$/;
+const anhDung = [d.anhBia, ...['vi', 'en'].flatMap((l) => (d[l]?.muc || []).map((m) => m.anh?.file))].filter(Boolean);
+const tenSai = anhDung.filter((rel) => !TEN_ANH.test(path.basename(rel)) || /\d{7,}/.test(path.basename(rel)));
+if (tenSai.length) {
+  console.error('Ten file anh chua dung chuan chu-thuong-gach-ngang (vd: ban-go-view-tau-xom-leo.webp):\n  ' + tenSai.join('\n  '));
+  process.exit(1);
+}
+
 const eolCua = (s) => (s.includes('\r\n') ? '\r\n' : '\n');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const escAttr = (s) => esc(s);
@@ -39,18 +49,26 @@ function kichThuoc(rel) {
   return { w: b.readUIntLE(24, 3) + 1, h: b.readUIntLE(27, 3) + 1 };
 }
 
-// Anh trong bai: dung srcset 640w + ban goc, dung bien the co that.
+// srcset lay moi bien the co that tren dia (640w/960w/1280w) + ban goc. Thieu 960w/1280w thi
+// dien thoai DPR cao va desktop phai tai ban goc (co anh bia 1 MB) — ra soat 15-09-2026.
+function srcsetCo(ten, w) {
+  const bienThe = [640, 960, 1280].filter((n) => n < w && fs.existsSync(path.join(ROOT, `${ten}-${n}w.webp`)))
+    .map((n) => `../${ten}-${n}w.webp ${n}w`);
+  return [...bienThe, `../${ten}.webp ${w}w`].join(', ');
+}
+
+// Anh trong bai: sizes khop khung than bai 650px.
 function anhTrongBai(rel, alt) {
   const ten = rel.replace(/\.webp$/, '');
   const kt = kichThuoc(rel);
-  return `<p><img srcset="../${ten}-640w.webp 640w, ../${ten}.webp ${kt.w}w" sizes="(max-width: 768px) 78vw, 650px" width="${kt.w}" height="${kt.h}" loading="lazy" decoding="async" class="alignnone size-full w-full rounded-xl" src="../${ten}.webp" alt="${escAttr(alt)}"></p>`;
+  return `<p><img srcset="${srcsetCo(ten, kt.w)}" sizes="(max-width: 768px) 78vw, 650px" width="${kt.w}" height="${kt.h}" loading="lazy" decoding="async" class="alignnone size-full w-full rounded-xl" src="../${ten}.webp" alt="${escAttr(alt)}"></p>`;
 }
 
 function anhBia(rel, alt) {
   const ten = rel.replace(/\.webp$/, '');
   const kt = kichThuoc(rel);
   return `<div class="relative w-full aspect-[16/9] rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-12 bg-[#6B5443]/10">
-                <img srcset="../${ten}-640w.webp 640w, ../${ten}.webp ${kt.w}w" sizes="(max-width: 768px) 92vw, 1168px" width="${kt.w}" height="${kt.h}" fetchpriority="high" decoding="async"
+                <img srcset="${srcsetCo(ten, kt.w)}" sizes="(max-width: 768px) 92vw, 1168px" width="${kt.w}" height="${kt.h}" fetchpriority="high" decoding="async"
                 src="../${ten}.webp"
                 alt="${escAttr(alt)}"
                 class="object-cover absolute inset-0 w-full h-full"
@@ -191,7 +209,7 @@ function dungHead(khung, t, lang) {
     publisher: {
       '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', url: 'https://xomleo.vn/',
       name: tenQuan, ...tenPhu,
-      logo: { '@type': 'ImageObject', url: 'https://xomleo.vn/uploads/1775619688243-610230636-img2.webp' },
+      logo: { '@type': 'ImageObject', url: 'https://xomleo.vn/uploads/logo.png' },
     },
     image: anhUrl,
     // WebPage noi tuyen la cho duy nhat gan duoc BreadcrumbList vao graph (breadcrumb chi hop le

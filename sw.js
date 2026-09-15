@@ -15,7 +15,7 @@ const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 // (<style id="site-css">), tai file nay ve chi ton 13 KB bang thong ma khong ai dung.
 const STATIC_ASSETS = [
   '/js/main.min.js?h351a80da',
-  '/uploads/1775619688243-610230636-img2.webp',
+  '/uploads/khong-gian-tiem-nuong-xom-leo-view-thung-lung.webp',
   '/uploads/favicon-32x32.png',
   '/uploads/favicon-16x16.png'
 ];
