@@ -32,10 +32,13 @@
 //   node tools/dat-header-bao-mat.mjs --apply   # ghi that, roi tu do lai
 //
 // Token can quyen (Cloudflare > My Profile > API Tokens > Create Custom Token):
-//   Zone / Zone            / Read
-//   Zone / Zone Settings   / Edit      <- TLS toi thieu, HSTS, nosniff
-//   Zone / Transform Rules / Edit      <- cac header con lai
-//   Zone Resources: Include / Specific zone / xomleo.vn
+//   Zone    / Zone             / Read
+//   Zone    / Zone Settings    / Edit   <- TLS toi thieu, HSTS, nosniff
+//   Zone    / Transform Rules  / Edit   <- cac header con lai
+//   Account / Account Rulesets / Read   <- tai lieu Cloudflare ghi la quyen toi
+//                                          thieu cho Transform Rules qua API
+//   Account Resources: Include / (tai khoan cua ban)
+//   Zone Resources:    Include / Specific zone / xomleo.vn
 
 import tls from 'node:tls';
 
@@ -66,7 +69,7 @@ async function cf(duong, tuyChon = {}) {
   let j; try { j = await r.json(); } catch (e) { j = { success: false, errors: [{ message: 'phan hoi khong phai JSON, HTTP ' + r.status }] }; }
   if (!j.success) {
     const msg = (j.errors || []).map(e => e.code + ': ' + e.message).join(' | ') || ('HTTP ' + r.status);
-    throw new Error(msg);
+    throw Object.assign(new Error(msg + ' [HTTP ' + r.status + ' ' + (tuyChon.method || 'GET') + ' ' + duong + ']'), { status: r.status });
   }
   return j.result;
 }
@@ -166,9 +169,17 @@ async function doHienTrang() {
 
   // --- 168 + 170 + 171 + 173: quy tac bien doi header phan hoi ---
   const duongRs = '/zones/' + zid + '/rulesets/phases/http_response_headers_transform/entrypoint';
+  // Zone chua co quy tac header nao thi GET tra 404 — PUT o duoi se tu tao
+  // ruleset ("the entry point ruleset is created automatically if it does not
+  // exist"). Loi khac (vd token thieu quyen Transform Rules) thi phai bao ngay,
+  // khong duoc nuot, neu khong lan chay thu se bao "on" roi --apply moi vo.
   let rs;
-  try { rs = await cf(duongRs); } catch (e) { rs = { rules: [] }; }
-  const cu = (rs.rules || []).filter(r => r.description !== TEN_QUY_TAC);
+  try { rs = await cf(duongRs); } catch (e) { if (e.status !== 404) throw e; rs = { rules: [] }; }
+  // Giu nguyen quy tac cua nguoi khac; chi gui lai cac truong ghi duoc
+  // (bo version, last_updated... la truong chi-doc).
+  const GHI_DUOC = ['id', 'ref', 'action', 'action_parameters', 'expression', 'description', 'enabled', 'logging'];
+  const cu = (rs.rules || []).filter(r => r.description !== TEN_QUY_TAC)
+    .map(r => Object.fromEntries(GHI_DUOC.filter(k => r[k] !== undefined).map(k => [k, r[k]])));
   console.log('\n[168/170/171/173] quy tac header phan hoi:');
   console.log('   quy tac khac dang co (giu nguyen): ' + cu.length);
 
