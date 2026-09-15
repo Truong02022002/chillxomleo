@@ -1,0 +1,98 @@
+name: IndexNow
+
+# Bao cac cong cu tim kiem dung IndexNow (Bing/Copilot, Yandex, Seznam, Naver...) nhung URL
+# canonical vua them, sua noi dung that hoac bi xoa. Loc URL nam o tools/indexnow.mjs: commit
+# chi doi CSS nhet trang, hash CSP hay menu (gan nhu commit nao cung dong ~123 file .html)
+# thi KHONG gui gi.
+#
+# Tool doi den khi trang tren xomleo.vn da doi sang ban moi roi moi gui, vi Bing co the ghe
+# lay trang ngay khi nhan URL — gui truoc luc Pages deploy xong la cho no doc ban cu.
+#
+# Push cua bot dang-bai-theo-lich dung GITHUB_TOKEN nen KHONG kich hoat nhanh "push" duoi
+# day; nhanh workflow_run bat rieng lan dang bai. Push cua bot csp-hash chi doi hash, khong
+# doi noi dung nen khong can gui.
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html']
+  workflow_run:
+    workflows: ['Dang bai theo lich']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tu:
+        description: 'Commit cu — so noi dung tu day'
+        required: true
+        type: string
+      den:
+        description: 'Commit moi, de trong = HEAD cua main'
+        required: false
+        type: string
+      chay_thu:
+        description: 'Chi in danh sach URL, khong gui'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  gui:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Xac dinh khoang commit
+        id: khoang
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
+          IN_TU: ${{ inputs.tu }}
+          IN_DEN: ${{ inputs.den }}
+        run: |
+          case "$EVENT" in
+            push)
+              TU="$BEFORE"; DEN="$GITHUB_SHA" ;;
+            workflow_run)
+              # Chi lay dung commit bai moi cua bot, khong gom cac push khac chen giua
+              # (cac push do da tu chay IndexNow rieng). Khong co bai den han -> DEN rong.
+              TU="$RUN_SHA"
+              DEN=$(git log --format=%H --author='github-actions\[bot\]' --grep='^Dang theo lich' "$TU..HEAD" | tail -n 1) ;;
+            workflow_dispatch)
+              TU="$IN_TU"; DEN="${IN_DEN:-HEAD}" ;;
+          esac
+          echo "tu=$TU" >> "$GITHUB_OUTPUT"
+          echo "den=$DEN" >> "$GITHUB_OUTPUT"
+          [ -n "$DEN" ] || echo "Khong co commit dang bai moi — khong gui."
+
+      - name: Gui URL doi noi dung
+        if: steps.khoang.outputs.den != ''
+        env:
+          TU: ${{ steps.khoang.outputs.tu }}
+          DEN: ${{ steps.khoang.outputs.den }}
+          CHAY_THU: ${{ inputs.chay_thu }}
+        run: |
+          if [ "$CHAY_THU" = "true" ]; then
+            node tools/indexnow.mjs --tu "$TU" --den "$DEN"
+          else
+            node tools/indexnow.mjs --tu "$TU" --den "$DEN" --cho-deploy --gui
+          fi

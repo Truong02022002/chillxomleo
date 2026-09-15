@@ -363,12 +363,20 @@ for (const d of denHan) {
   const nl = eolCua(xml);
   if (!xml.includes(`<loc>https://xomleo.vn/${d.slug}/</loc>`)) {
     xml = xml.replace(/(\s*)<\/urlset>/, nl + khoiUrl(d.slug, d.ngayDang, d.uuTien || '0.6', nl) + '</urlset>');
-    fs.writeFileSync(fSm, xml);
   }
+  // /blog/ va /blog-en/ vua co them the bai nen lastmod cua chung cung phai theo ngay dang —
+  // Bing xep lich crawl theo lastmod, de ngay cu thi no khong biet trang danh sach da doi.
+  for (const ds of ['blog', 'blog-en']) {
+    xml = xml.replace(
+      new RegExp(`(<loc>https://xomleo\\.vn/${ds}/</loc>\\s*<lastmod>)([^<]*)(</lastmod>)`),
+      (m, dau, cu, cuoi) => (cu < d.ngayDang ? dau + d.ngayDang + cuoi : m),
+    );
+  }
+  fs.writeFileSync(fSm, xml);
 
   daDang.push(d);
   console.log(`\n  + ${d.slug}  va  ${d.slug}-en`);
-  console.log(`    card vao /blog/ va /blog-en/, 2 khoi <url> vao sitemap (lastmod ${d.ngayDang})`);
+  console.log(`    card vao /blog/ va /blog-en/, 2 khoi <url> vao sitemap, lastmod 4 URL = ${d.ngayDang}`);
 }
 
 canhBao.forEach((x) => console.log('  ! ' + x));
