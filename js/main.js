@@ -144,6 +144,138 @@ function captureTrafficSource() {
   } catch (e) { /* sessionStorage có thể bị tắt — bỏ qua */ }
 })();
 
+// --- Đo lường GA4: sự kiện hành vi có giá trị ---
+// Trước 16-09-2026 site chỉ có page_view: không biết khách gọi điện, nhắn Zalo,
+// bấm chỉ đường hay gửi form từ trang nào, nên không đánh giá được bài viết nào
+// thật sự ra khách (mục 247-250, 253 của cẩm nang).
+//
+// Ba nguyên tắc khi sửa khối này:
+//  1. MỘT thao tác chỉ bắn MỘT event — bộ lắng nghe uỷ quyền bên dưới `return`
+//     ngay sau lần khớp đầu tiên; đừng gắn thêm listener riêng cho từng nút.
+//  2. KHÔNG gửi dữ liệu nhận dạng cá nhân vào GA4 (tên, số điện thoại, ghi chú
+//     của khách). Chỉ gửi ngữ cảnh: loại trang, vị trí nút, số khách, dịp.
+//  3. Event tuỳ chỉnh viết snake_case và bắt đầu bằng động từ; ưu tiên tên
+//     khuyến nghị của GA4 khi có (form đặt bàn dùng `generate_lead`).
+//
+// ⚠ GIỚI HẠN ĐÃ BIẾT của số liệu GA4 site này (đo 16-09-2026, chủ site đã chốt
+// giữ nguyên để không mất điểm PSI): khách KHÔNG chạm/cuộn thì gtag/js chỉ được
+// tải sau 5,0-8,1 giây (máy nhanh 6757ms; CPU x4 + 4G chậm 4999ms; CPU x6 + 3G
+// chậm 5919ms; bài viết + 4G chậm 8094ms) vì script nội tuyến đợi FCP rồi đợi lúc
+// CPU rảnh. Ai rời trang trước mốc đó thì GA4 không nhận được gì — mất cả
+// page_view lẫn phiên. Hệ quả khi đọc báo cáo: phiên ngắn bị thiếu có hệ thống,
+// nên mọi tỉ lệ chuyển đổi (lead / phiên) ĐẸP HƠN thực tế. Đừng coi đây là lỗi đo
+// lường: đó là đánh đổi cố ý, xem commit dad65de0.
+//
+// gtag() do script nội tuyến trong <head> khai báo; nó đẩy vào dataLayer nên gọi
+// được cả trước lúc gtag/js tải xong. Thứ tự vẫn đúng vì gtag/js được nạp ở
+// `pointerdown`/`keydown`/`touchstart` — tức là TRƯỚC sự kiện `click` mà khối này
+// nghe, nên lệnh `config` luôn nằm trước `event` trong hàng đợi.
+const XL_DO = (function () {
+  const duongDan = (window.location.pathname || '/').toLowerCase().replace(/index\.html$/, '');
+
+  // page_type: nhóm trang để báo cáo Landing Page → Key Events (mục 253) đọc được
+  // ngay, khỏi phải tự gom 123 URL bằng tay trong Explorations.
+  function loaiTrang() {
+    if (duongDan === '/' || duongDan === '/en/' || duongDan === '/en') return 'home';
+    if (duongDan.startsWith('/menu')) return 'menu';
+    if (duongDan.startsWith('/blog')) return 'blog_index';
+    if (duongDan.startsWith('/duong-di')) return 'directions';
+    if (duongDan.startsWith('/chinh-sach-bao-mat') || duongDan.startsWith('/dieu-khoan-su-dung')) return 'policy';
+    if (/^\/(about|ve-chung-toi)/.test(duongDan)) return 'about';
+    if (document.querySelector('article')) return 'blog_post';
+    return 'other';
+  }
+
+  // intent_stage: giai đoạn của TRANG nơi hành vi xảy ra, không phải của hành vi
+  // (mọi hành vi đo ở đây đều là "action" nên gán theo hành vi sẽ thành hằng số
+  // vô dụng). Nhờ vậy trả lời được "bao nhiêu cuộc gọi đến từ bài du lịch chung".
+  function giaiDoan(loai) {
+    if (loai === 'directions' || loai === 'menu') return 'action';
+    if (loai === 'home' || /xom-leo|tiem-nuong|quan-nuong|dat-tiec/.test(duongDan)) return 'consideration';
+    return 'awareness';
+  }
+
+  const LOAI_TRANG = loaiTrang();
+  const GIAI_DOAN = giaiDoan(LOAI_TRANG);
+
+  // cta_position: đọc từ DOM lúc bấm. Site không có class riêng cho từng khối CTA
+  // nên bám vào landmark có thật (.floating-contact, #mobile-menu, header, footer,
+  // #booking, aside giữa bài) — xem `tools/` nếu đổi cấu trúc các khối này.
+  function viTri(el) {
+    const bang = [
+      ['[role="status"]', 'toast'],
+      ['.floating-contact', 'floating'],
+      ['#mobile-menu', 'mobile_menu'],
+      // Thanh điều hướng trên cùng là <nav id="navbar">, KHÔNG phải <header>:
+      // trang chủ/menu/blog không có thẻ <header> nào, còn trong bài viết thì
+      // <header> là phần tiêu đề bài. Bắt bằng 'header' sẽ gán sai vị trí.
+      ['#navbar', 'navbar'],
+      ['footer', 'footer'],
+      ['#booking', 'booking_form'],
+      // Chỉ section hero thật. Đừng nới thành [class*="hero"]: <body> trang chủ
+      // mang class 'home-hero-dark' nên mọi nút trên trang sẽ thành 'hero'.
+      ['.hero-cinematic', 'hero'],
+      ['aside', 'article_aside'],   // khối phụ cuối bài (bài liên quan, nguồn tham khảo)
+      ['article', 'article_body'],  // CTA chèn giữa thân bài
+      ['main', 'main'],
+    ];
+    for (const [chon, ten] of bang) {
+      try { if (el.closest(chon)) return ten; } catch (e) { /* selector không hợp lệ trên trình duyệt cũ */ }
+    }
+    return 'other';
+  }
+
+  function gui(ten, thamSo) {
+    try {
+      const payload = Object.assign({
+        page_type: LOAI_TRANG,
+        intent_stage: GIAI_DOAN,
+        page_language: document.documentElement.lang || 'vi',
+      }, thamSo || {});
+      if (typeof window.gtag === 'function') {
+        window.gtag('event', ten, payload);
+      } else {
+        // Stub chuyển hướng và trang không có thẻ GA: giữ lệnh trong hàng đợi,
+        // gtag/js xử lý nếu có; không có thì cũng không văng lỗi.
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(['event', ten, payload]);
+      }
+    } catch (e) { /* chặn quảng cáo / gtag bị chặn — không được làm hỏng nút bấm */ }
+  }
+
+  // Bắt ở pha capture để một handler khác gọi stopPropagation cũng không làm mất
+  // số liệu (khối nhúng iframe và mục lục đều preventDefault ở pha bubble).
+  document.addEventListener('click', function (e) {
+    const el = e.target;
+    if (!el || typeof el.closest !== 'function') return;
+    const a = el.closest('a[href]');
+    if (!a) return;
+
+    const href = a.getAttribute('href') || '';
+    const viTriNut = viTri(a);
+
+    if (/^tel:/i.test(href)) {
+      return gui('click_call', { cta_position: viTriNut, contact_method: 'phone' });
+    }
+    if (/^(https?:)?\/\/(www\.)?zalo\.me\//i.test(href) || /^https?:\/\/zalo\.me/i.test(href)) {
+      return gui('chat_open', { cta_position: viTriNut, chat_channel: 'zalo' });
+    }
+    if (/^https?:\/\/(www\.)?(m\.me|messenger\.com)\//i.test(href)) {
+      return gui('chat_open', { cta_position: viTriNut, chat_channel: 'messenger' });
+    }
+    if (/^https?:\/\/([a-z0-9.-]*\.)?(google\.[a-z.]+\/maps|goo\.gl\/maps|maps\.app\.goo\.gl)/i.test(href)) {
+      return gui('click_directions', { cta_position: viTriNut, map_target: 'google_maps' });
+    }
+    if (/(^|\/)#booking$/.test(href)) {
+      // Bấm nút "Đặt bàn" mới chỉ là ý định, KHÔNG phải khách hàng tiềm năng.
+      // Để đo tỉ lệ hoàn tất form, đừng đánh dấu event này là Key Event.
+      return gui('click_booking_cta', { cta_position: viTriNut });
+    }
+  }, true);
+
+  return { gui: gui, loaiTrang: LOAI_TRANG, giaiDoan: GIAI_DOAN, viTri: viTri };
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
   // --- Mobile Menu Toggle ---
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -576,6 +708,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dmNCVk1VVTU1RWlsTHEtV2VLZ3d1b0RfcF8yQTIzWC1CY3R5eklRdzI4NEhuT3ZLRHZ0b3hIcjc5dzBtc0psenRQdy9leGVj';
       const scriptURL = atob(_0x);
 
+      let daGuiDuoc = false;
       try {
         const formData = new URLSearchParams({
           name, phone, date, time, guests, occasion, note,
@@ -586,8 +719,31 @@ document.addEventListener('DOMContentLoaded', () => {
           brand: 'xomleo'
         });
         await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
+        daGuiDuoc = true;
       } catch (err) {
         console.error("Lỗi gửi đặt bàn:", err);
+      }
+
+      // Chỉ tính là khách hàng tiềm năng khi request thật sự đi được: honeypot,
+      // rate limit và lỗi nhập liệu đều đã `return` phía trên nên không lọt vào đây.
+      // ⚠ `mode:'no-cors'` khiến trình duyệt không cho đọc mã trạng thái, nên nếu
+      // Apps Script trả 500 thì fetch vẫn resolve và event vẫn bắn. Muốn chắc chắn
+      // thì phải sửa Apps Script trả CORS rồi đọc `res.ok` ở đây.
+      // KHÔNG gửi tên/số điện thoại/ghi chú của khách vào GA4.
+      if (daGuiDuoc) {
+        const DIP = {
+          'Không có': 'none', 'None': 'none',
+          'Sinh nhật': 'birthday', 'Birthday': 'birthday',
+          'Kỉ niệm': 'anniversary', 'Anniversary': 'anniversary',
+          'Cầu Hôn': 'proposal', 'Proposal': 'proposal',
+        };
+        XL_DO.gui('generate_lead', {
+          form_id: 'zaloBookingForm',
+          lead_type: 'booking_form',
+          cta_position: 'booking_form',
+          guests: Number(guests) || undefined,
+          occasion: DIP[occasion] || 'other',
+        });
       }
 
       // Format ngày (từ YYYY-MM-DD sang DD/MM)
