@@ -105,20 +105,35 @@
     "longitude": 108.4944158
   },
   "hasMap": "https://www.google.com/maps?cid=11166661116585636255",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ],
-    "opens": "15:00",
-    "closes": "23:00"
-  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "15:00",
+      "closes": "23:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "name": "Closed for Tết (Lunar New Year eve period through the first day)",
+      "dayOfWeek": [
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "00:00",
+      "closes": "00:00",
+      "validFrom": "2027-02-04",
+      "validThrough": "2027-02-06"
+    }
+  ],
   "servesCuisine": [
     "Vietnamese BBQ",
     "Charcoal Grilled Meat",
@@ -199,7 +214,7 @@
       "name": "What time does Xom Leo BBQ open?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Xom Leo is open daily from 3:00 PM to 11:00 PM, including weekends and holidays."
+        "text": "Xom Leo is open daily from 3:00 PM to 11:00 PM, including weekends and public holidays. During Tết (Lunar New Year) the restaurant reopens on the second day of Tết."
       }
     },
     {
@@ -955,7 +970,7 @@
               <span>What time does Xom Leo BBQ open?</span>
               <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
             </summary>
-            <p class="mt-3 text-sm text-foreground/70 leading-relaxed">Xom Leo is open daily from 3:00 PM to 11:00 PM, including weekends and holidays.</p>
+            <p class="mt-3 text-sm text-foreground/70 leading-relaxed">Xom Leo is open daily from 3:00 PM to 11:00 PM, including weekends and public holidays. During Tết (Lunar New Year) the restaurant reopens on the second day of Tết.</p>
           </details>
           <details class="group bg-surface border border-card-border rounded-md p-5 cursor-pointer hover:border-primary/30 transition-all">
             <summary class="font-medium text-sm md:text-base text-foreground flex justify-between items-center list-none">

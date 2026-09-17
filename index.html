@@ -114,20 +114,35 @@
     "longitude": 108.4944158
   },
   "hasMap": "https://www.google.com/maps?cid=11166661116585636255",
-  "openingHoursSpecification": {
-    "@type": "OpeningHoursSpecification",
-    "dayOfWeek": [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ],
-    "opens": "15:00",
-    "closes": "23:00"
-  },
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "15:00",
+      "closes": "23:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "name": "Nghỉ Tết Nguyên đán (28 tháng Chạp đến mùng 1)",
+      "dayOfWeek": [
+        "Thursday",
+        "Friday",
+        "Saturday"
+      ],
+      "opens": "00:00",
+      "closes": "00:00",
+      "validFrom": "2027-02-04",
+      "validThrough": "2027-02-06"
+    }
+  ],
   "servesCuisine": [
     "Vietnamese BBQ",
     "Quán nướng",
@@ -208,7 +223,7 @@
       "name": "Tiệm Nướng & Chill Xóm Lèo mở cửa lúc mấy giờ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tiệm Nướng & Chill Xóm Lèo mở cửa từ 15:00 đến 23:00 hàng ngày, kể cả cuối tuần và ngày lễ."
+        "text": "Tiệm Nướng & Chill Xóm Lèo mở cửa từ 15:00 đến 23:00 hàng ngày, kể cả cuối tuần và các ngày lễ. Riêng dịp Tết Nguyên đán, quán mở lại từ mùng 2."
       }
     },
     {
@@ -1013,7 +1028,7 @@
             <span>Tiệm Nướng &amp; Chill Xóm Lèo mở cửa lúc mấy giờ?</span>
             <span class="text-primary text-xl group-open:rotate-45 transition-transform">+</span>
           </summary>
-          <p class="mt-3 text-sm text-foreground/70 leading-relaxed">Tiệm Nướng &amp; Chill Xóm Lèo mở cửa từ <strong>15:00 đến 23:00</strong> hàng ngày, kể cả cuối tuần và ngày lễ.</p>
+          <p class="mt-3 text-sm text-foreground/70 leading-relaxed">Tiệm Nướng &amp; Chill Xóm Lèo mở cửa từ <strong>15:00 đến 23:00</strong> hàng ngày, kể cả cuối tuần và các ngày lễ. Riêng dịp Tết Nguyên đán, quán mở lại từ <strong>mùng 2</strong>.</p>
         </details>
         <details class="group bg-surface border border-white/5 rounded-md p-5 cursor-pointer hover:border-primary/30 transition-all">
           <summary class="font-medium text-sm md:text-base text-foreground flex justify-between items-center list-none">

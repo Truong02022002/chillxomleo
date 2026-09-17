@@ -37,6 +37,14 @@ if (tenSai.length) {
 const eolCua = (s) => (s.includes('\r\n') ? '\r\n' : '\n');
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const escAttr = (s) => esc(s);
+// q.dap la HTML nen viet "&amp;", nhung JSON-LD phai chua chu that. Bo tag khong du,
+// phai go luon thuc the, neu khong tro ly AI se doc ra "Tiem Nuong &amp; Chill".
+// Trang chu dang de "Tiem Nuong & Chill Xom Leo" trong JSON-LD — day la chuan can khop.
+// Go &amp; SAU CUNG de khong giai ma hai lan.
+const boThucThe = (s) => String(s)
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+  .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+  .replace(/&amp;/g, '&');
 
 const ngayVI = (iso) => { const [y, m, dd] = iso.split('-'); return `${+dd}/${+m}/${y}`; };
 const ngayEN = (iso) => { const [y, m, dd] = iso.split('-'); return `${+m}/${+dd}/${y}`; };
@@ -113,7 +121,7 @@ function dungArticle(t, lang) {
     mainEntity: t.faq.map((q) => ({
       '@type': 'Question',
       name: q.hoi,
-      acceptedAnswer: { '@type': 'Answer', text: q.dap.replace(/<[^>]+>/g, '') },
+      acceptedAnswer: { '@type': 'Answer', text: boThucThe(q.dap.replace(/<[^>]+>/g, '')) },
     })),
     inLanguage: lang,
     isPartOf: { '@id': 'https://xomleo.vn/#website' },
