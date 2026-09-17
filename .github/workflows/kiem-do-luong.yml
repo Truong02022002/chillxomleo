@@ -1,0 +1,55 @@
+name: Kiem do luong GA4
+
+# Chay tools/kiem-do-luong.mjs (18 phep thu, Chrome headless) sau moi push co doi
+# js/ hoac bat ky trang .html nao. Workflow chi DOC — khong sua, khong push.
+#
+# Ly do ton tai: su kien GA4 hong AM THAM. Doi id `#navbar`, doi class khoi CTA hay
+# boc lai khoi hero la `cta_position` sai het ma khong co loi nao hien ra; vai tuan sau
+# moi phat hien bao cao GA4 rong. kiem-schema.yml da chan lop loi do cho structured
+# data, day la ban tuong ung cho do luong (muc 256 cua cam nang: kiem tra truoc moi
+# lan publish).
+#
+# KHONG lam ban du lieu that: phep thu chan moi request toi Google o tang CDP va tra
+# 200 gia cho endpoint Apps Script cua form dat ban — khong co don dat ban nao duoc tao.
+#
+# Hai buoc dau la kiem "tham chieu chet": ban .min con khop file nguon khong, va cac
+# trang con tro dung hash noi dung cua JS khong. Ca hai deu chi doc, exit 1 neu lech.
+#
+# Bai dang theo lich khong di qua day (push cua bot khong kich hoat workflow khac):
+# dang-bai-theo-lich.yml tu chay cache-bust truoc khi commit.
+
+on:
+  push:
+    branches: [main]
+    paths: ['js/**', '**.html', 'tools/kiem-do-luong.mjs', 'tools/build-js.js', 'tools/cache-bust.js']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kiem:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Chrome co san tren runner
+        # In ra de khi Chrome bien khoi anh runner thi nhin log biet ngay, khoi doan.
+        run: google-chrome --version
+
+      - name: Ban minify con khop file nguon
+        run: node tools/build-js.js
+
+      - name: Trang con tro dung hash noi dung cua JS
+        if: always()
+        run: node tools/cache-bust.js
+
+      - name: 18 phep thu su kien GA4
+        if: always()
+        run: node tools/kiem-do-luong.mjs

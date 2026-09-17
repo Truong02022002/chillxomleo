@@ -17,6 +17,9 @@
  * Cach do: hook `dataLayer.push` roi doc lenh gtag, khong can gtag.js chay.
  *
  * Yeu cau: Chrome tren may (khong can cai npm package nao).
+ *
+ * Hop dong du lieu (ten su kien, tham so, gia tri hop le, viec con lai trong GA4 admin):
+ * xem tools/do-luong.md. Sua khoi do luong thi sua ca file do.
  */
 import fs from 'node:fs';
 import http from 'node:http';
@@ -54,9 +57,15 @@ const server = http.createServer((req, res) => {
 });
 await new Promise((r) => server.listen(WEB_PORT, '127.0.0.1', r));
 
+// Tren runner ubuntu-24.04 cua GitHub, AppArmor chan user namespace khong dac quyen
+// nen sandbox cua Chrome khong khoi dong duoc (loi 'Operation not permitted'). Chi tat
+// sandbox khi bien CI co mat; may lap trinh chay binh thuong van giu nguyen sandbox.
+const TREN_CI = !!process.env.CI;
 const chrome = spawn(CHROME, [
   '--headless=new', '--remote-debugging-port=' + CDP_PORT, '--user-data-dir=' + PROFILE,
-  '--no-first-run', '--no-default-browser-check', '--disable-gpu', '--window-size=1280,900', 'about:blank',
+  '--no-first-run', '--no-default-browser-check', '--disable-gpu', '--window-size=1280,900',
+  ...(TREN_CI ? ['--no-sandbox', '--disable-dev-shm-usage'] : []),
+  'about:blank',
 ], { stdio: 'ignore' });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

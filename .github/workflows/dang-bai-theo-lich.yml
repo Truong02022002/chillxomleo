@@ -66,6 +66,15 @@ jobs:
         if: steps.dang.outputs.so_bai
         run: node tools/build-css.js --write
 
+      - name: Dat lai cache-buster cho CSS/JS
+        # Ban nhap mang theo hash JS o thoi diem SOAN bai: bai dat tiec soan 29-08 den gio
+        # van tro toi main.min.js?h4e9e6520 trong khi ca site da sang h5706c183. Len song
+        # nhu vay thi khach vao bai moi nhan lai ban JS cu nam trong cache (sw.js giu 1 nam)
+        # — tuc la bai moi nhat lai thieu dung nhung sua moi nhat. Buoc nay ghi lai hash
+        # noi dung hien hanh, giong buoc build-css o tren.
+        if: steps.dang.outputs.so_bai
+        run: node tools/cache-bust.js --write
+
       - name: Dong bo hash CSP
         # Ban nhap co the mang doan script cu hoac chua co CSP (bai dat tiec 08-09
         # len song voi ban GA cu). Push cua bot o duoi KHONG kich hoat csp-hash.yml,
