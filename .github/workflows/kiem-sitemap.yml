@@ -1,0 +1,52 @@
+name: Kiem sitemap va URL chuan
+
+# Chay tools/kiem-sitemap.mjs sau moi push co doi trang .html hoac sitemap.xml.
+# Workflow chi DOC — khong sua, khong push.
+#
+# Ly do ton tai: sitemap va canonical hong AM THAM. Doi ten thu muc bai, go mot
+# trang, doi canonical khi gop bai trung chu de — sitemap van la file cu, van gui
+# thanh cong, GSC van bao "Success", nhung URL ben trong da 404 hoac tro toi trang
+# noindex. Page indexing phai vai tuan sau moi hien ra va luc do khong con biet
+# commit nao gay ra.
+#
+# Ba lop kiem (chi tiet trong dau file tools/kiem-sitemap.mjs):
+#   1. Moi <loc> la URL canonical dang song — LOI neu 404, noindex, chuyen huong
+#      hoac khong tu-canonical.
+#   2. Trang duoc phep index va tu-canonical ma vang mat trong sitemap — LOI.
+#      36 trang canonical sang trang khac va 10 stub chuyen huong la CO Y, khong tinh.
+#   3. lastmod so voi lan doi noi dung that (do qua lich su git) — chi CANH BAO,
+#      khong lam fail: sua lastmod phai lam o commit SAU commit doi noi dung, chan
+#      cung o day thi moi lan sua bai deu ket CI va chan ca luong dang bai tu dong.
+#      Thay canh bao thi chay `node tools/kiem-sitemap.mjs --sua` roi commit.
+#
+# Lop 3 can lich su git day du nen phai fetch-depth: 0. Thieu thi tool bo qua lop
+# nay kem mot dong bao, hai lop dau van chay.
+#
+# Bai dang theo lich khong di qua day (push cua bot khong kich hoat workflow khac),
+# nen dang-bai-theo-lich.yml tu chay kiem-sitemap TRUOC khi commit.
+
+on:
+  push:
+    branches: [main]
+    paths: ['**.html', 'sitemap.xml', 'robots.txt', 'tools/kiem-sitemap.mjs']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  kiem:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main kem lich su
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Doi soat sitemap voi URL chuan
+        run: node tools/kiem-sitemap.mjs
