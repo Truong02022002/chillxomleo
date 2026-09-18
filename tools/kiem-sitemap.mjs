@@ -21,6 +21,10 @@
 // Lop 3 can lich su git day du. Checkout nong (fetch-depth 1) thi bo qua lop nay
 // kem mot dong bao, khong lam fail.
 //
+// Lech lastmod la LOI khi chay kiem thuong, nhung chi la ghi chu khi chay --sua
+// (vi luc do no da duoc va ngay trong cung lan chay do). Nho vay CI chan cung duoc
+// ma luong dang bai tu dong van khong bi ket: no chay --sua truoc khi commit.
+//
 // Thoat ma 1 neu co LOI. CANH BAO khong lam fail.
 
 import fs from 'node:fs';
@@ -43,6 +47,8 @@ const BO_QUA_THU_MUC = new Set([
 const args = process.argv.slice(2);
 const SUA = args.includes('--sua');
 const fJson = args.includes('--json') ? args[args.indexOf('--json') + 1] : null;
+
+const HOM_NAY = new Date().toISOString().slice(0, 10);
 
 const loi = [];
 const canhBao = [];
@@ -134,10 +140,18 @@ function ngayDoiNoiDung(rel) {
     log = git(['log', '-40', '--format=%H%x09%ad', '--date=short', '--', rel])
       .trim().split('\n').filter(Boolean).map((x) => x.split('\t'));
   } catch { return null; }
-  if (!log.length) return null;
+  if (!log.length) return null; // file chua vao git (bai vua dang) — de nguyen lastmod
   const bamTai = (sha) => { try { return vanTay(git(['show', sha + ':' + rel])); } catch { return null; } };
   const hienTai = bamTai(log[0][0]);
   if (!hienTai) return null;
+
+  // Ban tren dia khac ban da commit => noi dung vua doi, chua commit. Ngay dung la
+  // HOM NAY chu khong phai ngay commit cu. Thieu nhanh nay thi luong dang bai tu dong
+  // se bi --sua HA NGUOC lastmod cua /blog/ va /blog-en/: hai trang do vua duoc chen
+  // the card cua bai moi nhung thay doi con nam trong cay lam viec.
+  const tren_dia = vanTay(fs.readFileSync(path.join(ROOT, rel), 'utf8'));
+  if (tren_dia !== hienTai) return HOM_NAY;
+
   for (let i = 1; i < log.length; i++) {
     if (bamTai(log[i][0]) !== hienTai) return log[i - 1][1];
   }
@@ -166,7 +180,6 @@ for (const rel of files) {
   trang.set(boGach(urlCuaFile(rel)), { rel, ...docTrang(html) });
 }
 
-const HOM_NAY = new Date().toISOString().slice(0, 10);
 const trongSitemap = new Set(mucSitemap.map((m) => boGach(m.loc)));
 
 // ---------- lop 1: moi <loc> la URL chuan dang song ----------
@@ -245,7 +258,9 @@ if (!daySu) {
     const that = ngayDoiNoiDung(rel);
     if (!that || that === m.lastmod) continue;
     lechLastmod.push({ loc: m.loc, ghi: m.lastmod, that });
-    bao(canhBao, that > m.lastmod ? 'lastmod cu hon lan doi noi dung that' : 'lastmod moi hon lan doi noi dung that',
+    // Voi --sua thi lech duoc va ngay ben duoi nen chi la thong tin, khong phai loi.
+    bao(SUA ? canhBao : loi,
+      that > m.lastmod ? 'lastmod cu hon lan doi noi dung that' : 'lastmod moi hon lan doi noi dung that',
       `${m.loc}  sitemap=${m.lastmod}  that=${that}`);
   }
 }
@@ -290,8 +305,10 @@ console.log(`Stub chuyen huong: ${[...trang.values()].filter((t) => t.chuyenHuon
 console.log(`\nLOI: ${loi.length}   CANH BAO: ${canhBao.length}`);
 if (!SUA && lechLastmod.length) {
   console.log(`\n-> ${lechLastmod.length} URL co lastmod khong khop lan doi noi dung that.`);
-  console.log('   Chay:  node tools/kiem-sitemap.mjs --sua   roi commit sitemap.xml.');
-  console.log('   De lech lau ngay thi Google coi lastmod cua CA SITE la khong dang tin va bo qua.');
+  console.log('   SUA BANG MOT LENH:  node tools/kiem-sitemap.mjs --sua');
+  console.log('   roi commit sitemap.xml va push. Lan chay sau se xanh.');
+  console.log('   Vi sao chan cung: de lech lau ngay thi Google coi lastmod cua CA SITE');
+  console.log('   la khong dang tin va bo qua het, ke ca cho trang that su vua doi.');
 }
 
 if (fJson) fs.writeFileSync(fJson, JSON.stringify({ loi, canhBao, lechLastmod }, null, 2));

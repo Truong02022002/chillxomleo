@@ -14,10 +14,14 @@ name: Kiem sitemap va URL chuan
 #      hoac khong tu-canonical.
 #   2. Trang duoc phep index va tu-canonical ma vang mat trong sitemap — LOI.
 #      36 trang canonical sang trang khac va 10 stub chuyen huong la CO Y, khong tinh.
-#   3. lastmod so voi lan doi noi dung that (do qua lich su git) — chi CANH BAO,
-#      khong lam fail: sua lastmod phai lam o commit SAU commit doi noi dung, chan
-#      cung o day thi moi lan sua bai deu ket CI va chan ca luong dang bai tu dong.
-#      Thay canh bao thi chay `node tools/kiem-sitemap.mjs --sua` roi commit.
+#   3. lastmod so voi lan doi noi dung that (do qua lich su git) — LOI.
+#      Sua lastmod phai lam o commit SAU commit doi noi dung, nen luong binh thuong
+#      la: sua bai -> commit -> push -> lan chay nay do -> `node tools/kiem-sitemap.mjs
+#      --sua` -> commit sitemap.xml -> push -> xanh. Hai commit cho moi lan sua noi
+#      dung la co y: de lastmod lech lau ngay thi Google coi lastmod cua CA SITE la
+#      khong dang tin va bo qua het.
+#      Luong dang bai tu dong KHONG bi ket vi no chay --sua truoc khi commit, va khi
+#      co --sua thi lech lastmod chi la ghi chu chu khong phai loi.
 #
 # Lop 3 can lich su git day du nen phai fetch-depth: 0. Thieu thi tool bo qua lop
 # nay kem mot dong bao, hai lop dau van chay.

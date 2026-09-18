@@ -89,14 +89,18 @@ jobs:
         if: steps.dang.outputs.so_bai
         run: node tools/kiem-schema.mjs --chi-loi
 
-      - name: Kiem sitemap va canonical
+      - name: Kiem sitemap va canonical, va nan lai lastmod
         # Bai moi duoc noi vao sitemap bang chuoi thay the trong dang-bai-theo-lich.mjs.
         # Neo hong hoac slug lech mot ky tu thi khoi <url> khong duoc chen, hoac chen
         # URL 404 — ca hai deu khong lam script do. Buoc nay bat: thieu trong sitemap
         # va <loc> tro toi trang khong ton tai deu la LOI nen bai khong len song.
-        # Bai moi chua co trong lich su git nen lop kiem lastmod tu bo qua chung.
+        #
+        # Chay kem --sua: bai vua dang chua co trong lich su git nen lastmod cua chung
+        # duoc giu nguyen ngay dang, con URL cu nao bi lech thi nan lai luon va di theo
+        # cung commit. Nho vay kiem-sitemap.yml chan cung duoc lech lastmod ma push cua
+        # bot khong bao gio do vi chinh no.
         if: steps.dang.outputs.so_bai
-        run: node tools/kiem-sitemap.mjs
+        run: node tools/kiem-sitemap.mjs --sua
 
       - name: Go ban nhap khoi cay lam viec
         # Ban nhap chi duoc ton tai tren nhanh noi-dung. Buoc nay bao dam
