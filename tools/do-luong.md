@@ -249,20 +249,46 @@ chữ thường, không dấu, nối bằng `_`. **Không bao giờ gắn UTM ch
 xomleo.vn sang xomleo.vn): GA4 sẽ ghi đè nguồn thật của phiên (kiểm 19-09-2026: 0 link có
 `utm_` trên 135 trang). Không đặt tên, số điện thoại hay email vào URL.
 
-| Kênh | `utm_source` | `utm_medium` | `utm_campaign` |
-|---|---|---|---|
-| Nút "Trang web" trên Google Business Profile | `google` | `organic` | `gbp` |
-| Bài đăng / link bio Fanpage | `facebook` | `social` | tên đợt, ví dụ `tet_2027` |
-| Quảng cáo Facebook / Instagram | `facebook` / `instagram` | `paid_social` | tên chiến dịch |
-| Zalo OA, tin nhắn Zalo | `zalo` | `social` | tên đợt |
-| Link bio TikTok / Instagram | `tiktok` / `instagram` | `social` | `bio` |
-| Mã QR in ở quán | `qr` | `offline` | chỗ đặt, ví dụ `ban_an`, `menu_giay` |
+**Link dùng sẵn** (tạo 19-09-2026). Mỗi bộ đã chạy thử qua cả ba tầng: nhãn nguồn của site
+(ghi vào sheet), `canonicalNguon()` của hệ thống quản lý quán (gom thành 19 nhóm dashboard,
+đối chiếu bản code ngày 17-05-2026), và nhóm kênh mặc định của GA4.
 
-GBP hiện là kênh lớn nhất (525 lượt bấm "Trang web" trong 6 tháng 4–9/2026), nhưng
-không gắn UTM thì GA4 xếp chung vào Google Search. Với `medium=organic`, GA4 vẫn xếp nó
-vào nhóm Organic Search, chỉ tách được thêm theo `campaign=gbp`. Nguồn `qr`/`offline` thì
-GA4 xếp vào nhóm *Unassigned*, nên lọc theo `source`. Mã QR đã in thì giữ nguyên, chỉ áp
-dụng cho lần in sau.
+| Dán vào đâu | Link | Dashboard | GA4 |
+|---|---|---|---|
+| GBP → Trang web | `https://xomleo.vn/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp` | Google Maps | Organic Search |
+| GBP → Thực đơn | `https://xomleo.vn/menu/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp` | Google Maps | Organic Search |
+| GBP → Đặt chỗ | `https://xomleo.vn/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp&utm_content=dat_ban#booking` | Google Maps | Organic Search |
+| GBP → nút trong bài đăng | `https://xomleo.vn/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp&utm_content=bai_dang` | Google Maps | Organic Search |
+| Fanpage → mục Giới thiệu | `https://xomleo.vn/?utm_source=facebook&utm_medium=social&utm_campaign=fanpage&utm_content=gioi_thieu` | Facebook | Organic Social |
+| Fanpage → nút hành động "Đặt ngay" | `https://xomleo.vn/?utm_source=facebook&utm_medium=social&utm_campaign=fanpage&utm_content=nut_dat_ban#booking` | Facebook | Organic Social |
+| Fanpage → bài đăng (đổi trang + tên đợt) | `https://xomleo.vn/menu/?utm_source=facebook&utm_medium=social&utm_campaign=tet_2027` | Facebook | Organic Social |
+| Quảng cáo Meta → ô "Tham số URL" | `utm_source=facebook&utm_medium=paid_social&utm_campaign={{campaign.name}}&utm_content={{ad.name}}` | Facebook Ads | Paid Social |
+| TikTok → link bio | `https://xomleo.vn/?utm_source=tiktok&utm_medium=social&utm_campaign=bio` | Tiktok | Organic Social |
+| Quảng cáo TikTok → tham số URL | `utm_source=tiktok&utm_medium=cpc&utm_campaign=<ten_chien_dich>` | Tiktok Ads | Paid Social |
+| Google Ads → Hậu tố URL cuối cùng (cấp chiến dịch) | `utm_source=google&utm_medium=cpc&utm_campaign=<ten_chien_dich>` | Google Ads | Paid Search |
+| Zalo → tin nhắn gửi khách | `https://xomleo.vn/?utm_source=zalo&utm_medium=social&utm_campaign=tin_nhan` | Zalo | Organic Social |
+| QR dán ở bàn | `https://xomleo.vn/menu/?utm_source=qr&utm_medium=offline&utm_campaign=ban_an` | "qr / offline" | Unassigned |
+| QR danh thiếp / tờ rơi | `https://xomleo.vn/?utm_source=qr&utm_medium=offline&utm_campaign=danh_thiep` | "qr / offline" | Unassigned |
+
+Ghi chú:
+
+- **GBP dùng `utm_source=google_maps`, không dùng `google`.** Dashboard chỉ xếp vào nhóm
+  "Google Maps" khi nguồn chứa `google_maps` hoặc `gmb`; nguồn `google` bị gộp chung với
+  Google tìm kiếm. GA4 vẫn xếp vào Organic Search nhờ `medium=organic`. GBP là kênh lớn
+  nhất (525 lượt bấm "Trang web" trong 6 tháng 4–9/2026) mà trước đây không tách được.
+- **Tên chiến dịch viết thường, không dấu, nối bằng `_`** — kể cả tên chiến dịch đặt trong
+  Meta/TikTok/Google Ads, vì `{{campaign.name}}` chép nguyên tên đó sang GA4.
+- **Quảng cáo phải có `utm_medium` trả phí** (`cpc` hoặc `paid_social`). Không có UTM thì
+  site chỉ thấy mã click (`gclid`, `ttclid`) và gửi `medium` rỗng, dashboard (bản 17-05)
+  xếp lead quảng cáo thành nguồn tự nhiên. Google Ads vẫn giữ tự động gắn thẻ (`gclid`) song
+  song với hậu tố này.
+- **Quảng cáo trên Google Maps** dẫn khách tới đúng link "Trang web" của GBP, nên mang UTM
+  `google_maps / organic`; site ưu tiên UTM hơn `gclid` nên lượt bấm quảng cáo Maps sẽ tính
+  vào Google Maps tự nhiên. Muốn tách thì xem chi phí/lượt bấm trong Google Ads.
+- `qr`/`offline` không thuộc nhóm nào của GA4 (*Unassigned*) — lọc theo nguồn `qr`. Mã QR
+  đã in thì giữ nguyên, chỉ áp dụng cho lần in sau.
+- Link từ tramdungchill.vn sang đây **không cần UTM**: GA4 đã ghi nguồn giới thiệu
+  tramdungchill.vn theo referrer.
 
 **Đối soát hằng tháng** (5 phút, mục 279-281):
 
@@ -283,3 +309,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 16-09-2026 | Gắn 5 sự kiện đầu tiên (trước đó site chỉ có `page_view`). |
 | 17-09-2026 | Viết hợp đồng dữ liệu này; CI `kiem-do-luong.yml` chạy sau mỗi push. |
 | 19-09-2026 | `generate_lead` chỉ bắn khi webhook xác nhận; gửi hỏng thì báo lỗi thật cho khách; `fbclid` thôi ghi thành `Facebook Ads`; Key Event rút còn `generate_lead`; thêm giám sát hằng tuần trên site thật; ghi trạng thái các công cụ theo dõi khác và quy ước UTM. |
+| 19-09-2026 | Bảng link UTM dùng sẵn cho từng kênh (mục 11); GBP đổi sang `utm_source=google_maps` để khớp nhóm "Google Maps" của dashboard. |
