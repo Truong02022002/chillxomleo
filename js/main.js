@@ -40,8 +40,11 @@ function captureTrafficSource() {
   }
 
   // 2. Click-ID parameters (link qua tracker/redirect thường mất referrer nhưng giữ click-id)
+  // KHÔNG có fbclid ở đây: Facebook gắn fbclid vào MỌI link đi ra (bài đăng thường
+  // của Fanpage, Messenger, Instagram), không riêng quảng cáo. Trước 19-09-2026 nó
+  // bị ghi thành 'Facebook Ads' nên cột nguồn trong sheet đặt bàn thổi phồng quảng
+  // cáo. Muốn tách quảng cáo Facebook thì gắn UTM cho link quảng cáo (tools/do-luong.md).
   if (urlParams.get('ttclid'))  return 'TikTok Ads';
-  if (urlParams.get('fbclid'))  return 'Facebook Ads';
   if (urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid')) return 'Google Ads';
   if (urlParams.get('msclkid')) return 'Bing Ads';
   if (urlParams.get('zarsrc') || urlParams.get('zalo_source')) return 'Zalo';
@@ -62,7 +65,7 @@ function captureTrafficSource() {
 
   // 4. Referrer-based detection
   const referrer = document.referrer;
-  if (!referrer) return 'Trực tiếp (Gõ URL / Bookmark)';
+  if (!referrer) return urlParams.get('fbclid') ? 'Facebook' : 'Trực tiếp (Gõ URL / Bookmark)';
 
   try {
     const refUrl = new URL(referrer);
@@ -204,6 +207,7 @@ const XL_DO = (function () {
   function viTri(el) {
     const bang = [
       ['[role="status"]', 'toast'],
+      ['[role="alert"]', 'toast'],  // thông báo gửi đặt bàn thất bại
       ['.floating-contact', 'floating'],
       ['#mobile-menu', 'mobile_menu'],
       // Thanh điều hướng trên cùng là <nav id="navbar">, KHÔNG phải <header>:
@@ -637,6 +641,35 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem('xomleo_last_booking', Date.now().toString());
   }
 
+  // Gửi đặt bàn thất bại: nói thật là quán CHƯA nhận được, đưa hai đường giữ bàn
+  // ngay. Không tự ẩn như thông báo thành công — khách phải kịp đọc số điện thoại.
+  function hienLoiDatBan(isEnglish) {
+    const cu = document.getElementById('booking-error-toast');
+    if (cu) cu.remove();
+    const toast = document.createElement('div');
+    toast.id = 'booking-error-toast';
+    toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML = `
+      <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <h4 class="text-lg font-serif text-primary mb-2">${isEnglish ? 'Your booking was not sent' : 'Chưa gửi được thông tin đặt bàn'}</h4>
+      <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${isEnglish
+        ? 'The connection failed, so the restaurant has not received your request. Your details are still in the form — try again, or call or Zalo us to hold a table right away.'
+        : 'Đường truyền trục trặc nên quán chưa nhận được yêu cầu của bạn. Thông tin bạn nhập vẫn còn nguyên — bạn thử gửi lại, hoặc gọi/nhắn Zalo để quán giữ bàn ngay nhé.'}</p>
+      <div class="flex flex-wrap justify-center gap-3">
+        <a href="tel:0764527336" class="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? 'Call +84 76 452 7336' : 'Gọi 076 452 7336'}</a>
+        <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0068FF] hover:bg-[#0055DD] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? 'Chat via Zalo' : 'Nhắn qua Zalo'}</a>
+      </div>
+    `;
+    document.body.appendChild(toast);
+    const dong = () => { document.removeEventListener('keydown', bamEsc); toast.remove(); };
+    const bamEsc = (e) => { if (e.key === 'Escape') dong(); };
+    toast.querySelector('[data-toast-close]').addEventListener('click', dong);
+    document.addEventListener('keydown', bamEsc);
+  }
+
   // --- Zalo Booking Form Submit ---
   const zaloForm = document.getElementById('zaloBookingForm');
   if (zaloForm) {
@@ -708,29 +741,56 @@ document.addEventListener('DOMContentLoaded', () => {
       const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dmNCVk1VVTU1RWlsTHEtV2VLZ3d1b0RfcF8yQTIzWC1CY3R5eklRdzI4NEhuT3ZLRHZ0b3hIcjc5dzBtc0psenRQdy9leGVj';
       const scriptURL = atob(_0x);
 
-      let daGuiDuoc = false;
+      const formData = new URLSearchParams({
+        name, phone, date, time, guests, occasion, note,
+        source, medium, campaign, term, content,
+        landing_page:     sessionStorage.getItem('xomleo_landing_page')     || window.location.pathname,
+        landing_referrer: sessionStorage.getItem('xomleo_landing_referrer') || document.referrer || '',
+        submit_page:      window.location.pathname,
+        brand: 'xomleo'
+      });
+
+      // Kết quả gửi (mục 279 — chỉ tính lead khi hệ thống XÁC NHẬN):
+      //  'xac_nhan'  Apps Script trả JSON không báo lỗi → generate_lead + báo đã gửi.
+      //  'khong_ro'  đơn đi được nhưng không đọc được trả lời → báo đã gửi, KHÔNG tính lead.
+      //  'loi'       mất mạng, hoặc Apps Script trả lỗi → báo lỗi, giữ nguyên dữ liệu.
+      // Trước 19-09-2026 fetch dùng `mode:'no-cors'`, không đọc được gì: Apps Script
+      // trả 500 hay bị gỡ triển khai thì khách VẪN thấy "Đã gửi" và event VẪN bắn;
+      // mất mạng thì event không bắn nhưng khách cũng VẪN thấy "Đã gửi" → mất đơn
+      // mà khách tưởng đã đặt được bàn.
+      // Đọc được vì webhook trả JSON kèm `Access-Control-Allow-Origin: *` (doGet trả
+      // {"status":"ok",...}, kiểm 19-09-2026). Body URLSearchParams là "simple
+      // request" nên không có preflight OPTIONS — thứ Apps Script không xử lý được.
+      let ketQua = 'loi';
       try {
-        const formData = new URLSearchParams({
-          name, phone, date, time, guests, occasion, note,
-          source, medium, campaign, term, content,
-          landing_page:     sessionStorage.getItem('xomleo_landing_page')     || window.location.pathname,
-          landing_referrer: sessionStorage.getItem('xomleo_landing_referrer') || document.referrer || '',
-          submit_page:      window.location.pathname,
-          brand: 'xomleo'
-        });
-        await fetch(scriptURL, { method: 'POST', body: formData, mode: 'no-cors' });
-        daGuiDuoc = true;
+        const res = await fetch(scriptURL, { method: 'POST', body: formData });
+        const text = await res.text();
+        let data = null;
+        try { data = JSON.parse(text); } catch (e) { /* không phải JSON */ }
+        if (!res.ok) ketQua = 'loi';
+        else if (!data || typeof data !== 'object') ketQua = 'khong_ro';
+        else ketQua = /err|fail|invalid/i.test(String(data.status || data.result || '')) ? 'loi' : 'xac_nhan';
       } catch (err) {
-        console.error("Lỗi gửi đặt bàn:", err);
+        // TypeError có hai nghĩa: mất mạng, HOẶC đơn đã tới Apps Script nhưng trình
+        // duyệt không cho đọc trả lời. Hỏi lại chính webhook bằng GET: trả lời được
+        // thì mạng vẫn thông, đơn nhiều khả năng đã tới — đừng báo lỗi kẻo khách gửi
+        // lại thành đơn trùng.
+        try { if ((await fetch(scriptURL)).ok) ketQua = 'khong_ro'; } catch (e) { /* mất mạng thật */ }
+        if (ketQua === 'loi') console.error('Lỗi gửi đặt bàn:', err);
       }
 
-      // Chỉ tính là khách hàng tiềm năng khi request thật sự đi được: honeypot,
-      // rate limit và lỗi nhập liệu đều đã `return` phía trên nên không lọt vào đây.
-      // ⚠ `mode:'no-cors'` khiến trình duyệt không cho đọc mã trạng thái, nên nếu
-      // Apps Script trả 500 thì fetch vẫn resolve và event vẫn bắn. Muốn chắc chắn
-      // thì phải sửa Apps Script trả CORS rồi đọc `res.ok` ở đây.
-      // KHÔNG gửi tên/số điện thoại/ghi chú của khách vào GA4.
-      if (daGuiDuoc) {
+      if (ketQua === 'loi') {
+        hienLoiDatBan(isEnglish);
+        // Mở khoá để khách gửi lại được ngay: đơn này chưa tới quán.
+        try { sessionStorage.removeItem('xomleo_last_booking'); } catch (e) { /* bỏ qua */ }
+        submitBtn.innerText = originalText;
+        submitBtn.disabled = false;
+        return;
+      }
+
+      // Honeypot, rate limit và lỗi nhập liệu đều đã `return` phía trên nên không
+      // lọt vào đây. KHÔNG gửi tên/số điện thoại/ghi chú của khách vào GA4.
+      if (ketQua === 'xac_nhan') {
         const DIP = {
           'Không có': 'none', 'None': 'none',
           'Sinh nhật': 'birthday', 'Birthday': 'birthday',

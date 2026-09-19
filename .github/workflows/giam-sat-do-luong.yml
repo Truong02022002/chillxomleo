@@ -1,0 +1,37 @@
+name: Giam sat do luong tren site that
+
+# Chay tools/giam-sat-live.mjs moi tuan (muc 283 cua cam nang). Workflow chi DOC.
+#
+# Ly do ton tai: kiem-do-luong.yml chi chay khi co push va chi kiem file trong repo,
+# con webhook dat ban thi gia lap. Nhung hong ngoai repo — webhook Apps Script bi go
+# trien khai, Pages/Cloudflare giu ban JS cu, ai do chen the theo doi ngoai hop dong —
+# khong tao ra commit nao, nen khong co gi bao cho toi khi bao cao GA4 rong.
+#
+# Chay that bai thi GitHub gui mail cho nguoi sua lich (cron) gan nhat cua workflow.
+# Khong gui don dat ban nao: webhook chi duoc hoi bang GET (trang kiem suc khoe).
+#
+# 04:00 UTC thu Hai = 11:00 gio VN, ba tieng sau lan dang bai tu dong (01:00 UTC)
+# de Pages deploy xong, khoi bao dong gia vi HTML song chua kip doi.
+
+on:
+  schedule:
+    - cron: '0 4 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  giam-sat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Webhook dat ban, the GA, ban JS song, tracker ngoai hop dong
+        run: node tools/giam-sat-live.mjs

@@ -8,12 +8,13 @@
  * chet sau refactor" da tai dien nhieu lan o repo nay.
  *
  * Cach dung:
- *   node tools/kiem-do-luong.mjs           # chay 17 phep thu, exit 1 neu co cai hong
+ *   node tools/kiem-do-luong.mjs           # chay het cac phep thu, exit 1 neu co cai hong
  *   node tools/kiem-do-luong.mjs --giu     # giu Chrome lai de tu xem
  *
  * KHONG lam ban du lieu that: moi request toi Google (gtag/js, /g/collect,
  * google-analytics.com...) deu bi chan o tang CDP, con endpoint Apps Script cua
- * form dat ban duoc tra 200 gia — khong co don dat ban nao duoc tao that.
+ * form dat ban duoc tra loi gia theo 4 kich ban (xem bien `appsScript`) — khong co
+ * don dat ban nao duoc tao that.
  * Cach do: hook `dataLayer.push` roi doc lenh gtag, khong can gtag.js chay.
  *
  * Yeu cau: Chrome tren may (khong can cai npm package nao).
@@ -98,8 +99,17 @@ const goi = (method, params = {}) => new Promise((res, rej) => {
 });
 
 const CHAN = /google-analytics\.com|analytics\.google\.com|googletagmanager\.com|google\.com\/(g|ccm|pagead)\/|doubleclick\.net|googlesyndication\.com|cloudflareinsights\.com|\/cdn-cgi\/rum/;
-let appsScriptOk = true; // true = gia lap gui thanh cong
+// Gia lap webhook Apps Script cua form dat ban. Webhook that tra JSON kem
+// Access-Control-Allow-Origin: * (kiem 19-09-2026), site doc tra loi do de quyet dinh
+// co tinh lead hay khong:
+//   'ok'         POST tra {"status":"success"}                -> xac nhan
+//   'server_loi' POST tra {"status":"error"}                  -> bao loi cho khach
+//   'khong_doc'  POST tra 200 nhung THIEU CORS, GET van tra loi -> don co le da toi
+//   'loi_mang'   moi request deu that bai                     -> bao loi cho khach
+let appsScript = 'ok';
 let soChan = 0, soAppsScript = 0;
+const b64 = (s) => Buffer.from(s).toString('base64');
+const CORS = [{ name: 'Access-Control-Allow-Origin', value: '*' }, { name: 'Content-Type', value: 'application/json; charset=utf-8' }];
 
 await goi('Page.enable');
 await goi('Runtime.enable');
@@ -115,8 +125,11 @@ ws.addEventListener('message', async (e) => {
     if (CHAN.test(request.url)) { soChan++; await goi('Fetch.failRequest', { requestId, errorReason: 'BlockedByClient' }); }
     else if (request.url.includes('script.google.com')) {
       soAppsScript++;
-      if (appsScriptOk) await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, body: '' });
-      else await goi('Fetch.failRequest', { requestId, errorReason: 'Failed' });
+      const post = request.method === 'POST';
+      if (appsScript === 'loi_mang') await goi('Fetch.failRequest', { requestId, errorReason: 'Failed' });
+      else if (!post) await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: CORS, body: b64('{"status":"ok"}') });
+      else if (appsScript === 'khong_doc') await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'text/html' }], body: b64('<html>ok</html>') });
+      else await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: CORS, body: b64(appsScript === 'server_loi' ? '{"status":"error","message":"sheet"}' : '{"status":"success"}') });
     } else await goi('Fetch.continueRequest', { requestId });
   } catch (err) { /* request da bi huy */ }
 });
@@ -203,7 +216,17 @@ await thuBam('Hero: Dat ban -> cta_position=hero', '.hero-cinematic a[href$="#bo
   (t) => (t.cta_position === 'hero' ? null : 'cta_position=' + t.cta_position));
 
 console.log('\n=== FORM DAT BAN ===');
-appsScriptOk = true;
+// Trang thai giao dien sau khi gui: thong bao nao dang hien, du lieu khach nhap con
+// khong, nut gui mo lai chua, khoa chong gui lap con khong.
+const giaoDien = () => ev(`JSON.stringify({
+  daGui: !!document.querySelector('[role="status"]'),
+  baoLoi: !!document.querySelector('[role="alert"]'),
+  tenConGiu: (document.getElementById('book_name') || {}).value === 'Nguyen Van Kiem Thu',
+  nutMo: !document.querySelector('#zaloBookingForm button[type="submit"]').disabled,
+  khoaGuiLap: !!sessionStorage.getItem('xomleo_last_booking'),
+})`).then(JSON.parse);
+
+appsScript = 'ok';
 await xoaGhi();
 const g1 = await thuGuiForm(GIA_HOP_LE);
 await sleep(2500);
@@ -212,20 +235,52 @@ await sleep(2500);
   const lead = e.filter((x) => x.ten === 'generate_lead');
   const t = lead[0]?.tham || {};
   const coPII = JSON.stringify(t).includes('0912345678') || JSON.stringify(t).toLowerCase().includes('kiem thu');
-  bao('Gui thanh cong -> DUNG 1 generate_lead', g1 === 'ok' && e.length === 1 && lead.length === 1, g1 !== 'ok' ? g1 : 'event: ' + JSON.stringify(e.map((x) => x.ten)));
+  const gd = await giaoDien();
+  bao('Webhook xac nhan -> DUNG 1 generate_lead + bao da gui', g1 === 'ok' && e.length === 1 && lead.length === 1 && gd.daGui && !gd.baoLoi,
+    g1 !== 'ok' ? g1 : 'event: ' + JSON.stringify(e.map((x) => x.ten)) + ' ' + JSON.stringify(gd));
   bao('generate_lead du ngu canh va KHONG co PII',
     !coPII && t.form_id === 'zaloBookingForm' && t.lead_type === 'booking_form' && t.guests === 4 && t.occasion === 'birthday',
     JSON.stringify(t));
 }
 
-appsScriptOk = false;
+for (const [che, nhan] of [['loi_mang', 'Loi mang'], ['server_loi', 'Webhook tra {"status":"error"}']]) {
+  appsScript = che;
+  await moTrang('/');
+  await xoaGhi();
+  await thuGuiForm(GIA_HOP_LE);
+  await sleep(2500);
+  const coLead = (await docEvent()).some((x) => x.ten === 'generate_lead');
+  const gd = await giaoDien();
+  // Truoc 19-09-2026 truong hop nay van hien "Da gui thong tin dat ban": khach tuong
+  // da dat duoc ban ma quan khong nhan duoc gi.
+  bao(nhan + ' -> khong generate_lead, BAO LOI, giu du lieu, cho gui lai',
+    !coLead && gd.baoLoi && !gd.daGui && gd.tenConGiu && gd.nutMo && !gd.khoaGuiLap, JSON.stringify(gd));
+}
+await thuBam('Nut goi trong thong bao loi -> click_call/toast', '[role="alert"] a[href^="tel:"]', 'click_call',
+  (t) => (t.cta_position === 'toast' ? null : 'cta_position=' + t.cta_position));
+
+appsScript = 'khong_doc';
 await moTrang('/');
 await xoaGhi();
 await thuGuiForm(GIA_HOP_LE);
 await sleep(2500);
-bao('Gui LOI mang -> khong ban generate_lead', (await docEvent()).filter((x) => x.ten === 'generate_lead').length === 0);
+{
+  const coLead = (await docEvent()).some((x) => x.ten === 'generate_lead');
+  const gd = await giaoDien();
+  // Don co le da toi (GET van thong) nen khong bao loi — bao loi thi khach gui lai
+  // thanh don trung. Nhung chua co xac nhan nen KHONG tinh lead.
+  bao('Khong doc duoc tra loi, mang van thong -> bao da gui, KHONG tinh lead', !coLead && gd.daGui && !gd.baoLoi, JSON.stringify(gd));
+}
 
-appsScriptOk = true;
+console.log('\n=== NGUON TRUY CAP GHI VAO DON DAT BAN ===');
+for (const [q, mongDoi] of [['?fbclid=IwAR0kiemthu', 'Facebook'], ['?gclid=kiemthu', 'Google Ads'], ['?utm_source=facebook&utm_medium=paid_social', 'facebook / paid_social']]) {
+  await moTrang('/' + q);
+  const nguon = await ev("sessionStorage.getItem('xomleo_traffic_source')");
+  // fbclid Facebook gan vao MOI link di ra, ke ca bai dang thuong — khong duoc suy ra "Ads".
+  bao('Vao bang ' + q + ' -> nguon "' + mongDoi + '"', nguon === mongDoi, 'nhan: ' + nguon);
+}
+
+appsScript = 'ok';
 await moTrang('/');
 await xoaGhi();
 await thuGuiForm(Object.assign({}, GIA_HOP_LE, { book_honeypot: 'bot' }));

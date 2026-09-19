@@ -1,6 +1,6 @@
 name: Kiem do luong GA4
 
-# Chay tools/kiem-do-luong.mjs (18 phep thu, Chrome headless) sau moi push co doi
+# Chay tools/kiem-do-luong.mjs (24 phep thu, Chrome headless) sau moi push co doi
 # js/ hoac bat ky trang .html nao. Workflow chi DOC — khong sua, khong push.
 #
 # Ly do ton tai: su kien GA4 hong AM THAM. Doi id `#navbar`, doi class khoi CTA hay
@@ -10,7 +10,7 @@ name: Kiem do luong GA4
 # lan publish).
 #
 # KHONG lam ban du lieu that: phep thu chan moi request toi Google o tang CDP va tra
-# 200 gia cho endpoint Apps Script cua form dat ban — khong co don dat ban nao duoc tao.
+# JSON gia cho webhook Apps Script cua form dat ban — khong co don dat ban nao duoc tao.
 #
 # Hai buoc dau la kiem "tham chieu chet": ban .min con khop file nguon khong, va cac
 # trang con tro dung hash noi dung cua JS khong. Ca hai deu chi doc, exit 1 neu lech.
@@ -50,6 +50,6 @@ jobs:
         if: always()
         run: node tools/cache-bust.js
 
-      - name: 18 phep thu su kien GA4
+      - name: Phep thu su kien GA4, form dat ban va nguon truy cap
         if: always()
         run: node tools/kiem-do-luong.mjs
