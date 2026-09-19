@@ -273,11 +273,20 @@ await sleep(2500);
 }
 
 console.log('\n=== NGUON TRUY CAP GHI VAO DON DAT BAN ===');
-for (const [q, mongDoi] of [['?fbclid=IwAR0kiemthu', 'Facebook'], ['?gclid=kiemthu', 'Google Ads'], ['?utm_source=facebook&utm_medium=paid_social', 'facebook / paid_social']]) {
-  await moTrang('/' + q);
+// Co UTM thi nguon = "<trang vao>/<utm_source>" va medium nam o khoa rieng — ghep medium
+// vao nguon thi Apps Script noi them lan nua thanh "organic / organic" (vap 19-09-2026).
+for (const [duong, mongDoi, medium] of [
+  ['/?fbclid=IwAR0kiemthu', 'Facebook'],
+  ['/?gclid=kiemthu', 'Google Ads'],
+  ['/menu/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp', 'menu/google_maps', 'organic'],
+  ['/?utm_source=facebook&utm_medium=paid_social', 'trang_chu/facebook', 'paid_social'],
+  ['/thien-vien-truc-lam/?utm_source=zalo&utm_medium=social', 'bai_viet/zalo', 'social'],
+]) {
+  await moTrang(duong);
   const nguon = await ev("sessionStorage.getItem('xomleo_traffic_source')");
+  const med = await ev("sessionStorage.getItem('xomleo_utm_medium')");
   // fbclid Facebook gan vao MOI link di ra, ke ca bai dang thuong — khong duoc suy ra "Ads".
-  bao('Vao bang ' + q + ' -> nguon "' + mongDoi + '"', nguon === mongDoi, 'nhan: ' + nguon);
+  bao('Vao ' + duong + ' -> nguon "' + mongDoi + '"', nguon === mongDoi && (!medium || med === medium), 'nhan: ' + nguon + ' | medium: ' + med);
 }
 
 appsScript = 'ok';

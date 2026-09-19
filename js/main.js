@@ -28,6 +28,17 @@ function captureTrafficSource() {
     return '';
   };
 
+  // Trang khách vào đầu tiên, gom về bộ từ cố định (xem nhánh UTM bên dưới).
+  const trangVao = (duong) => {
+    const p = String(duong || '/').toLowerCase().replace(/index\.html$/, '');
+    if (p === '/' || p === '/en/' || p === '/en') return 'trang_chu';
+    if (p.startsWith('/menu')) return 'menu';
+    if (p.startsWith('/duong-di') || p.startsWith('/en/directions')) return 'duong_di';
+    if (p.startsWith('/blog')) return 'blog';
+    if (/^\/(ve-chung-toi|about)/.test(p)) return 'gioi_thieu';
+    return 'bai_viet';
+  };
+
   // 1. UTM Parameters (highest priority — campaign tag chủ động)
   if (urlParams.get('utm_source')) {
     if (urlParams.get('utm_medium'))   sessionStorage.setItem('xomleo_utm_medium',   urlParams.get('utm_medium'));
@@ -36,7 +47,13 @@ function captureTrafficSource() {
     if (urlParams.get('utm_content'))  sessionStorage.setItem('xomleo_utm_content',  urlParams.get('utm_content'));
     const aiUtm = aiAssistant(urlParams.get('utm_source'));
     if (aiUtm) return aiUtm;
-    return urlParams.get('utm_source') +(urlParams.get('utm_medium') ? ` / ${urlParams.get('utm_medium')}` : '');
+    // "<trang vào>/<utm_source>", ví dụ "menu/google_maps": GBP có 3 nút cùng một
+    // UTM (Trang web, Thực đơn, Đặt chỗ) nên phải biết khách bấm nút nào. KHÔNG ghép
+    // medium vào đây — medium đã có cột riêng, trước 19-09-2026 ghép vào thì Apps
+    // Script nối thêm lần nữa thành "organic / organic". Tên trang lấy từ bộ từ cố
+    // định, không lấy slug bài hay utm_content: hệ thống quản lý quán gom nguồn bằng
+    // regex trên cả chuỗi (facebook|tiktok|google...), chữ tự do lọt vào sẽ xếp sai nhóm.
+    return trangVao(window.location.pathname) + '/' + urlParams.get('utm_source');
   }
 
   // 2. Click-ID parameters (link qua tracker/redirect thường mất referrer nhưng giữ click-id)

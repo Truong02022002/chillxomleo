@@ -239,6 +239,13 @@ ví dụ `Google Search`, `Facebook (in-app)`, `AI: ChatGPT`), `medium`, `campai
 `content`, `landing_page`, `landing_referrer`, `submit_page`. GA4 tự lấy nguồn từ URL và
 referrer, không cần gửi lại.
 
+Khách vào bằng link có UTM thì `source` = **`<trang vào>/<utm_source>`**, ví dụ
+`menu/google_maps` (bấm nút Thực đơn trên GBP) hay `trang_chu/facebook`. Trang vào chỉ
+nhận `trang_chu`, `menu`, `duong_di`, `blog`, `gioi_thieu`, `bai_viet`. Không dùng slug bài
+hay `utm_content` vì hệ thống quản lý quán gom nguồn bằng regex trên cả chuỗi, chữ tự do lọt
+vào sẽ xếp sai nhóm. `medium` **không** ghép vào `source` nữa: trước 19-09-2026 ghép vào
+thì Apps Script nối thêm lần nữa, tin Zalo hiện "organic / organic".
+
 - `fbclid` **không** có nghĩa là quảng cáo: Facebook gắn nó vào mọi link đi ra, kể cả bài
   đăng thường của Fanpage. Trước 19-09-2026 site ghi nó thành `Facebook Ads` trong sheet.
   Giờ ghi `Facebook`. Muốn tách quảng cáo thì gắn UTM cho link quảng cáo.
@@ -310,3 +317,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 17-09-2026 | Viết hợp đồng dữ liệu này; CI `kiem-do-luong.yml` chạy sau mỗi push. |
 | 19-09-2026 | `generate_lead` chỉ bắn khi webhook xác nhận; gửi hỏng thì báo lỗi thật cho khách; `fbclid` thôi ghi thành `Facebook Ads`; Key Event rút còn `generate_lead`; thêm giám sát hằng tuần trên site thật; ghi trạng thái các công cụ theo dõi khác và quy ước UTM. |
 | 19-09-2026 | Bảng link UTM dùng sẵn cho từng kênh (mục 11); GBP đổi sang `utm_source=google_maps` để khớp nhóm "Google Maps" của dashboard. |
+| 19-09-2026 | Nguồn có UTM ghi thành `<trang vào>/<utm_source>` (ví dụ `menu/google_maps`), bỏ medium khỏi nhãn nguồn. Đơn TEST trên site thật xác nhận webhook nhận đơn và sheet giữ đủ dấu `_`. |

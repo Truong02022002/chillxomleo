@@ -5,7 +5,7 @@
 
 // Doi CACHE_VERSION moi khi bump cache-buster cua CSS/JS: handler 'activate'
 // se xoa het cache khong khop prefix, tranh de lai entry cua phien ban cu.
-const CACHE_VERSION = 'xomleo-acc2a0ad';
+const CACHE_VERSION = 'xomleo-2099f457';
 // Truoc day co them STATIC_CACHE rieng, nhung moi duong DOC deu dung RUNTIME_CACHE
 // nen 5 asset precache tai ve xong khong ai doc, sau do bi tai lai lan nua.
 // Dung chung mot cache de precache thuc su co tac dung.
@@ -14,7 +14,7 @@ const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
 // Khong precache css/site.css nua: tu 13-09-2026 CSS nhet thang trong tung trang
 // (<style id="site-css">), tai file nay ve chi ton 13 KB bang thong ma khong ai dung.
 const STATIC_ASSETS = [
-  '/js/main.min.js?h0598bf5e',
+  '/js/main.min.js?h763b40f2',
   '/uploads/khong-gian-tiem-nuong-xom-leo-view-thung-lung.webp',
   '/uploads/favicon-32x32.png',
   '/uploads/favicon-16x16.png'
