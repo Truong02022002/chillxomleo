@@ -35,7 +35,11 @@ if (tenSai.length) {
 }
 
 const eolCua = (s) => (s.includes('\r\n') ? '\r\n' : '\n');
-const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// GIAI MA TRUOC ROI MOI ESCAPE — nho vay esc() khong phu thuoc vao viec file noi dung
+// viet "&" hay "&amp;", ket qua deu ra "&amp;". Truoc 20-09-2026 esc() escape thang,
+// nen alt viet san "Tiem Nuong &amp; Chill" bi thanh "&amp;amp;" va trinh duyet hien
+// ra chu "&amp;" — da lot vao 5 bai (37 cho). Xem boThucThe() ngay duoi.
+const esc = (s) => boThucThe(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const escAttr = (s) => esc(s);
 // q.dap la HTML nen viet "&amp;", nhung JSON-LD phai chua chu that. Bo tag khong du,
 // phai go luon thuc the, neu khong tro ly AI se doc ra "Tiem Nuong &amp; Chill".
