@@ -27,7 +27,8 @@
     {
       "hoi": "Mung 2 co mo dung khung 15:00-23:00 khong, hay gio khac?",
       "viSao": "Bai Tet phai ghi gio chinh xac, khong duoc suy tu gio ngay thuong",
-      "muc": "GAP"
+      "muc": "XONG",
+      "traLoi": "CO — mung 2 mo dung 15:00-23:00 nhu ngay thuong, khong rut ngan gio (20-09-2026). Schema khong phai sua: quy tac gio thuong da phu mung 2, chi 3 ngay nghi la ngoai le."
     },
     {
       "hoi": "Tet co phu thu khong, bao nhieu phan tram?",
@@ -37,7 +38,9 @@
     },
     {
       "hoi": "Doan cong ty co xuat duoc hoa don VAT khong?",
-      "viSao": "Bai nhom-dong (dang 18-09) dang phai viet thanh cau 'hoi truoc khi dat ban' vi khong co du kien"
+      "viSao": "Bai nhom-dong (dang 18-09) dang phai viet thanh cau 'hoi truoc khi dat ban' vi khong co du kien",
+      "traLoi": "Chu site quyet dinh BO QUA cau nay (20-09-2026) — khong hoi lai. Bai nhom-dong giu nguyen cach viet \"hoi va cung cap thong tin xuat hoa don ngay khi dat ban\".",
+      "muc": "BO QUA"
     },
     {
       "hoi": "Xe 16-29 cho co quay dau duoc o loi vao khong?",
