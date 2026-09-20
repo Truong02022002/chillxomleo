@@ -29,6 +29,34 @@
       "uuTien": "0.6"
     },
     {
+      "slug": "thuc-don-nhau-da-lat",
+      "ngayDang": "2026-10-02",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Thực đơn nhậu Đà Lạt – Gọi mấy món cho nhóm 4–10",
+      "tieuDeEn": "Da Lat Drinking Menu – How Many Dishes for 4–10",
+      "tomTat": "Bao nhiêu món là đủ cho nhóm 4, 6 hay 10 người, chia tỉ lệ nướng – lẩu – lai rai thế nào, và ba mâm mẫu tính sẵn tiền theo giá in trên thực đơn.",
+      "tomTatEn": "How many dishes a group of 4, 6 or 10 actually needs, how to split grill, hotpot and small bites, and three sample spreads costed from the printed menu.",
+      "anh": "uploads/blogs/bo-tang-nuong-pho-mai-trung-muoi-xom-leo.webp",
+      "anhAlt": "Khay bò nướng tảng phô mai trứng muối kèm bắp và rau sống trên bàn gỗ sẫm tại Tiệm Nướng & Chill Xóm Lèo",
+      "anhAltEn": "A wooden tray of beef slab with cheese and salted egg, with corn and fresh herbs, at Xom Leo Grill & Chill",
+      "uuTien": "0.6"
+    },
+    {
+      "slug": "chi-phi-an-uong-o-da-lat",
+      "ngayDang": "2026-10-09",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Chi phí ăn uống ở Đà Lạt – Một ngày hết bao nhiêu?",
+      "tieuDeEn": "Food Costs in Da Lat – What Does a Day Cost?",
+      "tomTat": "Tách chi phí ăn một ngày thành bốn khoản, kèm một bữa tối tính thật tới từng món và bảng tự tính cho chuyến đi của bạn.",
+      "tomTatEn": "Splitting a day of eating into four lines, with one dinner costed to the dish and a worksheet you can fill in for your own trip.",
+      "anh": "uploads/blogs/com-chien-cao-nguyen-xom-leo.webp",
+      "anhAlt": "Đĩa cơm chiên cao nguyên rắc rau thơm bày kèm dưa leo tỉa trên khay gỗ tại Tiệm Nướng & Chill Xóm Lèo",
+      "anhAltEn": "A plate of highland fried rice with herbs and carved cucumber on a wooden tray at Xom Leo Grill & Chill",
+      "uuTien": "0.6"
+    },
+    {
       "slug": "quan-an-da-lat-mo-cua-tet",
       "ngayDang": "2026-10-23",
       "danhMuc": "Cẩm nang",

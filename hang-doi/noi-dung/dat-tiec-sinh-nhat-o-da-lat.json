@@ -9,7 +9,7 @@
     "h1": "Đặt tiệc sinh nhật ở Đà Lạt: chọn chỗ sao cho gọn nhẹ",
     "anhBiaAlt": "Không gian Tiệm Nướng &amp; Chill Xóm Lèo nhìn ra thung lũng Trại Mát",
     "chuThichAnh": "Khu ngoài trời của Xóm Lèo nhìn xuống thung lũng Trại Mát",
-    "tomTat": "Tổ chức sinh nhật ở Đà Lạt gọn nhất khi quán có sẵn ba thứ: chỗ ngồi liền nhóm, bếp nướng ngay tại bàn, và hỗ trợ trang trí. Tiệm Nướng &amp; Chill Xóm Lèo (113 Huỳnh Tấn Phát, Phường Xuân Trường, cách trung tâm khoảng 5 km) <strong>setup sinh nhật và kỷ niệm miễn phí</strong>, mở 15:00–23:00 mỗi ngày kể cả lễ, trung bình 200.000–250.000đ mỗi người, có bãi đậu khoảng 15 ô tô. Cuối tuần nên đặt trước qua hotline <strong>076 452 7336</strong>.",
+    "tomTat": "Tổ chức sinh nhật ở Đà Lạt gọn nhất khi quán có sẵn ba thứ: chỗ ngồi liền nhóm, bếp nướng ngay tại bàn, và hỗ trợ trang trí. Tiệm Nướng &amp; Chill Xóm Lèo (113 Huỳnh Tấn Phát, Phường Xuân Trường, cách trung tâm khoảng 5 km) <strong>setup sinh nhật và kỷ niệm miễn phí</strong>, mở 15:00–23:00 mỗi ngày kể cả lễ, trung bình 250.000–300.000đ mỗi người, có bãi đậu khoảng 15 ô tô. Cuối tuần nên đặt trước qua hotline <strong>076 452 7336</strong>.",
 
     "muc": [
       {
@@ -31,7 +31,7 @@
       {
         "id": "chi-phi",
         "h2": "Chi phí một bữa sinh nhật khoảng bao nhiêu?",
-        "html": "<p>Ở Xóm Lèo, một bữa nướng đầy đủ trung bình <strong>200.000–250.000đ mỗi người</strong>. Thực đơn 68 món trải từ 12.000đ tới 320.000đ, nên nhóm hoàn toàn chủ động được mức chi.</p>\n<p>Ví dụ tính cho nhóm 6 người, gọi vừa đủ no và có món để chụp ảnh:</p>\n<ul>\n<li>2 phần bò nướng tảng phô mai trứng muối — món hay được gọi nhất cho bàn tiệc</li>\n<li>1 lẩu để giữa bàn cho ấm, ví dụ lẩu gà lá é 300.000đ</li>\n<li>2–3 món nướng lẻ như ba chỉ bò nướng muối tiêu 155.000đ</li>\n<li>Đồ uống và món ăn kèm</li>\n</ul>\n<p>Tổng thường rơi vào khoảng 1,2–1,5 triệu cho 6 người. Giá đầy đủ từng món xem ở <a href=\"/menu/\">thực đơn</a>.</p>",
+        "html": "<p>Ở Xóm Lèo, một bữa nướng đầy đủ trung bình <strong>250.000–300.000đ mỗi người</strong>. Thực đơn 68 món trải từ 12.000đ tới 320.000đ, nên nhóm hoàn toàn chủ động được mức chi.</p>\n<p>Ví dụ tính cho nhóm 6 người, gọi vừa đủ no và có món để chụp ảnh:</p>\n<ul>\n<li>2 phần bò Okachi nướng tảng phô mai trứng muối 229.000đ — món hay được gọi nhất cho bàn tiệc: <strong>458.000đ</strong></li>\n<li>1 lẩu gà lá é 300.000đ đặt giữa bàn cho ấm: <strong>300.000đ</strong></li>\n<li>3 phần ba chỉ bò nướng muối tiêu 155.000đ: <strong>465.000đ</strong></li>\n<li>1 sụn gà chiên mắm 145.000đ và 1 khoai lang kén 70.000đ: <strong>215.000đ</strong></li>\n<li>6 chai bia Tiger bạc 28.000đ: <strong>168.000đ</strong></li>\n</ul>\n<p>Tổng <strong>1.606.000đ</strong> — khoảng 268.000đ mỗi người. Gọi nhẹ hơn hoặc bỏ bia thì xuống dưới mức này, thêm lẩu thứ hai hoặc rượu mơ thì lên. Giá đầy đủ từng món xem ở <a href=\"/menu/\">thực đơn</a>.</p>",
         "anh": { "file": "uploads/blogs/bo_tang_nuong_pho_mai_trung_muoi_scaled_1775629187180.webp", "alt": "Bò nướng tảng phô mai trứng muối tại Xóm Lèo Đà Lạt" }
       },
       {
@@ -59,7 +59,7 @@
       { "hoi": "Đi ô tô có chỗ đậu không?", "dap": "Có bãi đậu trong khuôn viên quán, sức chứa khoảng 15 ô tô." },
       { "hoi": "Mấy giờ tới thì kịp ngắm hoàng hôn?", "dap": "Nên có mặt trước 17:30. Từ khoảng 15:00 đến 17:30 là lúc nắng chiều đổ xuống thung lũng Trại Mát." },
       { "hoi": "Từ trung tâm Đà Lạt đi bao lâu?", "dap": "Quán ở 113 Huỳnh Tấn Phát, Phường Xuân Trường, cách hồ Xuân Hương khoảng 5 km hướng Trại Mát. Đi xe máy 12–15 phút, ô tô 15–20 phút." },
-      { "hoi": "Một người ăn hết khoảng bao nhiêu?", "dap": "Trung bình 200.000–250.000đ mỗi người cho một bữa nướng đầy đủ. Thực đơn 68 món trải từ 12.000đ tới 320.000đ nên nhóm chủ động được mức chi." }
+      { "hoi": "Một người ăn hết khoảng bao nhiêu?", "dap": "Trung bình 250.000–300.000đ mỗi người cho một bữa nướng đầy đủ. Thực đơn 68 món trải từ 12.000đ tới 320.000đ nên nhóm chủ động được mức chi." }
     ]
   },
 
@@ -69,7 +69,7 @@
     "h1": "Booking a birthday party in Da Lat without the hassle",
     "anhBiaAlt": "The open-air area at Xom Leo BBQ overlooking the Trai Mat valley",
     "chuThichAnh": "Xom Leo's outdoor seating looking down over the Trai Mat valley",
-    "tomTat": "A birthday in Da Lat runs smoothly when the restaurant already has three things: seating that keeps the group together, a grill at the table, and help with decoration. Tiệm Nướng &amp; Chill Xóm Lèo (113 Huynh Tan Phat, Xuan Truong Ward, about 5 km from the centre) <strong>sets up birthdays and anniversaries free of charge</strong>, opens 15:00–23:00 every day including holidays, averages 200,000–250,000 VND per person, and has parking for about 15 cars. Book ahead on weekends via <strong>+84 76 452 7336</strong>.",
+    "tomTat": "A birthday in Da Lat runs smoothly when the restaurant already has three things: seating that keeps the group together, a grill at the table, and help with decoration. Tiệm Nướng &amp; Chill Xóm Lèo (113 Huynh Tan Phat, Xuan Truong Ward, about 5 km from the centre) <strong>sets up birthdays and anniversaries free of charge</strong>, opens 15:00–23:00 every day including holidays, averages 250,000–300,000 VND per person, and has parking for about 15 cars. Book ahead on weekends via <strong>+84 76 452 7336</strong>.",
 
     "muc": [
       {
@@ -91,7 +91,7 @@
       {
         "id": "chi-phi",
         "h2": "What does a birthday dinner cost?",
-        "html": "<p>At Xom Leo a full BBQ meal averages <strong>200,000–250,000 VND per person</strong>. The 68-item menu runs from 12,000 to 320,000 VND, so a group can steer the total easily.</p>\n<p>A worked example for six people, ordering enough to be full with something photogenic on the table:</p>\n<ul>\n<li>2 sharing slabs of grilled beef with cheese and salted egg — the usual centrepiece for a party table</li>\n<li>1 hotpot in the middle to keep things warm, such as chicken with la e herb at 300,000 VND</li>\n<li>2–3 individual grilled dishes, such as salt-and-pepper beef belly at 155,000 VND</li>\n<li>Drinks and side dishes</li>\n</ul>\n<p>That usually lands around 1.2–1.5 million VND for six. Full per-item pricing is on the <a href=\"/menu-en/\">menu page</a>.</p>",
+        "html": "<p>At Xom Leo a full BBQ meal averages <strong>250,000–300,000 VND per person</strong>. The 68-item menu runs from 12,000 to 320,000 VND, so a group can steer the total easily.</p>\n<p>A worked example for six people, ordering enough to be full with something photogenic on the table:</p>\n<ul>\n<li>2 Okachi beef slabs with cheese and salted egg at 229,000 VND — the usual centrepiece for a party table: <strong>458,000 VND</strong></li>\n<li>1 É leaf chicken hotpot at 300,000 VND in the middle to keep things warm: <strong>300,000 VND</strong></li>\n<li>3 portions of salt &amp; pepper grilled beef belly at 155,000 VND: <strong>465,000 VND</strong></li>\n<li>1 fish sauce fried chicken cartilage at 145,000 VND and 1 sweet potato croquettes at 70,000 VND: <strong>215,000 VND</strong></li>\n<li>6 bottles of Tiger Silver at 28,000 VND: <strong>168,000 VND</strong></li>\n</ul>\n<p>That comes to <strong>1,606,000 VND</strong> — about 268,000 VND a head. Order lighter or skip the beer and it drops below that; add a second hotpot or plum wine and it climbs. Full per-item pricing is on the <a href=\"/menu-en/\">menu page</a>.</p>",
         "anh": { "file": "uploads/blogs/bo_tang_nuong_pho_mai_trung_muoi_scaled_1775629187180.webp", "alt": "Grilled beef slab with cheese and salted egg at Xom Leo Da Lat" }
       },
       {
@@ -119,7 +119,7 @@
       { "hoi": "Is there car parking?", "dap": "Yes, there is on-site parking for about 15 cars." },
       { "hoi": "What time should I arrive for the sunset?", "dap": "Arrive before 17:30. The stretch from about 15:00 to 17:30 is when the afternoon light falls across the Trai Mat valley." },
       { "hoi": "How long is it from central Da Lat?", "dap": "The restaurant is at 113 Huynh Tan Phat, Xuan Truong Ward, about 5 km from Xuan Huong Lake towards Trai Mat — 12–15 minutes by motorbike, 15–20 minutes by car." },
-      { "hoi": "How much does one person spend?", "dap": "On average 200,000–250,000 VND per person for a full BBQ meal. The 68-item menu runs from 12,000 to 320,000 VND, so the total is easy to control." }
+      { "hoi": "How much does one person spend?", "dap": "On average 250,000–300,000 VND per person for a full BBQ meal. The 68-item menu runs from 12,000 to 320,000 VND, so the total is easy to control." }
     ]
   }
 }
