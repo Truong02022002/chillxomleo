@@ -41,15 +41,21 @@
     },
     {
       "hoi": "Xe 16-29 cho co quay dau duoc o loi vao khong?",
-      "viSao": "nhu tren"
+      "viSao": "nhu tren",
+      "traLoi": "CO — loi vao du rong cho xe 16-29 cho quay dau (chu site 20-09-2026). Da ghi vao bai nhom-dong VI+EN.",
+      "muc": "XONG"
     },
     {
       "hoi": "Mot ban dai toi da ke duoc bao nhieu bep than?",
-      "viSao": "nhu tren"
+      "viSao": "nhu tren",
+      "traLoi": "MOI BAN DON 1 BEP — ghep may ban thi co bay nhieu bep (20-09-2026).",
+      "muc": "XONG"
     },
     {
       "hoi": "Mot doan toi da bao nhieu nguoi, ghep ban the nao?",
-      "viSao": "nhu tren — site moi cong bo 'nhom 10 nguoi duoc set up khong gian rieng mien phi'"
+      "viSao": "nhu tren — site moi cong bo 'nhom 10 nguoi duoc set up khong gian rieng mien phi'",
+      "traLoi": "TOI DA 60 NGUOI (20-09-2026). Cach ghep: ghep nhieu ban don, moi ban 1 bep.",
+      "muc": "XONG"
     },
     {
       "hoi": "Co set menu / combo theo dau nguoi cho doan khong, may muc gia?",
@@ -59,7 +65,9 @@
     },
     {
       "hoi": "Doan co phai dat coc khong, bao nhieu phan tram?",
-      "viSao": "nhu tren"
+      "viSao": "nhu tren",
+      "traLoi": "CO. Muc coc KHONG co dinh — tuy so nguoi va tuy doan co dat mon truoc hay khong (20-09-2026). Day la cau tra loi that, khong phai thieu so.",
+      "muc": "XONG"
     },
     {
       "hoi": "Muc chi trung binh mot nguoi",
