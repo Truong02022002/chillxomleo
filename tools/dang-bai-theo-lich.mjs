@@ -213,7 +213,57 @@ function kiemTraBaiNhap(d) {
     if (!fs.existsSync(goc)) v.push(`khong thay anh ${d.anh}`);
     if (!fs.existsSync(nho)) v.push(`khong thay bien the ${path.relative(ROOT, nho)} (card can ban 640w)`);
   }
+
+  if (d.noiTu !== undefined && !Array.isArray(d.noiTu)) v.push('"noiTu" phai la mang slug');
+  for (const nguon of Array.isArray(d.noiTu) ? d.noiTu : []) {
+    for (const hau of ['', '-en']) {
+      const f = path.join(ROOT, nguon + hau, 'index.html');
+      if (!fs.existsSync(f)) { v.push(`noiTu: khong co trang ${nguon}${hau}/`); continue; }
+      const s = fs.readFileSync(f, 'utf8');
+      if (/http-equiv="refresh"/i.test(s)) { v.push(`noiTu: ${nguon}${hau}/ la stub chuyen huong`); continue; }
+      if (!timKhoiLienQuan(s, hau)) v.push(`noiTu: ${nguon}${hau}/ khong co dung 1 khoi "${hau ? NHAN_LQ.en : NHAN_LQ.vi}" co san <li> mau`);
+    }
+  }
+  if (!d.noiTu || !d.noiTu.length) canhBao.push(`${d.slug}: khong khai "noiTu" — bai len song chi co link tu the /blog/`);
   return v;
+}
+
+// ---------- noi link tu trang lien quan ----------
+
+// Bai moi chi duoc link tu the card o /blog/ thi Google coi la trang le loi: do 21-09-2026,
+// bai nhom dong dang 3 ngay van 0 link trong noi dung trang nao. Muc "noiTu" trong
+// lich-dang.json liet ke slug (ban VI) cua cac trang nen tro toi bai; luc dang, script chen
+// mot <li> vao khoi "Bai viet lien quan" san co cua ca ban VI lan ban EN cua trang do.
+const NHAN_LQ = { vi: 'Bài viết liên quan', en: 'Related articles' };
+
+function timKhoiLienQuan(s, hau) {
+  const nhan = hau ? NHAN_LQ.en : NHAN_LQ.vi;
+  const cac = [...s.matchAll(/<aside\b[^>]*aria-label="([^"]*)"[^>]*>[\s\S]*?<\/aside>/g)].filter((m) => m[1] === nhan);
+  if (cac.length !== 1) return null;
+  const li = [...cac[0][0].matchAll(/([ \t]*)<li><a class="text-primary hover:underline" href="[^"]*"[^>]*>[\s\S]*?<\/a><\/li>/g)].pop();
+  if (!li) return null;
+  return { aside: cac[0][0], viTri: cac[0].index, li };
+}
+
+const escChu = (s) => String(s)
+  .replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&amp;/g, '&')
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function noiTuTrangLienQuan(d) {
+  for (const nguon of d.noiTu || []) {
+    for (const hau of ['', '-en']) {
+      const f = path.join(ROOT, nguon + hau, 'index.html');
+      const s = fs.readFileSync(f, 'utf8');
+      const k = timKhoiLienQuan(s, hau);
+      const href = `/${d.slug}${hau}/`;
+      if (k.aside.includes(`href="${href}"`)) continue;
+      const nhan = escChu(hau ? d.tieuDeEn : d.tieuDe);
+      const cuoi = k.viTri + k.li.index + k.li[0].length;
+      const moi = eolCua(s) + k.li[1] + `<li><a class="text-primary hover:underline" href="${href}">${nhan}</a></li>`;
+      fs.writeFileSync(f, s.slice(0, cuoi) + moi + s.slice(cuoi));
+      console.log(`    link tu /${nguon}${hau}/`);
+    }
+  }
 }
 
 // Dancing Script da bi thu gon con mot ban subset (xem tools/sinh-subset-font.mjs).
@@ -322,7 +372,11 @@ if (THU) {
 // luc 'load' (ban sua 13-09 cho GA doi FCP bo sot no), main.min.js khong defer (sua 05-09)
 // va thieu preload font; phat hien 14-09-2026. Lay ca ba tu trang /blog/ cung ngon ngu, vi
 // trang do luon duoc sua cung dot voi toan site. CSP: workflow chay csp-hash.mjs --write sau.
-function dongBoKhung(fileBai, fileMau) {
+//
+// Them hai thu (21-09-2026), cung ly do ban nhap soan tu truoc: bai nhom dong len song
+// (a) thieu the robots max-snippet ma toan site da co tu 16-09, va (b) nut doi ngon ngu
+// VN|EN tro ve bai khung cua tools/tao-bai-nhap.mjs chu khong ve chinh no.
+function dongBoKhung(fileBai, fileMau, slug) {
   const s = fs.readFileSync(fileBai, 'utf8');
   const mau = fs.readFileSync(fileMau, 'utf8');
   const nl = eolCua(s);
@@ -337,6 +391,18 @@ function dongBoKhung(fileBai, fileMau) {
   if (preload && !t.includes('rel="preload" as="font"')) {
     t = t.replace(/([ \t]*)(<style id="site-css"|<link rel="stylesheet"|<title>)/, (_, thut, the) => thut + preload + nl + thut + the);
   }
+  const robots = (mau.match(/<meta name="robots"[^>]*>/) || [])[0];
+  if (robots && !t.includes('<meta name="robots"')) {
+    t = t.replace(/([ \t]*)(<meta name="viewport"[^>]*>)/, (_, thut, the) => thut + the + nl + thut + robots);
+  }
+  t = t.replace(/(<a\s+href=")[^"]*("\s+hreflang="(vi|en)")/g, (_, a, b, l) => a + (l === 'vi' ? `/${slug}/` : `/${slug}-en/`) + b);
+  // Khoi "Giai dap nhanh" <section id="faq"> sau </article> la 7 cau hoi cua bai khung (view
+  // xe lua), tao-bai-nhap.mjs truoc 21-09-2026 chep nguyen sang. Bai co muc FAQ rieng trong
+  // <article> thi khoi do chac chan la cua khung — go.
+  const sauBai = t.indexOf('</article>');
+  if (sauBai !== -1 && t.includes(`id="faq-${slug}"`)) {
+    t = t.slice(0, sauBai) + t.slice(sauBai).replace(/\s*<section id="faq"[\s\S]*?<\/section>/, '');
+  }
   if (t !== s) fs.writeFileSync(fileBai, t);
 }
 
@@ -349,8 +415,9 @@ for (const d of denHan) {
 
   chepThuMuc(path.join(HANG_DOI, d.slug), path.join(ROOT, d.slug));
   chepThuMuc(path.join(HANG_DOI, d.slug + '-en'), path.join(ROOT, d.slug + '-en'));
-  dongBoKhung(path.join(ROOT, d.slug, 'index.html'), path.join(ROOT, 'blog/index.html'));
-  dongBoKhung(path.join(ROOT, d.slug + '-en', 'index.html'), path.join(ROOT, 'blog-en/index.html'));
+  dongBoKhung(path.join(ROOT, d.slug, 'index.html'), path.join(ROOT, 'blog/index.html'), d.slug);
+  dongBoKhung(path.join(ROOT, d.slug + '-en', 'index.html'), path.join(ROOT, 'blog-en/index.html'), d.slug);
+  noiTuTrangLienQuan(d);
 
   for (const [file, lang] of [['blog/index.html', 'vi'], ['blog-en/index.html', 'en']]) {
     const moi = chenCard(path.join(ROOT, file), d, lang, tenAnh, kt);

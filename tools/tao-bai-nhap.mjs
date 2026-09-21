@@ -262,8 +262,22 @@ for (const lang of ['vi', 'en']) {
   const nl = eolCua(goc);
 
   const head = dungHead(goc.slice(0, goc.indexOf('</head>')), t, lang);
-  const nav = goc.slice(goc.indexOf('</head>'), goc.indexOf('<article'));
-  const duoi = goc.slice(goc.indexOf('</article>') + '</article>'.length);
+  // Nav chep tu bai khung nen nut doi ngon ngu VN|EN van tro ve bai khung. Bai nhom dong
+  // (dang 18-09-2026) va ca ba ban nhap sau do len song nhu vay: bam "EN" tren bai moi lai
+  // nhay sang bai view xe lua. Phat hien 21-09-2026.
+  let doiNN = 0;
+  const nav = goc.slice(goc.indexOf('</head>'), goc.indexOf('<article'))
+    .replace(/(<a\s+href=")[^"]*("\s+hreflang="(vi|en)")/g, (_, a, b, l) => {
+      doiNN++;
+      return a + (l === 'vi' ? `/${d.slug}/` : `/${d.slug}-en/`) + b;
+    });
+  if (!doiNN) { console.error(`Khong tim thay nut doi ngon ngu trong nav cua ${KHUNG}${hau}.`); process.exit(1); }
+  // Phan sau </article> cua bai khung co khoi <section id="faq"> "Giai dap nhanh" — 7 cau
+  // hoi RIENG cua bai view xe lua (tau chay may gio, ban view tau co phu phi...). Chep nguyen
+  // thi bai moi hien lai dung khoi do: bai nhom dong len song 18-09 mang theo no. Bai moi da
+  // co muc FAQ rieng trong <article> (id="faq-<slug>") nen bo han khoi cua khung.
+  const duoi = goc.slice(goc.indexOf('</article>') + '</article>'.length)
+    .replace(/\s*<section id="faq"[\s\S]*?<\/section>/, '');
 
   let trang = head + nav + dungArticle(t, lang) + duoi;
   // dong bo xuong dong voi bai goc

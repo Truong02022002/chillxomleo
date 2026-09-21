@@ -23,7 +23,8 @@ for (const f of files) {
   pages.set(route, f);
 }
 
-const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [] };
+const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [], langSwitch: [], crossLang: [], robotsMeta: [], dupFaq: [] };
+const faqBlocks = new Map(); // danh sach cau hoi cua khoi FAQ -> cac trang
 const inbound = new Map(); // route -> count
 const titles = new Map();
 
@@ -46,9 +47,31 @@ const exists = (r) => {
   return fs.existsSync(path.join(ROOT, decodeURIComponent(asFile)));
 };
 
+// ngon ngu + cap VI<->EN cua tung trang, doc tu <html lang> va <link rel="alternate" hreflang>
+const pathOf = (u) => u.replace('https://xomleo.vn', '');
+const langOf = new Map();   // route -> 'vi' | 'en'
+const altOf = new Map();    // route -> { vi, en }
+for (const [route, f] of pages) {
+  const s = stripped.get(f);
+  langOf.set(route, (s.match(/<html[^>]*\slang="([a-z]+)/) || [])[1]);
+  const vi = (s.match(/<link rel="alternate" hreflang="vi" href="([^"]+)"/) || [])[1];
+  const en = (s.match(/<link rel="alternate" hreflang="en" href="([^"]+)"/) || [])[1];
+  if (vi && en) altOf.set(route, { vi: pathOf(vi), en: pathOf(en) });
+}
+
 for (const f of files) {
   const s = stripped.get(f);
   const body = s.slice(s.indexOf('<body'));
+  const route = f === 'index.html' ? '/' : '/' + f.replace(/index\.html$/, '');
+
+  // Nut doi ngon ngu VN|EN phai tro ve dung cap hreflang cua CHINH trang. Bai nhom dong
+  // (18-09-2026) chep nav tu bai khung nen nut "EN" nhay sang bai view xe lua.
+  const alt = altOf.get(route);
+  if (alt) {
+    for (const m of body.matchAll(/<a\s+href="([^"]*)"\s+hreflang="(vi|en)"/g)) {
+      if (m[1] !== alt[m[2]]) findings.langSwitch.push(`${f}: nut ${m[2]} -> ${m[1]}, dung ra ${alt[m[2]]}`);
+    }
+  }
   const main = s.includes('</main>') ? s.slice(s.indexOf('<main'), s.indexOf('</main>')) : body;
 
   // 1) JSON-LD validity
@@ -91,6 +114,38 @@ for (const f of files) {
       const r = norm(href);
       if (r && !exists(r)) findings.brokenLink.push(`${f} -> ${href}`);
       else if (r) inbound.set(r, (inbound.get(r) || 0) + 1);
+    }
+  }
+
+  // 5b) link trong than bai sang trang KHAC ngon ngu trong khi trang dich co ban dich cung
+  //     ngon ngu voi trang nguon. Dem 21-09-2026: 26 link trong 18 trang EN tro sang ban VI
+  //     (12 cai la "directions" -> /duong-di/ thay vi /en/directions/). Nut doi ngon ngu co
+  //     thuoc tinh hreflang nen duoc bo qua. 404.html co y song ngu (chi duong ca VI lan EN).
+  const lang = langOf.get(route);
+  if (lang && f !== '404.html' && !/meta http-equiv="refresh"/i.test(s)) {
+    for (const m of main.matchAll(/<a\b([^>]*)>/g)) {
+      if (/hreflang=/.test(m[1])) continue;
+      const hm = m[1].match(/href="([^"]*)"/);
+      if (!hm) continue;
+      const href = hm[1].trim();
+      const r = href.startsWith('https://xomleo.vn') ? norm(href.replace('https://xomleo.vn', '') || '/')
+        : href.startsWith('/') ? norm(href) : null;
+      if (!r || !pages.has(r)) continue;
+      const tl = langOf.get(r);
+      const ta = altOf.get(r);
+      if (tl && tl !== lang && ta && ta[lang] && ta[lang] !== r) findings.crossLang.push(`${f}: ${href} -> nen la ${ta[lang]}`);
+    }
+  }
+
+  // 5c) khoi hoi dap y het nhau tren hai trang = noi dung chep. tools/tao-bai-nhap.mjs tung
+  //     chep khoi "Giai dap nhanh" cua bai khung (view xe lua) sang bai nhom dong (18-09-2026).
+  if (!/meta http-equiv="refresh"/i.test(s)) {
+    for (const m of body.matchAll(/<section id="faq"[\s\S]*?<\/section>/g)) {
+      const qs = [...m[0].matchAll(/<summary[^>]*>([\s\S]*?)<\/summary>/g)].map(x => x[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+      if (!qs.length) continue;
+      const k = qs.join(' | ');
+      if (!faqBlocks.has(k)) faqBlocks.set(k, []);
+      faqBlocks.get(k).push(f);
     }
   }
 
@@ -139,6 +194,9 @@ const skipPage = (route, f) =>
 for (const [route, f] of pages) {
   if (skipPage(route, f)) continue;
   if (!smRoutes.has(route)) findings.sitemapMissing.push(`${route}  (${f})`);
+  // Tu 16-09-2026 moi trang index duoc deu mo max-snippet/max-image-preview. Ban nhap soan
+  // truoc ngay do len song thieu the (bai nhom dong 18-09) — chan o day.
+  if (!/<meta name="robots" content="[^"]*max-snippet:-1/.test(stripped.get(f))) findings.robotsMeta.push(`${route}  (${f})`);
 }
 
 // 9) orphans — indexable canonical pages with no inbound internal link
@@ -159,6 +217,7 @@ for (const [route, f] of pages) {
 }
 
 for (const [t, fs_] of titles) if (fs_.length > 1) findings.dupTitle.push(`"${t.slice(0, 60)}" -> ${fs_.join(', ')}`);
+for (const [q, fs_] of faqBlocks) if (fs_.length > 1) findings.dupFaq.push(`${fs_.join(', ')}: "${q.slice(0, 70)}…"`);
 
 // ---- report ----
 const LABEL = {
@@ -167,6 +226,9 @@ const LABEL = {
   sitemapMissing: 'Thiếu trong sitemap', sitemapStale: 'Sitemap trỏ trang không tồn tại',
   h1: 'H1 sai số lượng', dupTitle: 'Title trùng', hreflang: 'hreflang thiếu self-ref',
   iframeTitle: 'iframe thiếu title hoặc trùng title',
+  langSwitch: 'Nút đổi ngôn ngữ trỏ sai trang', crossLang: 'Link thân bài sang trang khác ngôn ngữ',
+  robotsMeta: 'Trang index được thiếu thẻ robots max-snippet',
+  dupFaq: 'Khối hỏi đáp giống hệt trên nhiều trang',
 };
 console.log(`Quét ${files.length} file HTML, ${smLocs.length} URL sitemap\n`);
 let total = 0;
