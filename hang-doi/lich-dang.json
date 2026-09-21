@@ -40,7 +40,12 @@
       "anh": "uploads/blogs/bo-tang-nuong-pho-mai-trung-muoi-xom-leo.webp",
       "anhAlt": "Khay bò nướng tảng phô mai trứng muối kèm bắp và rau sống trên bàn gỗ sẫm tại Tiệm Nướng & Chill Xóm Lèo",
       "anhAltEn": "A wooden tray of beef slab with cheese and salted egg, with corn and fresh herbs, at Xom Leo Grill & Chill",
-      "uuTien": "0.6"
+      "uuTien": "0.6",
+      "noiTu": [
+        "tiem-nuong-da-lat-duoc-yeu-thich",
+        "quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo",
+        "da-lat-ve-dem-top-nhung-noi-phai-den"
+      ]
     },
     {
       "slug": "chi-phi-an-uong-o-da-lat",
@@ -54,7 +59,12 @@
       "anh": "uploads/blogs/com-chien-cao-nguyen-xom-leo.webp",
       "anhAlt": "Đĩa cơm chiên cao nguyên rắc rau thơm bày kèm dưa leo tỉa trên khay gỗ tại Tiệm Nướng & Chill Xóm Lèo",
       "anhAltEn": "A plate of highland fried rice with herbs and carved cucumber on a wooden tray at Xom Leo Grill & Chill",
-      "uuTien": "0.6"
+      "uuTien": "0.6",
+      "noiTu": [
+        "cam-nang-du-lich-da-lat",
+        "top-30-dia-diem-an-sang-o-da-lat",
+        "kham-pha-da-lat-2-ngay-1-dem"
+      ]
     },
     {
       "slug": "quan-an-da-lat-mo-cua-tet",
@@ -68,7 +78,12 @@
       "anh": "uploads/blogs/chuan-bi-do-nuong-anh-den-thanh-pho.webp",
       "anhAlt": "Khách gắp đồ nướng từ bếp than trên bàn gỗ ngoài trời tại Tiệm Nướng & Chill Xóm Lèo, phía sau là đèn nhà kính trải khắp thung lũng Trại Mát về đêm",
       "anhAltEn": "A guest lifting grilled meat off the charcoal burner on an outdoor wooden table at Xom Leo Grill & Chill, with greenhouse lights spread across the Trai Mat valley at night",
-      "uuTien": "0.6"
+      "uuTien": "0.6",
+      "noiTu": [
+        "cam-nang-du-lich-da-lat",
+        "quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo",
+        "tiem-nuong-da-lat-duoc-yeu-thich"
+      ]
     }
   ]
 }

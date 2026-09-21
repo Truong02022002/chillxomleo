@@ -32,11 +32,18 @@ Rồi thêm một mục vào `lich-dang.json`:
   "anh": "uploads/blogs/ten-anh.webp",
   "anhAlt": "Mô tả ảnh bằng tiếng Việt",
   "anhAltEn": "Image description in English",
-  "uuTien": "0.6"
+  "uuTien": "0.6",
+  "noiTu": ["cam-nang-du-lich-da-lat", "tiem-nuong-da-lat-duoc-yeu-thich"]
 }
 ```
 
 `ngayDang` dùng **giờ Việt Nam**. Bài đăng lúc 08:00 sáng ngày đó.
+
+`noiTu` (nên có, 2–3 slug bản VI): các trang đang sống sẽ trỏ link tới bài mới. Lúc đăng,
+script chèn một dòng vào khối "Bài viết liên quan" của cả bản VI lẫn bản EN của từng trang
+(nhãn = `tieuDe` / `tieuDeEn`). Trang nguồn phải có sẵn khối đó ở cả hai bản, nếu không
+script dừng từ bước kiểm tra. Thiếu `noiTu` thì bài vẫn đăng nhưng chỉ có link từ thẻ ở
+`/blog/` — bài nhóm đông (18-09-2026) đăng kiểu đó, 3 ngày sau vẫn 0 link trong nội dung.
 
 ## Điều kiện bắt buộc
 
