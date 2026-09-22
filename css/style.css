@@ -1971,13 +1971,24 @@ body.fb-lock { overflow: hidden; }
 
    KHONG dat cho section hero: no nam tren man hinh, hoan lai chi lam cham.
    --------------------------------------------------------------------------- */
-section#story          { content-visibility: auto; contain-intrinsic-size: auto 1100px; }
+section#story          { content-visibility: auto; contain-intrinsic-size: auto 1031px; } /* do lai 22-09-2026: anh 3:2 thay khung 350px */
 section#menu           { content-visibility: auto; contain-intrinsic-size: auto 1228px; }
 section#reviews        { content-visibility: auto; contain-intrinsic-size: auto 2127px; }
 section#booking        { content-visibility: auto; contain-intrinsic-size: auto 1383px; }
 section#faq            { content-visibility: auto; contain-intrinsic-size: auto 1064px; }
 section#about-trai-mat { content-visibility: auto; contain-intrinsic-size: auto 1019px; }
 footer                 { content-visibility: auto; contain-intrinsic-size: auto 1123px; }
+
+/* ---------------------------------------------------------------------------
+   MUC "NGUON GOC" TRANG CHU (VI + EN)
+   Chu site 22-09-2026: "dung cat anh, phong to". Truoc day anh la khung doc
+   448x700 cat tu anh ngang; nay khung theo dung ti le anh (3:2, dat bang
+   style="aspect-ratio" tren the) va tu 1024px cot anh chiem 3/5 be ngang de
+   anh to hon ma van hien tron. Nam sau .lg:grid-cols-2 trong bundle nen thang.
+   --------------------------------------------------------------------------- */
+@media (min-width: 1024px) {
+  .story-grid { grid-template-columns: 2fr 3fr; }
+}
 
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
