@@ -4,7 +4,7 @@ Bản mô tả chính thức của những gì site gửi về Google Analytics 
 kiện bắn, tham số và giá trị hợp lệ. Sửa code đo lường trong `js/main.js` thì sửa cả
 file này; báo cáo GA4 và Custom Definitions bên phía Google đều dựa trên hợp đồng ở đây.
 
-Cập nhật: 19-09-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
+Cập nhật: 22-09-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
 thay đổi ở mục 12.
 
 ## 1. Site đo bằng gì
@@ -100,6 +100,42 @@ tuỳ thiết lập Enhanced measurement trong GA4 admin — không điều khi�
 `intent_stage` là giai đoạn của **trang** nơi hành vi xảy ra, không phải của hành vi —
 nhờ vậy trả lời được "bao nhiêu cuộc gọi đến từ bài du lịch chung".
 
+**`content_group` — bậc DLN của trang** (từ 22-09-2026). Không do `js/main.js` gửi: đoạn GA
+nội tuyến đọc thuộc tính `<html data-dln>` rồi đặt vào lệnh `config`, nên nó đi theo **cả
+`page_view`** lẫn mọi sự kiện trên trang. Đã kiểm bằng gtag.js thật (chặn hit trước khi rời
+máy): `ep.content_group` có trong hit `page_view` và `click_call` gửi tới cả hai property.
+
+| Giá trị | Bậc | Trang (22-09-2026, VI và EN cùng bậc) |
+|---|---|---|
+| `1-orient` | O — định hướng | 27 bài địa điểm, cẩm nang, lịch trình |
+| `2-choose` | C — lựa chọn | 7 bài giúp chọn: nhóm đông, đặt tiệc sinh nhật, ăn sáng, cà phê, chợ đêm, món ngon, homestay |
+| `3-prove` | P — chứng minh | `/about/` và 3 bài về chính quán |
+| `4-rate` | R — đánh giá chi phí | `/menu/` |
+| `5-act` | A — hành động | trang chủ (có form) và `/duong-di/` |
+| `hub` · `legal` · `404` | ngoài thang | `/blog/` · 2 trang pháp lý · trang 404 |
+
+Chữ số đầu để GA4 xếp đúng thứ tự O → A khi sắp theo tên. Đây là chiều có sẵn của GA4
+("Content group") nên **không cần** đăng ký Custom Definition. Xem ở *Báo cáo → Tương tác →
+Trang và màn hình*, đổi chiều chính sang "Content group": có lượt xem, thời gian tương tác
+trung bình và tỉ lệ tương tác (= 1 − tỉ lệ thoát) của từng bậc.
+
+⚠ **Đừng đọc cột Key events theo Content group rồi kết luận "bậc A chuyển đổi 100%".** Form
+đặt bàn chỉ nằm ở trang chủ nên mọi `generate_lead` đều mang `5-act`. Muốn biết bậc nào
+dẫn khách tới lead thì dùng *Khám phá → Phễu*, mỗi bước là `page_view` có Content group =
+một bậc, bước cuối là `generate_lead` (xem mục 8). Còn ba sự kiện ý định (`click_call`,
+`chat_open`, `click_directions`) xảy ra ở mọi trang, nên đếm thẳng theo Content group là đúng.
+
+Bảng giá trị nằm ở `tools/bac-dln.mjs`. `tools/audit-links.mjs` chặn trang có thẻ GA mà thiếu
+hoặc sai bậc, và cặp VI/EN lệch bậc. Bài mới khai `bac` (`O`/`C`/`P`/`R`/`A`) trong
+`hang-doi/lich-dang.json`; script đăng bài ghi thuộc tính lúc đăng và dừng nếu thiếu. Gán bậc
+theo dàn ý h2/h3 chứ không theo tiêu đề: `/quan-nuong-da-lat-thien-duong-cua-du-khach/` đọc
+tiêu đề tưởng bài so sánh (C) nhưng cả 4 h2 đều nói về quán, tức là P.
+
+`intent_stage` là bản cũ, đoán 3 mức theo URL (16-09-2026). Giữ nguyên để khỏi gãy dữ liệu đã
+có; phân tích theo bậc thì dùng `content_group`. Hai chiều lệch nhau ở vài trang, ví dụ
+`/about/` là `3-prove` nhưng `intent_stage=awareness`, còn trang chủ là `5-act` nhưng
+`intent_stage=consideration`.
+
 `cta_position` đọc từ DOM lúc bấm, bám vào landmark có thật. Hai chỗ đã bẫy một lần:
 trang chủ/menu/blog **không có thẻ `<header>`** (thanh điều hướng là `<nav id="navbar">`),
 và `[class*="hero"]` khớp luôn `<body class="home-hero-dark">`. Đổi cấu trúc các khối này
@@ -141,7 +177,7 @@ trong `connect-src` và `form-action` của CSP) rồi sang Zalo — không qua 
 
 ## 7. Kiểm lại trước khi publish
 
-    node tools/kiem-do-luong.mjs        # 24 phép thử, Chrome headless
+    node tools/kiem-do-luong.mjs        # 30 phép thử, Chrome headless
     node tools/kiem-do-luong.mjs --giu  # giữ Chrome lại để tự xem
 
 Phép thử chặn mọi request tới Google ở tầng CDP và trả 200 giả cho endpoint Apps Script
@@ -182,6 +218,10 @@ nào:
 - Đăng ký Custom Definitions cho `page_type`, `intent_stage`, `page_language`,
   `cta_position`, `chat_channel`, `occasion` — chưa đăng ký thì báo cáo không lọc được
   theo các tham số này.
+- Tạo sẵn một exploration **Phễu DLN** (*Khám phá → Phễu*, bật "phễu mở"): bước 1 đến 5 là
+  `page_view` với Content group lần lượt `1-orient` … `5-act`, bước cuối `generate_lead`. Đây
+  là chỗ duy nhất thấy được khách đi qua các bậc nào trước khi đặt bàn (lý do ở mục 4).
+  `content_group` không cần đăng ký. Chỉ có số từ 22-09-2026 trở đi.
 - Tạo internal traffic filter để lượt truy cập của quán không lẫn vào số liệu.
 - Xem DebugView xác nhận GA4 nhận đúng tên và tham số.
 - Xử lý connected site tag `G-1YNW7BWD6W` ở mục 2 — giữ hay gỡ.
@@ -318,3 +358,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 19-09-2026 | `generate_lead` chỉ bắn khi webhook xác nhận; gửi hỏng thì báo lỗi thật cho khách; `fbclid` thôi ghi thành `Facebook Ads`; Key Event rút còn `generate_lead`; thêm giám sát hằng tuần trên site thật; ghi trạng thái các công cụ theo dõi khác và quy ước UTM. |
 | 19-09-2026 | Bảng link UTM dùng sẵn cho từng kênh (mục 11); GBP đổi sang `utm_source=google_maps` để khớp nhóm "Google Maps" của dashboard. |
 | 19-09-2026 | Nguồn có UTM ghi thành `<trang vào>/<utm_source>` (ví dụ `menu/google_maps`), bỏ medium khỏi nhãn nguồn. Đơn TEST trên site thật xác nhận webhook nhận đơn và sheet giữ đủ dấu `_`. |
+| 22-09-2026 | Thêm `content_group` = bậc DLN của trang (`<html data-dln>`, mục 4) vào lệnh `config`; 89 trang được gán bậc; `kiem-do-luong.mjs` thêm 4 phép thử, `audit-links.mjs` chặn trang thiếu bậc; lịch đăng bài bắt buộc trường `bac`. |

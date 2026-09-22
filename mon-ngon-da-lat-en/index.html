@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" data-dln="2-choose">
 <head>
   <meta charset="UTF-8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-w8hKDF97UaEW+qArBLK2Z9SnZsvckR0KqS/NZuIGOIU=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
   <meta property="og:site_name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <meta name="application-name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <link rel="icon" type="image/x-icon" href="../uploads/favicon.ico" />
@@ -143,7 +143,11 @@
       s.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
       s.async = true;
       document.head.appendChild(s);
-      gtag('config', 'G-YWGENK065S');
+      // Bac DLN cua trang (thuoc tinh data-dln cua the html, tools/do-luong.md muc 4) vao chieu
+      // "Content group" co san cua GA4: bao cao Trang va man hinh loc duoc theo bac ma
+      // khong phai dang ky Custom Definition. Trang thieu thuoc tinh thi gui config tron.
+      var bac = document.documentElement.getAttribute('data-dln');
+      gtag('config', 'G-YWGENK065S', bac ? { content_group: bac } : {});
     }
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
       window.addEventListener(evt, loadGA, { once: true, passive: true });
@@ -714,12 +718,12 @@
 <p>Nestled in the middle of the pine forest, Xom Leo Grill & Chill is one of the Da Lat grills with the most "expensive" view space. From the shop, you can <strong>see the entire sunset</strong>, <strong>the train weaving through the forest</strong> (night trains leave Da Lat Station at 18:15 and 20:20 and only run with enough passengers), and <strong>the valley greenhouses glowing at night</strong>– all creating an unforgettable poetic scene.</p>
 <p>Not only impressed by the scenery, Xom Leo Grill & Chill also offers a cozy culinary experience with a diverse barbecue menu, from beef, seafood, to fresh Da Lat vegetables - all of which are richly flavored and grilled directly on a fragrant charcoal stove. Open space, wooden chairs, yellow lights create a feeling of familiarity, closeness but still very "chill".</p>
 <p>This is also the ideal place to have dinner in Da Lat with your loved one, group of friends or family, where you can eat, chat and enjoy beautiful scenery like no other place.</p>
-<p>📍*Address: 113 Huynh Tan Phat, Xuan Truong Ward - Da Lat, Lam Dong 67000</p>
-<p>*🔥<strong>Special</strong>: Sunset view – Train – Greenhouse valley lights.</p>
-<p>👉 Book a table: Fanpage</p>
-<p>☎️ Hotline: 076.45.27.336</p>
-<p>📍 Directions: See Google Maps</p>
-<p>*If you are wondering what to eat for dinner in Da Lat that is both delicious and has a beautiful space for photos and relaxing, then <strong>Xom Leo Grill & Chill</strong> is definitely the perfect stop for a memorable evening in the foggy city.*</p>
+<p>📍 Address: 113 Huynh Tan Phat, Xuan Truong Ward - Da Lat, Lam Dong 67000</p>
+<p>🔥 <strong>Special</strong>: Sunset view – Train – Greenhouse valley lights.</p>
+<p>👉 Book a table: <a href="/en/#booking">book online</a> or <a href="https://m.me/nuongxomleo" rel="noopener">message us on Messenger</a></p>
+<p>☎️ Hotline: <a href="tel:0764527336">076.45.27.336</a></p>
+<p>📍 Directions: <a href="https://www.google.com/maps?cid=11166661116585636255" rel="noopener" target="_blank">See Google Maps</a></p>
+<p><em>If you are wondering what to eat for dinner in Da Lat that is both delicious and has a beautiful space for photos and relaxing, then <strong>Xom Leo Grill & Chill</strong> is definitely the perfect stop for a memorable evening in the foggy city.</em></p>
 <p>Da Lat is not only famous for its charming scenery and pleasant climate but also fascinates tourists with its rich and unique cuisine. Whether it's a simple snack at the night market, a heartwarming breakfast on the sidewalk, or attractive grilled dishes in the chilly sunset - each flavor contributes to creating a very unique and memorable Da Lat. If you have the opportunity to visit the foggy city, don't forget to "spend time" to explore all the delicious dishes of Da Lat - because cuisine is one of the reasons why tourists keep wanting to come back here.</p>
 </div>
         <aside class="max-w-3xl mx-auto mt-12 mb-8 p-6 rounded-xl border border-white/10 bg-surface/50" aria-label="References">

@@ -10,6 +10,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { BAC_DLN, datBac } from './bac-dln.mjs';
 
 const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
@@ -23,6 +24,10 @@ const TEN_QUAN_EN = 'Xom Leo Grill & Chill';
 const fileND = process.argv[2];
 if (!fileND) { console.error('Thieu duong dan file noi dung.'); process.exit(1); }
 const d = JSON.parse(fs.readFileSync(fileND, 'utf8'));
+if (d.bac !== undefined && !BAC_DLN[d.bac]) {
+  console.error(`"bac" phai la mot trong ${Object.keys(BAC_DLN).join('/')} (dang la "${d.bac}").`);
+  process.exit(1);
+}
 
 // Ten file anh phai la chu-thuong-gach-ngang co nghia (checklist muc 75; site da doi ten hang loat
 // ngay 15-09-2026, xem tools/anh-doi-ten.json). Chan ten kieu WordPress/Facebook/may anh.
@@ -280,6 +285,9 @@ for (const lang of ['vi', 'en']) {
     .replace(/\s*<section id="faq"[\s\S]*?<\/section>/, '');
 
   let trang = head + nav + dungArticle(t, lang) + duoi;
+  // Bai khung la bac P ("3-prove"): chep nguyen thi moi bai moi vao GA4 thanh bac P. Lay bac tu
+  // file noi dung neu co, khong thi bo trong — dang-bai-theo-lich.mjs dien tu lich-dang.json.
+  trang = datBac(trang, BAC_DLN[d.bac] || '');
   // dong bo xuong dong voi bai goc
   trang = trang.replace(/\r\n/g, '\n');
   if (nl === '\r\n') trang = trang.replace(/\n/g, '\r\n');

@@ -317,6 +317,20 @@ await moTrang('/menu/');
 await thuBam('Trang menu -> page_type=menu, intent_stage=action', '#navbar a[href^="tel:"]', 'click_call',
   (t) => (t.page_type === 'menu' && t.intent_stage === 'action' ? null : 'tham so sai: ' + JSON.stringify(t)));
 
+console.log('\n=== BAC DLN -> CONTENT GROUP ===');
+// Lenh config phai mang content_group = <html data-dln> (do-luong.md muc 4). Doc thang
+// dataLayer chu khong doc __ghi: config co the da vao hang doi truoc luc moTrang cai hook.
+for (const [duong, mongDoi] of [['/', '5-act'], ['/en/', '5-act'], ['/menu/', '4-rate'], ['/thien-vien-truc-lam/', '1-orient']]) {
+  await moTrang(duong);
+  const cfg = JSON.parse(await ev(`(function(){
+    window.dispatchEvent(new Event('scroll'));   // nhanh tuong tac cua doan GA: nap ngay
+    return JSON.stringify((window.dataLayer || []).filter(function(x){ return x[0] === 'config'; })
+      .map(function(x){ return Array.prototype.slice.call(x); }));
+  })()`));
+  const cg = cfg.length === 1 ? (cfg[0][2] || {}).content_group : undefined;
+  bao(duong + ' -> config gui content_group=' + mongDoi, cfg.length === 1 && cg === mongDoi, 'config: ' + JSON.stringify(cfg));
+}
+
 console.log('\n=== MANG ===');
 console.log('  request toi Google bi chan: ' + soChan + ' | request Apps Script bi giu lai: ' + soAppsScript);
 if (soChan === 0) bao('Harness co that su chan request ra Google', false, 'khong chan duoc lan nao — hoac trang khong con the GA');

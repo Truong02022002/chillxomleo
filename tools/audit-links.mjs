@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { GIA_TRI_HOP_LE } from './bac-dln.mjs';
 
 const ROOT = process.cwd();
 // 'hang-doi' la ban nhap cho ngay dang, chua phai trang cua site — neu quet vao
@@ -23,8 +24,9 @@ for (const f of files) {
   pages.set(route, f);
 }
 
-const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [], langSwitch: [], crossLang: [], robotsMeta: [], dupFaq: [] };
+const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [], langSwitch: [], crossLang: [], robotsMeta: [], dupFaq: [], dln: [], mdSot: [] };
 const faqBlocks = new Map(); // danh sach cau hoi cua khoi FAQ -> cac trang
+const bacOf = new Map(); // route -> bac DLN (<html data-dln>, xem tools/bac-dln.mjs)
 const inbound = new Map(); // route -> count
 const titles = new Map();
 
@@ -163,6 +165,23 @@ for (const f of files) {
     findings.deadAnchor.push(`${f}: <${m[1]}>${m[2]}</${m[1]}>`);
   }
 
+  // 6b) Dau * cua markdown lot ra man hinh khi dich VI->EN (<p>🌟*"..."*</p>) va dong lien he
+  //     rung the <a> ("👉 Book a table: Fanpage"). Ca hai lot qua muc 6 vi khong nam trong
+  //     <em>/<strong> — tim thay 22-09-2026 o 4 trang EN.
+  for (const m of main.matchAll(/<p[^>]*>(?:\s*\S{0,3}\*(?!\*)[\s\S]*?|[^<]*?\*\s*)<\/p>/g)) {
+    findings.mdSot.push(`${f}: ${m[0].replace(/<[^>]+>/g, '').slice(0, 60)}`);
+  }
+  for (const m of main.matchAll(/<p[^>]*>[^<]{0,4}(Book a table|Đặt bàn|Directions|Chỉ đường)\s*:[^<]*<\/p>/g)) {
+    findings.mdSot.push(`${f}: ${m[0].replace(/<[^>]+>/g, '').slice(0, 60)} (khong co link)`);
+  }
+
+  // 6c) Moi trang co the GA phai khai bac DLN hop le, neu khong luot xem vao "(not set)".
+  if (s.includes('G-YWGENK065S')) {
+    const bac = (s.match(/<html\b[^>]*\sdata-dln="([^"]*)"/) || [])[1];
+    if (GIA_TRI_HOP_LE.has(bac)) bacOf.set(route, bac);
+    else findings.dln.push(`${f}: data-dln="${bac ?? ''}" (hop le: ${[...GIA_TRI_HOP_LE].join(', ')})`);
+  }
+
   // 7) hreflang self-reference
   const canon = (s.match(/<link rel="canonical" href="([^"]+)"/) || [])[1];
   if (canon) {
@@ -218,6 +237,11 @@ for (const [route, f] of pages) {
 
 for (const [t, fs_] of titles) if (fs_.length > 1) findings.dupTitle.push(`"${t.slice(0, 60)}" -> ${fs_.join(', ')}`);
 for (const [q, fs_] of faqBlocks) if (fs_.length > 1) findings.dupFaq.push(`${fs_.join(', ')}: "${q.slice(0, 70)}…"`);
+// Cap VI/EN la cung mot trang o hai ngon ngu nen phai cung bac DLN.
+for (const [route, { vi, en }] of altOf) {
+  if (route !== vi || !bacOf.has(vi) || !bacOf.has(en)) continue;
+  if (bacOf.get(vi) !== bacOf.get(en)) findings.dln.push(`${vi} = ${bacOf.get(vi)} nhung ${en} = ${bacOf.get(en)}`);
+}
 
 // ---- report ----
 const LABEL = {
@@ -229,6 +253,8 @@ const LABEL = {
   langSwitch: 'Nút đổi ngôn ngữ trỏ sai trang', crossLang: 'Link thân bài sang trang khác ngôn ngữ',
   robotsMeta: 'Trang index được thiếu thẻ robots max-snippet',
   dupFaq: 'Khối hỏi đáp giống hệt trên nhiều trang',
+  dln: 'Bậc DLN (data-dln) thiếu, sai hoặc lệch giữa VI/EN',
+  mdSot: 'Dấu * markdown sót hoặc dòng liên hệ mất link',
 };
 console.log(`Quét ${files.length} file HTML, ${smLocs.length} URL sitemap\n`);
 let total = 0;

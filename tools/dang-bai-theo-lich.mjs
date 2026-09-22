@@ -15,6 +15,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import { BAC_DLN, datBac } from './bac-dln.mjs';
 
 const ROOT = process.cwd();
 const HANG_DOI = path.join(ROOT, 'hang-doi');
@@ -188,6 +189,8 @@ function kiemTraBaiNhap(d) {
   if (d.slug && !/^[a-z0-9-]+$/.test(d.slug)) v.push(`slug "${d.slug}" chi duoc chua chu thuong, so va dau gach ngang`);
   if (d.slug && d.slug.endsWith('-en')) v.push(`slug khong duoc ket thuc bang "-en" (ban EN tu sinh)`);
   if (d.ngayDang && !/^\d{4}-\d{2}-\d{2}$/.test(d.ngayDang)) v.push(`ngayDang "${d.ngayDang}" phai dang YYYY-MM-DD`);
+  // Bac DLN thanh <html data-dln> -> content_group cua GA4. Thieu thi bai vao "(not set)".
+  if (!BAC_DLN[d.bac]) v.push(`"bac" phai la mot trong ${Object.keys(BAC_DLN).join('/')} (dang la "${d.bac ?? ''}") — lay theo cot bac trong ke-hoach-26-bai.json`);
 
   for (const hau of ['', '-en']) {
     const f = path.join(HANG_DOI, d.slug + hau, 'index.html');
@@ -376,12 +379,14 @@ if (THU) {
 // Them hai thu (21-09-2026), cung ly do ban nhap soan tu truoc: bai nhom dong len song
 // (a) thieu the robots max-snippet ma toan site da co tu 16-09, va (b) nut doi ngon ngu
 // VN|EN tro ve bai khung cua tools/tao-bai-nhap.mjs chu khong ve chinh no.
-function dongBoKhung(fileBai, fileMau, slug) {
+function dongBoKhung(fileBai, fileMau, slug, bac) {
   const s = fs.readFileSync(fileBai, 'utf8');
   const mau = fs.readFileSync(fileMau, 'utf8');
   const nl = eolCua(s);
   const khoiGA = (h) => [...h.matchAll(/<script>([\s\S]*?)<\/script>/g)].filter((m) => m[1].includes('loadGA'));
-  let t = s;
+  // Doan GA chep tu /blog/ doc <html data-dln> de gui content_group (22-09-2026). Ban nhap
+  // soan truoc ngay do khong co thuoc tinh, con ban sinh tu bai khung thi mang bac P cua khung.
+  let t = datBac(s, BAC_DLN[bac]);
   const gaMau = khoiGA(mau);
   const gaBai = khoiGA(t);
   if (gaMau.length === 1 && gaBai.length === 1) t = t.replace(gaBai[0][0], () => gaMau[0][0].replace(/\r?\n/g, nl));
@@ -415,8 +420,8 @@ for (const d of denHan) {
 
   chepThuMuc(path.join(HANG_DOI, d.slug), path.join(ROOT, d.slug));
   chepThuMuc(path.join(HANG_DOI, d.slug + '-en'), path.join(ROOT, d.slug + '-en'));
-  dongBoKhung(path.join(ROOT, d.slug, 'index.html'), path.join(ROOT, 'blog/index.html'), d.slug);
-  dongBoKhung(path.join(ROOT, d.slug + '-en', 'index.html'), path.join(ROOT, 'blog-en/index.html'), d.slug);
+  dongBoKhung(path.join(ROOT, d.slug, 'index.html'), path.join(ROOT, 'blog/index.html'), d.slug, d.bac);
+  dongBoKhung(path.join(ROOT, d.slug + '-en', 'index.html'), path.join(ROOT, 'blog-en/index.html'), d.slug, d.bac);
   noiTuTrangLienQuan(d);
 
   for (const [file, lang] of [['blog/index.html', 'vi'], ['blog-en/index.html', 'en']]) {

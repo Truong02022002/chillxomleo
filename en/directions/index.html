@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" data-dln="5-act">
 
 <head>
   <meta charset="UTF-8">
@@ -15,7 +15,7 @@
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
   <!-- Security Headers -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-w8hKDF97UaEW+qArBLK2Z9SnZsvckR0KqS/NZuIGOIU=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
 
 
@@ -130,7 +130,11 @@
       s.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
       s.async = true;
       document.head.appendChild(s);
-      gtag('config', 'G-YWGENK065S');
+      // Bac DLN cua trang (thuoc tinh data-dln cua the html, tools/do-luong.md muc 4) vao chieu
+      // "Content group" co san cua GA4: bao cao Trang va man hinh loc duoc theo bac ma
+      // khong phai dang ky Custom Definition. Trang thieu thuoc tinh thi gui config tron.
+      var bac = document.documentElement.getAttribute('data-dln');
+      gtag('config', 'G-YWGENK065S', bac ? { content_group: bac } : {});
     }
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
       window.addEventListener(evt, loadGA, { once: true, passive: true });

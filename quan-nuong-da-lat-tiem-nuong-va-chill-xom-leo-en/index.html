@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth" data-dln="3-prove">
 <head>
   <meta charset="UTF-8">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-iINSpzY6Nm3uGouRaDFyskruSMPc5TLvPCMmo/xNX70=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-w8hKDF97UaEW+qArBLK2Z9SnZsvckR0KqS/NZuIGOIU=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'self' https://script.google.com; upgrade-insecure-requests">
   <meta property="og:site_name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <meta name="application-name" content="Tiệm Nướng & Chill Xóm Lèo - Đà Lạt" />
   <link rel="icon" type="image/x-icon" href="../uploads/favicon.ico" />
@@ -143,7 +143,11 @@
       s.src = "https://www.googletagmanager.com/gtag/js?id=G-YWGENK065S";
       s.async = true;
       document.head.appendChild(s);
-      gtag('config', 'G-YWGENK065S');
+      // Bac DLN cua trang (thuoc tinh data-dln cua the html, tools/do-luong.md muc 4) vao chieu
+      // "Content group" co san cua GA4: bao cao Trang va man hinh loc duoc theo bac ma
+      // khong phai dang ky Custom Definition. Trang thieu thuoc tinh thi gui config tron.
+      var bac = document.documentElement.getAttribute('data-dln');
+      gtag('config', 'G-YWGENK065S', bac ? { content_group: bac } : {});
     }
     ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
       window.addEventListener(evt, loadGA, { once: true, passive: true });
@@ -445,9 +449,9 @@
 </figure>
 <h2 id="7-what-do-customers-say-about-da-lat-grilled-restaurant---xom-leo-grill--chill-shop">7. What guests say: 4.8★ from about 1,978 Google Maps reviews</h2>
 <p>Xom Leo Grill & Chill holds a 4.8★ rating from about 1,978 Google Maps reviews (July 2026). A few comments from diners:</p>
-<p>🌟*"Delicious food, chill atmosphere true to Da Lat style, extremely lovely service. I went with 2 people and had a full meal, the price was okay. Very satisfied!"*</p>
-<p>🌟*"When traveling in a group, finding a restaurant like this is great. There is a place for small birthday parties, a cozy space, and the staff also helps with decorations. Will come back next time!"*</p>
-<p>🌟*"Eating while watching the train pass by, it feels like you're in Europe. Really chill. Every dish is delicious, especially the beef with pepper sauce and seafood."*</p>
+<p>🌟 <em>"Delicious food, chill atmosphere true to Da Lat style, extremely lovely service. I went with 2 people and had a full meal, the price was okay. Very satisfied!"</em></p>
+<p>🌟 <em>"When traveling in a group, finding a restaurant like this is great. There is a place for small birthday parties, a cozy space, and the staff also helps with decorations. Will come back next time!"</em></p>
+<p>🌟 <em>"Eating while watching the train pass by, it feels like you're in Europe. Really chill. Every dish is delicious, especially the beef with pepper sauce and seafood."</em></p>
 <p><strong>Xom Leo Grill & Chill</strong> is not simply a grill shop in Da Lat, but a place for you to slow down and fully enjoy every moment with relatives and friends. With a unique space, delicious food and dedicated service, this place will definitely be one of the most impressive destinations in your journey to discover Da Lat.</p>
 <p>See you at <strong>XOM LEO GRILL &amp; CHILL</strong> — the most delicious &amp; chill BBQ spot in Da Lat!</p>
 </div>
