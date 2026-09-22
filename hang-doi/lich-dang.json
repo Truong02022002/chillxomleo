@@ -3,6 +3,7 @@
     {
       "slug": "dat-tiec-sinh-nhat-o-da-lat",
       "ngayDang": "2026-08-29",
+      "bac": "C",
       "danhMuc": "Cẩm nang",
       "danhMucEn": "Travel Guide",
       "tieuDe": "Đặt tiệc sinh nhật ở Đà Lạt – Gợi ý chỗ tổ chức 2026",
@@ -17,6 +18,7 @@
     {
       "slug": "quan-nuong-da-lat-cho-nhom-dong",
       "ngayDang": "2026-09-18",
+      "bac": "C",
       "danhMuc": "Cẩm nang",
       "danhMucEn": "Travel Guide",
       "tieuDe": "Quán nướng Đà Lạt cho nhóm đông – Họp lớp, liên hoan",
@@ -31,6 +33,7 @@
     {
       "slug": "thuc-don-nhau-da-lat",
       "ngayDang": "2026-10-02",
+      "bac": "R",
       "danhMuc": "Cẩm nang",
       "danhMucEn": "Travel Guide",
       "tieuDe": "Thực đơn nhậu Đà Lạt – Gọi mấy món cho nhóm 4–10",
@@ -50,6 +53,7 @@
     {
       "slug": "chi-phi-an-uong-o-da-lat",
       "ngayDang": "2026-10-09",
+      "bac": "R",
       "danhMuc": "Cẩm nang",
       "danhMucEn": "Travel Guide",
       "tieuDe": "Chi phí ăn uống ở Đà Lạt – Một ngày hết bao nhiêu?",
@@ -69,6 +73,7 @@
     {
       "slug": "quan-an-da-lat-mo-cua-tet",
       "ngayDang": "2026-10-23",
+      "bac": "C",
       "danhMuc": "Cẩm nang",
       "danhMucEn": "Travel Guide",
       "tieuDe": "Quán ăn Đà Lạt mở cửa Tết – Mùng mấy quán mở lại?",

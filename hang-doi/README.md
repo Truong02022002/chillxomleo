@@ -23,6 +23,7 @@ Rồi thêm một mục vào `lich-dang.json`:
 {
   "slug": "quan-nuong-da-lat-cho-nhom-dong",
   "ngayDang": "2026-09-12",
+  "bac": "C",
   "danhMuc": "Cẩm nang",
   "danhMucEn": "Travel Guide",
   "tieuDe": "Tiêu đề tiếng Việt (≤ 60 ký tự)",
@@ -39,6 +40,11 @@ Rồi thêm một mục vào `lich-dang.json`:
 
 `ngayDang` dùng **giờ Việt Nam**. Bài đăng lúc 08:00 sáng ngày đó.
 
+`bac` (bắt buộc): bậc DLN của bài — `O`, `C`, `P`, `R` hoặc `A`, lấy đúng cột `bac` của bài
+đó trong `ke-hoach-26-bai.json`. Lúc đăng, script ghi nó thành `<html data-dln>` và GA4 nhận
+thành chiều "Content group", nên báo cáo tách được lượt xem và lead theo từng bậc. Xem
+`tools/do-luong.md` mục 4 trên nhánh `main`.
+
 `noiTu` (nên có, 2–3 slug bản VI): các trang đang sống sẽ trỏ link tới bài mới. Lúc đăng,
 script chèn một dòng vào khối "Bài viết liên quan" của cả bản VI lẫn bản EN của từng trang
 (nhãn = `tieuDe` / `tieuDeEn`). Trang nguồn phải có sẵn khối đó ở cả hai bản, nếu không
@@ -50,6 +56,7 @@ script dừng từ bước kiểm tra. Thiếu `noiTu` thì bài vẫn đăng nh
 Script kiểm hết trước khi ghi, sai một điểm là dừng, không đăng nửa vời:
 
 - `slug` chỉ chữ thường / số / gạch ngang, **không** kết thúc bằng `-en`
+- `bac` là một trong `O` / `C` / `P` / `R` / `A`
 - Có đủ cả `<slug>/index.html` và `<slug>-en/index.html`
 - Mỗi bài đúng **1 thẻ `<h1>`**
 - `canonical` trỏ về chính nó: `https://xomleo.vn/<slug>/` và `.../<slug>-en/`
