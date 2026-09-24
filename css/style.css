@@ -536,7 +536,8 @@ details[open] .blog-toc-title::after {
 .preloader-scene {
   position: relative;
   width: min(90vw, 500px);
-  height: 70px;
+  /* du cao cho khoi bay len tu ong khoi (tau cao 34px + khoi ~30px) */
+  height: 84px;
   margin-bottom: 2rem;
   overflow: hidden;
 }
@@ -563,118 +564,49 @@ details[open] .blog-toc-title::after {
 
 .preloader-train {
   position: absolute;
-  bottom: 12px;
+  /* banh xe cham ray: ray (.preloader-track) cao 2px dat bottom 8px */
+  bottom: 9px;
   left: 0;
   display: flex;
   flex-direction: row-reverse;
   align-items: flex-end;
   gap: 0;
   animation: preloader-train-run 2.2s cubic-bezier(0.35, 0.05, 0.65, 0.95) forwards;
-  filter: drop-shadow(0 0 12px rgba(160,63,0,0.5));
+  filter: drop-shadow(0 2px 2px rgba(44, 26, 14, 0.3));
 }
 
-/* === Preloader Locomotive === */
-.pl-loco {
-  width: 44px;
-  height: 28px;
-  background: linear-gradient(180deg, #A03F00 0%, #A0430A 100%);
-  border: 2px solid #B4590F;
-  border-radius: 4px 14px 3px 3px;
-  position: relative;
-  box-shadow: 
-    0 0 15px rgba(160, 63, 0, 0.5),
-    inset 0 3px 6px rgba(255, 200, 100, 0.3);
-}
-
-/* Chimney */
-.pl-loco::before {
-  content: '';
-  position: absolute;
-  top: -10px;
-  left: 8px;
-  width: 8px;
-  height: 10px;
-  background: linear-gradient(180deg, #2C1A0E 0%, #A03F00 100%);
-  border-radius: 3px 3px 0 0;
-  border: 1.5px solid #B4590F;
-  box-shadow: 0 -5px 10px rgba(160, 63, 0, 0.5);
-}
-
-/* Wheels + Headlight */
-.pl-loco::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 5px;
-  width: 7px;
-  height: 7px;
-  background: #3B2314;
-  border: 1.5px solid #A03F00;
-  border-radius: 50%;
-  box-shadow: 
-    11px 0 0 #3B2314, 11px 0 0 0 1.5px #A03F00,
-    22px 0 0 #3B2314, 22px 0 0 0 1.5px #A03F00,
-    /* Headlight glow */
-    40px -8px 15px 5px rgba(255, 220, 100, 0.8),
-    40px -8px 35px 12px rgba(255, 200, 50, 0.3);
-}
-
-/* === Preloader Coupler Link === */
-.pl-coupler {
-  width: 8px;
-  height: 4px;
-  background: #8B5E3C;
-  border-radius: 1px;
-  align-self: center;
-  margin-bottom: 4px;
-  box-shadow: 0 0 4px rgba(139, 94, 60, 0.4);
-}
-
-/* === Preloader Wagon === */
+/* Dau may + toa: cung bo hinh SVG voi doan tau quanh form dat ban
+   (symbol #btDauMay / #btToa dat dau <body>, xem css .bt-loco / .bt-wagon). */
+.pl-loco,
 .pl-wagon {
-  width: 38px;
-  height: 24px;
-  background: linear-gradient(180deg, #B4590F 0%, #C0601A 100%);
-  border: 2px solid #A03F00;
-  border-radius: 4px;
   position: relative;
-  box-shadow: 
-    0 0 12px rgba(160, 63, 0, 0.35),
-    inset 0 2px 4px rgba(255, 200, 100, 0.2);
+  flex: none;
 }
 
-/* Windows */
-.pl-wagon::before {
-  content: '';
-  position: absolute;
-  top: 4px;
-  left: 5px;
+.pl-loco { width: 60px; height: 34px; }
+.pl-wagon { width: 46px; height: 30px; }
+.pl-loco svg,
+.pl-wagon svg { display: block; overflow: visible; }
+
+/* Thanh noi ngang tam khung gam (cach day toa ~8px) */
+.pl-coupler {
+  flex: none;
   width: 6px;
-  height: 8px;
-  background: rgba(173, 216, 230, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  border-radius: 1.5px;
-  box-shadow: 
-    9px 0 0 rgba(173, 216, 230, 0.75),
-    9px 0 0 0 1px rgba(255, 255, 255, 0.5),
-    18px 0 0 rgba(173, 216, 230, 0.75),
-    18px 0 0 0 1px rgba(255, 255, 255, 0.5);
+  height: 2px;
+  margin-bottom: 7px;
+  background: #2C1A0E;
+  border-radius: 1px;
 }
 
-/* Wheels */
-.pl-wagon::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 4px;
-  width: 6px;
-  height: 6px;
-  background: #3B2314;
-  border: 1.5px solid #A03F00;
-  border-radius: 50%;
-  box-shadow: 
-    10px 0 0 #3B2314, 10px 0 0 0 1.5px #A03F00,
-    20px 0 0 #3B2314, 20px 0 0 0 1.5px #A03F00;
+/* Tau loading chay nhanh (~250px/s) nen banh quay nhanh hon tau quanh form */
+.preloader-train .bt-nan {
+  animation-duration: 0.35s;
+}
+
+/* Nen man hinh loading (#F5E9DA) sang hon nen khu dat ban nen khoi mau kem gan nhu
+   vo hinh — doi sang xam nau nhat. */
+.preloader-train .bt-khoi i {
+  background: radial-gradient(circle, rgba(130, 104, 86, 0.5) 0%, rgba(130, 104, 86, 0.28) 45%, rgba(130, 104, 86, 0) 72%);
 }
 
 @keyframes preloader-train-run {
