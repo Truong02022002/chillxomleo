@@ -122,6 +122,8 @@ function dungArticle(t, lang) {
 
   const mucLuc = [...t.muc.map((m) => `    <li><a href="#${m.id}">${esc(m.h2)}</a></li>`),
     `    <li><a href="#${idFaq}">${lang === 'vi' ? 'Câu hỏi thường gặp' : 'Frequently asked questions'}</a></li>`].join('\n');
+  // Tieu de tu danh so ("1. ...") thi CSS thoi tu dem them, tranh hien "1. 1." (css/style.css .toc-co-so)
+  const olMucLuc = t.muc.some((m) => /^\d+\s*[.)]/.test(m.h2)) ? '<ol class="toc-co-so">' : '<ol>';
 
   const ldFaq = {
     '@context': 'https://schema.org',
@@ -167,7 +169,7 @@ function dungArticle(t, lang) {
 
             <details class="blog-toc" open>
   <summary class="blog-toc-title">${nhanMucLuc}</summary>
-  <ol>
+  ${olMucLuc}
 ${mucLuc}
   </ol>
 </details>

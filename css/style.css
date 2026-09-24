@@ -473,6 +473,14 @@ details[open] .blog-toc-title::after {
   font-size: 0.85rem;
 }
 
+/* Bai cu thoi WordPress co san so trong tieu de ("1. Gioi thieu...") nen so tu dem
+   o tren thanh "1. 1." — va o bai listicle con danh so ca muc "Goi y them tu quan"
+   vi bo dem khong biet muc do khong co so. Muc luc nao tieu de da tu danh so thi
+   <ol class="toc-co-so"> (tools/tao-bai-nhap.mjs tu gan) va chi hien so cua tieu de. */
+.blog-toc > ol.toc-co-so > li > a::before {
+  content: none;
+}
+
 /* Sub-items (H3) */
 .blog-toc .toc-sub {
   list-style: none;
