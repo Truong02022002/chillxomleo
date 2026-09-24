@@ -1,9 +1,11 @@
 :root {
   /* ============ FONT CHU CUA CA SITE ============
-     Chot 06/09/2026 theo yeu cau chu quan, thay cho quyet dinh 23/08/2026:
+     Chot 24/09/2026 (giao dien "ga xe lua Phap co", chu site chon), thay 06/09:
        than bai + dieu huong  -> Signika  (doc duoc, 121 bai dai, co bai 6.000 tu)
-       tieu de h1/h2/h3       -> Dancing Script  (giu net chu viet tay)
-       logo + trang tri       -> Dancing Script  (.font-script)
+       tieu de h1/h2/h3       -> Playfair Display (chu co chan kieu in an Phap tk19)
+       logo + ten quan        -> Dancing Script  (.font-script, subset 19 ky tu)
+     So do ben duoi la cua dot 06/09 khi tieu de con la Dancing Script — giu lai
+     de biet vi sao font tieu de phai preload va subset hep.
 
      VI SAO KHONG BO HAN Dancing Script: da do A/B 5 vong xen ke, CPU x4 + Slow 4G,
      trang /cam-nang-du-lich-da-lat/, trung vi FCP:
@@ -19,9 +21,8 @@
        --font-signika  <- tailwind-output.css (:host/html, .font-sans, .font-serif)
                           + 10 inline style trong HTML. Ten nay GIO DUNG NGHIA
                           tro lai: no thuc su tra ve Signika.
-       --font-serif    <- .fb-text h2 (flipbook /menu/). Tro sang --font-script
-                          de tieu de menu khop voi h1/h2/h3 phan con lai cua site:
-                          .fb-text h2 co do uu tien (0,1,1) nen thang rule "h1,h2,h3".
+       --font-serif    <- h1/h2/h3 + .font-serif + .fb-text h2 (flipbook /menu/):
+                          Playfair Display, fallback khop metric trong fonts.css.
        --font-sans     <- hien khong cho nao dung, giu cho du bo
 
      MUON QUAY LAI TOAN BO Dancing Script (trang thai truoc 06/09): doi
@@ -43,7 +44,7 @@
   --card: #FFF8F0; /* Card White */
   --card-border: #E0C3A3; /* Card Border */
   --font-sans: var(--font-base);
-  --font-serif: var(--font-script);
+  --font-serif: 'Playfair Display', 'Playfair Fallback G', 'Playfair Fallback T', Georgia, serif;
   --font-script: 'Dancing Script', 'Dancing Script Fallback', cursive;
 }
 
@@ -71,12 +72,12 @@ body {
   font-family: var(--font-base);
 }
 
-/* Tieu de giu Dancing Script. Phai phu CA HAI duong vi mot so heading mang class
+/* Tieu de dung Playfair Display. Phai phu CA HAI duong vi mot so heading mang class
    .font-serif (343 cho tren 121 trang) con mot so khong mang class font nao —
-   chi dat mot trong hai se ra trang nua chu viet tay nua chu thuong. */
+   chi dat mot trong hai se ra trang nua chu co chan nua chu thuong. */
 .font-serif,
 h1, h2, h3 {
-  font-family: var(--font-script);
+  font-family: var(--font-serif);
 }
 
 .container {
@@ -1885,6 +1886,410 @@ footer                 { content-visibility: auto; contain-intrinsic-size: auto 
    --------------------------------------------------------------------------- */
 @media (min-width: 1024px) {
   .story-grid { grid-template-columns: 2fr 3fr; }
+}
+
+/* ===========================================================================
+   GIAO DIEN "GA XE LUA PHAP CO" — 24-09-2026, chu site chon trong 3 huong.
+   Y tuong: ga Da Lat 1932 + doan tau chay ngang quan. Giu bang mau kem / nau /
+   cam cua quan, them: giay cu co van, bien ga trang men (nhan nho tren tieu de),
+   ve tau co rang cua (nut, the danh gia, tom tat), khung buu thiep (anh),
+   duong ray lam vach ngan, chan trang nhu bang go nha ga.
+   Toan bo lop nay nam o CUOI file (truoc khoi giam chuyen dong) de thang cac rule
+   phia tren va Tailwind; HTML 135 trang gan nhu khong phai sua.
+   ⚠ Mau chu moi deu da do tuong phan >= 4.5:1 (chu nho) tren nen tuong ung;
+   doi mau o day thi do lai bang axe (crawl-mot-so) truoc khi push.
+   =========================================================================== */
+:root {
+  --muc: #2E1D12;          /* muc in: chu tieu de */
+  --go: #2B1B11;           /* go oc cho: chan trang, bang ga */
+  --go-2: #3A2517;
+  --dong: #8A6428;         /* dong thau tren nen sang (chi ke/vien) */
+  --dong-sang: #D9A45C;    /* dong thau tren nen toi */
+  --tem: #9B2C1F;          /* do tem buu dien */
+  --giay-sang: #FBF4E8;    /* giay the / khung anh */
+  --ke: rgba(59, 35, 20, 0.28);
+  --ke-dam: #CDB08C;
+  /* van giay: nhieu rat nhe, lat 160px. Rasterize mot lan roi lap. */
+  --giay-van: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .14 0 0 0 0 .08 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  /* duong ray nhin tu tren xuong: ta ve + hai thanh ray */
+  --ray: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14'%3E%3Crect x='7' y='0' width='6' height='14' rx='1' fill='%237A5A3F' fill-opacity='.45'/%3E%3Crect y='2.5' width='22' height='2' fill='%233B2314' fill-opacity='.7'/%3E%3Crect y='9.5' width='22' height='2' fill='%233B2314' fill-opacity='.7'/%3E%3C/svg%3E");
+  --ray-sang: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='22' height='14'%3E%3Crect x='7' y='0' width='6' height='14' rx='1' fill='%23D9A45C' fill-opacity='.35'/%3E%3Crect y='2.5' width='22' height='2' fill='%23D9A45C' fill-opacity='.75'/%3E%3Crect y='9.5' width='22' height='2' fill='%23D9A45C' fill-opacity='.75'/%3E%3C/svg%3E");
+}
+
+/* ---------- Giay cu ---------- */
+body,
+.bg-background,
+.bg-surface {
+  background-image: var(--giay-van);
+}
+
+/* ---------- Chu tieu de: Playfair Display ---------- */
+h1, h2, h3, .font-serif {
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  font-feature-settings: "kern" 1, "liga" 1, "lnum" 1;
+  text-wrap: balance;
+}
+
+/* Chu nghieng trong tieu de ("Trực Tuyến", "Nướng"...) -> Playfair nghieng, manh hon */
+:is(h1, h2, h3) .italic {
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Co chu: Tailwind dat text-5xl..7xl cho Dancing Script (chu viet tay nho con mat).
+   Playfair cung co px trong to hon han -> ha lai. [class] tang do uu tien de thang
+   ca cac bien the md:/lg: cua Tailwind. */
+h1[class] {
+  font-size: clamp(2rem, 1.35rem + 2.4vw, 3.35rem);
+  line-height: 1.12;
+}
+
+.hero-cinematic h1[class] {
+  font-size: clamp(2.1rem, 1.2rem + 3vw, 4rem);
+  line-height: 1.1;
+}
+
+h2[class*="text-4xl"],
+h2[class*="text-5xl"],
+h2[class*="text-6xl"],
+h2[class*="text-7xl"] {
+  font-size: clamp(1.85rem, 1.35rem + 1.9vw, 2.9rem);
+  line-height: 1.12;
+}
+
+/* Tieu de o cot hep (text-2xl/3xl, khong co bien the lon hon) */
+h2[class*="text-3xl"]:not([class*="text-4xl"]):not([class*="text-5xl"]):not([class*="text-6xl"]),
+h2[class*="text-2xl"]:not([class*="text-4xl"]):not([class*="text-5xl"]):not([class*="text-6xl"]) {
+  font-size: clamp(1.45rem, 1.2rem + 0.9vw, 1.95rem);
+  line-height: 1.2;
+}
+
+/* Tieu de trong bai viet */
+.prose h2 {
+  font-size: 1.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1.25 !important;
+  color: var(--muc) !important;
+  border-bottom: 0;
+  padding-bottom: 0.9rem;
+  background: linear-gradient(var(--ke-dam), var(--ke-dam)) left bottom / 100% 1px no-repeat,
+              linear-gradient(var(--ke-dam), var(--ke-dam)) left calc(100% - 4px) / 100% 1px no-repeat;
+}
+
+.prose h3 {
+  font-size: 1.3rem !important;
+  border-left: 0;
+  padding-left: 0;
+}
+
+.prose h3::before {
+  content: "◆";
+  display: inline-block;
+  margin-right: 0.5rem;
+  font-size: 0.55em;
+  vertical-align: 0.25em;
+  color: var(--primary);
+}
+
+@media (max-width: 767px) {
+  .prose h2 { font-size: 1.45rem !important; }
+  .prose h3 { font-size: 1.18rem !important; }
+}
+
+/* Menu di dong truoc dung chu viet tay -> chu co chan */
+nav.font-script {
+  font-family: var(--font-serif);
+  letter-spacing: 0.04em;
+}
+
+/* ---------- Bien ga trang men: nhan nho tren tieu de ---------- */
+span.uppercase.font-bold.text-primary[class*="tracking-[0.3em]"],
+span.uppercase.font-bold.text-primary[class*="tracking-[0.4em]"],
+p.uppercase.font-bold.text-primary[class*="tracking-[0.25em]"] {
+  display: inline-block;
+  padding: 0.5em 0.95em 0.42em;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  outline: 1px solid currentColor;
+  outline-offset: 2px;
+  line-height: 1.45;
+  margin: 3px;
+  max-width: 100%;
+}
+
+/* Nhan chuyen muc bai viet ("Cẩm nang") -> con dau buu dien */
+span.uppercase[class*="bg-[#A03F00]/10"] {
+  background: transparent !important;
+  color: var(--tem) !important;
+  border: 1.5px solid var(--tem);
+  border-radius: 3px;
+  transform: rotate(-2deg);
+  white-space: nowrap;
+  box-shadow: inset 0 0 0 2px var(--background), inset 0 0 0 3px rgba(155, 44, 31, 0.55);
+}
+
+/* ---------- Nut chinh: ve tau co hai khuyet tron hai ben ---------- */
+a.bg-primary,
+button.bg-primary,
+a[class*="bg-[#A03F00]"],
+button[class*="bg-[#A03F00]"] {
+  border-radius: 3px;
+  box-shadow: inset 0 0 0 3px var(--primary), inset 0 0 0 4px rgba(255, 236, 210, 0.6);
+  -webkit-mask: radial-gradient(circle 5px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 5px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 5px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 5px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* Mask cat mat vien focus ben ngoai -> ve vien focus vao trong */
+a.bg-primary:focus-visible,
+button.bg-primary:focus-visible,
+a[class*="bg-[#A03F00]"]:focus-visible,
+button[class*="bg-[#A03F00]"]:focus-visible {
+  outline: 2px solid #FFF8F0;
+  outline-offset: -7px;
+}
+
+/* ---------- Duong ray ngan giua cac phan + dinh chan trang ---------- */
+main > section + section {
+  border-top: 0;
+}
+
+main > section + section::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: var(--ray) repeat-x center;
+  pointer-events: none;
+  z-index: 3;
+}
+
+footer {
+  position: relative;
+}
+
+footer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 14px;
+  background: var(--ray-sang) repeat-x center;
+  pointer-events: none;
+}
+
+/* ---------- Anh: khung buu thiep ---------- */
+.prose img:not([width="16"]):not([width="20"]):not([width="24"]),
+figure img {
+  border-radius: 2px !important;
+  box-shadow: 0 0 0 8px var(--giay-sang), 0 0 0 9px var(--ke-dam), 0 16px 32px -16px rgba(43, 27, 17, 0.55) !important;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+/* Anh dau bai (khung co aspect-ratio dat inline) */
+article header ~ div[style*="aspect-ratio"],
+div.relative.w-full.overflow-hidden[style*="aspect-ratio"] {
+  border-radius: 3px !important;
+  box-shadow: 0 0 0 10px var(--giay-sang), 0 0 0 11px var(--ke-dam), 0 24px 48px -22px rgba(43, 27, 17, 0.6) !important;
+}
+
+/* ---------- Tom tat nhanh: dien tin ---------- */
+.tl-dr-block {
+  background: var(--giay-sang) !important;
+  background-image: var(--giay-van) !important;
+  border: 1px solid var(--ke-dam) !important;
+  border-left: 1px solid var(--ke-dam) !important;
+  border-radius: 3px !important;
+  outline: 1px dashed rgba(138, 100, 40, 0.55);
+  outline-offset: -8px;
+  padding: 1.5rem 1.6rem !important;
+  position: relative;
+}
+
+/* ---------- Muc luc: bang gio tau ---------- */
+.blog-toc {
+  background: var(--giay-sang) !important;
+  background-image: var(--giay-van) !important;
+  border: 1px solid var(--ke-dam) !important;
+  border-radius: 3px !important;
+  outline: 1px solid var(--ke-dam);
+  outline-offset: 3px;
+  padding-top: 1.75rem !important;
+}
+
+.blog-toc::before {
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 10px !important;
+  border-radius: 0 !important;
+  background: var(--ray) repeat-x center / auto 10px !important;
+}
+
+.blog-toc > ol > li > a::before {
+  font-family: var(--font-serif);
+  font-weight: 700;
+}
+
+/* ---------- The danh gia: ve tau ---------- */
+.review-card {
+  background-color: var(--giay-sang) !important;
+  border: 1px solid var(--ke-dam) !important;
+  border-radius: 4px !important;
+  outline: 1px dashed rgba(138, 100, 40, 0.5);
+  outline-offset: -10px;
+  -webkit-mask: radial-gradient(circle 9px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 9px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 9px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 9px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* ---------- The bai blog: buu thiep ---------- */
+article.blog-item {
+  background-color: var(--giay-sang) !important;
+  border: 1px solid var(--ke-dam) !important;
+  border-radius: 3px !important;
+  padding: 10px;
+  box-shadow: 0 14px 30px -18px rgba(43, 27, 17, 0.45) !important;
+}
+
+article.blog-item > a > div:first-child {
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px var(--ke-dam);
+}
+
+article.blog-item h2,
+article.blog-item h3 {
+  font-size: 1.2rem;
+  line-height: 1.3;
+}
+
+/* ---------- Hoi dap: dong ve ---------- */
+#faq details,
+.prose details {
+  background-color: var(--giay-sang);
+  border: 1px solid var(--ke-dam);
+  border-radius: 3px;
+}
+
+/* ---------- Form dat ban: ve lon ---------- */
+.premium-form-wrap::before {
+  display: none;
+}
+
+.premium-form-wrap {
+  background: var(--ke-dam);
+}
+
+.premium-form-inner {
+  background-color: var(--giay-sang);
+  background-image: var(--giay-van);
+  box-shadow: inset 0 0 0 10px var(--giay-sang), inset 0 0 0 11px var(--ke-dam);
+}
+
+/* ---------- Thanh dieu huong: ke doi nhu trang bao in ---------- */
+#navbar.scrolled {
+  border-bottom: 3px double rgba(59, 35, 20, 0.35) !important;
+}
+
+/* ---------- Chan trang: bang go nha ga ---------- */
+footer.bg-surface {
+  background-color: var(--go);
+  background-image: var(--giay-van);
+  color: #F2E4CF;
+}
+
+footer.bg-surface .text-foreground,
+footer.bg-surface h3 {
+  color: #F2E4CF;
+}
+
+footer.bg-surface [class*="text-foreground/"],
+footer.bg-surface [class*="text-[#6B5443]"] {
+  color: rgba(242, 228, 207, 0.8);
+}
+
+footer.bg-surface .text-primary,
+footer.bg-surface h3 {
+  color: var(--dong-sang);
+}
+
+footer.bg-surface a:hover,
+footer.bg-surface a:hover .text-primary {
+  color: #FFF8F0;
+}
+
+footer.bg-surface [class*="border-white/"],
+footer.bg-surface [class*="border-muted/"],
+footer.bg-surface [class*="border-foreground/"] {
+  border-color: rgba(242, 228, 207, 0.18);
+}
+
+footer.bg-surface [class*="bg-white/"],
+footer.bg-surface [class*="bg-background"],
+footer.bg-surface [class*="bg-surface"],
+footer.bg-surface [class*="bg-[#6B5443]"] {
+  background-color: rgba(242, 228, 207, 0.08);
+}
+
+/* ---------- Thuc don trang chu: cham dan giua ten mon va gia ---------- */
+#menu h3 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+#menu h3::after {
+  content: "";
+  flex: 1 1 1.5rem;
+  min-width: 1.5rem;
+  border-bottom: 2px dotted rgba(59, 35, 20, 0.35);
+  transform: translateY(-0.25em);
+}
+
+#menu .whitespace-nowrap {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  font-feature-settings: "lnum" 1, "tnum" 1;
+}
+
+#menu .group.border-t {
+  border-top-style: dashed;
+  border-top-color: rgba(59, 35, 20, 0.25);
+}
+
+/* Nut vien (border-white/10 von lam cho nen toi) nam tren nen sang thi vo hinh */
+main section:not(.hero-cinematic) a[class*="border-white/10"] {
+  border-color: var(--primary);
+  color: var(--primary);
+  border-radius: 3px;
+  outline: 1px solid rgba(160, 63, 0, 0.35);
+  outline-offset: 3px;
+}
+
+/* Nut cuon len dau trang (JS chen) nam de len chan trang go toi -> vien dong */
+button[class*="left-[16px]"].bg-foreground {
+  box-shadow: 0 0 0 1px rgba(217, 164, 92, 0.7), 0 12px 24px -8px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Trang Gioi thieu: the trai nghiem ---------- */
+/* Truoc la gradient tim/hong/xam dam 950 pha trong (danh cho nen toi) -> tren nen kem
+   thanh mau tim hong pastel lac tong. Dua ve giay the + vien ve. */
+main .bg-gradient-to-br[class*="from-"][class*="-950/"],
+main .bg-gradient-to-br[class*="from-"][class*="-900/"] {
+  background-color: var(--giay-sang);
+  background-image: var(--giay-van);
+  border: 1px solid var(--ke-dam) !important;
+  outline: 1px dashed rgba(138, 100, 40, 0.45);
+  outline-offset: -8px;
 }
 
 /* ---------------------------------------------------------------------------

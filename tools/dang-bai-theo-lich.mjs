@@ -269,9 +269,10 @@ function noiTuTrangLienQuan(d) {
   }
 }
 
-// Dancing Script da bi thu gon con mot ban subset (xem tools/sinh-subset-font.mjs).
-// Ky tu ngoai bo subset se roi ve 'Dancing Script Fallback' = Arial thu 82%, nam
-// lan trong chu viet tay thi nhin ra ngay. Site hien khong dung ky tu nao nhu vay,
+// Font tieu de (Playfair Display tu 24-09-2026, truoc do Dancing Script) la ban subset
+// theo fonts/subset-kytu.txt (xem tools/sinh-subset-font.mjs). Ky tu ngoai bo subset
+// trong tieu de se roi ve Georgia/Times, nam lan trong chu Playfair thi nhin ra.
+// (Than bai dung Signika ban day du nen khong bi.) Site hien khong dung ky tu nao nhu vay,
 // nhung bai dang sau nay co ten nuoc ngoai (Zurich, Malaga, Munchen...) thi lo.
 // Day chi la CANH BAO, khong chan dang bai: lech font la chuyen tham my, khong
 // dang de mot bai da len lich phai nam lai.

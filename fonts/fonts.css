@@ -48,7 +48,48 @@
    BO unicode-range luon: chi con mot file thi khong con gi de tach. Bo ky tu da
    duoc ep la TAP CON cua hai dai cu, nen khong ky tu nao doi tu "font he thong ve"
    thanh "Dancing Script ve". */
-@font-face{font-family:'Dancing Script';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/dancing-script-subset.woff2) format('woff2');}
+/* 24-09-2026: tieu de chuyen sang Playfair Display (giao dien "ga xe lua Phap co",
+   chu site chon). Dancing Script CHI CON o logo + ten quan man hinh loading, nen
+   subset lai dung 19 ky tu cua "Chill Xóm Lèo" / "Tiệm Nướng & Chill Xóm Lèo",
+   mot weight 400: 39,2 KB -> 4,5 KB. Them chu vao phan tu .font-script thi PHAI
+   sinh lai subset (tools/sinh-subset-font.mjs), neu khong chu moi roi ve fallback.
+   File cu dancing-script-subset.woff2 van giu: ban nhap tren nhanh noi-dung va
+   HTML con nam trong cache tro toi no. */
+@font-face{font-family:'Dancing Script';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dancing-script-logo.woff2) format('woff2');}
+
+/* Playfair Display: font tieu de h1/h2/h3. Subset cung bo ky tu fonts/subset-kytu.txt
+   (ASCII + tieng Viet + dau cau) ma ban Dancing Script cu dung, sinh bang
+   tools/sinh-subset-font.mjs. Ban thuong 37,2 KB duoc preload vi <h1> la phan tu LCP;
+   ban nghieng 38,5 KB chi tai o trang nao that su co chu nghieng trong tieu de. */
+@font-face{font-family:'Playfair Display';font-style:normal;font-weight:400 900;font-display:swap;src:url(/fonts/playfair-display-subset.woff2) format('woff2');}
+@font-face{font-family:'Playfair Display';font-style:italic;font-weight:400 900;font-display:swap;src:url(/fonts/playfair-display-italic-subset.woff2) format('woff2');}
+
+/* Fallback KHOP METRIC cho Playfair — cung ly do voi 'Dancing Script Fallback' o duoi:
+   chong CLS luc font that ve de len. Do bang canvas measureText trong Chrome (24-09-2026),
+   cau mau tieng Viet 100px: Playfair 600 = 9562px, Georgia = 9551px, Times New Roman
+   = 8713px; ascent/descent Playfair = 108%/25% em. Khai dai weight 400-900 cho fallback
+   de trinh duyet KHONG to dam gia (dam gia lam chu rong them ~13%).
+   Hai ho rieng vi mot @font-face chi co mot size-adjust: may co Georgia (Windows, macOS,
+   iOS) dung ho G; may khong co (Android, Linux — gom ca may do cua PageSpeed) roi xuong
+   ho T dung Times New Roman / Liberation Serif (cung metric). */
+@font-face{
+  font-family: 'Playfair Fallback G';
+  font-weight: 400 900;
+  src: local('Georgia');
+  size-adjust: 100%;
+  ascent-override: 108%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+@font-face{
+  font-family: 'Playfair Fallback T';
+  font-weight: 400 900;
+  src: local('Times New Roman'), local('Liberation Serif'), local('Tinos');
+  size-adjust: 110%;
+  ascent-override: 98%;
+  descent-override: 23%;
+  line-gap-override: 0%;
+}
 
 /* Fallback KHOP METRIC cho Dancing Script — chua CLS 0,114 cua trang chu.
    Do duoc (Chrome CDP, khung 412px, PSI 28-08-2026): khoi chu hero cao 614,25px

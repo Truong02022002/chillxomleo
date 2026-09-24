@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 /**
- * Sinh fonts/dancing-script-subset.woff2 + fonts/subset-kytu.txt
+ * Sinh fonts/playfair-display-subset.woff2 (+ ban nghieng), fonts/dancing-script-logo.woff2
+ * va fonts/subset-kytu.txt. Truoc 24-09-2026 tool nay sinh fonts/dancing-script-subset.woff2
+ * (khi tieu de con la Dancing Script) — so do LCP ben duoi la cua dot do.
  *
  * Vi sao co file nay: Dancing Script ban day (latin 41,7 KB + vietnamese 7,5 KB)
  * nam trong duong toi han ve cua trang chu — phan tu LCP la chu <h1>, ma chu
@@ -79,23 +81,43 @@ if (!GHI) { console.log('\n(che do thu — them --ghi de thuc su sinh file)'); p
 
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
   + '(KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
-const url = 'https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700'
-  + '&text=' + encodeURIComponent(text) + '&display=swap';
+// 24-09-2026: tieu de chuyen sang Playfair Display -> bo ky tu tren gio dung cho
+// Playfair (thuong + nghieng). Dancing Script chi con o logo nen subset rieng theo
+// dung chu cua cac phan tu .font-script (CHU_LOGO) — them chu vao logo thi sua o day.
+const CHU_LOGO = 'Chill Xóm Lèo Tiệm Nướng &';
 
-const css = await (await fetch(url, { headers: { 'User-Agent': UA } })).text();
-// Endpoint subset dong cua Google la /l/font?kit=... , KHONG co duoi .woff2
-const m = css.match(/url\((https:\/\/[^)]+)\)/);
-if (!m) { console.error('Khong tim thay URL font trong CSS Google tra ve:\n' + css.slice(0, 400)); process.exit(2); }
-
-const buf = Buffer.from(await (await fetch(m[1], { headers: { 'User-Agent': UA } })).arrayBuffer());
-if (buf.subarray(0, 4).toString('latin1') !== 'wOF2') {
-  console.error('File tai ve khong phai woff2 (magic =', JSON.stringify(buf.subarray(0, 4).toString('latin1')), ')');
-  process.exit(3);
+async function tai(family, axes, kytu) {
+  const url = 'https://fonts.googleapis.com/css2?family=' + family + ':' + axes
+    + '&text=' + encodeURIComponent(kytu) + '&display=swap';
+  const css = await (await fetch(url, { headers: { 'User-Agent': UA } })).text();
+  // Endpoint subset dong cua Google la /l/font?kit=... , KHONG co duoi .woff2
+  const faces = [...css.matchAll(/@font-face\s*{([^}]*)}/g)].map((m) => m[1]);
+  if (!faces.length) { console.error('Khong tim thay @font-face trong CSS Google tra ve:\n' + css.slice(0, 400)); process.exit(2); }
+  const out = {};
+  for (const f of faces) {
+    const u = f.match(/url\((https:\/\/[^)]+)\)/)[1];
+    const style = (f.match(/font-style:\s*(\w+)/) || [])[1] || 'normal';
+    const buf = Buffer.from(await (await fetch(u, { headers: { 'User-Agent': UA } })).arrayBuffer());
+    if (buf.subarray(0, 4).toString('latin1') !== 'wOF2') {
+      console.error('File tai ve khong phai woff2 (magic =', JSON.stringify(buf.subarray(0, 4).toString('latin1')), ')');
+      process.exit(3);
+    }
+    out[style] = buf;
+  }
+  return out;
 }
 
-fs.writeFileSync(path.join(ROOT, 'fonts/dancing-script-subset.woff2'), buf);
+const pf = await tai('Playfair+Display', 'ital,wght@0,400..900;1,400..900', text);
+const ds = await tai('Dancing+Script', 'wght@400', [...new Set(CHU_LOGO)].join(''));
+for (const [ten, buf] of [
+  ['fonts/playfair-display-subset.woff2', pf.normal],
+  ['fonts/playfair-display-italic-subset.woff2', pf.italic],
+  ['fonts/dancing-script-logo.woff2', ds.normal],
+]) {
+  if (!buf) { console.error('Thieu file cho', ten); process.exit(4); }
+  fs.writeFileSync(path.join(ROOT, ten), buf);
+  console.log('Da ghi', ten.padEnd(42), buf.length.toLocaleString('vi'), 'bytes');
+}
 fs.writeFileSync(path.join(ROOT, 'fonts/subset-kytu.txt'), text, 'utf8');
-
-console.log('\nDa ghi fonts/dancing-script-subset.woff2 :', buf.length.toLocaleString('vi'), 'bytes');
-console.log('Da ghi fonts/subset-kytu.txt             :', text.length, 'ky tu');
+console.log('Da ghi fonts/subset-kytu.txt'.padEnd(49), text.length, 'ky tu');
 console.log('\nChay tiep: node tools/build-css.js --write && node tools/cache-bust.js --write');
