@@ -1620,6 +1620,16 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   text-decoration-thickness: 1px;
 }
 
+/* Muc luc bai viet (.blog-toc) la danh sach toan link, khong nam trong dong van ban,
+   nen khong can gach chan — chu site yeu cau bo ca luc hover (24-09-2026). Rule
+   "main li a" o tren khop vao muc luc va thang .blog-toc nho do dac hieu cao hon,
+   nen phai dung !important. */
+.blog-toc a,
+.blog-toc a:hover,
+.blog-toc a:focus {
+  text-decoration: none !important;
+}
+
 /* Build Tailwind chi sinh cac bien the alpha .text-[#6B5443]/xx, thieu rule goc.
    Sau khi bo alpha (vi /80 chi dat 4.35:1, duoi nguong AA 4.5:1) thi can rule nay. */
 .text-\[\#6B5443\] { color: #6B5443; }
