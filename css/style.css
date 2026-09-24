@@ -2292,6 +2292,93 @@ main .bg-gradient-to-br[class*="from-"][class*="-900/"] {
   outline-offset: -8px;
 }
 
+/* ---------- Bang trong bai viet: bang gio tau ---------- */
+/* Truoc 24-09-2026 site KHONG co CSS nao cho bang trong .prose (Tailwind build khong
+   co plugin typography) -> bang hien thanh chu tran, khong ke o. Ap cho moi bang
+   trong bai, ke ca bai dang theo lich (CSS duoc nhung lai luc dang).
+   Bang tu WordPress con style="width/height" noi tuyen -> ghi de bang !important.
+   Khong cho bang cuon ngang (vung cuon khong co phan tu focus duoc thi axe bao loi):
+   tren dien thoai chu nho lai va xuong dong trong o. */
+.prose table {
+  width: 100% !important;
+  height: auto !important;
+  margin: 2rem 0;
+  border-collapse: collapse;
+  background-color: var(--giay-sang);
+  border: 1px solid var(--ke-dam);
+  outline: 1px solid var(--ke-dam);
+  outline-offset: 3px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.prose tr,
+.prose th,
+.prose td {
+  height: auto !important;
+  width: auto !important;
+}
+
+.prose thead th {
+  background-color: var(--go);
+  /* !important: rule cu ".prose th { color: ... !important }" (khoi TEXT CONTRAST) */
+  color: #F2E4CF !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: left;
+  vertical-align: bottom;
+  padding: 0.75rem 0.95rem;
+  border-right: 1px solid rgba(242, 228, 207, 0.18);
+}
+
+.prose thead th:last-child {
+  border-right: 0;
+}
+
+.prose thead th strong {
+  color: inherit !important;
+  font-weight: inherit !important;
+}
+
+.prose td {
+  padding: 0.7rem 0.95rem;
+  vertical-align: top;
+  color: var(--foreground);
+  border-top: 1px dashed rgba(59, 35, 20, 0.25);
+  border-right: 1px solid rgba(205, 176, 140, 0.55);
+}
+
+.prose td:last-child {
+  border-right: 0;
+}
+
+.prose tbody tr:nth-child(even) td {
+  background-color: rgba(205, 176, 140, 0.16);
+}
+
+.prose tbody td:first-child {
+  font-weight: 600;
+  color: var(--muc) !important;
+}
+
+@media (max-width: 640px) {
+  .prose table {
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+  .prose thead th {
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    padding: 0.55rem 0.5rem;
+  }
+  .prose td {
+    padding: 0.5rem 0.5rem;
+    overflow-wrap: anywhere;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
