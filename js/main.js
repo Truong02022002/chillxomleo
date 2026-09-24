@@ -1036,9 +1036,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (allCars.length > 0) {
       const SPEED = 80;
-      const CAR_SPACING = 50;
-      const OFFSET = 14;
       const CORNER_R = 64;        // khớp CSS border-radius 64px
+      const GAP = 6;              // khe giữa hai toa, thanh nối .bt-chain (8px) phủ qua
+      // Kích thước khớp SVG trong #train-track (css .bt-loco / .bt-wagon).
+      // off = khoảng từ viền form tới tâm toa: bánh xe vừa chạm viền như chạy trên ray.
+      const SIZE = (car) => car === loco ? { w: 60, h: 34, off: 16 } : { w: 46, h: 30, off: 15 };
+      const sizes = allCars.map(SIZE);
+      // Quãng đường lùi của từng toa so với đầu tàu: nửa toa trước + khe + nửa toa sau
+      const lag = [0];
+      for (let i = 1; i < sizes.length; i++) lag.push(lag[i - 1] + sizes[i - 1].w / 2 + GAP + sizes[i].w / 2);
+      const CHAIN_OFF = 7.5;      // thanh nối nằm ngang tầm khung gầm, không phải giữa thân toa
 
       let headDist = 0;
       let lastTime = null;
@@ -1047,7 +1054,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return 2 * (w - 2 * r) + 2 * (h - 2 * r) + 2 * Math.PI * r;
       }
 
-      function perimeterToPos(dist, w, h, r) {
+      function perimeterToPos(dist, w, h, r, OFFSET) {
         const sW = w - 2 * r;
         const sH = h - 2 * r;
         const arcLen = Math.PI * r / 2;
@@ -1093,29 +1100,24 @@ document.addEventListener('DOMContentLoaded', () => {
         headDist = (headDist + SPEED * dt) % peri;
 
         // Tính vị trí từng toa
-        const carPositions = [];
         allCars.forEach((car, i) => {
-          const pos = perimeterToPos(headDist - i * CAR_SPACING, w, h, r);
-          const cw = car === loco ? 44 : 38;
-          const ch = car === loco ? 28 : 24;
+          const pos = perimeterToPos(headDist - lag[i], w, h, r, sizes[i].off);
+          const cw = sizes[i].w;
+          const ch = sizes[i].h;
           // Chay bang transform chu KHONG phai left/top. left/top la thuoc tinh bo cuc
           // nen moi khung hinh Chrome ghi mot layout shift; Cloudflare Web Analytics
           // 29-08-2026 chi dich danh #train-track>div.bt-loco la nguon CLS lon nhat trang
           // chu (3 lan/6 gio). Probe tu dong khong bat duoc vi tau nam cuoi trang, ngoai
           // khung nhin — CLS chi dem phan tu TRONG khung nhin, ma khach thi cuon xuong.
           car.style.transform = 'translate(' + (pos.x - cw / 2) + 'px,' + (pos.y - ch / 2) + 'px) rotate(' + pos.a + 'deg)';
-          carPositions.push(pos);
         });
 
-        // Vẽ dây xích ở giữa 2 toa liền kề
+        // Thanh nối đặt ở giữa khe hai toa liền kề, bám theo đường ray (kể cả ở góc bo)
         chains.forEach((chain, i) => {
-          if (i < carPositions.length - 1) {
-            const p1 = carPositions[i];     // toa trước
-            const p2 = carPositions[i + 1]; // toa sau
-            const mx = (p1.x + p2.x) / 2;
-            const my = (p1.y + p2.y) / 2;
-            const angle = Math.atan2(p2.y - p1.y, p2.x - p1.x) * 180 / Math.PI;
-            chain.style.transform = 'translate(' + (mx - 7) + 'px,' + (my - 3) + 'px) rotate(' + angle + 'deg)';
+          if (i < allCars.length - 1) {
+            const mid = headDist - (lag[i] + sizes[i].w / 2 + GAP / 2);
+            const p = perimeterToPos(mid, w, h, r, CHAIN_OFF);
+            chain.style.transform = 'translate(' + (p.x - 4) + 'px,' + (p.y - 1) + 'px) rotate(' + p.a + 'deg)';
           }
         });
 
@@ -1126,10 +1128,13 @@ document.addEventListener('DOMContentLoaded', () => {
         new IntersectionObserver((entries) => {
           const wasVisible = trainVisible;
           trainVisible = entries[0].isIntersecting;
-          if (trainVisible && !wasVisible) requestAnimationFrame(tick);
+          // bánh xe quay + khói (CSS) chỉ chạy khi tàu đang hiện trên màn hình
+          trainTrack.classList.toggle('dang-chay', trainVisible);
+          if (trainVisible && !wasVisible) { lastTime = null; requestAnimationFrame(tick); }
         }, { threshold: 0.1 }).observe(trainTrack);
       } else {
         trainVisible = true;
+        trainTrack.classList.add('dang-chay');
         requestAnimationFrame(tick);
       }
     }
