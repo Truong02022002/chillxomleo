@@ -64,7 +64,17 @@ function minify(css) {
       out += s; prelude += s; continue;
     }
     if (css.startsWith('url(', i)) {                 // giu nguyen url(...)
-      const e = css.indexOf(')', i);
+      // url("...") co nhay: doc tron chuoi roi moi tim ')'. SVG data URI co the chua
+      // url(...) LONG ben trong (vd filter='url(%23n)' cua van giay 24-09-2026) — tim
+      // ')' dau tien se cat giua chuoi, lech dau nhay, roi chep nguyen van ca doan CSS
+      // phia sau (chu thich + xuong dong) vao trang.
+      let k = i + 4; while (k < n && /\s/.test(css[k])) k++;
+      let e;
+      if (css[k] === '"' || css[k] === "'") {
+        let m = k + 1;
+        while (m < n && css[m] !== css[k]) m += css[m] === '\\' ? 2 : 1;
+        e = css.indexOf(')', m + 1);
+      } else e = css.indexOf(')', i);
       if (e > 0) { out += css.slice(i, e + 1); prelude += css.slice(i, e + 1); i = e + 1; continue; }
     }
     if (c === '/' && css[i + 1] === '*') {           // bo chu thich
