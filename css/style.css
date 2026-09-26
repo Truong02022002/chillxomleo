@@ -3316,6 +3316,38 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
   }
 }
 
+/* ===================== KHUNG VIDEO TIKTOK TRANG TRAI NGHIEM (26-09-2026) =====================
+   Chu site: "khung video lam cho vua voi video, hien tai hoi dai ve chieu cao, co ve bi cat
+   khung". Ca 5 video deu 576x1024 (9:16). Khung cu la cot 220px bi keo cao bang cot chu
+   (~570px, ti le ~1:2,6) nen object-cover cat hai ben; tren dien thoai la dai ngang 192px cat
+   gan het video doc. Nay khung dung 9:16, dat nhu tam anh dan len the: vien giay ve bang
+   box-shadow (border se an vao khung, lech ti le), canh giua theo chieu doc; dien thoai nam
+   giua duoi phan chu. .glow-shadow:hover thay box-shadow nen phai khai lai luc hover. */
+.khung-video {
+  width: min(240px, 72%);
+  aspect-ratio: 9 / 16;
+  align-self: center;
+  margin: 4px auto 32px;
+  border-radius: 3px;
+  box-shadow: 0 0 0 6px var(--giay-sang), 0 0 0 7px var(--ke-dam),
+              0 18px 30px -16px rgba(43, 27, 17, 0.6);
+}
+.khung-video:hover {
+  box-shadow: 0 0 0 6px var(--giay-sang), 0 0 0 7px var(--ke-dam),
+              0 18px 30px -16px rgba(43, 27, 17, 0.6), 0 0 34px rgba(160, 63, 0, 0.28);
+}
+@media (min-width: 640px) {
+  .khung-video {
+    width: 200px;
+    margin: 28px 28px 28px 4px;
+  }
+}
+@media (min-width: 768px) {
+  .khung-video {
+    width: 230px;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
