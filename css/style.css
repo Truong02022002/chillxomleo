@@ -1318,16 +1318,25 @@ input:focus, select:focus, textarea:focus {
    CLS khi cuon het trang van 0, chieu cao trang sau khi cuon bang nhau.
    Kich thuoc tam phai SAT that: trang khong vao bfcache thi Back khoi phuc vi tri cuon theo
    kich thuoc tam cua cac the phia tren. Do that: 1 cot chu ~271px + anh 4:3 theo be ngang
-   (505px @360, 544px @412 -> 75vw + 235px); 2 cot 526px @768; 3 cot 495px @1024, 542px tu 1280. */
+   (505px @360, 544px @412 -> 75vw + 235px); 2 cot 526px @768; 3 cot 495px @1024, 542px tu 1280.
+   Do lai 26-09-2026 sau khi doi the sang khuon ve tau (NANG CAP 4, anh 3:2): 453 @360,
+   488 @412 -> 67vw + 211px; 466 @768; 437 @1024; 476 tu 1280. The dau nam ngang tu 768px:
+   368 @768, 382 tu 1024. */
 #blog-grid > .blog-item {
   content-visibility: auto;
-  contain-intrinsic-size: auto calc(75vw + 235px);
+  contain-intrinsic-size: auto calc(67vw + 211px);
 }
 @media (min-width: 768px) {
-  #blog-grid > .blog-item { contain-intrinsic-size: auto 530px; }
+  #blog-grid > .blog-item { contain-intrinsic-size: auto 466px; }
+  #blog-grid > .blog-item:first-child { contain-intrinsic-size: auto 368px; }
 }
 @media (min-width: 1024px) {
-  #blog-grid > .blog-item { contain-intrinsic-size: auto 540px; }
+  #blog-grid > .blog-item { contain-intrinsic-size: auto 437px; }
+  #blog-grid > .blog-item:first-child { contain-intrinsic-size: auto 382px; }
+}
+@media (min-width: 1280px) {
+  #blog-grid > .blog-item { contain-intrinsic-size: auto 476px; }
+  #blog-grid > .blog-item:first-child { contain-intrinsic-size: auto 382px; }
 }
 
 /* ========== HERO CINEMATIC — CONTRAST ==========
@@ -2157,25 +2166,7 @@ div.relative.w-full.overflow-hidden[style*="aspect-ratio"] {
                 radial-gradient(circle 9px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
 }
 
-/* ---------- The bai blog: buu thiep ---------- */
-article.blog-item {
-  background-color: var(--giay-sang) !important;
-  border: 1px solid var(--ke-dam) !important;
-  border-radius: 3px !important;
-  padding: 10px;
-  box-shadow: 0 14px 30px -18px rgba(43, 27, 17, 0.45) !important;
-}
-
-article.blog-item > a > div:first-child {
-  border-radius: 2px;
-  box-shadow: 0 0 0 1px var(--ke-dam);
-}
-
-article.blog-item h2,
-article.blog-item h3 {
-  font-size: 1.2rem;
-  line-height: 1.3;
-}
+/* ---------- The bai blog: xem khoi NANG CAP 4 (ve tau + buu thiep) ---------- */
 
 /* ---------- Hoi dap: dong ve ---------- */
 #faq details,
@@ -2569,13 +2560,6 @@ article.max-w-4xl h1[class] {
   }
   .mon-the:hover img {
     transform: scale(1.05);
-  }
-  article.blog-item {
-    transition: transform 0.35s ease, box-shadow 0.35s ease !important;
-  }
-  article.blog-item:hover {
-    transform: translateY(-4px) rotate(-0.4deg);
-    box-shadow: 0 24px 40px -22px rgba(43, 27, 17, 0.6) !important;
   }
   .review-card {
     transition: transform 0.35s ease;
@@ -2996,6 +2980,325 @@ footer a[href*="facebook.com/tiemnuongvachillxomleo"]:hover {
   article.container.max-w-4xl::before,
   article.container.max-w-4xl::after {
     display: none !important;
+  }
+}
+
+/* ===================== NANG CAP 4 (26-09-2026): THE BAI VIET = VE TAU + BUU THIEP =====================
+   Chu site: "thiet ke lai may the nay" (luoi the o /blog/ + /blog-en/). The cu la khung giay
+   co anh long khung ben trong; bi 4 loi: tom tat line-clamp-3 kem flex-1 nen the co tieu de
+   ngan lo dong thu 4 sau dau "..."; h2 an text-wrap:balance toan site nen tieu de 2 dong bi
+   chia doi, ho nua ben phai; khoang trong lon truoc "Doc bai viet"; the cao ~545px tren
+   dien thoai.
+   Nay moi the la mot tam ve:
+   - anh tran sat mep the (3:2), nhan chuyen muc la bien men do cai len mep duoi anh,
+     ngay dang la dau buu dien tron dong chom len mep anh;
+   - cuong ve o day: duong rang cua (net dut) + hai khuyet tron hai ben,
+     trai "Doc bai viet ->", phai so phut doc (tools/phut-doc.mjs);
+   - tu 768px the dau tien (bai moi nhat) nam ngang tron hang, anh trai / cuong ve phai,
+     duong rang cua doc giua hai phan; 36 the con lai chia deu hang.
+   ⚠ Khuyet KHONG lam bang mask: ban dau mask tren <a> lam LCP /blog/ tren dien thoai
+   cham ~250ms (A/B xen ke, Slow 4G + CPU x4). LCP o day la chu H1, nhung the dau thoi mot
+   phan vao man hinh dau nen khung hinh dau phai ve ca the -> mask bat dung mot lop rieng
+   cho ca tam the. Nay khuyet la hai hinh tron mau nen trang co vien, dat de len mep the
+   (::before/::after cua <article>), clip-path chi giu nua nam trong the. Nen the cung de
+   phang (khong van giay SVG) nhu the cu. */
+
+#blog-grid {
+  row-gap: 2.75rem;
+}
+
+article.blog-item {
+  position: relative;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  padding: 0;
+  box-shadow: 0 22px 34px -26px rgba(43, 27, 17, 0.6) !important;
+}
+
+article.blog-item > a {
+  position: relative;
+  background: var(--giay-sang);
+  border: 1px solid var(--ke-dam);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Hai khuyet tron o hai dau duong rang cua (52px tinh tu day the) */
+article.blog-item::before,
+article.blog-item::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: calc(100% - 61px);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--background);
+  border: 1px solid var(--ke-dam);
+  pointer-events: none;
+}
+article.blog-item::before {
+  left: -9px;
+  clip-path: inset(0 0 0 50%);
+}
+article.blog-item::after {
+  right: -9px;
+  clip-path: inset(0 50% 0 0);
+}
+
+/* Vien focus ve o <article>: content-visibility:auto (#blog-grid > .blog-item) kem
+   paint containment, cat moi thu con ve ra ngoai mep the, ke ca outline cua <a>. */
+article.blog-item > a:focus-visible {
+  outline: none;
+}
+article.blog-item:has(> a:focus-visible) {
+  outline: 2px solid var(--tem);
+  outline-offset: 4px;
+}
+
+/* Anh: tran mep, 3:2 */
+article.blog-item > a > div:first-child {
+  aspect-ratio: 3 / 2;
+  border-bottom: 1px solid var(--ke-dam);
+}
+article.blog-item > a > div:first-child > div {
+  background: linear-gradient(to top, rgba(43, 27, 17, 0.38), rgba(43, 27, 17, 0) 55%) !important;
+}
+
+/* Than the */
+article.blog-item > a > .p-6 {
+  position: relative;
+  padding: 30px 24px 0;
+}
+
+/* Hang meta: nhan + cham + ngay. Nhan va ngay dinh vi tuyet doi theo than the. */
+article.blog-item .p-6 > div:first-child {
+  margin: 0;
+}
+article.blog-item .p-6 > div:first-child > span:nth-child(2) {
+  display: none;
+}
+
+/* Nhan chuyen muc: bien men do cai len mep duoi anh */
+article.blog-item .p-6 > div:first-child > span:first-child {
+  position: absolute;
+  top: -12px;
+  left: 18px;
+  background: var(--tem) !important;
+  color: #FBF4E8 !important;
+  border: 0;
+  border-radius: 2px;
+  padding: 5px 10px 4px !important;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  box-shadow: inset 0 0 0 2px var(--tem), inset 0 0 0 3px rgba(251, 244, 232, 0.6),
+              0 3px 7px -2px rgba(43, 27, 17, 0.45);
+  transform: rotate(-1.5deg);
+}
+
+/* Ngay dang: dau buu dien tron, nua tren anh nua tren giay */
+article.blog-item .p-6 > div:first-child > span:last-child {
+  position: absolute;
+  top: -44px;
+  right: 16px;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  background: var(--giay-sang);
+  color: var(--tem);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  border: 1.5px solid currentColor;
+  box-shadow: inset 0 0 0 3px var(--giay-sang), inset 0 0 0 4px currentColor,
+              0 5px 12px -4px rgba(43, 27, 17, 0.5);
+  transform: rotate(-10deg);
+  transition: transform 0.35s ease;
+}
+/* Chu trang tri trong dau: alt rong ("/ \"\"") de khong lot vao ten link doc cho may doc man hinh;
+   dong content dau la du phong cho trinh duyet chua hieu cu phap alt. */
+article.blog-item .p-6 > div:first-child > span:last-child::before {
+  content: "ĐÀ LẠT";
+  content: "ĐÀ LẠT" / "";
+  font-size: 6.5px;
+  letter-spacing: 0.24em;
+  margin-right: -0.24em;
+  opacity: 0.85;
+}
+article.blog-item:lang(en) .p-6 > div:first-child > span:last-child::before {
+  content: "DA LAT";
+  content: "DA LAT" / "";
+}
+/* Ngoi sao ve bang SVG chu KHONG dung ky tu "★": Signika khong co glyph nay nen trinh duyet
+   phai nap font he thong de ve, chan khung hinh dau -> LCP /blog/ dien thoai cham ~180ms
+   (A/B 26-09-2026: bo sao 2048 -> 1868ms, an ca dau 1776ms = bang ban cu). */
+article.blog-item .p-6 > div:first-child > span:last-child::after {
+  content: "";
+  width: 7px;
+  height: 7px;
+  opacity: 0.8;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%239B2C1F' d='M12 1.5l3.1 7.2 7.8.7-5.9 5.2 1.8 7.7L12 18.3l-6.8 4 1.8-7.7-5.9-5.2 7.8-.7z'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Tieu de: bo balance (chia doi dong, ho nua phai) -> pretty (chay het dong, tranh mo coi) */
+article.blog-item h2 {
+  font-size: 1.28rem;
+  line-height: 1.32;
+  margin-bottom: 0.6rem;
+  color: var(--muc);
+  text-wrap: pretty;
+}
+article.blog-item:hover h2 {
+  color: var(--tem);
+}
+
+/* Tom tat: dung 3 dong. flex-1 cu keo cao doan van nen dong thu 4 lo ra sau dau "..." */
+article.blog-item .p-6 > p {
+  flex: none;
+  margin: 0 0 20px;
+  font-size: 0.875rem;
+  line-height: 1.62;
+}
+
+/* Cuong ve */
+article.blog-item .p-6 > div.mt-auto {
+  margin: auto -24px 0;
+  padding: 0 24px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-top: 1.5px dashed rgba(138, 100, 40, 0.5);
+}
+article.blog-item .p-6 > div.mt-auto > span:first-child {
+  color: var(--muc);
+}
+article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
+  color: var(--tem);
+}
+.phut-doc {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6B5443;
+  white-space: nowrap;
+}
+.phut-doc::before {
+  content: "";
+  width: 11px;
+  height: 11px;
+  flex: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%236B5443' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M12 6.5V12l3.5 2.2'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+
+/* Bai moi nhat: ve ngang tron hang (tu 768px) */
+@media (min-width: 768px) {
+  #blog-grid > article.blog-item:first-child {
+    --cat: 52%;
+    grid-column: 1 / -1;
+  }
+  #blog-grid > article.blog-item:first-child > a {
+    flex-direction: row;
+  }
+  /* Khuyet cua ve ngang nam o mep tren + mep duoi, ngay duong rang cua doc */
+  #blog-grid > article.blog-item:first-child::before,
+  #blog-grid > article.blog-item:first-child::after {
+    left: calc(var(--cat) - 9px);
+    right: auto;
+  }
+  #blog-grid > article.blog-item:first-child::before {
+    top: -9px;
+    clip-path: inset(50% 0 0 0);
+  }
+  #blog-grid > article.blog-item:first-child::after {
+    top: auto;
+    bottom: -9px;
+    clip-path: inset(0 0 50% 0);
+  }
+  #blog-grid > article.blog-item:first-child > a > div:first-child {
+    width: var(--cat);
+    flex: none;
+    aspect-ratio: auto;
+    min-height: 330px;
+    border-bottom: 0;
+  }
+  #blog-grid > article.blog-item:first-child > a > .p-6 {
+    padding: 40px 36px 0 44px;
+    border-left: 1.5px dashed rgba(138, 100, 40, 0.5);
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > div:first-child {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > div:first-child > span:first-child {
+    position: relative;
+    top: auto;
+    left: auto;
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > div:first-child > span:last-child {
+    top: 22px;
+    left: -37px;
+    right: auto;
+  }
+  #blog-grid > article.blog-item:first-child h2 {
+    font-size: clamp(1.5rem, 2.3vw, 2.05rem);
+    line-height: 1.2;
+    margin-bottom: 0.9rem;
+    -webkit-line-clamp: 3;
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > p {
+    font-size: 0.95rem;
+    -webkit-line-clamp: 4;
+    margin-bottom: 24px;
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > div.mt-auto {
+    margin: auto -36px 0 -44px;
+    padding: 0 36px 0 44px;
+    height: 60px;
+  }
+}
+@media (min-width: 1024px) {
+  #blog-grid > article.blog-item:first-child {
+    --cat: 56%;
+  }
+  #blog-grid > article.blog-item:first-child > a > div:first-child {
+    min-height: 380px;
+  }
+  #blog-grid > article.blog-item:first-child > a > .p-6 {
+    padding: 48px 48px 0 56px;
+  }
+  #blog-grid > article.blog-item:first-child .p-6 > div.mt-auto {
+    margin: auto -48px 0 -56px;
+    padding: 0 48px 0 56px;
+  }
+}
+
+@media (hover: hover) {
+  article.blog-item {
+    transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+  }
+  article.blog-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 32px 40px -28px rgba(43, 27, 17, 0.72) !important;
+  }
+  #blog-grid article.blog-item:hover img {
+    transform: scale(1.05);
+  }
+  article.blog-item:hover .p-6 > div:first-child > span:last-child {
+    transform: rotate(-3deg) scale(1.05);
   }
 }
 

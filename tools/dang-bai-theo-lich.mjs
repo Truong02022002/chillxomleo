@@ -16,6 +16,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
+import { phutDoc, nhanPhutDoc } from './phut-doc.mjs';
 
 const ROOT = process.cwd();
 const HANG_DOI = path.join(ROOT, 'hang-doi');
@@ -102,6 +103,13 @@ function taoCard(mau, d, lang, tenAnh, kt) {
   c = c.replace(/(tracking-widest[^>]*>)[^<]*(<)/, (_, a, b) => a + ngay + b);
   c = c.replace(/(<h2[^>]*>)([\s\S]*?)(<\/h2>)/, (_, a, cu, b) => a + giuThut(cu, tieuDe) + b);
   c = c.replace(/(<p class="text-\[#6B5443\][^>]*>)([\s\S]*?)(<\/p>)/, (_, a, cu, b) => a + giuThut(cu, tomTat) + b);
+  // So phut doc o cuong ve: dem tu chinh bai vua chep vao ROOT (tools/phut-doc.mjs, cung
+  // cach tinh voi cac the da co). The mau khong co cho nay thi bo qua.
+  const baiMoi = path.join(ROOT, lang === 'vi' ? d.slug : d.slug + '-en', 'index.html');
+  if (fs.existsSync(baiMoi)) {
+    const nhan = nhanPhutDoc(phutDoc(fs.readFileSync(baiMoi, 'utf8'), lang), lang);
+    c = c.replace(/(<span class="phut-doc">)[^<]*(<)/, (_, a, b) => a + nhan + b);
+  }
   return c;
 }
 
@@ -117,11 +125,17 @@ function giuThut(cu, moi) {
 // tu 1024px luoi 3 cot nen ca hang dau nam trong khung nhin dau (do 14-09-2026: 2 anh lazy o
 // top 474px khi /blog/ rong 1350px). Tren mobile Chrome van tai hai anh do ngay luc load vi nam
 // trong nguong lazy, nen bo lazy khong ton them byte.
+// Tu 768px the dau nam ngang tron hang (css NANG CAP 4) nen anh cua no rong hon cac the kia:
+// bai moi chen len dau thi the dau cu phai tra ve sizes thuong.
+const SIZES_THUONG = '(max-width: 768px) 91vw, 361px';
+const SIZES_DAU = '(max-width: 767px) 91vw, (max-width: 1023px) 50vw, 660px';
+
 function chuanHoaUuTienAnh(html) {
   let i = 0;
   return html.replace(/<article[\s\S]*?<\/article>/g, (the) => {
     i += 1;
     let t = the;
+    t = t.replace(/sizes="[^"]*"/, () => `sizes="${i === 1 ? SIZES_DAU : SIZES_THUONG}"`);
     if (i <= 3) {
       t = t.replace(/\s*loading="lazy"/, '');
       if (i === 1) { if (!/fetchpriority=/.test(t)) t = t.replace(/(<img\s)/, '$1fetchpriority="high" '); }
