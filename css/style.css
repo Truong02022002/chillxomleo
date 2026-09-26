@@ -1035,6 +1035,13 @@ input:focus, select:focus, textarea:focus {
   fill: currentColor;
 }
 
+/* Logo chu "Zalo" (Simple Icons, CC0) ngang 24:9,2 - de khung vuong 24x24 thi chu
+   chi cao ~9px. Cho rong 32px de doc duoc tren nut 50px. */
+.floating-btn.btn-zalo svg {
+  width: 32px;
+  height: 12.3px;
+}
+
 /* Tooltip */
 .floating-btn::before {
   content: attr(data-tooltip);
