@@ -88,7 +88,7 @@ Tiệm mang đến không gian ấm cúng với ánh đèn lung linh và decor �
 
 **📞 Liên hệ**: 076.45.27.336
 
-**💬 Inbox**: [https://m.me/nuongxomleo]
+**💬 Inbox**: [https://m.me/tiemnuongvachillxomleo]
 
 **🗺️ Google Maps**: [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 

@@ -62,7 +62,7 @@ Not only the attractions, **Da Lat tourism** is also attractive by its unique cu
 
 📍 Address: 113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 
-📩 Inbox: https://m.me/nuongxomleo
+📩 Inbox: https://m.me/tiemnuongvachillxomleo
 
 🗺️ Google Map: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 

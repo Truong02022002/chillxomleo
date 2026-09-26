@@ -97,7 +97,7 @@ Xom Leo Grill & Chill Shop is the ideal place for you to enjoy delicious grilled
 
 Address:**113 Huynh Tan Phat, Ward 11, Da Lat.**
 
-Inbox: https://m.me/nuongxomleo .
+Inbox: https://m.me/tiemnuongvachillxomleo .
 
 Google Map: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8 .
 

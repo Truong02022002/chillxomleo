@@ -95,7 +95,7 @@ Nếu bạn đang tìm một không gian thoải mái để thư giãn và thư�
 
 **☎️ Hotline:** 076.45.27.336
 
-**💬 Inbox:** [https://m.me/nuongxomleo]
+**💬 Inbox:** [https://m.me/tiemnuongvachillxomleo]
 
 **🗺️ Google Map:** [Tiệm Nướng & Chill Xóm Lèo]
 

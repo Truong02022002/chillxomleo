@@ -51,7 +51,7 @@
 
 🔥 **Tiệm Nướng & Chill Xóm Lèo** – điểm đến lý tưởng để thưởng thức các món nướng thơm ngon trong không gian ấm cúng giữa khí trời se lạnh của Đà Lạt. Quán nổi bật với menu đa dạng, từ **bò tảng đậm đà, ba chỉ bò kim châm béo ngậy, ba chỉ bò tiêu cay nồng đến ốc nhồi thịt thơm ngon**. Đặc biệt, nơi đây sở hữu **view tàu hoàng hôn và nhà lồng lung linh về đêm**, tạo nên khung cảnh lãng mạn, thích hợp để chill cùng bạn bè và người thân. Hãy ghé thăm và tận hưởng trải nghiệm ẩm thực đáng nhớ tại đây!
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 

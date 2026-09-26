@@ -92,9 +92,9 @@ Một điểm đến không thể thiếu khi ghé thăm khu Xóm Lèo về đê
 
 📞 **Hotline: **076.45.27.336
 
-🌐 **Fanpage:** [https://www.facebook.com/nuongxomleo/]
+🌐 **Fanpage:** [https://www.facebook.com/tiemnuongvachillxomleo]
 
-💬 **Inbox:** [https://m.me/nuongxomleo]
+💬 **Inbox:** [https://m.me/tiemnuongvachillxomleo]
 
 🗺 **Google Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 

@@ -143,7 +143,7 @@ After exploring the majestic beauty of Langbiang peak, take time to visit ***Xom
 
 📌**Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 
-📌**Inbox:**m.me/nuongxomleo
+📌**Inbox:**m.me/tiemnuongvachillxomleo
 
 📌**Google Maps:**See directions
 

@@ -254,7 +254,7 @@ Dù đi cùng người thương, bạn bè hay gia đình, ***Tiệm Nướng & 
 
 📌 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
-📌 **Inbox:** [m.me/nuongxomleo]
+📌 **Inbox:** [m.me/tiemnuongvachillxomleo]
 
 📌 **Google Maps:** [Xem đường đi]
 

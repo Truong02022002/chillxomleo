@@ -223,7 +223,7 @@ function dungHead(khung, t, lang) {
       jobTitle: lang === 'vi' ? 'Bếp trưởng & Chủ quán' : 'Head Chef & Owner',
       worksFor: { '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', name: tenQuan, url: 'https://xomleo.vn/', ...tenPhu },
       url: lang === 'vi' ? 'https://xomleo.vn/about/' : 'https://xomleo.vn/about-en/',
-      sameAs: ['https://www.facebook.com/nuongxomleo', 'https://www.tiktok.com/@tiemnuongchillxomleo'],
+      sameAs: ['https://www.facebook.com/tiemnuongvachillxomleo', 'https://www.tiktok.com/@tiemnuongchillxomleo'],
     },
     publisher: {
       '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', url: 'https://xomleo.vn/',

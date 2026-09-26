@@ -23,7 +23,7 @@ Every evening, from Xom Leo Grill & Chill Shop, you can capture the moment when 
 
 **👉 Suggestion: **Come early to choose the spot with the best view and enjoy the sparkling space at night! Don't forget to bring your camera to capture beautiful moments when the night train passes by!
 
-📌 Inbox: https://m.me/nuongxomleo
+📌 Inbox: https://m.me/tiemnuongvachillxomleo
 📌 Address: 113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 📌 Google Map: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 📌 Hotline:

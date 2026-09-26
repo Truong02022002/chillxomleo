@@ -84,7 +84,7 @@ Photo: Da Lat
 
 📍 Address: **113 Huynh Tan Phat, Ward 11, Da Lat.**
 
-📩 **Contact:** [https://m.me/nuongxomleo].
+📩 **Contact:** [https://m.me/tiemnuongvachillxomleo].
 
 📍 **Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8].
 

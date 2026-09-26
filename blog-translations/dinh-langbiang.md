@@ -248,7 +248,7 @@ Sau khi khám phá vẻ đẹp hùng vĩ của đỉnh Langbiang, hãy dành th�
 
 📌 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
-📌 **Inbox:** [m.me/nuongxomleo]
+📌 **Inbox:** [m.me/tiemnuongvachillxomleo]
 
 📌 **Google Maps:** [Xem đường đi]
 

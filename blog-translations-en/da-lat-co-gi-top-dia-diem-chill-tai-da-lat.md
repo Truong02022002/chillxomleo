@@ -58,7 +58,7 @@ Known for its **rich grilled beef blocks, beef belly enoki rolls, peppery beef b
 
 A special highlight: the restaurant offers a thrilling **"night train spotting" experience**—if you're lucky, you'll catch the magical moment when the train rolls past under the warm golden lights. A memory you won't forget!
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Address: 113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 

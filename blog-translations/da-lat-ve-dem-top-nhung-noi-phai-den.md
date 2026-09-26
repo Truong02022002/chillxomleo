@@ -64,7 +64,7 @@ Mỗi tối, từ Tiệm Nướng & Chill Xóm Lèo, bạn có thể bắt trọ
 
 **👉 Gợi ý:** Hãy đến sớm để chọn chỗ có view đẹp nhất và tận hưởng không gian lung linh về đêm! Đừng quên mang theo máy ảnh để ghi lại những khoảnh khắc tuyệt đẹp khi tàu đêm đi qua nhé!
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 

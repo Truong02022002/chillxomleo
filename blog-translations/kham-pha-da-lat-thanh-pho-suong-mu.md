@@ -88,7 +88,7 @@ Một ly sữa đậu nành nóng hổi vào buổi tối se lạnh không chỉ
 
 Ảnh: đà lạt
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 

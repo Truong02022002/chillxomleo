@@ -184,7 +184,7 @@ Với khung cảnh lãng mạn, các tour chụp ảnh cưới tại Đà Lạt 
 
 📍 Địa chỉ: **113 Huỳnh Tấn Phát, Phường 11, Đà Lạt.**
 
-📩 **Inbox:** [https://m.me/nuongxomleo].
+📩 **Inbox:** [https://m.me/tiemnuongvachillxomleo].
 
 📍 **Google Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8].
 

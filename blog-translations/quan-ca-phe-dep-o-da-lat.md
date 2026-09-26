@@ -365,7 +365,7 @@ Sau khi khám phá và thưởng thức những quán cafe view đẹp, đừng 
 
 📌 **Địa chỉ:** 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
-📩 **Inbox:** [https://m.me/nuongxomleo]
+📩 **Inbox:** [https://m.me/tiemnuongvachillxomleo]
 
 📍 **Google Map:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8]
 

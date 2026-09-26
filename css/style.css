@@ -2586,6 +2586,412 @@ main {
   overflow-x: clip;
 }
 
+/* ===================== NANG CAP 3 (26-09-2026): "chang vang o Ga Xom Leo" ===================== */
+/* Mot cau chuyen xuyen suot: khach toi ga luc chang vang. Hero = suong + khung dong; bang
+   gio kieu bang lat nha ga ngay truoc form dat ban; cau chuyen = buu thiep co dau buu dien; thuc don
+   = bang go duoi den (dai toi giua trang, tao nhip sang-toi-sang); danh gia = ve tau co so;
+   doc bai = doan tau nho chay tren thanh tien do. Toan bo khong them JS. */
+
+.an-mat {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- Hero: suong troi + goc khung dong thau ---------- */
+.hero-cinematic .hero-scrim::before {
+  content: "";
+  position: absolute;
+  top: 104px;
+  left: 28px;
+  right: 28px;
+  bottom: 28px;
+  pointer-events: none;
+  --k: rgba(217, 164, 92, 0.6);
+  background:
+    linear-gradient(var(--k), var(--k)) top left / 56px 1px,
+    linear-gradient(var(--k), var(--k)) top left / 1px 56px,
+    linear-gradient(var(--k), var(--k)) top right / 56px 1px,
+    linear-gradient(var(--k), var(--k)) top right / 1px 56px,
+    linear-gradient(var(--k), var(--k)) bottom left / 56px 1px,
+    linear-gradient(var(--k), var(--k)) bottom left / 1px 56px,
+    linear-gradient(var(--k), var(--k)) bottom right / 56px 1px,
+    linear-gradient(var(--k), var(--k)) bottom right / 1px 56px;
+  background-repeat: no-repeat;
+}
+
+.hero-cinematic .hero-scrim::after {
+  content: "";
+  position: absolute;
+  left: -25%;
+  right: -25%;
+  bottom: -6%;
+  height: 34%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 30% 60% at 18% 72%, rgba(236, 226, 212, 0.17), transparent 70%),
+    radial-gradient(ellipse 38% 55% at 62% 80%, rgba(236, 226, 212, 0.14), transparent 72%),
+    radial-gradient(ellipse 26% 50% at 88% 70%, rgba(236, 226, 212, 0.12), transparent 70%);
+  animation: suong-troi 42s ease-in-out infinite alternate;
+}
+
+@keyframes suong-troi {
+  from { transform: translateX(-7%); }
+  to { transform: translateX(7%); }
+}
+
+@media (max-width: 767px) {
+  .hero-cinematic .hero-scrim::before {
+    top: 80px;
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    background-size: 32px 1px, 1px 32px, 32px 1px, 1px 32px, 32px 1px, 1px 32px, 32px 1px, 1px 32px;
+  }
+}
+
+/* ---------- Bang gio Ga Xom Leo (bang lat kieu nha ga) ---------- */
+/* Bang gio dat NGAY TRUOC #booking (khach xem gio mo cua + gio tau roi dat ban luon).
+   Do 26-09-2026 (Slow 4G + CPU x4, A/B xen ke 5-6 vong): dat ngay duoi hero thi LCP <h1>
+   trang chu cham ~300ms (bang nam sat man hinh dau nen van bi ve o khung hinh dau, ke ca
+   voi content-visibility); doi xuong day thi het. content-visibility: auto de trinh duyet
+   bo qua ve cho toi khi cuon gan. */
+.bang-gio {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 300px;
+  position: relative;
+  z-index: 2;
+  padding: 2.8rem 1.25rem 2.6rem;
+  color: #F2E4CF;
+  background-color: var(--go);
+  background-image:
+    radial-gradient(ellipse 55% 130% at 50% -30%, rgba(217, 164, 92, 0.2), transparent 62%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.018) 0 2px, transparent 2px 8px),
+    var(--giay-van);
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.45);
+}
+
+main > section.bang-gio::after {
+  background: var(--ray-sang) repeat-x center;
+}
+
+.bang-gio p { margin: 0; }
+
+.bg-ten {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 0 auto 1.8rem !important;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--dong-sang);
+}
+
+.bg-ten::before,
+.bg-ten::after {
+  content: "";
+  width: clamp(2rem, 10vw, 8rem);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dong-sang));
+}
+
+.bg-ten::after { transform: scaleX(-1); }
+
+.bg-luoi {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.9rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+  .bg-luoi {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+  }
+  .bg-o + .bg-o {
+    border-left: 1px solid rgba(217, 164, 92, 0.28);
+  }
+}
+
+.bg-o {
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.bg-nhan {
+  margin-bottom: 0.75rem !important;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dong-sang);
+}
+
+.bg-so {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.5rem;
+  margin-bottom: 0.75rem !important;
+}
+
+.lat {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  perspective: 420px;
+}
+
+.lat-o {
+  display: inline-block;
+  width: 1.55rem;
+  height: 2.35rem;
+  line-height: 2.35rem;
+  font-family: var(--font-base);
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  color: #FBF3E4;
+  background: linear-gradient(180deg, #2c1b10 0%, #1d120a 48.5%, #070403 48.5%, #070403 51.5%, #22150d 51.5%, #150c06 100%);
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.lat-cham {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--dong-sang);
+}
+
+.bg-noi {
+  margin: 0 0.15rem;
+  font-size: 1.2rem;
+  color: rgba(242, 228, 207, 0.55);
+}
+
+.bg-dc {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: #FBF3E4;
+}
+
+.bg-chu {
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(242, 228, 207, 0.8);
+}
+
+.bg-chu a {
+  color: var(--dong-sang);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  white-space: nowrap;
+}
+
+.bg-chu a:hover { color: #FFF8F0; }
+
+@media (max-width: 899px) {
+  .bang-gio { contain-intrinsic-size: auto 560px; }
+}
+
+@media (max-width: 480px) {
+  .lat-o { width: 1.35rem; height: 2.05rem; line-height: 2.05rem; font-size: 1.35rem; }
+  .bg-dc { font-size: 1.4rem; }
+}
+
+/* Lat so khi bang cuon vao man hinh (scroll-driven, khong JS). Trinh duyet chua ho tro
+   thi bang dung yen — van doc du. */
+@supports (animation-timeline: view()) {
+  .lat-o {
+    transform-origin: 50% 50%;
+    animation: bg-lat linear both;
+    animation-timeline: view();
+    animation-range: entry 15% cover 32%;
+  }
+  .lat-o:nth-child(2) { animation-range: entry 19% cover 36%; }
+  .lat-o:nth-child(4) { animation-range: entry 23% cover 40%; }
+  .lat-o:nth-child(5) { animation-range: entry 27% cover 44%; }
+}
+
+@keyframes bg-lat {
+  0% { transform: rotateX(-88deg); opacity: 0.15; }
+  70% { transform: rotateX(10deg); opacity: 1; }
+  100% { transform: rotateX(0deg); opacity: 1; }
+}
+
+/* ---------- Cau chuyen: dau buu dien tren anh ---------- */
+/* Chi hien tu 1024px: tren dien thoai anh cau chuyen nam sat man hinh dau nen hinh SVG
+   (chu chay vong tron) bi ve ngay khung hinh dau — do A/B 26-09-2026: LCP cham ~120ms. */
+@media (min-width: 1024px) {
+  #story div.group[style*="aspect-ratio"]::after {
+    content: "";
+    position: absolute;
+    top: 16px;
+    right: 14px;
+    width: clamp(120px, 16vw, 190px);
+    aspect-ratio: 200 / 120;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%20200%20120%27%3E%20%3Cg%20fill%3D%27none%27%20stroke%3D%27%238E2A1D%27%20stroke-width%3D%272.4%27%20opacity%3D%27.9%27%3E%20%3Ccircle%20cx%3D%2760%27%20cy%3D%2760%27%20r%3D%2752%27%2F%3E%3Ccircle%20cx%3D%2760%27%20cy%3D%2760%27%20r%3D%2738%27%20stroke-width%3D%271.4%27%2F%3E%20%3Cpath%20d%3D%27M118%2038c12-7%2024%207%2036%200s24%207%2036%200M118%2060c12-7%2024%207%2036%200s24%207%2036%200M118%2082c12-7%2024%207%2036%200s24%207%2036%200%27%2F%3E%20%3C%2Fg%3E%20%3Cdefs%3E%3Cpath%20id%3D%27v%27%20d%3D%27M60%2060m-45%200a45%2045%200%201%201%2090%200a45%2045%200%201%201-90%200%27%2F%3E%3C%2Fdefs%3E%20%3Ctext%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2711.5%27%20font-weight%3D%27700%27%20letter-spacing%3D%272.2%27%20fill%3D%27%238E2A1D%27%3E%3CtextPath%20href%3D%27%23v%27%20startOffset%3D%272%25%27%3E%C4%90%C3%80%20L%E1%BA%A0T%20%C2%B7%20GA%20X%C3%93M%20L%C3%88O%20%C2%B7%20TR%E1%BA%A0I%20M%C3%81T%20%C2%B7%3C%2FtextPath%3E%3C%2Ftext%3E%20%3Ctext%20x%3D%2760%27%20y%3D%2756%27%20text-anchor%3D%27middle%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%279%27%20letter-spacing%3D%271.5%27%20fill%3D%27%238E2A1D%27%3EANNO%3C%2Ftext%3E%20%3Ctext%20x%3D%2760%27%20y%3D%2775%27%20text-anchor%3D%27middle%27%20font-family%3D%27Georgia%2Cserif%27%20font-size%3D%2721%27%20font-weight%3D%27700%27%20fill%3D%27%238E2A1D%27%3E1932%3C%2Ftext%3E%20%3C%2Fsvg%3E") no-repeat center / contain;
+    transform: rotate(-9deg);
+    /* KHONG dung mix-blend-mode: multiply — do A/B 26-09-2026 lam LCP trang chu cham ~120ms
+       (anh cau chuyen nam sat man hinh dau, tron diem anh ngay khung hinh dau). */
+    opacity: 0.8;
+    pointer-events: none;
+  }
+}
+
+/* ---------- Thuc don trang chu: bang go duoi den ---------- */
+#menu.bg-surface {
+  color: #F2E4CF;
+  background-color: var(--go);
+  background-image:
+    radial-gradient(ellipse 65% 50% at 50% 0%, rgba(217, 164, 92, 0.18), transparent 70%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.016) 0 2px, transparent 2px 9px),
+    var(--giay-van);
+}
+
+#menu h2,
+#menu h3,
+#menu .text-foreground {
+  color: #F5EBDD;
+}
+
+#menu h2 .text-primary {
+  color: #F5A65B;
+}
+
+#menu [class*="text-foreground/"] {
+  color: rgba(242, 228, 207, 0.74);
+}
+
+#menu [class*="text-[#A03F00]"] {
+  color: var(--dong-sang);
+}
+
+#menu .group:hover h3 {
+  color: #F5A65B;
+}
+
+#menu h3::after {
+  border-bottom-color: rgba(242, 228, 207, 0.3);
+}
+
+#menu .group.border-t {
+  border-top-color: rgba(242, 228, 207, 0.16);
+}
+
+#menu a[class*="border-white/10"] {
+  color: var(--dong-sang);
+  border-color: var(--dong-sang);
+  outline-color: rgba(217, 164, 92, 0.35);
+}
+
+#menu a[class*="border-white/10"]:hover {
+  color: #FFF8F0;
+  border-color: #FFF8F0;
+}
+
+#menu .mon-the {
+  box-shadow: 0 18px 34px -16px rgba(0, 0, 0, 0.75);
+}
+
+/* ---------- Danh gia: moi the la mot ve co so ---------- */
+#reviews .review-cards-container { counter-reset: ve; }
+#reviews .review-card { counter-increment: ve; }
+
+#reviews .review-card::after {
+  content: "Nº 1932-0" counter(ve);
+  content: "Nº 1932-0" counter(ve) / "";
+  position: absolute;
+  right: 1.9rem;
+  bottom: 1.5rem;
+  padding: 0.25em 0.55em 0.2em;
+  font-family: var(--font-serif);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: #8E2A1D;
+  border: 1px solid rgba(142, 42, 29, 0.5);
+  border-radius: 2px;
+  transform: rotate(-4deg);
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+/* ---------- Nut Fanpage Facebook o chan trang (them 26-09-2026) ---------- */
+/* hover:bg-[#1877F2] khong co trong ban Tailwind dung san -> dat o day. */
+footer a[href*="facebook.com/tiemnuongvachillxomleo"]:hover {
+  background-color: #1877F2 !important;
+  border-color: #1877F2 !important;
+  color: #fff !important;
+}
+
+/* ---------- Doc bai: doan tau nho chay tren thanh tien do (scroll-driven, khong JS) ---------- */
+@supports (animation-timeline: scroll()) {
+  article.container.max-w-4xl::before {
+    content: "";
+    position: fixed;
+    top: 11px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    z-index: 70;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--primary), var(--dong-sang));
+    transform-origin: 0 50%;
+    transform: scaleX(0);
+    animation: tien-do-doc linear both;
+    animation-timeline: scroll(root block);
+  }
+  article.container.max-w-4xl::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 26px;
+    height: 14px;
+    z-index: 71;
+    pointer-events: none;
+    background: url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2026%2014%27%3E%20%3Crect%20x%3D%271%27%20y%3D%273%27%20width%3D%278%27%20height%3D%278%27%20rx%3D%271%27%20fill%3D%27%23A03F00%27%2F%3E%3Crect%20x%3D%272.5%27%20y%3D%274.5%27%20width%3D%275%27%20height%3D%273%27%20rx%3D%27.5%27%20fill%3D%27%23FFE7A3%27%2F%3E%20%3Cpath%20d%3D%27M.5%203.4Q.5%201.4%202.5%201.4H8Q10%201.4%2010%203.4Z%27%20fill%3D%27%232C1A0E%27%2F%3E%20%3Crect%20x%3D%278%27%20y%3D%275%27%20width%3D%2714%27%20height%3D%276%27%20rx%3D%273%27%20fill%3D%27%232C1A0E%27%2F%3E%3Crect%20x%3D%2716.5%27%20y%3D%271.5%27%20width%3D%273%27%20height%3D%274%27%20fill%3D%27%232C1A0E%27%2F%3E%20%3Ccircle%20cx%3D%2722.6%27%20cy%3D%277.2%27%20r%3D%271.3%27%20fill%3D%27%23FFE7A3%27%2F%3E%3Cpath%20d%3D%27M21%2011h3l2%202.5h-5Z%27%20fill%3D%27%23A03F00%27%2F%3E%20%3Ccircle%20cx%3D%274%27%20cy%3D%2712%27%20r%3D%271.8%27%20fill%3D%27%232C1A0E%27%20stroke%3D%27%23D9A45C%27%20stroke-width%3D%27.6%27%2F%3E%3Ccircle%20cx%3D%2711%27%20cy%3D%2712%27%20r%3D%271.8%27%20fill%3D%27%232C1A0E%27%20stroke%3D%27%23D9A45C%27%20stroke-width%3D%27.6%27%2F%3E%3Ccircle%20cx%3D%2717%27%20cy%3D%2712%27%20r%3D%271.8%27%20fill%3D%27%232C1A0E%27%20stroke%3D%27%23D9A45C%27%20stroke-width%3D%27.6%27%2F%3E%20%3C%2Fsvg%3E") no-repeat center / contain;
+    animation: tau-doc linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes tien-do-doc {
+  to { transform: scaleX(1); }
+}
+
+@keyframes tau-doc {
+  from { transform: translateX(-4px); }
+  to { transform: translateX(calc(100vw - 30px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lat-o,
+  .hero-cinematic .hero-scrim::after {
+    animation: none !important;
+  }
+  article.container.max-w-4xl::before,
+  article.container.max-w-4xl::after {
+    display: none !important;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat

@@ -28,7 +28,7 @@ Photo: Da Lat
 
 🔥 **Tiệm Nướng & Chill Xóm Lèo** – the perfect spot to enjoy mouthwatering grilled dishes wrapped in a cozy atmosphere amid Da Lat's cool mountain air. The restaurant boasts a diverse menu, from **rich grilled beef blocks, creamy beef belly enoki rolls, and peppery beef brisket to savory stuffed snails**. What truly sets it apart is the **sunset train view and the glittering greenhouse valley at night**, creating a romantic setting that's perfect for chilling with friends and loved ones. Come by and savor an unforgettable culinary experience!
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Address: 113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 

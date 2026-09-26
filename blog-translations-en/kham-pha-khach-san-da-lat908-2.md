@@ -40,7 +40,7 @@ The shop offers a cozy space with sparkling lights and unique decor. The menu he
 
 **📞 Contact**: 076.45.27.336
 
-**💬 Inbox**: https://m.me/nuongxomleo
+**💬 Inbox**: https://m.me/tiemnuongvachillxomleo
 
 **🗺️ Google Maps**: https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 

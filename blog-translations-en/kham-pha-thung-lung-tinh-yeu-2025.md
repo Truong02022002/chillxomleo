@@ -135,7 +135,7 @@ Whether traveling with loved ones, friends or family, ***Xom Leo Grill & Chill S
 
 📌**Address:**113 Huynh Tan Phat, Ward 11, Da Lat, Lam Dong 67000
 
-📌**Inbox:**m.me/nuongxomleo
+📌**Inbox:**m.me/tiemnuongvachillxomleo
 
 📌**Google Maps:**See directions
 

@@ -106,7 +106,7 @@
 
 📍 Địa chỉ: **113 Huỳnh Tấn Phát, Phường 11, Đà Lạt.**
 
-📩 **Liên hệ:** [https://m.me/nuongxomleo].
+📩 **Liên hệ:** [https://m.me/tiemnuongvachillxomleo].
 
 📍 **Bản đồ:** [https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8].
 

@@ -65,7 +65,7 @@ Da Lat has a variety of accommodation types, from homestays, hostels to luxury h
 🍢**Xom Leo Grill & Chill Shop:**Attractive grill shop at 113 Huynh Tan Phat, Ward 11, Da Lat. This is the ideal place to enjoy grilled dishes in a cozy space.
 
 🎉**Wishing everyone a happy, full and peaceful new year!
-**📩**Inbox:**https://m.me/nuongxomleo
+**📩**Inbox:**https://m.me/tiemnuongvachillxomleo
 📍**Google Map:**https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 
 ### 6. Some things to note when going to Da Lat on your own

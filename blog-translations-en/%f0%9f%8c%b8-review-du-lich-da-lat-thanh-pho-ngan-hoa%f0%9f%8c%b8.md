@@ -48,7 +48,7 @@ If you're looking for a comfortable space to relax and enjoy delicious grilled f
 
 **☎️ Hotline:** 076.45.27.336
 
-**💬 Inbox:** https://m.me/nuongxomleo
+**💬 Inbox:** https://m.me/tiemnuongvachillxomleo
 
 **🗺️ Google Map:** Xom Leo Grill & Chill
 

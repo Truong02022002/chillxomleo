@@ -133,7 +133,7 @@ If you have ever dreamed of a BBQ party in the middle of a pine forest, gentle y
 📍**Address:**113 Huynh Tan Phat, Ward 11, Da Lat
 📌**Google Map:**https://maps.app.goo.gl/W4ygihLS8LQ1YiSK8
 📞**Hotline:**076.45.27.336
-💬**Inbox to book a table:**https://m.me/nuongxomleo
+💬**Inbox to book a table:**https://m.me/tiemnuongvachillxomleo
 
 If you are looking for **Da Lat chill grilled restaurant** to both eat delicious food and "live slowly", then ***Xom Leo Grill & Chill Shop*** is definitely a destination not to be missed.
 

@@ -80,7 +80,7 @@ Nổi bật với **bò tảng đậm đà, ba chỉ bò kim châm, ba chỉ bò
 
 Đặc biệt, quán còn có trải nghiệm **“test nhân phẩm” săn tàu đêm**—nếu may mắn, bạn sẽ bắt gặp khoảnh khắc tàu chạy ngang trong ánh đèn vàng huyền ảo, một kỷ niệm đáng nhớ!
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 

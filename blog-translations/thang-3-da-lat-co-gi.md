@@ -66,7 +66,7 @@ Tháng 3 là lúc hoa ban trắng nở rộ, phủ đầy các con đường Đ�
 
 🏮 **Chờ đợi nhà lồng lên đèn**: Về đêm, khu vực Làng hoa Thái Phiên hay Trại Mát rực sáng với hàng ngàn ánh đèn từ nhà kính trồng rau và hoa. Khung cảnh này giống như những chiếc lồng đèn trung thu khổng lồ, tạo nên một vẻ đẹp lãng mạn và kỳ ảo.
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 

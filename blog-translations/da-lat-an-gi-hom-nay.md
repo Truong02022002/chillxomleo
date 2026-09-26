@@ -88,7 +88,7 @@ Nếu bạn muốn tìm một không gian ấm cúng, chill nhẹ và thưởng 
 
 📍 **Địa chỉ gợi ý:**
 
-📌 Inbox: [https://m.me/nuongxomleo]
+📌 Inbox: [https://m.me/tiemnuongvachillxomleo]
 
 📌 Địa chỉ: 113 Huỳnh Tấn Phát, Phường 11, Đà Lạt, Lâm Đồng 67000
 
