@@ -3324,7 +3324,7 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
    box-shadow (border se an vao khung, lech ti le), canh giua theo chieu doc; dien thoai nam
    giua duoi phan chu. .glow-shadow:hover thay box-shadow nen phai khai lai luc hover. */
 .khung-video {
-  width: min(240px, 72%);
+  width: min(210px, 64%);
   aspect-ratio: 9 / 16;
   align-self: center;
   margin: 4px auto 32px;
@@ -3339,13 +3339,48 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
 @media (min-width: 640px) {
   .khung-video {
     width: 200px;
-    margin: 28px 28px 28px 4px;
+    margin: 24px 24px 24px 0;
   }
 }
 @media (min-width: 768px) {
   .khung-video {
-    width: 230px;
+    width: 210px;
   }
+}
+
+/* The ngoai thap lai (chu site: "khung lon o ngoai cho chieu cao ngan lai"). Chieu cao the do
+   cot chu quyet dinh (~590px o 1440): icon to nam rieng mot dong, mb-6/pt-6/mb-6/pt-5 chong
+   len nhau, cot chu hep (~230px chu) nen doan van 7 dong. Nay icon cung dong voi nhan,
+   khoang cach gon lai, video 210px de cot chu rong them. */
+.the-video > div:first-child {
+  padding: 26px 22px 24px 28px;
+}
+.the-video > div:first-child > div.mb-6 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.the-video > div:first-child > div.mb-6 > span.text-4xl {
+  font-size: 1.6rem;
+  line-height: 1;
+  margin: 0;
+}
+.the-video h3 {
+  margin-bottom: 10px;
+}
+.the-video > div:first-child > p {
+  margin-bottom: 14px;
+}
+.the-video > div:first-child > div.mt-auto {
+  padding-top: 4px;
+}
+.the-video > div:first-child > div.mt-auto > div:first-child {
+  margin-bottom: 12px;
+  padding: 9px 14px;
+}
+.the-video > div:first-child > div.mt-auto > div:last-child {
+  padding-top: 10px;
 }
 
 /* ---------------------------------------------------------------------------
