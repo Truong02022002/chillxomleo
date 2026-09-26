@@ -3383,6 +3383,54 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
   padding-top: 10px;
 }
 
+/* ===================== FORM DAT BAN 2 COT TREN DIEN THOAI (26-09-2026) =====================
+   Chu site: "tren mobile cung sap xep nhu the nay" (anh form may tinh: Ten|Zalo, Ngay|Gio,
+   So nguoi|Loai tiec, Ghi chu tron hang). Hai luoi cua form la grid-cols-1 md:grid-cols-2 nen
+   duoi 768px moi o mot hang, form dai gan 2 man hinh. Nay 2 cot o moi co; align-items:end de
+   nhan nao dai xuong 2 dong thi o nhap van thang hang theo day. Chu trong o 16px tren dien
+   thoai: duoi 16px iPhone tu phong to trang khi cham vao o (truoc day text-sm = 14px). */
+@media (max-width: 767px) {
+  #zaloBookingForm > .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 18px;
+    align-items: end;
+  }
+  #zaloBookingForm label {
+    letter-spacing: 0.12em;
+    text-wrap: balance; /* "ZALO HOAC WHATSAPP *" khong de dau * roi mot minh xuong dong */
+  }
+  #zaloBookingForm input,
+  #zaloBookingForm select,
+  #zaloBookingForm textarea {
+    font-size: 16px;
+    min-width: 0;
+  }
+}
+/* Man hep (360px): khung form an ~57px le moi ben (mx-4 + p-6 + vien khung) nen moi cot chi
+   ~117px, o ngay bi cut thanh "09/26/202". Nong le + thu bieu tuong lich cho vua. */
+@media (max-width: 400px) {
+  #booking .premium-form-inner {
+    margin-left: 6px;
+    margin-right: 6px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  #zaloBookingForm > .grid {
+    column-gap: 10px;
+  }
+  #zaloBookingForm input[type="date"] {
+    padding-left: 6px;
+    padding-right: 4px;
+  }
+  #zaloBookingForm input[type="date"]::-webkit-calendar-picker-indicator {
+    margin-left: 2px;
+    padding: 0;
+    width: 14px;
+    height: 14px;
+  }
+}
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
