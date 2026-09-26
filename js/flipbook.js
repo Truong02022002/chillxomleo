@@ -301,8 +301,15 @@
   // goi noi. Cach duy nhat chac an: chuyen han phan tu ra <body> khi bat, va
   // tra dung cho cu khi tat (danh dau cho bang mot comment node).
   var anchor = null;
+  // Rut khoi menu (cao ~3700px tren dien thoai) ra khoi trang roi gan lai lam trinh duyet
+  // "neo cuon" (scroll anchoring) bu sai: do 26-09-2026 tren 412px, thoat toan man hinh xong
+  // trang nhay tu 902 xuong 4599 — lech dung bang chieu cao khoi. Nho vi tri truoc khi bat,
+  // tat thi tra ve dung cho do.
+  var cuonTruoc = 0;
   function setFull(on) {
+    var vuaThoat = false;
     if (on && !anchor) {
+      cuonTruoc = window.pageYOffset;
       anchor = document.createComment('flipbook');
       sec.parentNode.insertBefore(anchor, sec);
       document.body.appendChild(sec);
@@ -310,12 +317,14 @@
       anchor.parentNode.insertBefore(sec, anchor);
       anchor.parentNode.removeChild(anchor);
       anchor = null;
+      vuaThoat = true;
     }
     sec.classList.toggle('is-full', on);
     document.body.classList.toggle('fb-lock', on);
     if (btnFull) btnFull.setAttribute('aria-pressed', on ? 'true' : 'false');
     setHiRes(on);
     if (!on) setZoom(1);
+    if (vuaThoat) window.scrollTo(0, cuonTruoc);
   }
 
   viewport.addEventListener('wheel', function (e) {

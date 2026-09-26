@@ -5,7 +5,7 @@
 
 // Doi CACHE_VERSION moi khi bump cache-buster cua CSS/JS: handler 'activate'
 // se xoa het cache khong khop prefix, tranh de lai entry cua phien ban cu.
-const CACHE_VERSION = 'xomleo-e0f3100a';
+const CACHE_VERSION = 'xomleo-87e27f0d';
 // Truoc day co them STATIC_CACHE rieng, nhung moi duong DOC deu dung RUNTIME_CACHE
 // nen 5 asset precache tai ve xong khong ai doc, sau do bi tai lai lan nua.
 // Dung chung mot cache de precache thuc su co tac dung.

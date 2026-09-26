@@ -1809,6 +1809,15 @@ footer li a:not([class*="bg-"]):not([class*="border"]):not(.inline-flex),
   overflow: auto;
 }
 .fb.is-full .fb-shell { width: 100%; }
+/* Toan man hinh CHI hien cuon sach. Khoi .fb-text (bang gia dang chu, them sau cho schema
+   MenuItem) nam CUNG trong section.fb nen tung bi dua ra lop phu theo: noi dung cao ~2800px,
+   ma lop phu can giua (justify-content:center) -> phan tran phia tren (sach + thanh nut, ca
+   nut thoat) bi day len tren mep, khong cuon toi duoc; con lan / chum tay roi vao bang gia
+   nen khong phong to duoc. Do 26-09-2026: nut thoat o y -161 (1440x900) va -635 (412x823);
+   dien thoai khong co phim Esc -> ket trong lop phu. "safe center" de sach cao hon man hinh
+   (dien thoai xoay ngang) thi dat tu mep tren thay vi tran len tren. */
+.fb.is-full > :not(.fb-shell) { display: none; }
+.fb.is-full { justify-content: safe center; }
 body.fb-lock { overflow: hidden; }
 /* Chua san cho hang chip va thanh nut: lay 74vh cho trang, phan con lai
    khoang 120px vua du hai hang do o man hinh thap 700px. */
