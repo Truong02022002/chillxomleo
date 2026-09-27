@@ -152,18 +152,63 @@
       : 'Phụ thu Tết ' + l.pt + '% đến hết mùng 10 (' + ngay(l.mung10) + ')';
   }
 
+  // Lop roi: 3 tam (cham gan, cham xa, hinh tinh the / canh mai) — hinh ve o css/mua-le.css.
+  function lopRoi() {
+    var roi = the('div', 'mua-roi');
+    for (var k = 0; k < 3; k++) roi.appendChild(the('i'));
+    return roi;
+  }
+
+  // Chen mot do trang tri vao moi phan tu khop selector (toi da `toiDa` cai).
+  function gan(selector, cls, toiDa) {
+    var ds = d.querySelectorAll(selector);
+    for (var k = 0; k < ds.length && k < (toiDa || 99); k++) ds[k].appendChild(trangTri('i', cls));
+  }
+
   // ---------- Chen ----------
   function trangHoang() {
     var nav = d.getElementById('navbar');
-    if (nav) nav.appendChild(trangTri('span', 'mua-mai'));
+    if (nav) {
+      nav.appendChild(trangTri('span', 'mua-mai'));
+      // Logo = the <a> dau tien cua thanh dieu huong (da position:relative).
+      var logo = nav.querySelector('a');
+      if (logo) {
+        logo.appendChild(trangTri('i', 'mua-logo-canh'));
+        if (mua === 'tet') logo.appendChild(trangTri('i', 'mua-logo-hoa'));
+      }
+    }
 
     var hero = d.querySelector('.hero-cinematic');
+    if (!hero && d.body) {
+      // Moi trang khac: tuyet / hoa roi o man hinh dau.
+      var tran = trangTri('div', 'mua-tran');
+      tran.appendChild(lopRoi());
+      d.body.insertBefore(tran, d.body.firstChild);
+    }
+
+    // Tem buu dien tren hop "Tom tat nhanh" (bai viet, /blog/, /menu/...).
+    gan('.tl-dr-block', 'mua-tem', 2);
+    // The bai: vao khung anh (overflow:hidden) cua tung the.
+    gan('.blog-item a > div.relative', 'mua-the');
+    // Nut goi noi (main.js chen tu truoc 'load').
+    gan('.floating-btn.btn-call', 'mua-mu', 1);
+    // Form dat ban (trang chu).
+    gan('.premium-form-inner', 'mua-dinh-form', 1);
+    if (mua === 'noel') {
+      gan('.premium-form-inner', 'mua-chop-form', 1);
+      gan('section.bang-gio', 'mua-chop-bang', 1);
+    }
+    // Anh dau bai: khung co overflow:hidden -> moc cao 0 dat ngay truoc khung.
+    var anh = d.querySelector('article header ~ div[style*="aspect-ratio"], div.relative.w-full.overflow-hidden[style*="aspect-ratio"]');
+    if (anh && anh.parentNode) {
+      var neo = trangTri('div', 'mua-neo');
+      neo.appendChild(the('i', 'mua-dinh-anh'));
+      anh.parentNode.insertBefore(neo, anh);
+    }
+
     if (hero) {
       var lop = trangTri('div', 'mua-hero');
-      var roi = the('div', 'mua-roi');
-      roi.appendChild(the('i'));
-      roi.appendChild(the('i'));
-      lop.appendChild(roi);
+      lop.appendChild(lopRoi());
       if (mua === 'noel') {
         lop.appendChild(the('span', 'mua-goc'));
         lop.appendChild(the('span', 'mua-goc mua-goc-p'));
