@@ -251,6 +251,17 @@
 
     var mauThanh = d.querySelector('meta[name="theme-color"]');
     if (mauThanh) mauThanh.setAttribute('content', mua === 'tet' ? '#8C1216' : '#1E4A36');
+
+    // Favicon tren tab: dau may xanh thong doi mu Noel / dau may do son cai bong mai.
+    // File uploads/favicon-<mua>-16x16|32x32.png (sinh tu favicon goc, 27-09-2026). rel~="icon"
+    // khop "icon" va "shortcut icon", KHONG khop apple-touch-icon (icon man hinh chinh giu nguyen).
+    // Sua anh thi doi ?v de trinh duyet + Cloudflare lay ban moi.
+    var bieuTuong = d.querySelectorAll('link[rel~="icon"]');
+    for (var q = 0; q < bieuTuong.length; q++) {
+      var co = bieuTuong[q].getAttribute('sizes') === '16x16' ? '16x16' : '32x32';
+      bieuTuong[q].setAttribute('type', 'image/png');
+      bieuTuong[q].setAttribute('href', '/uploads/favicon-' + mua + '-' + co + '.png?v1');
+    }
   }
 
   function nhanXemThu() {
