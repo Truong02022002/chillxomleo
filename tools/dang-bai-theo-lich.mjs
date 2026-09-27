@@ -411,6 +411,14 @@ function dongBoKhung(fileBai, fileMau, slug, bac) {
   if (preload && !t.includes('rel="preload" as="font"')) {
     t = t.replace(/([ \t]*)(<style id="site-css"|<link rel="stylesheet"|<title>)/, (_, thut, the) => thut + preload + nl + thut + the);
   }
+  // Doan <head> tu bat giao dien Noel / Tet (tools/mua-le.mjs, 27-09-2026): ban nhap soan truoc
+  // ngay do khong co -> bai len song dung mua le ma van mac do thuong. Chep nguyen doan cua trang
+  // mau; hash hai file asset ben trong do buoc cache-bust.js cua workflow dat lai, CSP do csp-hash.
+  const muaMau = (mau.match(/<script>\/\* mua-le:[\s\S]*?<\/script>/) || [])[0];
+  if (muaMau) {
+    if (/<script>\/\* mua-le:/.test(t)) t = t.replace(/<script>\/\* mua-le:[\s\S]*?<\/script>/, () => muaMau);
+    else t = t.replace(/([ \t]*)(<style id="site-css"|<link rel="stylesheet"|<title>)/, (_, thut, the) => thut + muaMau + nl + thut + the);
+  }
   const robots = (mau.match(/<meta name="robots"[^>]*>/) || [])[0];
   if (robots && !t.includes('<meta name="robots"')) {
     t = t.replace(/([ \t]*)(<meta name="viewport"[^>]*>)/, (_, thut, the) => thut + the + nl + thut + robots);

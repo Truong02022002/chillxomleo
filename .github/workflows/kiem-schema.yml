@@ -14,7 +14,7 @@ name: Kiem structured data va CSS
 on:
   push:
     branches: [main]
-    paths: ['**.html', 'tools/kiem-schema.mjs', 'css/**', 'fonts/fonts.css', 'tools/build-css.js']
+    paths: ['**.html', 'tools/kiem-schema.mjs', 'css/**', 'fonts/fonts.css', 'tools/build-css.js', 'tools/mua-le.mjs', 'js/mua-le*.js']
   workflow_dispatch:
 
 permissions:
@@ -38,3 +38,11 @@ jobs:
       - name: Kiem CSS nhet trong trang con khop bundle
         if: always()
         run: node tools/build-css.js
+
+      - name: Kiem giao dien mua le (Noel / Tet)
+        # Moi trang phai co doan <head> tu bat mua le, dung ban + dung hash cua css/js mua le;
+        # lich bat/tat phai dung cac moc 00:00 gio Viet Nam. Xem tools/mua-le.mjs.
+        if: always()
+        run: |
+          node tools/mua-le.mjs
+          node tools/mua-le.mjs --lich

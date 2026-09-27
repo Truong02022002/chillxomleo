@@ -180,6 +180,30 @@ const bundlePath = path.join(ROOT, BUNDLE);
 const current = fs.existsSync(bundlePath) ? fs.readFileSync(bundlePath, 'utf8') : '';
 const currentHash = (current.match(/src-hash: ([0-9a-f]+)/) || [])[1];
 
+// ---------- File CSS rieng, KHONG nhet vao trang ----------
+// css/mua-le.css (giao dien Noel / Tet, 27-09-2026) chi duoc nap TRONG MUA LE boi doan <head>
+// cua tools/mua-le.mjs — nhet vao 123 trang thi ca nam trang nao cung ganh ~7 KB brotli vo ich.
+// Dung rieng thanh css/mua-le.min.css, cung bo minify va cung hai phep kiem selector / khai bao.
+// Sau --write: node tools/mua-le.mjs --write (doi hash trong doan <head>) roi csp-hash.mjs --write.
+const RIENG = [{ src: 'css/mua-le.css', out: 'css/mua-le.min.css' }];
+const rieng = RIENG.map(({ src, out }) => {
+  const nguon = read(src);
+  const hash = crypto.createHash('sha1').update(nguon.split('\r\n').join('\n')).digest('hex').slice(0, 12);
+  const min = minify(nguon);
+  const a = selectorsOf(nguon).map(normSel), b = selectorsOf(min).map(normSel);
+  if (a.length !== b.length || a.some((x, k) => x !== b[k]) || canon(nguon) !== canon(min)) {
+    console.error('LOI: minify ' + src + ' lam doi selector hoac khai bao. Dung lai.');
+    process.exit(2);
+  }
+  const hienCo = fs.existsSync(path.join(ROOT, out)) ? fs.readFileSync(path.join(ROOT, out), 'utf8') : '';
+  return {
+    out, min,
+    noiDung: '/* TU DONG SINH tu ' + src + ' - DUNG SUA TRUC TIEP. Sua nguon roi chay: node tools/build-css.js --write\n' +
+      '   src-hash: ' + hash + ' */\n' + min + '\n',
+    lech: (hienCo.match(/src-hash: ([0-9a-f]+)/) || [])[1] !== hash,
+  };
+});
+
 // ---------- Nhet CSS vao tung trang ----------
 // PSI bao "Yeu cau chan hien thi 530ms" cho chinh css/site.css. Ngay 13-09-2026 nhet TOAN BO
 // bundle vao <style id="site-css">: A/B Lighthouse tren localhost LCP -527ms, bo cuc 516/517
@@ -227,6 +251,12 @@ if (process.argv.includes('--write')) {
     (gz / 1024).toFixed(1) + ' KB gzip) | ' + selOut.length + ' selector | src-hash ' + srcHash);
   console.log('nhet CSS: ' + canGhi.length + ' trang cap nhat (' + conLink + ' tu <link>, ' + cssCu +
     ' CSS cu), ' + daDung + ' trang da dung');
+  for (const r of rieng) {
+    if (r.lech) fs.writeFileSync(path.join(ROOT, r.out), r.noiDung);
+    const br = require('zlib').brotliCompressSync(Buffer.from(r.min)).length;
+    console.log((r.lech ? 'da dung ' : 'khop nguon ') + r.out + ': ' + (r.min.length / 1024).toFixed(1) + ' KB (' +
+      (br / 1024).toFixed(1) + ' KB brotli)' + (r.lech ? ' -> chay tiep node tools/mua-le.mjs --write' : ''));
+  }
   process.exit(0);
 }
 let lech = false;
@@ -237,6 +267,9 @@ if (currentHash !== srcHash) {
 if (conLink || cssCu) {
   console.error('LECH: ' + conLink + ' trang con <link> toi site.css, ' + cssCu + ' trang nhet CSS cu.');
   lech = true;
+}
+for (const r of rieng) {
+  if (r.lech) { console.error('LECH: ' + r.out + ' dung tu nguon khac.'); lech = true; }
 }
 if (lech) { console.error('Chay: node tools/build-css.js --write'); process.exit(1); }
 console.log('bundle khop nguon (src-hash ' + srcHash + '), ' + daDung + ' trang da nhet dung CSS');

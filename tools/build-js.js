@@ -26,6 +26,8 @@ const ROOT = path.resolve(__dirname, '..');
 const JOBS = [
   { src: 'js/main.js', out: 'js/main.min.js' },
   { src: 'js/flipbook.js', out: 'js/flipbook.min.js' },
+  // Giao dien mua le (Noel / Tet): chi nap trong mua, do doan <head> cua tools/mua-le.mjs.
+  { src: 'js/mua-le.js', out: 'js/mua-le.min.js' },
 ];
 // File dau vao phai dung TRUOC --compress/--mangle: terser coi doi so dung ngay
 // sau hai co do la gia tri tuy chon, dat sau se bao "Supported options".

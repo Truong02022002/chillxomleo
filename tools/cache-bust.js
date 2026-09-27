@@ -30,6 +30,11 @@ const ASSETS = [
   // de khoi phai dung lai ca bundle chinh chi vi sua flipbook.
   // Ca hai ban .min deu do tools/build-js.js sinh ra tu file nguon cung ten.
   { file: 'js/flipbook.min.js', pattern: /flipbook(\.min)?\.js\?[a-z]*[0-9a-f]+/g, name: 'flipbook.min.js' },
+  // Giao dien mua le (Noel / Tet): hai URL nay nam TRONG doan <script> o <head> moi trang
+  // (tools/mua-le.mjs), chi duoc nap trong mua le. Doi hash -> noi dung script doi -> phai
+  // chay them node tools/csp-hash.mjs --write.
+  { file: 'css/mua-le.min.css', pattern: /mua-le\.min\.css\?[a-z]*[0-9a-f]+/g, name: 'mua-le.min.css' },
+  { file: 'js/mua-le.min.js', pattern: /mua-le\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'mua-le.min.js' },
 ];
 
 // Chuan hoa xuong dong TRUOC khi bam. Repo dat core.autocrlf=true va khong co
