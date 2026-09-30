@@ -615,7 +615,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Guests: 1-50
     const guestsNum = parseInt(guests);
     if (isNaN(guestsNum) || guestsNum < 1 || guestsNum > 50) {
-      errors.push(isEnglish ? 'Number of guests must be 1-50' : 'Số khách phải từ 1-50');
+      errors.push(isEnglish
+        ? 'Number of guests must be 1-50 — for groups over 50, please call 076 452 7336'
+        : 'Số khách phải từ 1-50 — đoàn trên 50 người vui lòng gọi 076 452 7336');
     }
     // Note: max 200 chars
     if (note && note.length > 200) {
@@ -848,10 +850,17 @@ document.addEventListener('DOMContentLoaded', () => {
       const safePhone = escapeHTML(phone);
       const safeGuests = escapeHTML(guests);
 
+      // Hẹn thời điểm xác nhận theo giờ Việt Nam (UTC+7), không theo múi giờ máy khách:
+      // trong giờ mở cửa 15:00–23:00 thì "trong ít phút", ngoài giờ thì "khi quán mở cửa".
+      const vnHour = new Date(Date.now() + 7 * 3600 * 1000).getUTCHours();
+      const trongGio = vnHour >= 15 && vnHour < 23;
+      const henXacNhan = isEnglish
+        ? (trongGio ? 'within a few minutes' : 'once we open at 3pm (Vietnam time)')
+        : (trongGio ? 'trong ít phút' : 'khi quán mở cửa lúc 15:00');
       const toastTitle = isEnglish ? '✨ Booking Request Sent!' : '✨ Đã gửi thông tin đặt bàn';
       const toastDesc = isEnglish
-        ? `Thank you <strong class="text-primary">${safeName}</strong> for your reservation!<br>Our staff will contact you shortly at <strong class="text-primary">${safePhone}</strong> to confirm your booking.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} guests</span>`
-        : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ sớm liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
+        ? `Thank you <strong class="text-primary">${safeName}</strong> for your reservation!<br>Our staff will contact you at <strong class="text-primary">${safePhone}</strong> ${henXacNhan} to confirm your booking.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} guests</span>`
+        : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> ${henXacNhan} để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
 
       const toast = document.createElement('div');
       toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
