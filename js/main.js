@@ -695,9 +695,32 @@ document.addEventListener('DOMContentLoaded', () => {
     // Chặn chọn ngày quá khứ ở native date picker
     const dateInput = document.getElementById('book_date');
     if (dateInput) {
-      const todayISO = new Date().toISOString().split('T')[0];
+      // Ngày theo giờ MÁY, khớp validateBookingInput. toISOString() là giờ UTC:
+      // từ 0h tới 7h sáng giờ VN nó ra ngày hôm qua.
+      const nay = new Date();
+      const todayISO = `${nay.getFullYear()}-${String(nay.getMonth() + 1).padStart(2, '0')}-${String(nay.getDate()).padStart(2, '0')}`;
       dateInput.min = todayISO;
       if (!dateInput.value) dateInput.value = todayISO; // default là hôm nay
+
+      // Chữ ngày gọn cho điện thoại: iOS tự hiện "ngày 2 thg 10, 2026" và giãn ô
+      // tràn sang ô Thời gian. CSS chỉ ẩn chữ gốc khi có .co-chu (xem style.css).
+      const chuNgay = dateInput.parentElement.querySelector('.o-ngay-hien');
+      if (chuNgay) {
+        const enNgay = document.documentElement.lang === 'en';
+        const hienNgay = () => {
+          const [y, m, d] = dateInput.value.split('-');
+          chuNgay.toggleAttribute('data-trong', !d);
+          if (!d) { chuNgay.textContent = enNgay ? 'Choose a date' : 'Chọn ngày'; return; }
+          chuNgay.textContent = enNgay
+            ? new Date(+y, m - 1, +d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+            : `${d}/${m}/${y}`;
+        };
+        dateInput.addEventListener('input', hienNgay);
+        dateInput.addEventListener('change', hienNgay);
+        zaloForm.addEventListener('reset', () => setTimeout(hienNgay)); // reset() không bắn input/change
+        hienNgay();
+        chuNgay.parentElement.classList.add('co-chu');
+      }
     }
 
     zaloForm.addEventListener('submit', async (e) => {

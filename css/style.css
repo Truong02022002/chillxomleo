@@ -3440,6 +3440,53 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
   }
 }
 
+/* O NGAY TREN DIEN THOAI (02-10-2026). Anh chu site chup iPhone 430px: o Ngay tran sang o
+   Thoi gian va cao hon cac o khac, nen nhan "THOI GIAN" bi day lech xuong (align-items:end).
+   iOS hien ngay theo lang="vi" dang dai "ngay 2 thg 10, 2026" (134-143px o Signika 16px) va
+   tu gian o cho vua chu, bo qua width/min-width; trong khi cot chi con 122-138px noi dung o
+   man 360-430px. appearance:none de iOS chiu be rong cot; an chu goc va hien "02/10/2026"
+   bang .o-ngay-hien (main.js dien chu roi moi gan .co-chu, khong JS thi van thay chu goc).
+   Ap cho MOI man cam ung, khong gioi han be rong: dien thoai xoay ngang (iPhone Pro Max 932px,
+   Galaxy 915px) vuot moc 768px nhung van la iOS/Android tu ve o ngay. Chrome/Samsung Internet
+   tren Android hien ngay theo ngon ngu cua may chu khong theo trang — chu phu cho moi may cung
+   mot kieu dd/mm/yyyy.
+   May tinh (chuot) giu nguyen: Chrome cho go tung o ngay/thang/nam, an chu goc la khong thay
+   minh dang go o nao. */
+.o-ngay { position: relative; }
+.o-ngay-hien { display: none; }
+@media (max-width: 767px), (pointer: coarse) {
+  #zaloBookingForm input[type="date"] {
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    height: 45px; /* bang o Thoi gian / So nguoi: py-3 + line-height 20px + vien duoi 1px */
+  }
+}
+@media (pointer: coarse) {
+  .o-ngay.co-chu input[type="date"] {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+  .o-ngay.co-chu .o-ngay-hien {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    inset: 0 0 1px 0;
+    padding-left: 8px; /* = px-2 cua o nhap */
+    font-size: 14px; /* = text-sm cua o nhap tu 768px */
+    white-space: nowrap;
+    overflow: hidden;
+    pointer-events: none; /* cham vao chu van mo bang chon ngay cua o nhap ben duoi */
+  }
+  .o-ngay-hien[data-trong] { opacity: 0.6; }
+}
+@media (max-width: 767px) and (pointer: coarse) {
+  .o-ngay.co-chu .o-ngay-hien { font-size: 16px; } /* duoi 768px o nhap 16px (khoi 26-09) */
+}
+@media (max-width: 400px) and (pointer: coarse) {
+  .o-ngay.co-chu .o-ngay-hien { padding-left: 6px; }
+}
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
