@@ -2720,6 +2720,20 @@ main > section.bang-gio::after {
 
 .bg-ten::after { transform: scaleX(-1); }
 
+/* Ten bang ban EN dai hon ("Timetable · Xom Leo Station"): o 390px chu "STATION" roi xuong dong
+   mot minh, lech trai, hai vach bi ep lech (04-10-2026). Man hep: gian chu it hon, vach ngan lai;
+   neu van phai xuong dong (320px) thi chia deu hai dong, can giua. */
+@media (max-width: 480px) {
+  .bg-ten {
+    gap: 0.6rem;
+    letter-spacing: 0.24em;
+    text-align: center;
+    text-wrap: balance;
+  }
+  .bg-ten::before,
+  .bg-ten::after { width: 1.25rem; flex: none; }
+}
+
 .bg-luoi {
   display: grid;
   grid-template-columns: 1fr;
@@ -3454,6 +3468,8 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
    minh dang go o nao. */
 .o-ngay { position: relative; }
 .o-ngay-hien { display: none; }
+/* May tinh: o ngay goc cua Chrome cao 47px, o Thoi gian ben canh 45px -> lech day 2px. */
+#zaloBookingForm input[type="date"] { height: 45px; }
 @media (max-width: 767px), (pointer: coarse) {
   #zaloBookingForm input[type="date"] {
     -webkit-appearance: none;
@@ -3486,6 +3502,58 @@ article.blog-item:hover .p-6 > div.mt-auto > span:first-child {
 @media (max-width: 400px) and (pointer: coarse) {
   .o-ngay.co-chu .o-ngay-hien { padding-left: 6px; }
 }
+
+/* ANH BIA TRANG CHU KHONG DUNG NOI DUNG (04-10-2026). Section .hero-cinematic khoa chieu cao
+   = man hinh (h-screen, ban VI con ghi inline height:100vh) + overflow:hidden, noi dung can
+   giua. Khi noi dung (h1 4-5 dong + tom tat + 2 nut) cao hon man hinh thi chu "Cuon xuong"
+   (absolute o day) de len 2 nut — do duoc 13/24 co: 320x568, 360x640, 360x740, 375x667,
+   740x360 VA laptop 1024x768, 1366x768; o 320-360px nut thu hai bi cat day, the "Trai
+   nghiem..." chui duoi thanh menu. Nay section cao theo noi dung (toi thieu van bang man
+   hinh), dem tren chua thanh menu (69px / 100px tu md), dem duoi chua "Cuon xuong" ke ca
+   luc nay len (animate-bounce): ~87px dien thoai, ~141px tu md. Bo pt-20 cua khung noi dung
+   vi dem tren da nam o section. Man cao (390x844, 1440x900) noi dung dich len ~50-60px,
+   cach "Cuon xuong" rong hon (truoc chi con 4px / 22px). !important vi ban VI ghi inline. */
+.hero-cinematic {
+  height: auto !important;
+  min-height: 100vh !important;
+  padding-top: 76px;
+  padding-bottom: 104px;
+}
+.hero-cinematic > .container { padding-top: 0; }
+@media (min-width: 768px) {
+  .hero-cinematic {
+    padding-top: 112px;
+    padding-bottom: 150px;
+  }
+}
+
+/* Chu cai lon dau bai (.prose > p:first-of-type::first-letter, float cao ~3 dong): doan mo
+   dau chi 2 dong (may tinh rong) thi chu cai lan sang khoi duoi — bai nhom-dong-en 1366px,
+   muc dau danh sach bi day sang canh chu "B", dau cham lech 17px so voi cac muc sau
+   (04-10-2026). flow-root cho doan boc tron chu cai; doan >= 3 dong khong doi gi. */
+.prose > p:first-of-type { display: flow-root; }
+
+/* So dien thoai khong bi be giua so: "+84 76 452 / 7336" o bai EN 390px (04-10-2026).
+   Ma giay phep anh trong chu thich cung vay: "CC / BY-SA 4.0" o bai cam-nang 390px. */
+a[href^="tel:"],
+figcaption a[rel~="license"] { white-space: nowrap; }
+
+/* Tieu de bai WordPress cu boc ca dong trong <strong>: .prose h2 da dam 700 nen strong day
+   len 900 -> tieu de do dam han tieu de ben canh. Tron lan o 5 bai (top-30 17/30 muc,
+   thac Datanla, quan ca phe, Wonderland, homestay — 04-10-2026). Cho strong theo do dam
+   cua tieu de, khong sua noi dung bai. */
+.prose :is(h2, h3, h4) strong { font-weight: inherit; }
+
+/* Class Tailwind co trong markup nhung KHONG co trong tailwind-output.css (output da purge,
+   repo khong dung lai) — quet 04-10-2026. Chi bu nhung cai lam hong giao dien that:
+   - breadcrumb 82 trang: "Trang chu›Blog›..." dinh lien chu, dau › dam nhu chu thuong;
+   - icon Facebook o footer 90 trang: hover:text-white co ma hover:bg khong -> re chuot vao
+     thi icon trang tren nen kem, gan nhu bien mat.
+   (Nhom prose-* cua 76 bai cung thieu nhung chu bai da do style.css lo — khong bat len.) */
+.gap-x-2 { column-gap: 0.5rem; }
+.gap-y-1 { row-gap: 0.25rem; }
+.text-\[\#6B5443\]\/40 { color: rgb(107 84 67 / 0.4); }
+.hover\:bg-\[\#1877F2\]:hover { background-color: #1877F2; }
 
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC

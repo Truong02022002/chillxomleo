@@ -199,8 +199,11 @@
       gan('section.bang-gio', 'mua-chop-bang', 1);
     }
     // Anh dau bai: khung co overflow:hidden -> moc cao 0 dat ngay truoc khung.
+    // Bo qua khi khung anh la mot o luoi/flex: moc chen vao thanh mot o rieng. Anh "Nguon goc"
+    // trang chu (.story-grid, order-1 lg:order-2) tung bi day xuong hang duoi o may tinh, de lai
+    // hai mang trong; dien thoai thi ho 64px, canh treo lo lung tren anh (04-10-2026).
     var anh = d.querySelector('article header ~ div[style*="aspect-ratio"], div.relative.w-full.overflow-hidden[style*="aspect-ratio"]');
-    if (anh && anh.parentNode) {
+    if (anh && anh.parentNode && !/grid|flex/.test(getComputedStyle(anh.parentNode).display)) {
       var neo = trangTri('div', 'mua-neo');
       neo.appendChild(the('i', 'mua-dinh-anh'));
       anh.parentNode.insertBefore(neo, anh);

@@ -971,6 +971,49 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // --- Neo trong trang khi có content-visibility:auto (trang chủ) ---
+  // Các section dưới màn hình của trang chủ để content-visibility:auto với chiều cao
+  // tạm đo ở 412px (style.css, khối "BO QUA DUNG BO CUC"). Bấm #booking thì trình
+  // duyệt tính đích theo chiều cao tạm, rồi các section vừa cuộn qua vẽ ra chiều cao
+  // thật → dừng lệch. Đo 04-10-2026: "Giữ chỗ ngay" lố qua form 1.155–1.203px ở máy
+  // tính, 106px ở điện thoại; vào thẳng /#booking từ nút "Đặt bàn" trang khác cũng
+  // vậy. Cho các khối từ đầu trang tới đích vẽ thật NGAY trong lúc click — cuộn mặc
+  // định của trình duyệt chạy sau đó nên tính đúng, vẫn giữ cuộn mượt + hash + tiêu điểm.
+  const khoiHoan = [...document.querySelectorAll('section, footer')]
+    .filter((el) => getComputedStyle(el).contentVisibility === 'auto');
+  if (khoiHoan.length) {
+    const veThatToi = (dich) => {
+      khoiHoan.forEach((el) => {
+        if (el.contains(dich) || (el.compareDocumentPosition(dich) & Node.DOCUMENT_POSITION_FOLLOWING)) {
+          el.style.contentVisibility = 'visible';
+        }
+      });
+    };
+    const dichCua = (hash) => {
+      try { return hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null; }
+      catch (e) { return null; }
+    };
+    document.addEventListener('click', (e) => {
+      const a = e.target && typeof e.target.closest === 'function' ? e.target.closest('a[href*="#"]') : null;
+      if (!a) return;
+      const u = new URL(a.href, location.href);
+      if (u.origin !== location.origin || u.pathname !== location.pathname) return;
+      const dich = dichCua(u.hash);
+      if (dich) veThatToi(dich);
+    });
+    // Vào trang bằng địa chỉ có #: trình duyệt đã cuộn theo chiều cao tạm → cuộn lại.
+    const dichDau = dichCua(location.hash);
+    if (dichDau) {
+      veThatToi(dichDau);
+      let yDaCuon = null;
+      requestAnimationFrame(() => { dichDau.scrollIntoView({ behavior: 'auto' }); yDaCuon = window.scrollY; });
+      // Lúc load ảnh đã có kích thước thật; chỉ chỉnh lại nếu khách chưa tự cuộn đi.
+      window.addEventListener('load', () => {
+        if (yDaCuon !== null && Math.abs(window.scrollY - yDaCuon) < 2) dichDau.scrollIntoView({ behavior: 'auto' });
+      }, { once: true });
+    }
+  }
+
   // --- Floating Contact Buttons Injection ---
   if (!document.querySelector('.floating-contact')) {
     // Khoi nay truoc day hard-code tieng Viet nen tren ban EN nguoi dung tro nang

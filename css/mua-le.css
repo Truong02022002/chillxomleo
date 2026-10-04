@@ -782,6 +782,19 @@ html[data-mua="tet"] .mua-mu {
   .mua-chop-form { left: 40px; right: 40px; }
 }
 
+/* ---------- 5b. Trang tri khong de len chu (ra soat 04-10-2026) ----------
+   - Khung nhan "Trai nghiem am thuc giua lung chung may" o hero trong suot: dien thoai Tet,
+     canh mai (top 66-166px) va den long nam SAU khung nhung hoa chen vao giua chu, kho doc.
+     Moi vi tri treo duoi thanh dieu huong deu cham khung nay -> lot nen toi cho khung.
+   - May tinh: day den .mua-mai treo duoi thanh dieu huong (~98-122px) chay ngang dong
+     breadcrumb dau bai -> day breadcrumb xuong 1rem trong mua le. */
+html[data-mua] .hero-cinematic > .container > span:first-child {
+  background-color: rgba(14, 12, 10, 0.62);
+}
+@media (min-width: 768px) {
+  html[data-mua] main nav[aria-label="Breadcrumb"] { margin-top: 1rem; }
+}
+
 /* ---------- 6. Nhan "dang xem thu" (chi khi mo bang ?mua=...) ---------- */
 .mua-thu {
   position: fixed;
