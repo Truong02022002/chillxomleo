@@ -140,7 +140,10 @@ const giaiMa = (s) => s
 const boMa = (html) => html.replace(/<!--[\s\S]*?-->/g, '').replace(/<script\b[\s\S]*?<\/script>/gi, '').replace(/<style\b[\s\S]*?<\/style>/gi, '');
 // The inline khong tao khoang trang khi hien thi, nen XOA the chu khong thay bang dau cach.
 const chuHienThi = (html) => giaiMa(boMa(html).replace(/<[^>]+>/g, ''));
-const gon = (s) => giaiMa(String(s)).replace(/<[^>]+>/g, '').replace(/\s+/g, '').toLowerCase();
+// Nhay cong “ ” ‘ ’ va dau … la KIEU chu: tools/chuan-hoa-giao-dien.mjs doi chung trong chu
+// hien thi con JSON-LD giu nhay thang (05-10-2026) — so khop FAQ phai coi hai kieu la mot.
+const kieuThang = (s) => s.replace(/[“”„]/g, '"').replace(/[‘’]/g, "'").replace(/…/g, '...');
+const gon = (s) => kieuThang(giaiMa(String(s))).replace(/<[^>]+>/g, '').replace(/\s+/g, '').toLowerCase();
 
 // ---------- chay ----------
 

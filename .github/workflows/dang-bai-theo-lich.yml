@@ -59,6 +59,13 @@ jobs:
             node tools/dang-bai-theo-lich.mjs
           fi
 
+      - name: Chuan hoa giao dien bai moi
+        # Ban nhap tren nhanh noi-dung soan truoc 05-10-2026 con nhay thang " ' , dau "..." va icon
+        # SVG chua aria-hidden. Cong cu chi doi trong CHU HIEN THI (khong dong JSON-LD, thuoc tinh,
+        # script); trang da chuan khong doi gi. Xem tools/chuan-hoa-giao-dien.mjs.
+        if: steps.dang.outputs.so_bai
+        run: node tools/chuan-hoa-giao-dien.mjs --write
+
       - name: Nhet CSS vao bai moi
         # Ban nhap cu tren nhanh noi-dung con <link> toi css/site.css. Tu 13-09-2026 moi trang
         # nhet thang bundle vao <style id="site-css"> (xem tools/build-css.js); buoc nay thay

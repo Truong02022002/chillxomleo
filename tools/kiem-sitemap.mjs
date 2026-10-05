@@ -120,7 +120,10 @@ function vanTay(html) {
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|template|svg)\b[\s\S]*?<\/\1>/gi, ' ')
     .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ');
-  const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+  // Nhay cong / dau … (tools/chuan-hoa-giao-dien.mjs, 05-10-2026) la doi KIEU chu, khong phai
+  // noi dung: quy ve nhay thang truoc khi bam de lan chuan hoa khong nang lastmod ~60 trang.
+  const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
+    .replace(/[“”„]/g, '"').replace(/[‘’]/g, "'").replace(/…/g, '...');
   return crypto.createHash('sha1').update(title + '\u0000' + desc + '\u0000' + chu).digest('hex').slice(0, 12);
 }
 

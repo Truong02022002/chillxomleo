@@ -110,7 +110,10 @@ function thongTin(html, url) {
     .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ');
   const anh = (vung.match(/<img\b[^>]*>/gi) || []).map((t) => `${(thuocTinh(t, 'src') || '').split('?')[0]}|${thuocTinh(t, 'alt') ?? ''}`);
   const lienKet = (vung.match(/<a\b[^>]*>/gi) || []).map((t) => boCacheBust(thuocTinh(t, 'href') || ''));
-  const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+  // Nhay cong / dau … (tools/chuan-hoa-giao-dien.mjs, 05-10-2026) la doi KIEU chu: quy ve nhay
+  // thang de lan chuan hoa khong bi tinh la ~60 trang doi noi dung roi bao Bing crawl lai.
+  const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()
+    .replace(/[“”„]/g, '"').replace(/[‘’]/g, "'").replace(/…/g, '...');
 
   const phan = {
     title: bam(title), 'mo ta': bam(meta('description') || ''), canonical: bam(canonical || ''),

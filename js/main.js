@@ -303,8 +303,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const mobileMenu = document.getElementById('mobile-menu');
 
   if (mobileMenuBtn && mobileMenu) {
-    const ICON_MO = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
-    const ICON_DONG = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
+    const ICON_MO = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
+    const ICON_DONG = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
+    // Nhan doi theo trang thai: truoc 05-10-2026 nut luon doc "Mo menu" ke ca khi menu dang mo.
+    const enMenu = document.documentElement.lang === 'en';
+    const NHAN_MENU = enMenu
+      ? { mo: 'Open navigation menu', dong: 'Close navigation menu' }
+      : { mo: 'Mở menu điều hướng', dong: 'Đóng menu điều hướng' };
 
     // Panel chi bi day ra ngoai bang transform nen khi "dong" no van nam trong
     // cay tieu diem: nguoi dung ban phim/screen reader van Tab vao 8 muc vo hinh.
@@ -313,6 +318,7 @@ document.addEventListener('DOMContentLoaded', () => {
       mobileMenu.classList.toggle('translate-x-full', !mo);
       mobileMenu.inert = !mo;
       mobileMenuBtn.setAttribute('aria-expanded', mo ? 'true' : 'false');
+      mobileMenuBtn.setAttribute('aria-label', mo ? NHAN_MENU.dong : NHAN_MENU.mo);
       mobileMenuBtn.innerHTML = mo ? ICON_MO : ICON_DONG;
     };
 
@@ -597,54 +603,89 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Input Validation ---
+  // Moi loi gan voi O GAY RA NO ({ o: id o nhap, loi: cau bao }) de hien ngay canh o do.
+  // Truoc 05-10-2026 ham tra mang chu roi alert() gop tat ca: hop thoai chan ca trang, dong
+  // lai la khong con biet o nao sai (Web Interface Guidelines: "errors inline next to fields;
+  // focus first error on submit"). Cau bao noi luon cach sua, khong chi noi "sai".
   function validateBookingInput(name, phone, guests, note, date, time, isEnglish) {
     const errors = [];
+    const loi = (o, vi, en) => errors.push({ o, loi: isEnglish ? en : vi });
     // Name: 1-50 chars, no dangerous chars
     if (!name || name.trim().length === 0) {
-      errors.push(isEnglish ? 'Please enter your name' : 'Vui lòng nhập tên');
+      loi('book_name', 'Vui lòng nhập tên để quán gọi lại xác nhận', 'Please enter your name so we can confirm');
     } else if (name.length > 50) {
-      errors.push(isEnglish ? 'Name must be under 50 characters' : 'Tên không quá 50 ký tự');
+      loi('book_name', 'Tên không quá 50 ký tự', 'Name must be under 50 characters');
     } else if (/[<>{}\[\]\\]/.test(name)) {
-      errors.push(isEnglish ? 'Name contains invalid characters' : 'Tên chứa ký tự không hợp lệ');
+      loi('book_name', 'Tên chỉ gồm chữ và khoảng trắng, bỏ các ký tự < > { } [ ]', 'Use letters and spaces only — remove < > { } [ ]');
     }
     // Phone: Vietnamese format
     const phoneClean = phone.replace(/[\s\-\.]/g, '');
-    if (!/^(\+?\d{1,4})?\d{6,15}$/.test(phoneClean)) {
-      errors.push(isEnglish ? 'Please enter a valid phone number (6-15 digits)' : 'Số điện thoại không hợp lệ (6-15 chữ số)');
+    if (!phoneClean) {
+      loi('book_phone', 'Vui lòng nhập số Zalo hoặc WhatsApp, ví dụ 0901 234 567', 'Please enter your Zalo or WhatsApp number, e.g. +84 901 234 567');
+    } else if (!/^(\+?\d{1,4})?\d{6,15}$/.test(phoneClean)) {
+      loi('book_phone', 'Số chưa đúng: chỉ gồm 6–15 chữ số, ví dụ 0901 234 567', 'Number looks wrong: use 6–15 digits, e.g. +84 901 234 567');
     }
     // Guests: 1-50
     const guestsNum = parseInt(guests);
     if (isNaN(guestsNum) || guestsNum < 1 || guestsNum > 50) {
-      errors.push(isEnglish
-        ? 'Number of guests must be 1-50 — for groups over 50, please call 076 452 7336'
-        : 'Số khách phải từ 1-50 — đoàn trên 50 người vui lòng gọi 076 452 7336');
+      loi('book_guests',
+        'Số khách từ 1 đến 50 — đoàn trên 50 người vui lòng gọi 076 452 7336',
+        'Guests must be 1–50 — for groups over 50, please call +84 76 452 7336');
     }
     // Note: max 200 chars
     if (note && note.length > 200) {
-      errors.push(isEnglish ? 'Notes must be under 200 characters' : 'Ghi chú không quá 200 ký tự');
+      loi('book_note', `Ghi chú tối đa 200 ký tự (đang có ${note.length})`, `Notes can be up to 200 characters (now ${note.length})`);
     }
     // Date + Time: không cho đặt quá khứ. Nếu hôm nay, time phải >= now + 30min (đủ để NV nhắn Zalo xác nhận trước khi khách tới).
-    if (date) {
+    if (!date) {
+      loi('book_date', 'Vui lòng chọn ngày đến quán', 'Please choose the date of your visit');
+    } else {
       const now = new Date();
       const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
       const [yy, mm, dd] = date.split('-').map(Number);
       const picked = new Date(yy, (mm || 1) - 1, dd || 1);
       if (isNaN(picked.getTime())) {
-        errors.push(isEnglish ? 'Invalid date' : 'Ngày không hợp lệ');
+        loi('book_date', 'Ngày chưa hợp lệ, vui lòng chọn lại', 'Invalid date — please pick it again');
       } else if (picked < today) {
-        errors.push(isEnglish ? 'Booking date cannot be in the past' : 'Không thể đặt bàn cho ngày trong quá khứ');
+        loi('book_date', 'Ngày này đã qua, vui lòng chọn từ hôm nay trở đi', 'That date has passed — please pick today or later');
       } else if (picked.getTime() === today.getTime() && time) {
         const [hh, mi] = time.split(':').map(Number);
         const pickedDateTime = new Date(yy, mm - 1, dd, hh || 0, mi || 0);
         const minLeadTime = new Date(now.getTime() + 30 * 60 * 1000); // +30 phút
         if (pickedDateTime < minLeadTime) {
-          errors.push(isEnglish
-            ? 'Please book at least 30 minutes in advance so our staff can confirm via Zalo'
-            : 'Vui lòng đặt trước ít nhất 30 phút để nhân viên kịp xác nhận qua Zalo');
+          loi('book_time',
+            'Giờ này quá sát: chọn giờ muộn hơn ít nhất 30 phút để nhân viên kịp xác nhận qua Zalo',
+            'Too soon: pick a time at least 30 minutes from now so our staff can confirm via Zalo');
         }
       }
     }
     return errors;
+  }
+
+  // Hien / xoa loi ngay duoi o nhap. aria-describedby noi o voi cau bao nen trinh doc man
+  // hinh doc ca nhan lan loi khi tieu diem nhay vao o.
+  function hienLoiO(id, cau) {
+    const o = document.getElementById(id);
+    if (!o) return;
+    let p = document.getElementById(id + '-loi');
+    if (!p) {
+      p = document.createElement('p');
+      p.id = id + '-loi';
+      p.className = 'o-loi';
+      (o.closest('.o-ngay') || o).insertAdjacentElement('afterend', p);
+    }
+    p.textContent = cau;
+    o.setAttribute('aria-invalid', 'true');
+    const ds = (o.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean);
+    if (!ds.includes(p.id)) o.setAttribute('aria-describedby', [...ds, p.id].join(' '));
+  }
+  function xoaLoiO(o) {
+    if (!o || o.getAttribute('aria-invalid') !== 'true') return;
+    o.removeAttribute('aria-invalid');
+    const p = document.getElementById(o.id + '-loi');
+    if (p) p.textContent = '';
+    const ds = (o.getAttribute('aria-describedby') || '').split(/\s+/).filter((x) => x && x !== o.id + '-loi');
+    if (ds.length) o.setAttribute('aria-describedby', ds.join(' ')); else o.removeAttribute('aria-describedby');
   }
 
   // --- Rate Limiting (30s cooldown) ---
@@ -671,7 +712,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.setAttribute('role', 'alert');
     toast.innerHTML = `
       <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
-        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
       <h4 class="text-lg font-serif text-primary mb-2">${isEnglish ? 'Your booking was not sent' : 'Chưa gửi được thông tin đặt bàn'}</h4>
       <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${isEnglish
@@ -691,7 +732,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Zalo Booking Form Submit ---
   const zaloForm = document.getElementById('zaloBookingForm');
+  const KHOA_NHAP = 'xomleo_nhap_dat_ban';
+  const O_NHAP = ['book_name', 'book_phone', 'book_date', 'book_time', 'book_guests', 'book_occasion', 'book_note'];
   if (zaloForm) {
+    // Luu ban nhap moi lan go (xem khoi khoi phuc ben duoi) va go loi cua o vua sua.
+    const luuNhap = () => {
+      try {
+        const nhap = {};
+        O_NHAP.forEach((id) => { const o = document.getElementById(id); if (o) nhap[id] = o.value; });
+        sessionStorage.setItem(KHOA_NHAP, JSON.stringify(nhap));
+      } catch (e) { /* bo qua */ }
+    };
+    zaloForm.addEventListener('input', (e) => { xoaLoiO(e.target); luuNhap(); });
+    zaloForm.addEventListener('change', (e) => { xoaLoiO(e.target); if (e.target.id === 'book_date') xoaLoiO(document.getElementById('book_time')); luuNhap(); });
+
+    // Dong trang thai chung duoi nut gui (cho cho "doi 30 giay" truoc day la alert()).
+    const submitBtn0 = zaloForm.querySelector('button[type="submit"]');
+    let trangThai = null;
+    const baoTrangThai = (cau) => {
+      // Chi tao khi co cau can bao: mot vung role="status" rong cung bi tools/kiem-do-luong.mjs
+      // (va trinh doc man hinh) coi la "co thong bao".
+      if (!trangThai && !cau) return;
+      if (!trangThai) {
+        trangThai = document.createElement('p');
+        trangThai.id = 'booking-trang-thai';
+        trangThai.className = 'o-loi';
+        trangThai.setAttribute('role', 'status');
+        if (submitBtn0) submitBtn0.insertAdjacentElement('afterend', trangThai);
+        else zaloForm.appendChild(trangThai);
+      }
+      trangThai.textContent = cau;
+    };
+
     // Chặn chọn ngày quá khứ ở native date picker
     const dateInput = document.getElementById('book_date');
     if (dateInput) {
@@ -701,6 +773,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const todayISO = `${nay.getFullYear()}-${String(nay.getMonth() + 1).padStart(2, '0')}-${String(nay.getDate()).padStart(2, '0')}`;
       dateInput.min = todayISO;
       if (!dateInput.value) dateInput.value = todayISO; // default là hôm nay
+
+      // Ban nhap form (05-10-2026): khach go ten + so roi bam sang Menu xem mon, quay lai thi
+      // form trong tron. Luu tung o vao sessionStorage — chi tab nay doc duoc, dong tab la mat —
+      // va dien lai khi quay ve. Gui thanh cong thi xoa. Ngay da qua thi bo, giu mac dinh hom nay.
+      try {
+        const nhap = JSON.parse(sessionStorage.getItem(KHOA_NHAP) || 'null');
+        if (nhap && typeof nhap === 'object') {
+          O_NHAP.forEach((id) => {
+            const o = document.getElementById(id);
+            const v = nhap[id];
+            if (!o || typeof v !== 'string' || v === '') return;
+            if (id === 'book_date' && v < todayISO) return;
+            if (o.tagName === 'SELECT' && ![...o.options].some((op) => op.value === v)) return;
+            o.value = v;
+          });
+        }
+      } catch (e) { /* sessionStorage bi tat hoac du lieu hong — bo qua */ }
 
       // Chữ ngày gọn cho điện thoại: iOS tự hiện "ngày 2 thg 10, 2026" và giãn ô
       // tràn sang ô Thời gian. CSS chỉ ẩn chữ gốc khi có .co-chu (xem style.css).
@@ -717,7 +806,9 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         dateInput.addEventListener('input', hienNgay);
         dateInput.addEventListener('change', hienNgay);
-        zaloForm.addEventListener('reset', () => setTimeout(hienNgay)); // reset() không bắn input/change
+        // reset() không bắn input/change. Ô ngày trong HTML không có value nên reset làm trống —
+        // đặt lại hôm nay như lúc mới mở trang.
+        zaloForm.addEventListener('reset', () => setTimeout(() => { if (!dateInput.value) dateInput.value = todayISO; hienNgay(); }));
         hienNgay();
         chuNgay.parentElement.classList.add('co-chu');
       }
@@ -735,15 +826,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const isEnglish = window.location.pathname.includes('/en/') || window.location.pathname.includes('/en.');
 
-      // Rate limiting check
-      const cooldown = canSubmitForm();
-      if (cooldown > 0) {
-        alert(isEnglish
-          ? `Please wait ${cooldown} seconds before submitting again.`
-          : `Vui lòng đợi ${cooldown} giây trước khi gửi lại.`);
-        return;
-      }
-
       const nameVal = document.getElementById('book_name').value;
       const phoneVal = document.getElementById('book_phone').value;
       const guestsVal = document.getElementById('book_guests').value;
@@ -751,16 +833,31 @@ document.addEventListener('DOMContentLoaded', () => {
       const dateVal = document.getElementById('book_date').value;
       const timeVal = document.getElementById('book_time').value;
 
-      // Input validation
+      // Input validation: loi hien ngay duoi tung o, tieu diem nhay ve o sai dau tien.
+      O_NHAP.forEach((id) => xoaLoiO(document.getElementById(id)));
+      baoTrangThai('');
       const validationErrors = validateBookingInput(nameVal, phoneVal, guestsVal, noteVal, dateVal, timeVal, isEnglish);
       if (validationErrors.length > 0) {
-        alert(validationErrors.join('\n'));
+        validationErrors.forEach((x) => hienLoiO(x.o, x.loi));
+        const dau = document.getElementById(validationErrors[0].o);
+        if (dau) dau.focus();
         return;
       }
 
+      // Rate limiting check (sau khi nhap dung: bao doi ma o nhap dang sai thi vo ich)
+      const cooldown = canSubmitForm();
+      if (cooldown > 0) {
+        baoTrangThai(isEnglish
+          ? `Your request was just sent — please wait ${cooldown} seconds before sending again.`
+          : `Bạn vừa gửi xong — vui lòng đợi ${cooldown} giây rồi hãy gửi lại.`);
+        return;
+      }
+
+      // Nut giu nguyen cho toi luc THAT SU gui; luc gui thi khoa + vong quay + "Dang gui…".
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
-      const originalText = submitBtn.innerText;
-      submitBtn.innerText = isEnglish ? 'PROCESSING...' : 'ĐANG XỬ LÝ...';
+      const originalHTML = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<span class="quay-vong" aria-hidden="true"></span>' + (isEnglish ? 'Sending…' : 'Đang gửi…');
+      submitBtn.setAttribute('aria-busy', 'true');
       submitBtn.disabled = true;
 
       // Mark rate limit
@@ -825,10 +922,13 @@ document.addEventListener('DOMContentLoaded', () => {
         hienLoiDatBan(isEnglish);
         // Mở khoá để khách gửi lại được ngay: đơn này chưa tới quán.
         try { sessionStorage.removeItem('xomleo_last_booking'); } catch (e) { /* bỏ qua */ }
-        submitBtn.innerText = originalText;
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.removeAttribute('aria-busy');
         submitBtn.disabled = false;
         return;
       }
+      // Don da di: bo ban nhap de lan sau mo trang khong dien lai don cu.
+      try { sessionStorage.removeItem(KHOA_NHAP); } catch (e) { /* bo qua */ }
 
       // Honeypot, rate limit và lỗi nhập liệu đều đã `return` phía trên nên không
       // lọt vào đây. KHÔNG gửi tên/số điện thoại/ghi chú của khách vào GA4.
@@ -891,10 +991,10 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.setAttribute('aria-live', 'polite');
       toast.innerHTML = `
         <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         <div class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
-          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
         <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
@@ -902,19 +1002,16 @@ document.addEventListener('DOMContentLoaded', () => {
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
           ${isEnglish ? 'Chat via Zalo' : 'Nhắn qua Zalo'}
         </a>
-        <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full bg-primary animate-progress" style="width: 100%; transition: width 5s linear;"></div></div>
+        <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full w-full bg-primary animate-progress" style="transform-origin: left center; transform: scaleX(1);"></div></div>
       `;
       document.body.appendChild(toast);
 
-      // Hiệu ứng thanh chạy
-      setTimeout(() => { toast.querySelector('.animate-progress').style.width = '0%'; }, 50);
-
       // Cập nhật lại Text nút submit
-      submitBtn.innerText = isEnglish ? '✓ BOOKING SENT!' : '✓ ĐÃ GỬI ĐẶT BÀN!';
+      submitBtn.textContent = isEnglish ? '✓ BOOKING SENT!' : '✓ ĐÃ GỬI ĐẶT BÀN!';
+      submitBtn.removeAttribute('aria-busy');
 
-      // Dong toast: dung chung cho nut X va cho bo dem 5 giay, de du dong bang
-      // cach nao thi form van duoc mo khoa lai (khong de nguoi dung ket o trang
-      // thai nut submit disabled).
+      // Dong toast: dung chung cho nut X va cho bo dem, de du dong bang cach nao thi form
+      // van duoc mo khoa lai (khong de nguoi dung ket o trang thai nut submit disabled).
       let daDong = false;
       let hetGio;
       const bamEsc = (e) => { if (e.key === 'Escape') dongToast(); };
@@ -930,15 +1027,42 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => { if (document.body.contains(toast)) document.body.removeChild(toast); }, 500);
         }
         zaloForm.reset();
-        submitBtn.innerText = originalText;
+        submitBtn.innerHTML = originalHTML;
         submitBtn.disabled = false;
       };
 
       toast.querySelector('[data-toast-close]').addEventListener('click', dongToast);
       document.addEventListener('keydown', bamEsc);
 
-      // Tự động ẩn popup sau 5 giây
-      hetGio = setTimeout(dongToast, 5000);
+      // Tu dong an sau 8 giay — nhung DUNG DEM khi khach re chuot vao hoac Tab vao thong bao
+      // (vd dang doc lai so dien thoai, sap bam Zalo). Truoc 05-10-2026: 5 giay cung, khong
+      // dung duoc, ~40 chu + so dien thoai khong kip doc. Thanh chay ve bang scaleX
+      // (compositor) thay cho width.
+      const thanhChay = toast.querySelector('.animate-progress');
+      let conLai = 8000;
+      let batDau = 0;
+      let dangDem = false;
+      const chayTiep = () => {
+        if (daDong || dangDem) return;
+        dangDem = true;
+        batDau = Date.now();
+        thanhChay.style.transition = `transform ${conLai}ms linear`;
+        thanhChay.style.transform = 'scaleX(0)';
+        hetGio = setTimeout(dongToast, conLai);
+      };
+      const tamDung = () => {
+        if (daDong || !dangDem) return;
+        dangDem = false;
+        clearTimeout(hetGio);
+        conLai = Math.max(1200, conLai - (Date.now() - batDau));
+        thanhChay.style.transition = 'none';
+        thanhChay.style.transform = getComputedStyle(thanhChay).transform;
+      };
+      toast.addEventListener('pointerenter', tamDung);
+      toast.addEventListener('pointerleave', chayTiep);
+      toast.addEventListener('focusin', tamDung);
+      toast.addEventListener('focusout', (e) => { if (!toast.contains(e.relatedTarget)) chayTiep(); });
+      requestAnimationFrame(() => requestAnimationFrame(chayTiep));
     });
   }
 
@@ -1027,7 +1151,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const floatingHTML = `
       <div class="floating-contact" role="complementary" aria-label="${nhan.vung}">
                 <a href="tel:0764527336" class="floating-btn btn-call" data-tooltip="${nhan.goi}" aria-label="${nhan.goiDay}">
-          <svg viewBox="0 0 24 24">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
           </svg>
         </a>
@@ -1041,7 +1165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         class="fixed left-[16px] md:left-[24px] bottom-[24px] md:bottom-[24px] w-[42.5px] h-[42.5px] md:w-14 md:h-14 bg-foreground text-background rounded-full flex items-center justify-center shadow-2xl hover:bg-primary transition-all duration-500 group z-50 opacity-0 pointer-events-none translate-y-10">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          class="group-hover:-translate-y-1 transition-transform">
+          class="group-hover:-translate-y-1 transition-transform" aria-hidden="true" focusable="false">
           <path d="m18 15-6-6-6 6"></path>
         </svg>
       </button>
@@ -1097,6 +1221,47 @@ document.addEventListener('DOMContentLoaded', () => {
       a.replaceWith(f);
       f.focus();
     });
+  });
+
+  // --- Video tu chay: nut dung / phat (05-10-2026) ---
+  // Video nen trang chu (tu 768px) va 5 video TikTok trang Trai nghiem lap vo han, truoc day
+  // khong co cach nao dung — WCAG 2.2.2: chuyen dong tu chay qua 5 giay ben canh noi dung
+  // khac phai dung duoc. Script noi tuyen o tung trang van lo viec gan nguon + tu phat (va
+  // KHONG tu phat khi may bat giam chuyen dong / tiet kiem du lieu); khoi nay chi them nut.
+  // Bam "phat" khi video chua co nguon (bi bo qua vi giam chuyen dong) thi gan nguon tai cho.
+  document.querySelectorAll('video[data-src]').forEach((v) => {
+    const laNen = v.id === 'hero-video';
+    const khung = laNen ? v.closest('.hero-cinematic') : v.parentElement;
+    if (!khung) return;
+    const en = document.documentElement.lang === 'en';
+    const nhan = en
+      ? { dung: laNen ? 'Pause background video' : 'Pause video', phat: laNen ? 'Play background video' : 'Play video' }
+      : { dung: laNen ? 'Tạm dừng video nền' : 'Tạm dừng video', phat: laNen ? 'Phát video nền' : 'Phát video' };
+    const ICON_DUNG = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>';
+    const ICON_PHAT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.2v13.6L19 12z"/></svg>';
+    const nut = document.createElement('button');
+    nut.type = 'button';
+    nut.className = 'nut-video' + (laNen ? ' nut-video--hero' : '');
+    const capNhat = () => {
+      const dangPhat = !v.paused;
+      nut.innerHTML = dangPhat ? ICON_DUNG : ICON_PHAT;
+      nut.setAttribute('aria-label', dangPhat ? nhan.dung : nhan.phat);
+      if (laNen) khung.classList.toggle('da-dung', !dangPhat);
+    };
+    nut.addEventListener('click', () => {
+      if (!v.paused) { v.pause(); return; }
+      if (!v.getAttribute('src') && !v.querySelector('source')) {
+        v.dataset.loaded = '1'; // de script noi tuyen (IntersectionObserver) khong gan lan nua
+        v.src = v.dataset.src;
+        v.load();
+      }
+      const p = v.play();
+      if (p && p.catch) p.catch(() => {});
+    });
+    v.addEventListener('play', capNhat);
+    v.addEventListener('pause', capNhat);
+    khung.appendChild(nut);
+    capNhat();
   });
 
   // --- Đoàn tàu chạy viền form (từng toa riêng + dây xích) ---
@@ -1163,7 +1328,23 @@ document.addEventListener('DOMContentLoaded', () => {
         return { x: r + (r + OFFSET) * Math.cos(t), y: r + (r + OFFSET) * Math.sin(t), a: (t + Math.PI / 2) * 180 / Math.PI };
       }
 
+      // Tau DUNG O GA (05-10-2026) khi: may bat giam chuyen dong (truoc day CSS chi tat banh xe
+      // + khoi, con ca doan tau van chay vong vinh vien), hoac khach dang thao tac form — re
+      // chuot len form hay tieu diem dang o trong form. Hinh chay vong quanh o dang go la thu
+      // gay xao nhang nhat trang; dung lai thi tau van nam dung cho tren ray.
+      const giamChuyenDong = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const theForm = trainTrack.parentElement;
+      let dangThaoTac = false;
+      let reChuot = false;
+      const duocChay = () => trainVisible && !dangThaoTac && !reChuot && !giamChuyenDong.matches;
+
+      // Moi luc chi co TOI DA MOT khung dang cho ve (rafId): dung/chay lai nhieu lan lien tiep
+      // khong de sinh hai vong lap song song, moi vong ton mot lan doc bo cuc moi khung.
+      let rafId = 0;
+      const henVe = () => { if (!rafId) rafId = requestAnimationFrame(tick); };
+
       function tick(ts) {
+        rafId = 0;
         if (!lastTime) lastTime = ts;
         const dt = (ts - lastTime) / 1000;
         lastTime = ts;
@@ -1172,7 +1353,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const w = rect.width, h = rect.height, r = CORNER_R;
         const peri = getRoundedPerimeter(w, h, r);
 
-        headDist = (headDist + SPEED * dt) % peri;
+        if (duocChay()) headDist = (headDist + SPEED * dt) % peri;
 
         // Tính vị trí từng toa
         allCars.forEach((car, i) => {
@@ -1196,22 +1377,38 @@ document.addEventListener('DOMContentLoaded', () => {
           }
         });
 
-        if (trainVisible) requestAnimationFrame(tick);
+        if (duocChay()) henVe();
+        else lastTime = null; // chay lai thi buoc dau tien dt = 0, tau khong giat toi
       }
       let trainVisible = false;
+      // Goi moi khi mot dieu kien doi: bat/tat banh xe + khoi (CSS .dang-chay) roi hen mot khung.
+      // Duoc chay thi khung do noi tiep thanh vong lap; dang dung thi chi ve MOT khung de tau
+      // nam dung cho tren ray (lan dau hien khi giam chuyen dong, hoac sau khi doi kich thuoc).
+      const capNhatTau = () => {
+        trainTrack.classList.toggle('dang-chay', duocChay());
+        if (trainVisible) henVe();
+      };
+      if (theForm) {
+        theForm.addEventListener('focusin', () => { dangThaoTac = true; capNhatTau(); });
+        theForm.addEventListener('focusout', (e) => {
+          if (theForm.contains(e.relatedTarget)) return;
+          dangThaoTac = false; capNhatTau();
+        });
+        theForm.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { reChuot = true; capNhatTau(); } });
+        theForm.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { reChuot = false; capNhatTau(); } });
+      }
+      if (giamChuyenDong.addEventListener) giamChuyenDong.addEventListener('change', capNhatTau);
       if ('IntersectionObserver' in window) {
         new IntersectionObserver((entries) => {
-          const wasVisible = trainVisible;
           trainVisible = entries[0].isIntersecting;
           // bánh xe quay + khói (CSS) chỉ chạy khi tàu đang hiện trên màn hình
-          trainTrack.classList.toggle('dang-chay', trainVisible);
-          if (trainVisible && !wasVisible) { lastTime = null; requestAnimationFrame(tick); }
+          capNhatTau();
         }, { threshold: 0.1 }).observe(trainTrack);
       } else {
         trainVisible = true;
-        trainTrack.classList.add('dang-chay');
-        requestAnimationFrame(tick);
+        capNhatTau();
       }
+      window.addEventListener('resize', () => { if (trainVisible) henVe(); }, { passive: true });
     }
   }
 });
