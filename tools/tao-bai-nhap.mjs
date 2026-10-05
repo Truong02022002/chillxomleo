@@ -84,12 +84,15 @@ function anhTrongBai(rel, alt) {
 function anhBia(rel, alt) {
   const ten = rel.replace(/\.webp$/, '');
   const kt = kichThuoc(rel);
+  // Dong khung NGAY sau <img> (05-10-2026). Truoc do khung de mo, chu thich chen sau no nam
+  // TRONG khung va bi anh absolute de len — khach khong doc duoc chu thich anh bia.
   return `<div class="relative w-full aspect-[16/9] rounded-2xl md:rounded-[2rem] overflow-hidden shadow-2xl mb-12 bg-[#6B5443]/10">
                 <img srcset="${srcsetCo(ten, kt.w)}" sizes="(max-width: 768px) 92vw, 1168px" width="${kt.w}" height="${kt.h}" fetchpriority="high" decoding="async"
                 src="../${ten}.webp"
                 alt="${escAttr(alt)}"
                 class="object-cover absolute inset-0 w-full h-full"
-                />`;
+                />
+            </div>`;
 }
 
 // ---------- article ----------
@@ -165,7 +168,6 @@ function dungArticle(t, lang) {
 
             ${anhBia(d.anhBia, t.anhBiaAlt)}
 <div class="text-center mt-3 mb-10 mx-auto w-[85%] max-w-[650px]"><span class="text-[0.85rem] text-foreground/70 italic font-medium tracking-wide">${nhanAnh}${esc(t.chuThichAnh)}</span></div>
-            </div>
 
             <details class="blog-toc" open>
   <summary class="blog-toc-title">${nhanMucLuc}</summary>

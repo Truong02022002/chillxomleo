@@ -156,10 +156,24 @@ function anIconTrangTri(html) {
   return [out, chen.length];
 }
 
+// ---- 3. Chu thich anh bia nam TRONG khung anh (05-10-2026) ----
+// tools/tao-bai-nhap.mjs truoc 05-10 de anhBia() mo khung ma khong dong, roi chen chu thich va
+// mot </div> le -> chu thich nam trong khung co <img absolute inset-0> nen bi anh DE LEN, khach
+// khong bao gio doc duoc (6 trang song + moi ban nhap tren nhanh noi-dung). Dong khung ngay sau
+// <img>, chu thich ra ngoai. Trang da dung khong con khop mau nay nen chay lai khong doi gi.
+const BIA_KHUNG = /(<div class="relative w-full[^"]*"[^>]*>\s*<img\b[^>]*>)(\s*)(<div class="text-center mt-3[^"]*">[\s\S]*?<\/div>)(\s*)<\/div>/g;
+function chuThichAnhBia(html) {
+  let n = 0;
+  const nl = html.includes('\r\n') ? '\r\n' : '\n';
+  const out = html.replace(BIA_KHUNG, (m, khung, ws, chuThich) => { n++; return khung + nl + '            </div>' + nl + chuThich; });
+  return [out, n];
+}
+
 export function chuanHoaTrang(html, ghiChu) {
   const [a, soIcon] = anIconTrangTri(html);
   const [b, soChu] = chuanHoaChu(a, ghiChu);
-  return { html: b, soIcon, soChu };
+  const [c, soBia] = chuThichAnhBia(b);
+  return { html: c, soIcon, soChu: soChu + soBia };
 }
 
 function duyet(dir, out = []) {
