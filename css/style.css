@@ -2686,7 +2686,8 @@ main {
    bo qua ve cho toi khi cuon gan. */
 .bang-gio {
   content-visibility: auto;
-  contain-intrinsic-size: auto 300px;
+  /* do lai 05-10-2026 sau khi them dai "Hom nay" (hoang hon): 332px tu 900px, 666-693px dien thoai */
+  contain-intrinsic-size: auto 332px;
   position: relative;
   z-index: 2;
   padding: 2.8rem 1.25rem 2.6rem;
@@ -2842,7 +2843,7 @@ main > section.bang-gio::after {
 .bg-chu a:hover { color: #FFF8F0; }
 
 @media (max-width: 899px) {
-  .bang-gio { contain-intrinsic-size: auto 560px; }
+  .bang-gio { contain-intrinsic-size: auto 670px; }
 }
 
 @media (max-width: 480px) {
@@ -3562,6 +3563,21 @@ figcaption a[rel~="license"] { white-space: nowrap; }
 .gap-y-1 { row-gap: 0.25rem; }
 .text-\[\#6B5443\]\/40 { color: rgb(107 84 67 / 0.4); }
 .hover\:bg-\[\#1877F2\]:hover { background-color: #1877F2; }
+
+/* Quet 05-10-2026 bo sung: class nam trong CHUOI HTML cua js/main.js (thong bao dat ban thanh
+   cong / that bai) — buoc purge Tailwind khong doc file JS nen chung chua bao gio co rule:
+   - nut "Nhan qua Zalo" trong ca hai thong bao: bg-[#0068FF] thieu -> chu trang tren nen kem, gan
+     nhu vo hinh (o nut chot khach!); px-5 thieu -> nut khong co le ngang, khuyet ve cat vao icon;
+   - nut dong (X) top-2 thieu; bong do cua thong bao (shadow-[...rgba(160,63,0,.15)]) thieu.
+   Kiem lai bang scratchpad kiem-class-js.mjs: moi class trong js/*.js phai co rule that. */
+.top-2 { top: 0.5rem; }
+.px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
+.bg-\[\#0068FF\] { background-color: #0068FF; }
+.hover\:bg-\[\#0055DD\]:hover { background-color: #0055DD; }
+.toast-dat-ban,
+#booking-error-toast {
+  box-shadow: 0 10px 40px rgba(160, 63, 0, 0.15), 0 28px 56px -24px rgba(43, 27, 17, 0.5);
+}
 
 /* ===================== WEB INTERFACE GUIDELINES (05-10-2026) =====================
    Chu site: "ap dung Web Design Guidelines de giao dien dinh hon". Ra 91 trang theo bo luat
@@ -4472,6 +4488,125 @@ html {
     right: 50%;
     transform: translateX(50%) rotate(2deg);
     white-space: nowrap;
+  }
+}
+
+/* ===================== NANG CAP 6 (05-10-2026): HOANG HON THEO NGAY + VE TAU =====================
+   Chu site chon tu danh sach y tuong: (1) gio mat troi lan tinh cho tung ngay (js/main.js,
+   XL_HOANG_HON — cong thuc NOAA, toa do trong schema) o bang gio trang chu, form dat ban va dong
+   lich trinh trang Trai nghiem; (2) "ve tau" sau khi dat ban (XL_VE, ve bang canvas tren may
+   khach, luu / chia se Zalo). */
+
+/* Dai "Hom nay" duoi bang gio: nhan men do + gio lat + gio vang + link dat ban */
+.bg-hom-nay {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1.4rem;
+  max-width: 72rem;
+  margin: 2.2rem auto 0;
+  padding-top: 1.7rem;
+  border-top: 1px dashed rgba(217, 164, 92, 0.35);
+  text-align: center;
+}
+.bang-gio .bg-hom-nay p {
+  margin: 0;
+}
+.bg-hn-nhan {
+  padding: 0.4em 0.85em 0.34em;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #FBF3E4;
+  background: var(--tem);
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 2px var(--tem), inset 0 0 0 3px rgba(251, 243, 228, 0.55);
+}
+.bg-hn-chu {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem 0.7rem;
+  font-size: 0.95rem;
+  color: rgba(242, 228, 207, 0.9);
+}
+.bg-hn-chu .lat-o {
+  width: 1.35rem;
+  height: 2.05rem;
+  line-height: 2.05rem;
+  font-size: 1.35rem;
+}
+.bg-hn-them {
+  font-size: 0.86rem;
+  color: rgba(242, 228, 207, 0.72);
+}
+.bg-hn-dat {
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--dong-sang);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.bg-hn-dat:hover {
+  color: #FFF8F0;
+}
+
+/* Trang Trai nghiem: " · hom nay 17:34" noi vao dong lich trinh */
+.hh-hom-nay {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+/* Form dat ban: goi y gio theo hoang hon cua ngay da chon */
+#zaloBookingForm > .goi-y-hh {
+  margin-top: 0.85rem;
+}
+.goi-y-hh {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  padding: 0.7rem 0.9rem;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  text-align: left;
+  color: var(--muc);
+  background: rgba(217, 164, 92, 0.14);
+  border: 1px dashed rgba(138, 100, 40, 0.55);
+  border-radius: 3px;
+}
+.goi-y-hh::before {
+  content: "";
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 0.05em;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A6428' stroke-width='1.8' stroke-linecap='round'%3E%3Cpath d='M2.5 18.5h19'/%3E%3Cpath d='M7.2 18.5a4.8 4.8 0 0 1 9.6 0'/%3E%3Cpath d='M12 9.4v2'/%3E%3Cpath d='M5.6 12l1.4 1.4'/%3E%3Cpath d='M18.4 12 17 13.4'/%3E%3Cpath d='M8.6 21h6.8'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.goi-y-hh:empty {
+  display: none;
+}
+
+/* Thong bao "Da gui" co anh ve: cao hon man hinh thap thi cuon ben trong, khong tran ra ngoai */
+.toast-dat-ban {
+  max-height: calc(100vh - 3.5rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.ve-xem {
+  display: block;
+  width: min(100%, 220px);
+  height: auto;
+  margin: 0.25rem auto 1.1rem;
+  border-radius: 6px;
+  box-shadow: 0 16px 28px -14px rgba(43, 27, 17, 0.65);
+  transform: rotate(-2deg);
+}
+@media (max-height: 720px) {
+  .ve-xem {
+    width: 150px;
   }
 }
 

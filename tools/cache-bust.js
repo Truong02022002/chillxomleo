@@ -35,6 +35,9 @@ const ASSETS = [
   // chay them node tools/csp-hash.mjs --write.
   { file: 'css/mua-le.min.css', pattern: /mua-le\.min\.css\?[a-z]*[0-9a-f]+/g, name: 'mua-le.min.css' },
   { file: 'js/mua-le.min.js', pattern: /mua-le\.min\.js\?[a-z]*[0-9a-f]+/g, name: 'mua-le.min.js' },
+  // Ve tau sau khi dat ban (05-10-2026): URL nam o thuoc tinh data-ve-tau cua #zaloBookingForm
+  // tren 2 trang chu; main.js doc thuoc tinh do roi nap file luc khach bat dau dien form.
+  { file: 'js/ve-tau.min.js', pattern: /ve-tau\.min\.js\?[a-z]*[0-9a-f]+/g, name: 've-tau.min.js' },
 ];
 
 // Chuan hoa xuong dong TRUOC khi bam. Repo dat core.autocrlf=true va khong co

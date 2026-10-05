@@ -297,7 +297,96 @@ const XL_DO = (function () {
   return { gui: gui, loaiTrang: LOAI_TRANG, giaiDoan: GIAI_DOAN, viTri: viTri };
 })();
 
+// --- Gio mat troi lan tai quan (05-10-2026) ---
+// Hoang hon la ly do so 1 khach tim toi quan, nhung site chi noi chung chung "17:20–18:15 tuy
+// thang". Tinh dung gio cho tung ngay theo cong thuc NOAA Solar Calculator, toa do lay tu
+// GeoCoordinates trong schema (113 Huynh Tan Phat). Doi chieu ca nam 2026: som nhat 17:18
+// (19/11), muon nhat 18:15 (11/7) — khop so lieu cac bai tren site. Sai so cua cong thuc ~1 phut;
+// doi nui phia tay co the che mat troi som hon vai phut nen chu tren trang ghi "khoang".
+// Moi gio tinh theo GIO VIET NAM (UTC+7, khong doi mua), khong theo mui gio may khach — khach
+// nuoc ngoai len lich tu nha van thay dung gio o Da Lat.
+const XL_HOANG_HON = (function () {
+  const VI_DO = 11.9543314, KINH_DO = 108.4944158, R = Math.PI / 180;
+  // Tra ve { lan, vang }: phut tinh tu 0h gio VN luc mat troi lan (do cao -0,833°, tinh ca khuc
+  // xa) va luc bat dau "gio vang" (mat troi con 6° tren chan troi).
+  function tinh(nam, thang, ngay) {
+    const jd = Date.UTC(nam, thang - 1, ngay, 5) / 864e5 + 2440587.5; // 12:00 gio VN
+    const t = (jd - 2451545) / 36525;
+    const l0 = (280.46646 + t * (36000.76983 + t * 0.0003032)) % 360;
+    const m = 357.52911 + t * (35999.05029 - 0.0001537 * t);
+    const e = 0.016708634 - t * (0.000042037 + 0.0000001267 * t);
+    const c = Math.sin(m * R) * (1.914602 - t * (0.004817 + 0.000014 * t)) + Math.sin(2 * m * R) * (0.019993 - 0.000101 * t) + Math.sin(3 * m * R) * 0.000289;
+    const om = 125.04 - 1934.136 * t;
+    const lam = l0 + c - 0.00569 - 0.00478 * Math.sin(om * R);
+    const eps = 23 + (26 + (21.448 - t * (46.815 + t * (0.00059 - t * 0.001813))) / 60) / 60 + 0.00256 * Math.cos(om * R);
+    const dec = Math.asin(Math.sin(eps * R) * Math.sin(lam * R));
+    const y = Math.tan(eps * R / 2) ** 2;
+    const eot = 4 / R * (y * Math.sin(2 * l0 * R) - 2 * e * Math.sin(m * R) + 4 * e * y * Math.sin(m * R) * Math.cos(2 * l0 * R) - 0.5 * y * y * Math.sin(4 * l0 * R) - 1.25 * e * e * Math.sin(2 * m * R));
+    const trua = 720 - 4 * KINH_DO - eot + 420;
+    const ha = (z) => Math.acos(Math.cos(z * R) / (Math.cos(VI_DO * R) * Math.cos(dec)) - Math.tan(VI_DO * R) * Math.tan(dec)) / R;
+    return { lan: Math.round(trua + 4 * ha(90.833)), vang: Math.round(trua + 4 * ha(84)) };
+  }
+  const hm = (phut) => String(Math.floor(phut / 60)).padStart(2, '0') + ':' + String(phut % 60).padStart(2, '0');
+  // "Bay gio" theo gio VN: [nam, thang, ngay, phut trong ngay]
+  const bayGio = (them) => {
+    const d = new Date(Date.now() + 7 * 36e5 + (them || 0) * 864e5);
+    return [d.getUTCFullYear(), d.getUTCMonth() + 1, d.getUTCDate(), d.getUTCHours() * 60 + d.getUTCMinutes()];
+  };
+  return { tinh: tinh, hm: hm, bayGio: bayGio };
+})();
+
 document.addEventListener('DOMContentLoaded', () => {
+  // --- Hoang hon hom nay: dai "Hom nay" tren bang gio trang chu + dong lich trinh trang Trai nghiem ---
+  // HTML co san cau tinh (17:20–18:15 tuy thang) cho may khong chay JS; o day thay bang gio that.
+  (function () {
+    const en = document.documentElement.lang === 'en';
+    const [nam, thang, ngay, phut] = XL_HOANG_HON.bayGio();
+    const homNay = XL_HOANG_HON.tinh(nam, thang, ngay);
+    const o = (gio) => '<span class="lat" aria-hidden="true">' + gio.split('').map((k) => (k === ':' ? '<span class="lat-cham">:</span>' : '<span class="lat-o">' + k + '</span>')).join('') + '</span>';
+
+    const bang = document.querySelector('[data-hoang-hon="bang"]');
+    if (bang) {
+      // Sau 23:00 quan da dong -> bao cho ngay mai; da lan nhung con mo cua -> bao den thung lung.
+      let nhan, cau, mat, them;
+      if (phut >= 23 * 60) {
+        const mai = XL_HOANG_HON.bayGio(1);
+        const r = XL_HOANG_HON.tinh(mai[0], mai[1], mai[2]);
+        nhan = en ? 'Tomorrow' : 'Ngày mai';
+        cau = en ? 'Sunset at' : 'Mặt trời lặn lúc';
+        mat = r.lan;
+        them = en ? `golden hour from ${XL_HOANG_HON.hm(r.vang)}` : `giờ vàng từ ${XL_HOANG_HON.hm(r.vang)}`;
+      } else if (phut >= homNay.lan) {
+        nhan = en ? 'Tonight' : 'Tối nay';
+        cau = en ? 'The sun set at' : 'Mặt trời đã lặn lúc';
+        mat = homNay.lan;
+        them = en ? 'the greenhouse valley is lighting up' : 'thung lũng nhà kính đang lên đèn';
+      } else {
+        nhan = en ? 'Today' : 'Hôm nay';
+        cau = en ? 'Sunset at' : 'Mặt trời lặn lúc';
+        mat = homNay.lan;
+        them = en ? `golden hour from ${XL_HOANG_HON.hm(homNay.vang)}` : `giờ vàng từ ${XL_HOANG_HON.hm(homNay.vang)}`;
+      }
+      const gio = XL_HOANG_HON.hm(mat);
+      bang.innerHTML =
+        `<p class="bg-hn-nhan">${nhan}</p>` +
+        `<p class="bg-hn-chu"><span class="an-mat">${nhan}: ${cau.toLowerCase()} ${gio}${en ? ' (Vietnam time)' : ''}, ${them}.</span>` +
+        `<span aria-hidden="true">${cau}</span>${o(gio)}<span aria-hidden="true" class="bg-hn-them">${them}${en ? ' · Vietnam time' : ''}</span></p>` +
+        `<a class="bg-hn-dat" href="#booking">${en ? 'Book a sunset table' : 'Đặt bàn ngắm hoàng hôn'}</a>`;
+    }
+
+    // Trang Trai nghiem: "Mat troi lan khoang 17:20–18:15 tuy thang" + " · hom nay 17:34". Ban EN
+    // cua dong nay viet gio 12h ("5:20–6:15 PM") nen them cung kieu: " · today 5:34 PM".
+    document.querySelectorAll('[data-hoang-hon="hom-nay"]').forEach((el) => {
+      const s = document.createElement('span');
+      s.className = 'hh-hom-nay';
+      const p = homNay.lan;
+      s.textContent = en
+        ? ` · today ${(Math.floor(p / 60) % 12) || 12}:${String(p % 60).padStart(2, '0')} ${p < 720 ? 'AM' : 'PM'}`
+        : ' · hôm nay ' + XL_HOANG_HON.hm(p);
+      el.appendChild(s);
+    });
+  })();
+
   // --- Mobile Menu Toggle ---
   const mobileMenuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
@@ -743,6 +832,26 @@ document.addEventListener('DOMContentLoaded', () => {
         sessionStorage.setItem(KHOA_NHAP, JSON.stringify(nhap));
       } catch (e) { /* bo qua */ }
     };
+    // Ve tau (js/ve-tau.js) nap LUC CAN: khach cham vao form la bat dau tai (~4 KB), toi luc gui
+    // xong thi da san. URL co hash nam o data-ve-tau (cache-bust.js cap nhat).
+    let henVeTau = null;
+    const napVeTau = () => {
+      if (window.XL_VE) return Promise.resolve(window.XL_VE);
+      if (henVeTau) return henVeTau;
+      henVeTau = new Promise((xong, hong) => {
+        const src = zaloForm.dataset.veTau;
+        if (!src) { hong(new Error('thieu data-ve-tau')); return; }
+        const s = document.createElement('script');
+        s.src = src;
+        s.async = true;
+        s.onload = () => (window.XL_VE ? xong(window.XL_VE) : hong(new Error('ve-tau rong')));
+        s.onerror = () => { henVeTau = null; hong(new Error('khong tai duoc ve-tau')); };
+        document.head.appendChild(s);
+      });
+      return henVeTau;
+    };
+    zaloForm.addEventListener('focusin', () => { napVeTau().catch(() => {}); }, { once: true });
+
     zaloForm.addEventListener('input', (e) => { xoaLoiO(e.target); luuNhap(); });
     zaloForm.addEventListener('change', (e) => { xoaLoiO(e.target); if (e.target.id === 'book_date') xoaLoiO(document.getElementById('book_time')); luuNhap(); });
 
@@ -811,6 +920,51 @@ document.addEventListener('DOMContentLoaded', () => {
         zaloForm.addEventListener('reset', () => setTimeout(() => { if (!dateInput.value) dateInput.value = todayISO; hienNgay(); }));
         hienNgay();
         chuNgay.parentElement.classList.add('co-chu');
+      }
+
+      // Goi y gio theo hoang hon cua DUNG ngay khach chon (05-10-2026): khach hay dat 19:30 (gio
+      // mac dinh) roi toi noi moi biet da lo hoang hon. Bao gio lan + gio vang cua ngay do, va noi
+      // gio dang chon co kip khong; neu khong thi goi y hai khung gio kip giờ vang.
+      const timeSel = document.getElementById('book_time');
+      if (timeSel) {
+        const enHH = document.documentElement.lang === 'en';
+        const goiY = document.createElement('p');
+        goiY.className = 'goi-y-hh';
+        (dateInput.closest('.grid') || dateInput.parentElement).insertAdjacentElement('afterend', goiY);
+        const phutCua = (v) => { const [h, m] = String(v).split(':').map(Number); return h * 60 + (m || 0); };
+        const capNhatGoiY = () => {
+          const [y, m, d] = (dateInput.value || '').split('-').map(Number);
+          if (!d) { goiY.textContent = ''; return; }
+          const r = XL_HOANG_HON.tinh(y, m, d);
+          const lan = XL_HOANG_HON.hm(r.lan), vang = XL_HOANG_HON.hm(r.vang);
+          const gio = timeSel.value;
+          const chon = phutCua(gio);
+          const kip = [...timeSel.options].map((o) => o.value).filter((v) => phutCua(v) <= r.lan - 30).slice(-2).join(enHH ? ' or ' : ' hoặc ');
+          const la = (a) => a[0] === y && a[1] === m && a[2] === d;
+          const ngayChu = la(XL_HOANG_HON.bayGio()) ? (enHH ? 'Today' : 'Hôm nay')
+            : la(XL_HOANG_HON.bayGio(1)) ? (enHH ? 'Tomorrow' : 'Ngày mai')
+            : (enHH ? `On ${d}/${m}` : `Ngày ${d}/${m}`);
+          if (chon <= r.lan - 30) {
+            goiY.textContent = enHH
+              ? `${ngayChu} the sun sets around ${lan} — arriving at ${gio} you’ll catch golden hour (from ${vang}).`
+              : `${ngayChu} mặt trời lặn khoảng ${lan} — đến lúc ${gio} là kịp giờ vàng (từ ${vang}).`;
+          } else if (chon < r.lan + 45) {
+            goiY.textContent = enHH
+              ? `${ngayChu} the sun sets around ${lan} — ${gio} is cutting it close; pick ${kip} to get a good table before golden hour.`
+              : `${ngayChu} mặt trời lặn khoảng ${lan} — ${gio} hơi sát giờ lặn, chọn ${kip} để có bàn đẹp trước giờ vàng.`;
+          } else {
+            goiY.textContent = enHH
+              ? `${ngayChu} the sun sets around ${lan} — by ${gio} it’s dark and the valley lights are on; for the sunset, pick ${kip}.`
+              : `${ngayChu} mặt trời lặn khoảng ${lan} — lúc ${gio} trời đã tối, hợp ngắm thung lũng lên đèn; muốn ngắm hoàng hôn thì chọn ${kip}.`;
+          }
+        };
+        dateInput.addEventListener('change', capNhatGoiY);
+        dateInput.addEventListener('input', capNhatGoiY);
+        timeSel.addEventListener('change', capNhatGoiY);
+        zaloForm.addEventListener('reset', () => setTimeout(capNhatGoiY));
+        capNhatGoiY();
+        // Gan aria-live SAU cau dau tien: khong doc to luc vua tai trang, chi doc khi khach doi ngay/gio.
+        goiY.setAttribute('aria-live', 'polite');
       }
     }
 
@@ -986,14 +1140,14 @@ document.addEventListener('DOMContentLoaded', () => {
         : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> ${henXacNhan} để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
 
       const toast = document.createElement('div');
-      toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
+      toast.className = 'toast-dat-ban fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
       toast.setAttribute('role', 'status');
       toast.setAttribute('aria-live', 'polite');
       toast.innerHTML = `
         <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
-        <div class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
+        <div data-ve-cho class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
           <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
         </div>
         <h4 class="text-lg font-serif text-primary mb-2">${toastTitle}</h4>
@@ -1042,8 +1196,9 @@ document.addEventListener('DOMContentLoaded', () => {
       let conLai = 8000;
       let batDau = 0;
       let dangDem = false;
+      let giuLai = false; // da hien ve tau + nut "Luu ve" -> khong tu dong nua
       const chayTiep = () => {
-        if (daDong || dangDem) return;
+        if (daDong || dangDem || giuLai) return;
         dangDem = true;
         batDau = Date.now();
         thanhChay.style.transition = `transform ${conLai}ms linear`;
@@ -1063,6 +1218,41 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.addEventListener('focusin', tamDung);
       toast.addEventListener('focusout', (e) => { if (!toast.contains(e.relatedTarget)) chayTiep(); });
       requestAnimationFrame(() => requestAnimationFrame(chayTiep));
+
+      // Ve tau (js/ve-tau.js): ve xong thi thay dau tich bang anh ve + nut "Luu ve tau". Thong bao da
+      // co nut can bam thi KHONG duoc tu bien mat (WCAG 2.2.1) — tat bo dem, khach tu dong bang X / Esc.
+      // Khong tai duoc file ve thi thong bao giu nguyen nhu truoc (dau tich + tu dong sau 8 giay).
+      const tenVe = String(name).trim();
+      let VE = null;
+      napVeTau().then((v) => { VE = v; return v.ve({ ten: tenVe, ngay: date, gio: time, khach: guests, dip: occasion, en: isEnglish }); }).then((c) => {
+        if (daDong) return;
+        const anh = document.createElement('img');
+        anh.className = 've-xem';
+        anh.width = 1080;
+        anh.height = 1350;
+        anh.alt = isEnglish
+          ? `Your table ticket: ${tenVe}, ${formattedDate} at ${time}, ${guests} guests`
+          : `Vé đặt bàn của ${tenVe}: ngày ${formattedDate} lúc ${time}, ${guests} khách`;
+        anh.src = c.toDataURL('image/jpeg', 0.86);
+        const cho = toast.querySelector('[data-ve-cho]');
+        if (cho) cho.replaceWith(anh);
+        const nut = document.createElement('button');
+        nut.type = 'button';
+        nut.className = 'inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3';
+        nut.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>'
+          + (isEnglish ? 'Save my ticket' : 'Lưu vé tàu');
+        const zalo = toast.querySelector('a[href*="zalo.me"]');
+        if (zalo) zalo.insertAdjacentElement('beforebegin', nut);
+        else toast.appendChild(nut);
+        nut.addEventListener('click', async () => {
+          const cach = await VE.luu(c, isEnglish);
+          if (cach !== 'cancel') XL_DO.gui('save_ticket', { method: cach });
+        });
+        giuLai = true;
+        dangDem = false;
+        clearTimeout(hetGio);
+        if (thanhChay && thanhChay.parentElement) thanhChay.parentElement.remove();
+      }).catch(() => { /* khong ve duoc thi giu thong bao nhu cu */ });
     });
   }
 

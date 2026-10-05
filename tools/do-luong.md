@@ -65,6 +65,7 @@ quyền `return` ngay sau lần khớp đầu tiên.
 | `click_directions` | bấm link Google Maps (`google.*/maps`, `goo.gl/maps`, `maps.app.goo.gl`) | `map_target: 'google_maps'` | **Không** — ý định |
 | `click_booking_cta` | bấm nút trỏ tới `#booking` | không có | **Không** — ý định |
 | `generate_lead` | webhook Apps Script **trả lời xác nhận** đã nhận đơn đặt bàn | `form_id`, `lead_type`, `guests` (số), `occasion` | **Có — Key Event duy nhất** |
+| `save_ticket` | bấm "Lưu vé tàu" trong thông báo đặt bàn thành công (từ 05-10-2026, `js/ve-tau.js`) | `method`: `share` (điện thoại, bảng chia sẻ) \| `download` (tải PNG); bấm rồi huỷ chia sẻ thì không bắn | **Không** — đo xem khách có mang vé đi khoe không |
 
 **Vì sao chỉ một Key Event** (mục 280-281). Bấm số điện thoại chưa có nghĩa là cuộc gọi
 kết nối, mở Zalo chưa có nghĩa là có hội thoại, bấm chỉ đường chưa có nghĩa là khách tới.

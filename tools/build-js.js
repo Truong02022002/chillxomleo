@@ -28,6 +28,8 @@ const JOBS = [
   { src: 'js/flipbook.js', out: 'js/flipbook.min.js' },
   // Giao dien mua le (Noel / Tet): chi nap trong mua, do doan <head> cua tools/mua-le.mjs.
   { src: 'js/mua-le.js', out: 'js/mua-le.min.js' },
+  // Ve tau sau khi dat ban: main.js nap luc can (URL o data-ve-tau cua form trang chu).
+  { src: 'js/ve-tau.js', out: 'js/ve-tau.min.js' },
 ];
 // File dau vao phai dung TRUOC --compress/--mangle: terser coi doi so dung ngay
 // sau hai co do la gia tri tuy chon, dat sau se bao "Supported options".
