@@ -178,7 +178,7 @@ trong `connect-src` và `form-action` của CSP) rồi sang Zalo — không qua 
 
 ## 7. Kiểm lại trước khi publish
 
-    node tools/kiem-do-luong.mjs        # 30 phép thử, Chrome headless
+    node tools/kiem-do-luong.mjs        # 33 phép thử, Chrome headless
     node tools/kiem-do-luong.mjs --giu  # giữ Chrome lại để tự xem
 
 Phép thử chặn mọi request tới Google ở tầng CDP và trả 200 giả cho endpoint Apps Script
@@ -291,6 +291,15 @@ thì Apps Script nối thêm lần nữa, tin Zalo hiện "organic / organic".
   đăng thường của Fanpage. Trước 19-09-2026 site ghi nó thành `Facebook Ads` trong sheet.
   Giờ ghi `Facebook`. Muốn tách quảng cáo thì gắn UTM cho link quảng cáo.
 - `ttclid`, `gclid`/`gbraid`/`wbraid`, `msclkid` chỉ có trên click quảng cáo nên vẫn ghi `… Ads`.
+  `oppref` (OpenAI tự gắn vào mọi lượt bấm quảng cáo ChatGPT) ghi `ChatGPT Ads`.
+- **Trích dẫn AI và quảng cáo trên AI là hai nguồn khác nhau.** ChatGPT tự gắn
+  `utm_source=chatgpt.com` vào link trích dẫn tự nhiên → `AI: ChatGPT`. Cùng `utm_source` đó
+  mà có `utm_medium` trả phí (`cpc`, `ppc`, `cpm`, `paid…`) hoặc có mã click quảng cáo thì là
+  quảng cáo → nhãn `<trang vào>/<utm_source>` như mọi chiến dịch khác. Trước 05-10-2026 lượt
+  bấm quảng cáo ChatGPT bị ghi `AI: ChatGPT`.
+- Có UTM hoặc mã click mới thì `medium`/`campaign`/`term`/`content` của chiến dịch trước bị xoá.
+  Trước 05-10-2026 chúng dính sang nguồn mới: vào bằng quảng cáo Google (`cpc`) rồi vào lại
+  bằng link Facebook trong cùng phiên thì dashboard đếm thành `Facebook Ads`.
 
 **Quy ước UTM.** GA4 phân biệt hoa/thường (`Facebook` và `facebook` thành hai dòng), nên:
 chữ thường, không dấu, nối bằng `_`. **Không bao giờ gắn UTM cho link nội bộ** (từ
@@ -314,6 +323,7 @@ xomleo.vn sang xomleo.vn): GA4 sẽ ghi đè nguồn thật của phiên (kiểm
 | TikTok → link bio | `https://xomleo.vn/?utm_source=tiktok&utm_medium=social&utm_campaign=bio` | Tiktok | Organic Social |
 | Quảng cáo TikTok → tham số URL | `utm_source=tiktok&utm_medium=cpc&utm_campaign=<ten_chien_dich>` | Tiktok Ads | Paid Social |
 | Google Ads → Hậu tố URL cuối cùng (cấp chiến dịch) | `utm_source=google&utm_medium=cpc&utm_campaign=<ten_chien_dich>` | Google Ads | Paid Search |
+| Quảng cáo ChatGPT → Landing page query parameters (cấp chiến dịch) | `utm_source=chatgpt&utm_medium=cpc&utm_campaign=<ten_chien_dich>` | nhãn thô `<trang vào>/chatgpt` | nhóm Paid, không lẫn Referral |
 | Zalo → tin nhắn gửi khách | `https://xomleo.vn/?utm_source=zalo&utm_medium=social&utm_campaign=tin_nhan` | Zalo | Organic Social |
 | QR dán ở bàn | `https://xomleo.vn/menu/?utm_source=qr&utm_medium=offline&utm_campaign=ban_an` | "qr / offline" | Unassigned |
 | QR danh thiếp / tờ rơi | `https://xomleo.vn/?utm_source=qr&utm_medium=offline&utm_campaign=danh_thiep` | "qr / offline" | Unassigned |
@@ -360,3 +370,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 19-09-2026 | Bảng link UTM dùng sẵn cho từng kênh (mục 11); GBP đổi sang `utm_source=google_maps` để khớp nhóm "Google Maps" của dashboard. |
 | 19-09-2026 | Nguồn có UTM ghi thành `<trang vào>/<utm_source>` (ví dụ `menu/google_maps`), bỏ medium khỏi nhãn nguồn. Đơn TEST trên site thật xác nhận webhook nhận đơn và sheet giữ đủ dấu `_`. |
 | 22-09-2026 | Thêm `content_group` = bậc DLN của trang (`<html data-dln>`, mục 4) vào lệnh `config`; 89 trang được gán bậc; `kiem-do-luong.mjs` thêm 4 phép thử, `audit-links.mjs` chặn trang thiếu bậc; lịch đăng bài bắt buộc trường `bac`. |
+| 05-10-2026 | Tách quảng cáo trên AI khỏi trích dẫn AI: `oppref` → `ChatGPT Ads`; `utm_source` của trợ lý AI đi kèm medium trả phí hoặc mã click thì không còn ghi `AI: …`; UTM của chiến dịch trước bị xoá khi có nguồn mới; thêm dòng quảng cáo ChatGPT vào bảng link (mục 11); `kiem-do-luong.mjs` thêm 3 phép thử. |

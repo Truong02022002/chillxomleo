@@ -45,8 +45,15 @@ function captureTrafficSource() {
     if (urlParams.get('utm_campaign')) sessionStorage.setItem('xomleo_utm_campaign', urlParams.get('utm_campaign'));
     if (urlParams.get('utm_term'))     sessionStorage.setItem('xomleo_utm_term',     urlParams.get('utm_term'));
     if (urlParams.get('utm_content'))  sessionStorage.setItem('xomleo_utm_content',  urlParams.get('utm_content'));
+    // Lượt bấm quảng cáo trên AI không phải lượt AI trích dẫn: OpenAI tự gắn `oppref`
+    // vào mọi lượt bấm quảng cáo ChatGPT (mở ở Việt Nam từ 23-09-2026), còn mẫu UTM hay
+    // dùng là utm_source=chatgpt&utm_medium=cpc. Trước 05-10-2026 cả hai bị ghi "AI:
+    // ChatGPT", quảng cáo lẫn vào số trích dẫn tự nhiên. Quảng cáo thì đi tiếp xuống
+    // nhãn "<trang vào>/<utm_source>" như mọi chiến dịch khác, medium giữ ở cột riêng.
+    const quangCao = /^(cpc|ppc|cpm|paid)/i.test(urlParams.get('utm_medium') || '') ||
+      ['oppref', 'gclid', 'gbraid', 'wbraid', 'msclkid', 'ttclid'].some((k) => urlParams.get(k));
     const aiUtm = aiAssistant(urlParams.get('utm_source'));
-    if (aiUtm) return aiUtm;
+    if (aiUtm && !quangCao) return aiUtm;
     // "<trang vào>/<utm_source>", ví dụ "menu/google_maps": GBP có 3 nút cùng một
     // UTM (Trang web, Thực đơn, Đặt chỗ) nên phải biết khách bấm nút nào. KHÔNG ghép
     // medium vào đây — medium đã có cột riêng, trước 19-09-2026 ghép vào thì Apps
@@ -64,6 +71,7 @@ function captureTrafficSource() {
   if (urlParams.get('ttclid'))  return 'TikTok Ads';
   if (urlParams.get('gclid') || urlParams.get('gbraid') || urlParams.get('wbraid')) return 'Google Ads';
   if (urlParams.get('msclkid')) return 'Bing Ads';
+  if (urlParams.get('oppref'))  return 'ChatGPT Ads';
   if (urlParams.get('zarsrc') || urlParams.get('zalo_source')) return 'Zalo';
 
   // 3. In-app browser detection (UA-based — referrer thường rỗng nên phải bắt trước)
@@ -154,9 +162,13 @@ function captureTrafficSource() {
     const p = new URLSearchParams(window.location.search);
     const hasUtm     = !!p.get('utm_source');
     const hasClickId = !!(p.get('ttclid') || p.get('fbclid') || p.get('gclid') ||
-                          p.get('gbraid') || p.get('wbraid') || p.get('msclkid'));
+                          p.get('gbraid') || p.get('wbraid') || p.get('msclkid') || p.get('oppref'));
     const stored = sessionStorage.getItem('xomleo_traffic_source');
     if (!stored || hasUtm || hasClickId) {
+      // Xoá UTM của chiến dịch trước: captureTrafficSource chỉ ghi khoá có trong URL
+      // hiện tại, nên trước 05-10-2026 medium cũ dính sang nguồn mới (vào bằng quảng cáo
+      // Google `cpc`, sau đó vào lại bằng link Facebook -> dashboard đếm "Facebook Ads").
+      ['medium', 'campaign', 'term', 'content'].forEach((k) => sessionStorage.removeItem('xomleo_utm_' + k));
       sessionStorage.setItem('xomleo_traffic_source', captureTrafficSource());
       sessionStorage.setItem('xomleo_landing_page', window.location.pathname + window.location.search);
       sessionStorage.setItem('xomleo_landing_referrer', document.referrer || '');

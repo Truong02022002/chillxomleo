@@ -281,12 +281,21 @@ for (const [duong, mongDoi, medium] of [
   ['/menu/?utm_source=google_maps&utm_medium=organic&utm_campaign=gbp', 'menu/google_maps', 'organic'],
   ['/?utm_source=facebook&utm_medium=paid_social', 'trang_chu/facebook', 'paid_social'],
   ['/thien-vien-truc-lam/?utm_source=zalo&utm_medium=social', 'bai_viet/zalo', 'social'],
+  // ChatGPT tu gan utm_source=chatgpt.com vao link trich dan tu nhien -> nhom AI.
+  // medium null: 'social' cua ca Zalo ngay truoc khong duoc dinh sang (truoc 05-10-2026
+  // van dinh, nen vao bang quang cao cpc roi vao lai bang link Facebook thanh "Facebook Ads").
+  ['/?utm_source=chatgpt.com', 'AI: ChatGPT', null],
+  // Quang cao ChatGPT: OpenAI tu gan oppref. Truoc 05-10-2026 ca hai ca duoi bi ghi
+  // "AI: ChatGPT" (lan vao trich dan tu nhien).
+  ['/?oppref=kiemthu', 'ChatGPT Ads', null],
+  ['/menu/?utm_source=chatgpt&utm_medium=cpc&utm_campaign=thu&oppref=kiemthu', 'menu/chatgpt', 'cpc'],
 ]) {
   await moTrang(duong);
   const nguon = await ev("sessionStorage.getItem('xomleo_traffic_source')");
   const med = await ev("sessionStorage.getItem('xomleo_utm_medium')");
   // fbclid Facebook gan vao MOI link di ra, ke ca bai dang thuong — khong duoc suy ra "Ads".
-  bao('Vao ' + duong + ' -> nguon "' + mongDoi + '"', nguon === mongDoi && (!medium || med === medium), 'nhan: ' + nguon + ' | medium: ' + med);
+  // medium undefined = khong kiem; null = phai rong.
+  bao('Vao ' + duong + ' -> nguon "' + mongDoi + '"', nguon === mongDoi && (medium === undefined || med === medium), 'nhan: ' + nguon + ' | medium: ' + med);
 }
 
 appsScript = 'ok';
