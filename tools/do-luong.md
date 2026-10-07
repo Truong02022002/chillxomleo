@@ -149,7 +149,10 @@ các trường đó. `generate_lead` chỉ gửi ngữ cảnh: loại trang, v�
 Một phép thử trong `tools/kiem-do-luong.mjs` khoá điều này lại.
 
 Dữ liệu đặt bàn thật đi thẳng tới Google Apps Script của quán (`script.google.com`, khai
-trong `connect-src` và `form-action` của CSP) rồi sang Zalo — không qua GA4.
+trong `connect-src` của CSP) bằng `fetch` rồi sang Zalo — không qua GA4. CSP đặt
+`form-action 'none'` (07-10-2026): form không có `action`, nên khi `main.min.js` không tải
+được thì trình duyệt sẽ tự gửi GET về chính trang, đẩy tên + SĐT lên URL (lịch sử, log
+Cloudflare, cache SW). Có thêm form gửi kiểu truyền thống thì phải mở lại `form-action`.
 
 ## 6. Giới hạn đã biết của số liệu
 

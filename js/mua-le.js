@@ -273,7 +273,10 @@
     e.setAttribute('role', 'status');
     e.appendChild(d.createTextNode((en ? 'Preview: ' : 'Xem thử: ') + ten));
     var a = the('a');
-    a.href = location.pathname + '?mua=tu-dong';
+    // KHONG ghep location.pathname: 404.html phuc vu moi duong dan, nen
+    // xomleo.vn//ten-mien-la/x?mua=noel cho pathname "//ten-mien-la/x" va link
+    // thanh "//ten-mien-la/..." -> dan khach sang trang khac. Chi doi query.
+    a.href = '?mua=tu-dong';
     a.textContent = en ? 'Back to auto' : 'Về tự động';
     e.appendChild(a);
     d.body.appendChild(e);

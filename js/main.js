@@ -577,12 +577,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Final cleanup of newPath
     if (newPath) {
-      if (!newPath.startsWith('/')) newPath = '/' + newPath;
-      // Ensure specific mapped paths keep their trailing slash if intended, 
-      // but blog posts already get it from the logic above.
-
-      if (newPath !== window.location.pathname) {
-        window.location.href = newPath;
+      // GitHub Pages giai ma %2F: xomleo.vn/%2Fevil.example%2F..%2Fmenu/ van tra trang
+      // /menu/, decodeURIComponent o tren bien no thanh "//evil.example/../menu" va
+      // "//..." la URL khac ten mien -> bam nut ngon ngu la bi dua sang trang la.
+      // Gop moi "/" hoac "\" dau chuoi thanh mot "/", roi chi di neu van cung origin.
+      newPath = '/' + newPath.replace(/^[\/\\]+/, '');
+      const dich = new URL(newPath, window.location.origin);
+      if (dich.origin === window.location.origin && dich.pathname !== window.location.pathname) {
+        window.location.href = dich.pathname;
       }
     }
   }
