@@ -453,6 +453,25 @@ for (const f of files) {
       }
     }
 
+    // Sao danh gia (review snippet). 08-10-2026 chu site chon khai CreativeWorkSeries + aggregateRating
+    // o 2 trang chu bang diem Google Maps dang hien tren trang, sau khi da duoc bao rui ro (sai loai
+    // noi dung + tong hop danh gia tu trang khac -> co the bi manual action). Toi thieu phai giu: diem
+    // va so luot trong schema TRUNG chu hien thi — cap nhat so o giao dien ma quen schema la lech.
+    if (n.aggregateRating && !laHo(types, 'LocalBusiness') && !laStub) {
+      const loi = [], cb = [];
+      const r = mang(n.aggregateRating)[0] || {};
+      const diem = String(r.ratingValue ?? ''), soLuot = String(r.ratingCount ?? r.reviewCount ?? '');
+      if (!chuoi(n.name)) loi.push('muc duoc cham diem thieu name');
+      if (!/^\d+(\.\d+)?$/.test(diem) || +diem > +(r.bestRating ?? 5) || +diem < +(r.worstRating ?? 1)) loi.push(`ratingValue "${diem}" ngoai thang diem`);
+      if (!/^\d+$/.test(soLuot) || +soLuot < 1) loi.push(`ratingCount/reviewCount "${soLuot}" khong hop le`);
+      else {
+        if (![diem, diem.replace('.', ',')].some((v) => hienThi.includes(v))) loi.push(`diem ${diem} khong hien tren trang`);
+        if (![soLuot, Number(soLuot).toLocaleString('vi-VN'), Number(soLuot).toLocaleString('en-US')].some((v) => hienThi.includes(v))) loi.push(`so luot ${soLuot} khong hien tren trang`);
+      }
+      loi.forEach((x) => bao('LOI', 'g-review', `${duong} (${types.join('+')}): ${x}`));
+      tinh('Review snippet', loi, cb);
+    }
+
     if (laHo(types, 'WebPage') && !types.includes('FAQPage') && h1 && chuoi(n.name) && (n['@id'] === urlTrang || n.url === urlTrang) && gon(n.name) !== gon(h1)) {
       bao('CANH_BAO', 'webpage-h1', `${duong}: WebPage.name "${n.name.slice(0, 60)}" khac h1 "${chuHienThi(h1).trim().slice(0, 60)}"`);
     }
