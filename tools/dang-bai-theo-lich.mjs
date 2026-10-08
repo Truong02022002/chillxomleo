@@ -100,7 +100,9 @@ function taoCard(mau, d, lang, tenAnh, kt) {
   c = c.replace(/href="\/[^"]*"/, () => `href="${href}"`);
   c = c.replace(/<img[\s\S]*?\/>/, () => theImg(d, alt, tenAnh, kt));
   c = c.replace(/(rounded-sm">)[^<]*(<)/, (_, a, b) => a + danhMuc + b);
-  c = c.replace(/(tracking-widest[^>]*>)[^<]*(<)/, (_, a, b) => a + ngay + b);
+  // Ngay tren the boc trong <time datetime> tu 08-10-2026 (tools/chuan-hoa-giao-dien.mjs) —
+  // thay ca the <time> cu, neu chi thay chu truoc no thi the moi hien HAI ngay.
+  c = c.replace(/(tracking-widest[^>]*>)(?:<time\b[^>]*>)?[^<]*(?:<\/time>)?(<)/, (_, a, b) => `${a}<time datetime="${d.ngayDang}">${ngay}</time>${b}`);
   c = c.replace(/(<h2[^>]*>)([\s\S]*?)(<\/h2>)/, (_, a, cu, b) => a + giuThut(cu, tieuDe) + b);
   c = c.replace(/(<p class="text-\[#6B5443\][^>]*>)([\s\S]*?)(<\/p>)/, (_, a, cu, b) => a + giuThut(cu, tomTat) + b);
   // So phut doc o cuong ve: dem tu chinh bai vua chep vao ROOT (tools/phut-doc.mjs, cung

@@ -13,6 +13,12 @@
 //     fonts/playfair-display-subset.woff2 (fonts/subset-kytu.txt) va dai latin cua Signika
 //     (U+2000-206F) — khong ky tu nao roi ve font du phong.
 //
+//  3. Chu thich anh bia nam trong khung anh (xem muc 3 ben duoi).
+//
+//  4-5. (08-10-2026, checklist HTML cua Danh Nolan) Bang du lieu: scope="col" cho o tieu de
+//     cot + ten bang (aria-labelledby tieu de gan nhat). Ngay dang / cap nhat boc
+//     <time datetime>, chi khi khop datePublished cua bai. Khong doi chu hien thi.
+//
 // Ba cong cu doi chieu chu coi nhay cong = nhay thang, … = ... (doi KIEU chu, khong doi NOI
 // DUNG): tools/kiem-schema.mjs (FAQ hien thi vs JSON-LD), tools/kiem-sitemap.mjs (lastmod) va
 // tools/indexnow.mjs (bao Bing). Nho vay lan chuan hoa nay khong nang lastmod ~60 trang.
@@ -169,11 +175,115 @@ function chuThichAnhBia(html) {
   return [out, n];
 }
 
-export function chuanHoaTrang(html, ghiChu) {
+// Ap danh sach sua [vi tri, so ky tu xoa, chu chen] (vi tri tinh tren ban che = ban goc).
+const apSua = (html, sua) => {
+  let out = html;
+  for (const [vt, xoa, chen] of sua.sort((x, y) => y[0] - x[0])) out = out.slice(0, vt) + chen + out.slice(vt + xoa);
+  return out;
+};
+
+// ---- 4. Bang du lieu: scope + ten bang (08-10-2026, checklist HTML cua Danh Nolan muc 9) ----
+// Quet 08-10: 10 bang tren 10 trang, 0 bang co ten (caption / aria-label), 30 o <th> thieu
+// scope; ban nhap tren nhanh noi-dung (bai Tet, chi phi an uong) cung vay. O tieu de cot nam
+// trong <thead> -> scope="col". Bang chua co ten -> aria-labelledby tro vao tieu de h2-h4
+// gan nhat phia tren (bai sinh tu tools/tao-bai-nhap.mjs luon co id o h2). Bang ma cau dan
+// chinh la ten bang thi viet <caption> bang tay — tool khong tu doan chu.
+function bangDuLieu(html, canhBao) {
+  const mat = che(html);
+  const sua = [];
+  for (const m of mat.matchAll(/<thead\b[\s\S]*?<\/thead\s*>/gi)) {
+    for (const th of m[0].matchAll(/<th(?=[\s>])[^>]*>/gi)) {
+      if (!/\sscope\s*=/i.test(th[0])) sua.push([m.index + th.index + 3, 0, ' scope="col"']);
+    }
+  }
+  const tieuDe = [...mat.matchAll(/<h([2-4])\b([^>]*)>([\s\S]*?)<\/h\1\s*>/gi)];
+  for (const t of mat.matchAll(/<table\b[^>]*>/gi)) {
+    const coTen = /^\s*<caption\b/i.test(mat.slice(t.index + t[0].length))
+      || ['aria-label', 'aria-labelledby'].some((a) => (thuocTinh(t[0], a) || '').trim());
+    if (coTen) continue;
+    const h = tieuDe.filter((x) => x.index < t.index).pop();
+    const id = h && thuocTinh('<h' + h[2] + '>', 'id');
+    if (id) sua.push([t.index + 6, 0, ` aria-labelledby="${id}"`]);
+    else canhBao.push(`bang khong co ten va tieu de phia tren khong co id: ${giaiMaGon(t[0]).slice(0, 80)}`);
+  }
+  return [apSua(html, sua), sua.length];
+}
+
+// ---- 5. Ngay dang / cap nhat -> <time datetime> (08-10-2026) ----
+// Ngay hien thi viet theo nhieu kieu: VI "17/6/2025", EN "6/17/2026" (tao-bai-nhap tu 08-2026)
+// lan "March 26, 2025" (ban EN cu) — "5/6/2025" khong biet la 5-6 hay 6-5 neu khong biet ngon
+// ngu. <time datetime="YYYY-MM-DD"> ghi ngay may doc duoc ngay canh chu, chu giu nguyen.
+// Ngay o dong tac gia / the bai CHI duoc boc khi khop datePublished trong JSON-LD cua bai
+// (the bai o /blog/: doc file bai ma the tro toi) — lech thi bao, khong doan.
+const THANG_EN = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const iso = (y, m, d) => (+m >= 1 && +m <= 12 && +d >= 1 && +d <= 31
+  ? `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}` : null);
+function docNgay(chu, lang) {
+  let m = chu.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+  if (m) return lang === 'en' ? iso(m[3], m[1], m[2]) : iso(m[3], m[2], m[1]);
+  m = chu.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (m) return chu;
+  m = chu.match(/^([A-Z][a-z]+) (\d{1,2}), (\d{4})$/);
+  if (m && THANG_EN.includes(m[1])) return iso(m[3], THANG_EN.indexOf(m[1]) + 1, m[2]);
+  return null;
+}
+function ngayDangCua(html) {
+  for (const m of html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi)) {
+    try {
+      const j = JSON.parse(m[1]);
+      for (const n of [j, ...(j['@graph'] || [])]) {
+        if (/Article|BlogPosting/.test([].concat(n['@type']).join(' ')) && n.datePublished) return String(n.datePublished).slice(0, 10);
+      }
+    } catch { /* kiem-schema.mjs bao loi cu phap */ }
+  }
+  return null;
+}
+const NGAY_DONG_TAC_GIA = /(<span class="text-\[10px\] uppercase tracking-widest text-\[#6B5443\]">)([^<]+?)(<\/span>)/g;
+const NGAY_CAP_NHAT = /((?:Cập nhật(?: lần cuối)?|Last updated):\s*)(\d{1,2}\/\d{1,2}\/\d{4}|\d{4}-\d{2}-\d{2}|[A-Z][a-z]+ \d{1,2}, \d{4})/g;
+function bocNgay(html, canhBao) {
+  const mat = che(html);
+  const lang = (html.match(/<html\b[^>]*\slang="([a-z]{2})/i) || [])[1] === 'en' ? 'en' : 'vi';
+  const sua = [];
+  const cuaTrang = ngayDangCua(html);
+  for (const m of mat.matchAll(NGAY_DONG_TAC_GIA)) {
+    const chu = m[2].trim();
+    const ngay = docNgay(chu, lang);
+    if (!ngay) {
+      if (/\d{4}/.test(chu)) canhBao.push(`ngay "${chu}" khong doc duoc theo kieu ${lang} — chua boc <time>`);
+      continue;
+    }
+    // The bai o /blog/ (<article data-category> boc link sang bai) thi doi chieu voi bai do.
+    // <article> cua trang bai cung chua dong tac gia nhung khong co data-category.
+    const dauThe = mat.lastIndexOf('<article', m.index);
+    const theBai = dauThe !== -1 && /^<article\b[^>]*\sdata-category=/i.test(mat.slice(dauThe, mat.indexOf('>', dauThe) + 1))
+      && !mat.slice(dauThe, m.index).includes('</article');
+    const href = theBai ? (mat.slice(dauThe, m.index).match(/href="(\/[^"#?]+\/)"/) || [])[1] : null;
+    let dung = cuaTrang;
+    if (href) {
+      const f = path.join(ROOT, decodeURI(href), 'index.html');
+      dung = fs.existsSync(f) ? ngayDangCua(fs.readFileSync(f, 'utf8')) : null;
+    }
+    if (dung !== ngay) { canhBao.push(`ngay "${chu}" (${ngay}) khong khop datePublished ${dung}${href ? ' cua ' + href : ''} — chua boc <time>`); continue; }
+    const vt = m.index + m[1].length;
+    sua.push([vt, m[2].length, `<time datetime="${ngay}">${m[2]}</time>`]);
+  }
+  for (const m of mat.matchAll(NGAY_CAP_NHAT)) {
+    const truoc = mat.slice(0, m.index);
+    if (truoc.lastIndexOf('<') > truoc.lastIndexOf('>')) continue; // trong thuoc tinh
+    const ngay = docNgay(m[2], lang);
+    if (!ngay) continue;
+    sua.push([m.index + m[1].length, m[2].length, `<time datetime="${ngay}">${m[2]}</time>`]);
+  }
+  return [apSua(html, sua), sua.length];
+}
+
+export function chuanHoaTrang(html, ghiChu, canhBao = []) {
   const [a, soIcon] = anIconTrangTri(html);
   const [b, soChu] = chuanHoaChu(a, ghiChu);
   const [c, soBia] = chuThichAnhBia(b);
-  return { html: c, soIcon, soChu: soChu + soBia };
+  const [d, soBang] = bangDuLieu(c, canhBao);
+  const [e, soNgay] = bocNgay(d, canhBao);
+  return { html: e, soIcon, soChu: soChu + soBia, soBang, soNgay };
 }
 
 function duyet(dir, out = []) {
@@ -189,20 +299,27 @@ function duyet(dir, out = []) {
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
   const GHI = process.argv.includes('--write');
   const CHI_TIET = process.argv.includes('--chi-tiet');
-  let tongIcon = 0, tongChu = 0, soTrang = 0;
+  let tongIcon = 0, tongChu = 0, tongBang = 0, tongNgay = 0, soTrang = 0;
   const lech = [];
+  const canhBao = [];
   for (const f of duyet(ROOT)) {
     const s = fs.readFileSync(f, 'utf8');
     const ghiChu = [];
-    const r = chuanHoaTrang(s, ghiChu);
+    const cb = [];
+    const r = chuanHoaTrang(s, ghiChu, cb);
     const rel = path.relative(ROOT, f).split(path.sep).join('/');
     ghiChu.forEach((x) => lech.push(`${rel}: ${x}`));
+    cb.forEach((x) => canhBao.push(`${rel}: ${x}`));
     if (r.html === s) continue;
-    soTrang++; tongIcon += r.soIcon; tongChu += r.soChu;
+    soTrang++; tongIcon += r.soIcon; tongChu += r.soChu; tongBang += r.soBang; tongNgay += r.soNgay;
     if (GHI) fs.writeFileSync(f, r.html);
-    if (CHI_TIET || !GHI) console.log(`  ${rel}: ${r.soIcon} icon, ${r.soChu} cho kieu chu`);
+    if (CHI_TIET || !GHI) console.log(`  ${rel}: ${r.soIcon} icon, ${r.soChu} cho kieu chu, ${r.soBang} cho bang, ${r.soNgay} ngay`);
   }
-  console.log(`\n${GHI ? 'Da sua' : 'Can sua'}: ${soTrang} trang — ${tongIcon} icon an khoi trinh doc man hinh, ${tongChu} cho doi kieu chu.`);
+  console.log(`\n${GHI ? 'Da sua' : 'Can sua'}: ${soTrang} trang — ${tongIcon} icon an khoi trinh doc man hinh, ${tongChu} cho doi kieu chu, ${tongBang} cho bang (scope / ten bang), ${tongNgay} ngay boc <time>.`);
+  if (canhBao.length) {
+    console.log(`\nCANH BAO ${canhBao.length} cho khong tu sua duoc (xem tay):`);
+    canhBao.forEach((x) => console.log('  ! ' + x));
+  }
   if (lech.length) {
     console.log(`\nCANH BAO ${lech.length} khoi co nhay kep mo/dong khong can (xem tay — thuong do nhay vat qua nhieu doan):`);
     lech.slice(0, CHI_TIET ? 500 : 25).forEach((x) => console.log('  ! ' + x));

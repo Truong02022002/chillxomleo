@@ -2396,6 +2396,16 @@ main .bg-gradient-to-br[class*="from-"][class*="-900/"] {
   color: var(--muc) !important;
 }
 
+/* Ten bang (08-10-2026): cau dan "Bang gia ve ... :" chuyen vao <caption> de gan han voi
+   bang. Trinh duyet mac dinh can giua -> dua ve trai cho khop chu than bai. */
+.prose caption {
+  caption-side: top;
+  text-align: left;
+  padding: 0.2rem 0.3rem 0.6rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
 @media (max-width: 640px) {
   .prose table {
     font-size: 0.84rem;

@@ -155,7 +155,7 @@ function dungArticle(t, lang) {
             <div class="flex items-center gap-3 mb-6">
                 <span class="text-[10px] uppercase tracking-[0.2em] font-bold text-[#A03F00] bg-[#A03F00]/10 px-3 py-1.5 rounded-sm">${nhan}</span>
                 <span class="w-1 h-1 rounded-full bg-[#6B5443]/40"></span>
-                <span class="text-[10px] uppercase tracking-widest text-[#6B5443]">${ngay}</span>
+                <span class="text-[10px] uppercase tracking-widest text-[#6B5443]"><time datetime="${d.ngayDang}">${ngay}</time></span>
                 <span class="w-1 h-1 rounded-full bg-[#6B5443]/40"></span>
                 <a href="${linkAbout}" rel="author" class="text-[10px] uppercase tracking-widest text-[#6B5443] hover:text-[#A03F00] transition-colors">${boiChu}${esc(tacGia)}</a>
             </div>
