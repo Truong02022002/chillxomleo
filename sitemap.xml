@@ -51,7 +51,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -59,7 +59,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog-en/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -67,7 +67,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/" />
@@ -75,7 +75,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/" />
@@ -83,7 +83,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/cam-nang-du-lich-da-lat/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/cam-nang-du-lich-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/cam-nang-du-lich-da-lat-en/" />
@@ -91,7 +91,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/cam-nang-du-lich-da-lat-en/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/cam-nang-du-lich-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/cam-nang-du-lich-da-lat-en/" />
@@ -579,7 +579,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat-en/" />
@@ -587,7 +587,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat-en/</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/top-30-dia-diem-an-sang-o-da-lat-en/" />
@@ -708,5 +708,21 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/thuc-don-nhau-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/thuc-don-nhau-da-lat-en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/thuc-don-nhau-da-lat/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/chi-phi-an-uong-o-da-lat/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/chi-phi-an-uong-o-da-lat-en/</loc>
+    <lastmod>2026-10-09</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/chi-phi-an-uong-o-da-lat/" />
   </url>
 </urlset>
