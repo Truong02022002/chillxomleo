@@ -67,6 +67,14 @@ function chepThuMuc(tu, den) {
 
 // ---------- dung the card ----------
 
+// Nhom bai tren /blog/ (10-10-2026): moi the nam duoi mot khoi tieu de
+// <div class="blog-nhom" id="nhom-...">. Khai "nhom" trong lich-dang.json; thieu thi suy tu bac
+// DLN (C/R/A = an uong, P = o Xom Leo, O = len ke hoach). Bai ve MOT diem tham quan cu the la
+// bac O nhung thuoc "diem-tham-quan" — bai loai do phai khai "nhom" ro.
+const NHOM_BAI = ['an-uong', 'xom-leo', 'ke-hoach', 'diem-tham-quan'];
+const NHOM_THEO_BAC = { C: 'an-uong', R: 'an-uong', A: 'an-uong', P: 'xom-leo', O: 'ke-hoach' };
+const nhomCua = (d) => d.nhom || NHOM_THEO_BAC[d.bac];
+
 // Lay the <article> thu HAI lam mau: the dau tien mang fetchpriority="high"
 // (ung vien LCP), cac the sau deu loading="lazy". Nhan ban tu the thu hai roi
 // chuan hoa lai sau khi chen, de dung mot the duy nhat duoc uu tien.
@@ -97,13 +105,15 @@ function taoCard(mau, d, lang, tenAnh, kt) {
   // chieu nhom va lam hong the.
   let c = mau;
   c = c.replace(/data-category="[^"]*"/, () => `data-category="${danhMuc}"`);
+  c = c.replace(/data-nhom="[^"]*"/, () => `data-nhom="${nhomCua(d)}"`);
   c = c.replace(/href="\/[^"]*"/, () => `href="${href}"`);
   c = c.replace(/<img[\s\S]*?\/>/, () => theImg(d, alt, tenAnh, kt));
   c = c.replace(/(rounded-sm">)[^<]*(<)/, (_, a, b) => a + danhMuc + b);
   // Ngay tren the boc trong <time datetime> tu 08-10-2026 (tools/chuan-hoa-giao-dien.mjs) —
   // thay ca the <time> cu, neu chi thay chu truoc no thi the moi hien HAI ngay.
   c = c.replace(/(tracking-widest[^>]*>)(?:<time\b[^>]*>)?[^<]*(?:<\/time>)?(<)/, (_, a, b) => `${a}<time datetime="${d.ngayDang}">${ngay}</time>${b}`);
-  c = c.replace(/(<h2[^>]*>)([\s\S]*?)(<\/h2>)/, (_, a, cu, b) => a + giuThut(cu, tieuDe) + b);
+  // Tieu de the la h3 tu 10-10-2026 (h2 la tieu de nhom); van nhan h2 cho trang chua chia nhom.
+  c = c.replace(/(<h[23][^>]*>)([\s\S]*?)(<\/h[23]>)/, (_, a, cu, b) => a + giuThut(cu, tieuDe) + b);
   c = c.replace(/(<p class="text-\[#6B5443\][^>]*>)([\s\S]*?)(<\/p>)/, (_, a, cu, b) => a + giuThut(cu, tomTat) + b);
   // So phut doc o cuong ve: dem tu chinh bai vua chep vao ROOT (tools/phut-doc.mjs, cung
   // cach tinh voi cac the da co). The mau khong co cho nay thi bo qua.
@@ -159,8 +169,13 @@ function chenCard(file, d, lang, tenAnh, kt) {
   const href = lang === 'vi' ? `/${d.slug}/` : `/${d.slug}-en/`;
   if (html.includes(`href="${href}"`)) { canhBao.push(`${file}: da co the cho ${href}, bo qua`); return html; }
 
-  const neo = html.match(/id="blog-grid"[^>]*>/);
-  if (!neo) { loi.push(`${file}: khong tim thay #blog-grid`); return null; }
+  // Trang da chia nhom: chen ngay duoi khoi tieu de nhom cua bai (bai moi nhat dung dau nhom).
+  // Trang chua chia nhom thi chen dau luoi nhu truoc.
+  const coNhom = html.includes('class="blog-nhom"');
+  const neo = coNhom
+    ? html.match(new RegExp(`<div class="blog-nhom" id="nhom-${nhomCua(d)}">[\\s\\S]*?</div>`))
+    : html.match(/id="blog-grid"[^>]*>/);
+  if (!neo) { loi.push(`${file}: khong tim thay ${coNhom ? `tieu de nhom "${nhomCua(d)}"` : '#blog-grid'}`); return null; }
 
   const card = taoCard(mau, d, lang, tenAnh, kt);
   // Lay dung thut cua the mau de the moi thang hang voi cac the con lai.
@@ -219,12 +234,19 @@ function kiemTraBaiNhap(d) {
     if ((s.match(/<h1/g) || []).length !== 1) v.push(`${d.slug}${hau}: phai co dung 1 the <h1>`);
   }
 
-  // Bo loc tab o /blog/ an moi the co data-category khong trung nut tab nao, nen bai sai
-  // (hoac thieu) chuyen muc van len song ma khong hien tren trang Blog.
+  // Nhan chuyen muc tren the phai trung cac the da co ("Cẩm nang" / "Travel Guide"). Truoc
+  // 10-10-2026 bo loc tab an the khac chuyen muc nen bai sai chuyen muc len song ma khong hien;
+  // nay /blog/ chia NHOM (khong con tab) va bai phai co tieu de nhom tren ca hai trang.
   for (const [truong, trang] of [['danhMuc', 'blog/index.html'], ['danhMucEn', 'blog-en/index.html']]) {
-    const tab = [...fs.readFileSync(path.join(ROOT, trang), 'utf8').matchAll(/data-tab="([^"]*)"/g)].map((m) => m[1]);
-    if (!tab.includes(d[truong])) v.push(`${truong} "${d[truong]}" khong trung nut tab nao o ${trang} (${tab.join(' / ')})`);
+    const html = fs.readFileSync(path.join(ROOT, trang), 'utf8');
+    const cm = [...new Set([...html.matchAll(/data-category="([^"]*)"/g)].map((m) => m[1]))];
+    if (!cm.includes(d[truong])) v.push(`${truong} "${d[truong]}" khong trung chuyen muc cua the nao o ${trang} (${cm.join(' / ')})`);
+    if (html.includes('class="blog-nhom"') && !html.includes(`id="nhom-${nhomCua(d)}"`)) {
+      v.push(`nhom "${nhomCua(d) ?? ''}" khong co tieu de nhom o ${trang} (${NHOM_BAI.join(' / ')})`);
+    }
   }
+  if (d.nhom !== undefined && !NHOM_BAI.includes(d.nhom)) v.push(`"nhom" phai la mot trong ${NHOM_BAI.join('/')} (dang la "${d.nhom}")`);
+  if (d.nhom === undefined && NHOM_THEO_BAC[d.bac]) canhBao.push(`${d.slug}: khong khai "nhom" — xep vao nhom "${nhomCua(d)}" theo bac ${d.bac}`);
 
   if (d.anh) {
     const goc = path.join(ROOT, d.anh);
