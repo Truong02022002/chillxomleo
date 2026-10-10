@@ -24,6 +24,7 @@ Rồi thêm một mục vào `lich-dang.json`:
   "slug": "quan-nuong-da-lat-cho-nhom-dong",
   "ngayDang": "2026-09-12",
   "bac": "C",
+  "nhom": "an-uong",
   "danhMuc": "Cẩm nang",
   "danhMucEn": "Travel Guide",
   "tieuDe": "Tiêu đề tiếng Việt (≤ 60 ký tự)",
@@ -45,6 +46,12 @@ Rồi thêm một mục vào `lich-dang.json`:
 thành chiều "Content group", nên báo cáo tách được lượt xem và lead theo từng bậc. Xem
 `tools/do-luong.md` mục 4 trên nhánh `main`.
 
+`nhom` (nên có): bài nằm ở nhóm nào trên `/blog/` — `an-uong` (ăn uống ở Đà Lạt), `xom-leo`
+(bài nói về chính quán), `ke-hoach` (lịch trình, mùa, tổng hợp điểm đến) hoặc `diem-tham-quan`
+(bài về MỘT điểm tham quan). Thẻ mới được chèn ngay dưới tiêu đề nhóm. Thiếu thì script tự
+suy theo `bac` (C/R/A → `an-uong`, P → `xom-leo`, O → `ke-hoach`) và in cảnh báo — bài về một
+điểm tham quan là bậc O nhưng thuộc `diem-tham-quan`, nên phải khai rõ. Từ 10-10-2026.
+
 `noiTu` (nên có, 2–3 slug bản VI): các trang đang sống sẽ trỏ link tới bài mới. Lúc đăng,
 script chèn một dòng vào khối "Bài viết liên quan" của cả bản VI lẫn bản EN của từng trang
 (nhãn = `tieuDe` / `tieuDeEn`). Trang nguồn phải có sẵn khối đó ở cả hai bản, nếu không
@@ -57,6 +64,7 @@ Script kiểm hết trước khi ghi, sai một điểm là dừng, không đăn
 
 - `slug` chỉ chữ thường / số / gạch ngang, **không** kết thúc bằng `-en`
 - `bac` là một trong `O` / `C` / `P` / `R` / `A`
+- `nhom` (nếu khai) là một trong `an-uong` / `xom-leo` / `ke-hoach` / `diem-tham-quan`
 - Có đủ cả `<slug>/index.html` và `<slug>-en/index.html`
 - Mỗi bài đúng **1 thẻ `<h1>`**
 - `canonical` trỏ về chính nó: `https://xomleo.vn/<slug>/` và `.../<slug>-en/`
