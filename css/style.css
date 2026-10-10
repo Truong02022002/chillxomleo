@@ -331,6 +331,15 @@ html {
   }
 }
 
+/* Chua san cho thanh cuon (10-10-2026). Trang chu tai cham thi khung dau ve khi tai lieu con
+   ngan hon man hinh -> chua co thanh cuon; noi dung toi them thi thanh cuon hien ra, khung
+   hep di 15px va moi thu can giua/can phai lech 7-15px (do layout-shift: icon nav, thanh
+   tien trinh preloader, ~0,005-0,009 moi lan). Thanh cuon dang overlay (dien thoai, macOS)
+   khong chiem cho nen khong bi anh huong. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* Skip link — bo qua khoi dieu huong lap lai.
    Truoc day khong trang nao co. Luat "bypass blocks" cua axe van dat vi moi trang
    deu co landmark <main>, nhung landmark chi giup nguoi dung trinh doc man hinh;
@@ -6883,6 +6892,24 @@ main > section:is(.ve-quan, .thuc-don-go, .khong-gian, .dai-dat-ban)::after {
   gap: 2.5rem;
   align-items: center;
   text-align: left;
+}
+
+/* Giu cho hero khi HTML tai do dang (10-10-2026). Trang chu ~355 KB: mang cham thi Chrome ve
+   khung dau luc moi co logo chu + H1 (~252px); phan con lai toi sau lam luoi cao len 500px,
+   hero can giua doc nen khoi chu nhay len 146px -> CLS 0,06-0,12 tren may tinh (do xen ke,
+   CPU x4, 1,6 Mbps). Luoi cao san bang cot tranh ben phai (500px co dinh), cot chu bam mep
+   tren + dem bang dung do lech can giua cu (do: 47px @1024, 31px @1280, 28-29px tu 1366),
+   nen phan tai sau chi moc them xuong duoi, vi tri cuoi giu nhu cu (sai <= 2px).
+   Da thu <link rel="expect" blocking="render"> thay cho cach nay: het CLS nhung FCP/LCP
+   cham 180-470ms -> bo. */
+@media (min-width: 1024px) {
+  .hero-go-luoi {
+    min-height: 500px;
+    align-items: start;
+  }
+  .hero-go-chu {
+    padding-top: clamp(29px, calc(47px - (100vw - 1024px) * 0.0625), 47px);
+  }
 }
 
 @media (min-width: 1024px) {
