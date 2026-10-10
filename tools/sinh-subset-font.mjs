@@ -84,7 +84,16 @@ const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 '
 // 24-09-2026: tieu de chuyen sang Playfair Display -> bo ky tu tren gio dung cho
 // Playfair (thuong + nghieng). Dancing Script chi con o logo nen subset rieng theo
 // dung chu cua cac phan tu .font-script (CHU_LOGO) — them chu vao logo thi sua o day.
-const CHU_LOGO = 'Chill Xóm Lèo Tiệm Nướng &';
+// 09-10-2026 (giao dien theo anh mau "go + giay da", NANG CAP 9 trong css/style.css):
+//  - tieu de chuyen sang Oswald (chu dung hep) -> fonts/oswald-subset.woff2, CUNG bo ky tu.
+//  - logo them dong "Đà Lạt" viet tay + dong "See you in Đà Lạt" o chan trang -> CHU_LOGO them chu, ghi ra TEN FILE MOI
+//    dancing-script-logo-2.woff2 (font da cache 30 ngay o Cloudflare: doi noi dung ma giu
+//    ten cu thi khach cu van nhan ban 19 ky tu, "Đà Lạt" roi ve font du phong).
+//  - chu viet tay trang tri (tagline, chu thich anh polaroid, ghi chu tay) can du tieng
+//    Viet -> fonts/dancing-script-chu.woff2 (CUNG bo ky tu, wght 400-700). KHONG preload:
+//    chi tai khi trang co phan tu dung font nay.
+//  Playfair KHONG sinh lai nua (khong con dung); file cu giu cho HTML con trong cache.
+const CHU_LOGO = 'Chill Xóm Lèo Tiệm Nướng & Đà Lạt See you in';
 
 async function tai(family, axes, kytu) {
   const url = 'https://fonts.googleapis.com/css2?family=' + family + ':' + axes
@@ -107,12 +116,13 @@ async function tai(family, axes, kytu) {
   return out;
 }
 
-const pf = await tai('Playfair+Display', 'ital,wght@0,400..900;1,400..900', text);
+const os = await tai('Oswald', 'wght@400..700', text);
 const ds = await tai('Dancing+Script', 'wght@400', [...new Set(CHU_LOGO)].join(''));
+const dc = await tai('Dancing+Script', 'wght@400..700', text);
 for (const [ten, buf] of [
-  ['fonts/playfair-display-subset.woff2', pf.normal],
-  ['fonts/playfair-display-italic-subset.woff2', pf.italic],
-  ['fonts/dancing-script-logo.woff2', ds.normal],
+  ['fonts/oswald-subset.woff2', os.normal],
+  ['fonts/dancing-script-logo-2.woff2', ds.normal],
+  ['fonts/dancing-script-chu.woff2', dc.normal],
 ]) {
   if (!buf) { console.error('Thieu file cho', ten); process.exit(4); }
   fs.writeFileSync(path.join(ROOT, ten), buf);

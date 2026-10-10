@@ -10,7 +10,8 @@
 //     svg, code:  "..." -> "…",  nhay thang " ' -> nhay cong “ ” ‘ ’, dau luoc ’ (Da Lat’s).
 //     Truoc 05-10: 522 doan co nhay kep thang, 396 doan nhay don thang, 45 doan "..." tren 62 trang;
 //     nhay thang ve bang Playfair (tieu de) trong vung ve. Ca 5 ky tu deu co trong
-//     fonts/playfair-display-subset.woff2 (fonts/subset-kytu.txt) va dai latin cua Signika
+//     fonts/subset-kytu.txt — bo ky tu cua font tieu de (Oswald tu 09-10-2026, truoc do
+//     Playfair) — va dai latin cua Signika
 //     (U+2000-206F) — khong ky tu nao roi ve font du phong.
 //
 //  3. Chu thich anh bia nam trong khung anh (xem muc 3 ben duoi).

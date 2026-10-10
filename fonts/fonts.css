@@ -55,7 +55,43 @@
    sinh lai subset (tools/sinh-subset-font.mjs), neu khong chu moi roi ve fallback.
    File cu dancing-script-subset.woff2 van giu: ban nhap tren nhanh noi-dung va
    HTML con nam trong cache tro toi no. */
-@font-face{font-family:'Dancing Script';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dancing-script-logo.woff2) format('woff2');}
+/* 09-10-2026: logo them dong "Đà Lạt" viet tay (giao dien theo anh mau, NANG CAP 9) -> subset
+   moi 5,4 KB, TEN FILE MOI (dancing-script-logo.woff2 cu da cache 30 ngay, doi noi dung giu ten
+   thi khach cu nhan ban thieu chu). File cu van giu cho HTML con trong cache. */
+@font-face{font-family:'Dancing Script';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/dancing-script-logo-2.woff2) format('woff2');}
+
+/* Chu viet tay TRANG TRI (tagline hero, chu thich anh polaroid, ghi chu tay tren giay da): can du
+   tieng Viet nen la ho rieng, subset cung bo ky tu fonts/subset-kytu.txt (39 KB, wght 400-700).
+   KHONG preload: trinh duyet chi tai khi trang co phan tu dung ho nay (.chu-tay). Khong phan tu
+   nao dung ho nay la ung vien LCP. */
+@font-face{font-family:'Dancing Script Chu';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/dancing-script-chu.woff2) format('woff2');}
+
+/* Oswald: font TIEU DE tu 09-10-2026 (thay Playfair; chu dung hep in hoa nhu anh mau chu site gui).
+   Subset cung bo ky tu voi Playfair (fonts/subset-kytu.txt), bien thien 400-700, 21 KB — nhe hon
+   Playfair 36 KB. Duoc preload vi tieu de (h1 / dong ten quan o hero) la phan tu LCP.
+   Fallback khop metric: do bang canvas measureText (Chrome 09-10-2026), Oswald 600 so voi Arial 400:
+   chu IN HOA 78% be ngang, chu thuong 87,5%. Mot @font-face chi co mot size-adjust nen tach hai ho:
+   'Oswald Fallback' (87%) cho tieu de chu thuong (bai viet), 'Oswald Fallback Hoa' (78%) cho tieu de
+   in hoa (trang chu, logo, thanh dieu huong). ascent/descent Oswald = 119%/29% em, chia cho size-adjust. */
+@font-face{font-family:'Oswald';font-style:normal;font-weight:400 700;font-display:swap;src:url(/fonts/oswald-subset.woff2) format('woff2');}
+@font-face{
+  font-family: 'Oswald Fallback';
+  font-weight: 400 700;
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans'), local('Arimo');
+  size-adjust: 87%;
+  ascent-override: 137%;
+  descent-override: 33%;
+  line-gap-override: 0%;
+}
+@font-face{
+  font-family: 'Oswald Fallback Hoa';
+  font-weight: 400 700;
+  src: local('Arial'), local('Helvetica Neue'), local('Liberation Sans'), local('Arimo');
+  size-adjust: 78%;
+  ascent-override: 153%;
+  descent-override: 37%;
+  line-gap-override: 0%;
+}
 
 /* Playfair Display: font tieu de h1/h2/h3. Subset cung bo ky tu fonts/subset-kytu.txt
    (ASCII + tieng Viet + dau cau) ma ban Dancing Script cu dung, sinh bang

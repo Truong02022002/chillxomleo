@@ -307,9 +307,9 @@ function noiTuTrangLienQuan(d) {
   }
 }
 
-// Font tieu de (Playfair Display tu 24-09-2026, truoc do Dancing Script) la ban subset
+// Font tieu de (Oswald tu 09-10-2026; Playfair Display 24-09, truoc do Dancing Script) la ban subset
 // theo fonts/subset-kytu.txt (xem tools/sinh-subset-font.mjs). Ky tu ngoai bo subset
-// trong tieu de se roi ve Georgia/Times, nam lan trong chu Playfair thi nhin ra.
+// trong tieu de se roi ve Arial/font he thong, nam lan trong chu Oswald thi nhin ra.
 // (Than bai dung Signika ban day du nen khong bi.) Site hien khong dung ky tu nao nhu vay,
 // nhung bai dang sau nay co ten nuoc ngoai (Zurich, Malaga, Munchen...) thi lo.
 // Day chi la CANH BAO, khong chan dang bai: lech font la chuyen tham my, khong
@@ -434,6 +434,10 @@ function dongBoKhung(fileBai, fileMau, slug, bac) {
   const preload = (mau.match(/<link rel="preload" as="font"[^>]*>/) || [])[0];
   if (preload && !t.includes('rel="preload" as="font"')) {
     t = t.replace(/([ \t]*)(<style id="site-css"|<link rel="stylesheet"|<title>)/, (_, thut, the) => thut + preload + nl + thut + the);
+  } else if (preload) {
+    // Doi font tieu de (09-10-2026 Playfair -> Oswald): ban nhap soan truoc van preload font cu ->
+    // tai thua 36 KB ma tieu de van cho font moi. Thay bang dong preload cua trang mau.
+    t = t.replace(/<link rel="preload" as="font"[^>]*>/, () => preload);
   }
   // Doan <head> tu bat giao dien Noel / Tet (tools/mua-le.mjs, 27-09-2026): ban nhap soan truoc
   // ngay do khong co -> bai len song dung mua le ma van mac do thuong. Chep nguyen doan cua trang
