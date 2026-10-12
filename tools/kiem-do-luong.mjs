@@ -67,12 +67,20 @@ const chrome = spawn(CHROME, [
   '--no-first-run', '--no-default-browser-check', '--disable-gpu', '--window-size=1280,900',
   ...(TREN_CI ? ['--no-sandbox', '--disable-dev-shm-usage'] : []),
   'about:blank',
-], { stdio: 'ignore' });
+], { stdio: ['ignore', 'ignore', 'pipe'] });
+// Giu 2 KB cuoi stderr cua Chrome de in ra khi khong ket noi duoc (doc het luong de Chrome khong bi nghen).
+let chromeLoi = '';
+chrome.stderr.on('data', (b) => { chromeLoi = (chromeLoi + b.toString()).slice(-2048); });
+let chromeThoat = null;
+chrome.on('exit', (code, sig) => { chromeThoat = code ?? sig; });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// Cho toi ~45 s: 12-10-2026 runner GitHub khoi dong Chrome cham hon 18 s (moc cu) -> exit 2 ma
+// chua phep thu nao chay (11 lan truoc deu xanh). Log job chi admin repo doc duoc, nen loi in
+// thanh annotation (::error::) — doc duoc cong khai qua API check-runs/<job>/annotations.
 let target;
-for (let i = 0; i < 60 && !target; i++) {
+for (let i = 0; i < 150 && !target && chromeThoat === null; i++) {
   try {
     const list = await (await fetch('http://127.0.0.1:' + CDP_PORT + '/json/list')).json();
     // Loc 'chrome': target chrome://omnibox-popup cung co type 'page'.
@@ -80,7 +88,13 @@ for (let i = 0; i < 60 && !target; i++) {
   } catch (e) { /* Chrome chua len */ }
   if (!target) await sleep(300);
 }
-if (!target) { console.error('Khong ket noi duoc Chrome.'); process.exit(2); }
+if (!target) {
+  const lyDo = chromeThoat !== null ? 'Chrome thoat som (' + chromeThoat + ')' : 'het 45 s cho';
+  const duoi = chromeLoi.replace(/\s+/g, ' ').trim().slice(-600);
+  console.error('Khong ket noi duoc Chrome: ' + lyDo + '. stderr: ' + duoi);
+  if (TREN_CI) console.log('::error title=Khong ket noi duoc Chrome::' + lyDo + ' | ' + duoi.replace(/[\r\n%]/g, ' '));
+  process.exit(2);
+}
 
 const ws = new WebSocket(target.webSocketDebuggerUrl);
 // readyState phai kiem truoc: su kien 'open' co the ban xong truoc khi gan listener.
