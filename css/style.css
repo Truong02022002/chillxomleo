@@ -3005,10 +3005,6 @@ main > section.bang-gio::after {
   color: var(--dong-sang);
 }
 
-#menu .group:hover h3 {
-  color: #F5A65B;
-}
-
 #menu h3::after {
   border-bottom-color: rgba(242, 228, 207, 0.3);
 }
@@ -5469,8 +5465,7 @@ article.container div.relative.w-full.overflow-hidden[class*="aspect-["]::before
   color: #F3E3C0;
 }
 
-#menu h2 .text-primary,
-#menu .group:hover h3 {
+#menu h2 .text-primary {
   color: var(--chu-nghieng);
 }
 
@@ -6644,6 +6639,12 @@ p.uppercase.font-bold.text-primary[class*="tracking-[0.25em]"] {
 #navbar .lang-switcher {
   border-color: rgba(233, 214, 175, 0.4) !important;
   background-color: transparent !important;
+}
+
+/* Khung boc VN | EN mang cursor-pointer nhung chinh no khong bam duoc (chi 2 <a> ben trong) -> re vao
+   khoang trong / dau "|" hien ban tay ma bam khong di dau (12-10-2026, ra soat lien ket). */
+.lang-switcher {
+  cursor: auto;
 }
 
 /* ---------- 4. Nut ---------- */

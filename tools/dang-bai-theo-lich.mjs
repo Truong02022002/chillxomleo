@@ -452,6 +452,14 @@ function dongBoKhung(fileBai, fileMau, slug, bac) {
     t = t.replace(/([ \t]*)(<meta name="viewport"[^>]*>)/, (_, thut, the) => thut + the + nl + thut + robots);
   }
   t = t.replace(/(<a\s+href=")[^"]*("\s+hreflang="(vi|en)")/g, (_, a, b, l) => a + (l === 'vi' ? `/${slug}/` : `/${slug}-en/`) + b);
+  // Nhan nut VN | EN (12-10-2026): ten doc ra phai CHUA chu hien thi "VN"/"EN" (WCAG 2.5.3) — ban nhap
+  // soan truoc ngay do con nhan cu "Chuyển sang tiếng Việt"...
+  for (const [cu, moi] of [
+    ['aria-label="Đang xem bản tiếng Việt">VN<', 'aria-label="VN – đang xem bản tiếng Việt">VN<'],
+    ['aria-label="Chuyển sang tiếng Việt">VN<', 'aria-label="VN – chuyển sang tiếng Việt">VN<'],
+    ['aria-label="Switch to English">EN<', 'aria-label="EN – switch to English">EN<'],
+    ['aria-label="Currently viewing the English version">EN<', 'aria-label="EN – currently viewing the English version">EN<'],
+  ]) t = t.split(cu).join(moi);
   // Khoi "Giai dap nhanh" <section id="faq"> sau </article> la 7 cau hoi cua bai khung (view
   // xe lua), tao-bai-nhap.mjs truoc 21-09-2026 chep nguyen sang. Bai co muc FAQ rieng trong
   // <article> thi khoi do chac chan la cua khung — go.

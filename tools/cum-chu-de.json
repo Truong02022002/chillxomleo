@@ -1,0 +1,322 @@
+{
+  "_ghi_chu": [
+    "Bo quy tac gom truy van GSC thanh cum chu de cho tools/ban-do-nhu-cau.mjs (12-10-2026).",
+    "Moi truy van duoc so voi 'mau' theo THU TU trong danh sach, cum dau tien khop thi nhan.",
+    "Mau la regex (khong phan biet hoa thuong) chay tren truy van DA BO DAU, viet thuong, gom khoang trang: 'Tiệm Nướng Xóm Lèo' -> 'tiem nuong xom leo'.",
+    "'canCo' (tuy chon): truy van phai khop THEM mau nay (vd: ten quan + chu 'menu').",
+    "'loai': thuong-hieu | dich-vu | tham-quan | nhieu. Cum 'nhieu' bi loai khoi ban do (van liet ke rieng).",
+    "'dich': trang tren site nen dung cho cum (de doi chieu bac DLN + so lieu trang). null = chua co trang / khong nen co.",
+    "'ngoaiPhamVi': true = nhu cau khong phai cua quan (buffet, nuong Han Quoc, thanh pho khac) -> khong xep vao co hoi.",
+    "Them cum moi: xem muc 'Truy van chua phan cum' trong bao cao roi bo sung o day."
+  ],
+  "thuongHieu": "x[oô]m\\.? ?l[eè]o|xomleo|som leo|xom\\.leo",
+  "cum": [
+    {
+      "key": "hoi-thoai-ai",
+      "ten": "Hỏi nối tiếp kiểu AI Mode",
+      "loai": "dich-vu",
+      "dich": "/",
+      "mau": "^(co|ok|113|dia chi quan|gia ve|buoi chieu toi|di xe rieng|o da lat|da lat|yes|vang|chua|2|ca 2|an|muon|tem|giá|gia|menu|address|dia chi|giờ mở|gio mo|mat khau|may tang|trang tri|ticket price|restaurant name|driving directions|cultural facts|lich su|fee \\?|cu the|in english pls|yes all above|other places too|hinh anh ong ay|day nua|day la o dau|day la dau|dia diem nay o dau|cho minh vi tri|cho xin dia chi cu the|give me the specific location|xin gia|kem gia|gia tung mon|gia mac ko|gia nhu the nao|menu va gia|menu and prices|menu quan nay|gia menu|mon best seller|danh gia bao nhieu|co gi noi bat|co view dep|co tam linh ko|con cho nao nua ko|con cai nao khac khong\\?|them quan di|quan nao ngon|goi y quan an ngon|what would you recommend\\?|what do you recommend\\?|interesting facts about it|xem hinh anh|toi can cho mua|non nuoc huu tinh|phong canh dep|hoa gi\\?|sit down view|chill location|20,000d|비용은\\?|中文)$"
+    },
+    {
+      "key": "ten-gan-giong",
+      "ten": "Tên gần giống / có thể là quán khác",
+      "loai": "nhieu",
+      "dich": null,
+      "mau": "lau treo|lang nuong x[oô]m|xom leu|xu leo|ga doi xom leo|tiem ga doi|ban leo|bep khoi nha leo|golden leo|joe & leo|^leo (bbq|grill|chill|menu)$|^(com|quan|menu) leo$|^xom (bao dai|ga|robinson|az|nuong)|hotels? xom|^xom$|^quan xom$|^xom menu$|cheo leo"
+    },
+    {
+      "key": "tram-dung-chill",
+      "ten": "Quán chị em Trạm Dừng Chill (111 HTP)",
+      "loai": "nhieu",
+      "dich": null,
+      "mau": "tram dung chill|tram chill|111 huynh tan phat|tram nuong"
+    },
+    {
+      "key": "th-menu",
+      "ten": "Tên quán + thực đơn / giá",
+      "loai": "thuong-hieu",
+      "dich": "/menu/",
+      "mau": "{TH}",
+      "canCo": "menu|thuc don|\\bgia\\b|mon an|best seller"
+    },
+    {
+      "key": "th-dia-chi",
+      "ten": "Tên quán + địa chỉ / đường đi",
+      "loai": "thuong-hieu",
+      "dich": "/duong-di/",
+      "mau": "{TH}|113 huynh tan phat|^(duong )?huynh tan phat da lat|huynh tan phat phuong 11",
+      "canCo": "dia chi|huynh tan phat|duong di|o dau|ban do|map|xuan truong|chi duong|113"
+    },
+    {
+      "key": "th-danh-gia",
+      "ten": "Tên quán + đánh giá / hình ảnh",
+      "loai": "thuong-hieu",
+      "dich": "/about/",
+      "mau": "{TH}",
+      "canCo": "danh gia|review|hinh anh|\\banh\\b|hoang hon|co gi"
+    },
+    {
+      "key": "th-ca-phe",
+      "ten": "Tên quán + cà phê",
+      "loai": "thuong-hieu",
+      "dich": "/menu/",
+      "mau": "{TH}",
+      "canCo": "cafe|ca phe|coffee"
+    },
+    {
+      "key": "thuong-hieu",
+      "ten": "Tên quán (điều hướng)",
+      "loai": "thuong-hieu",
+      "dich": "/",
+      "mau": "{TH}|tiem nuong (&|va )?chill( xom)?$|^tiem nuong chill( o)? da lat$"
+    },
+    {
+      "key": "ngoai-khu-vuc",
+      "ten": "Nướng ở thành phố khác",
+      "loai": "nhieu",
+      "dich": null,
+      "mau": "phan thiet|vung tau|sai gon|ha noi|tan an|nha trang|hanoi"
+    },
+    {
+      "key": "near-me-toan-cau",
+      "ten": "Tìm quanh đây bằng tiếng Anh (khách không ở Đà Lạt)",
+      "loai": "nhieu",
+      "dich": null,
+      "mau": "near me|nearby|near here|near ne|near$|within [0-9]|open now|around me|places to (chill|relax|sit)|best places for coffee|best places to (relax|watch sunset)|best sunset view|chill (spots|places|area|out|music)|^chill$|chills near|quiet private|warm place|drinking place|top rated food|restaurants near|best restaurants for breakfast|where to eat breakfast|best brunch|pretty cafes|scupture|cold meat|forever rich|pork soda|best ensalada",
+      "truKhi": "da ?lat|dalat"
+    },
+    {
+      "key": "nhieu-khac",
+      "ten": "Tên trang / quán khác, truy vấn lạc chủ đề",
+      "loai": "nhieu",
+      "dich": null,
+      "mau": "dalat88|dalatan|vi ban|lilom|antiblue|blogspot|huong quan|selena|solena|lang khet|le anh|campi|co xuan|song sanh|ma dao|mau vang|tren lau|linh dong|hem chill|chang vang|moc chill|20 forest|tiem dien thoai|vay maxi|mo lon|ni loi|lo ghim|hem 108|27 huynh tan phat|87 huynh tan phat|dam co nuong|jeunesse|the chimney|cafe tre|him cafe|quyen cafe|egg coffee"
+    },
+    {
+      "key": "view-tau",
+      "ten": "Quán nướng view xe lửa / tàu",
+      "loai": "dich-vu",
+      "dich": "/quan-nuong-da-lat-view-xe-lua/",
+      "mau": "(nuong|quan|tiem|bbq|lau).*(xe lua|tau lua|tau hoa|duong tau|nha ga|chuyen tau)|(xe lua|tau lua|duong tau|nha ga).*(nuong|bbq)"
+    },
+    {
+      "key": "nhom-dong-tiec",
+      "ten": "Đặt tiệc / nhóm đông / khách đoàn",
+      "loai": "dich-vu",
+      "dich": "/quan-nuong-da-lat-cho-nhom-dong/",
+      "mau": "khach doan|nhom dong|tiec cuoi|tiec sinh nhat|sinh nhat|liên hoan|lien hoan|hop lop|cho be|khu vui choi"
+    },
+    {
+      "key": "ngoai-pham-vi-nuong",
+      "ten": "Nướng kiểu quán không có (buffet, Hàn Quốc, ngói…)",
+      "loai": "dich-vu",
+      "dich": null,
+      "ngoaiPhamVi": true,
+      "mau": "buffet|han quoc|nuong ngoi|ngoi nuong|om nuong|nuong om|lau bo|lau kem|lau hai san$|mit heo|lavender|nem nuong|nha go|com lam|trai nuong|sieu|superzom|lau nuong xe"
+    },
+    {
+      "key": "gan-day",
+      "ten": "Quán nướng / quán ăn \"gần đây\" (tìm quanh mình)",
+      "loai": "dich-vu",
+      "dich": "/duong-di/",
+      "mau": "gan day|quanh day|trong vong [0-9]"
+    },
+    {
+      "key": "mon-nuong",
+      "ten": "Món cụ thể (bò, gà, khoai lang, lẩu cá tầm…)",
+      "loai": "dich-vu",
+      "dich": "/tiem-nuong-da-lat-duoc-yeu-thich/",
+      "mau": "(bo|ga|long|chan ga|khoai lang|xuc xich|xien|trung|pho mai|thit|may) nuong|lau ca tam|lau ga la e|ca tam|oc nhoi|cac mon nuong|mon nuong|bo .*pho mai|^bbq$|^nuong( bbq)?$|^do nuong$|^lau$|tiem nuong khoai"
+    },
+    {
+      "key": "quan-nuong-chung",
+      "ten": "Quán nướng Đà Lạt (chung)",
+      "loai": "dich-vu",
+      "dich": "/",
+      "mau": "(quan|tiem|nha hang|lang|chon)? ?(do )?nuong|bbq|nuong (chill|ngon)|chill nuong|an toi|quan an toi|lau nuong"
+    },
+    {
+      "key": "hoang-hon",
+      "ten": "Hoàng hôn / mặt trời lặn Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/about/",
+      "mau": "hoang hon|mat troi lan|sunset"
+    },
+    {
+      "key": "chill-da-lat",
+      "ten": "Chỗ chill ở Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/top-11-dia-diem-chill-o-da-lat-de-thu-gian/",
+      "mau": "chill"
+    },
+    {
+      "key": "ca-phe",
+      "ten": "Quán cà phê Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/quan-ca-phe-dep-o-da-lat/",
+      "mau": "ca ?phe|cafe|caphe|coffee|latte|matcha"
+    },
+    {
+      "key": "an-sang",
+      "ten": "Ăn sáng Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/top-30-dia-diem-an-sang-o-da-lat/",
+      "mau": "an sang|breakfast|brunch|diem tam|omelet|scrambled|bacon|burrito|tacos"
+    },
+    {
+      "key": "an-uong-chung",
+      "ten": "Ăn gì / món ngon Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/mon-ngon-da-lat/",
+      "mau": "mon gi ngon|co gi ngon|gi ngon|mon ngon|an gi|mon an|do an|quan an|quan ngon|mon la|specialties|vietnamese food|grilled food|da lat an|an trua|mon nuoc|mi tron|banh|tra sua|dau giam|^an$|an nhau|quan nhau|nha hang|hang an|tiem an|quan lau|food"
+    },
+    {
+      "key": "tq-robin",
+      "ten": "Đồi Robin / cáp treo",
+      "loai": "tham-quan",
+      "dich": "/doi-robin-ngam-toan-canh-da-lat-mong-mo-tu-tren-cao/",
+      "mau": "robin|cable car|cap treo"
+    },
+    {
+      "key": "tq-truc-lam",
+      "ten": "Thiền viện Trúc Lâm",
+      "loai": "tham-quan",
+      "dich": "/thien-vien-truc-lam/",
+      "mau": "truc lam|thuyen vien|thien vien|thien vien|truc lam zen"
+    },
+    {
+      "key": "tq-linh-phuoc",
+      "ten": "Chùa Linh Phước",
+      "loai": "tham-quan",
+      "dich": "/chua-linh-phuoc-toa-do-tam-linh-doc-dao/",
+      "mau": "linh phuoc|ve chai"
+    },
+    {
+      "key": "tq-nha-tho-con-ga",
+      "ten": "Nhà thờ Con Gà",
+      "loai": "tham-quan",
+      "dich": "/nha-tho-con-ga/",
+      "mau": "nha tho con ga|con ga"
+    },
+    {
+      "key": "tq-cam-tu-cau",
+      "ten": "Cánh đồng hoa cẩm tú cầu",
+      "loai": "tham-quan",
+      "dich": "/top-5-canh-dong-hoa-cam-tu-cau-da-lat/",
+      "mau": "cam tu cau|tu cau|hydrangea"
+    },
+    {
+      "key": "tq-lam-vien",
+      "ten": "Quảng trường Lâm Viên",
+      "loai": "tham-quan",
+      "dich": "/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat/",
+      "mau": "lam vien|quang truong|quãng truong|bieu tuong"
+    },
+    {
+      "key": "tq-bao-dai",
+      "ten": "Dinh Bảo Đại",
+      "loai": "tham-quan",
+      "dich": "/dinh-bao-dai-da-lat-di-tich-kien-truc-dac-sac/",
+      "mau": "bao dai|dai bao|dinh (1|i|iii)|dinh 1"
+    },
+    {
+      "key": "tq-xuan-huong",
+      "ten": "Hồ Xuân Hương",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet/",
+      "mau": "xuan huong"
+    },
+    {
+      "key": "tq-than-tho",
+      "ten": "Hồ Than Thở",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-ho-than-tho-da-lat-canh-dep-va-trai-nghiem/",
+      "mau": "than tho"
+    },
+    {
+      "key": "tq-tuyen-lam",
+      "ten": "Hồ Tuyền Lâm",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-ho-tuyen-lam/",
+      "mau": "tuyen lam"
+    },
+    {
+      "key": "tq-prenn",
+      "ten": "Đèo Prenn",
+      "loai": "tham-quan",
+      "dich": "/deo-prenn-da-lat-cung-duong-quyen-ru/",
+      "mau": "prenn"
+    },
+    {
+      "key": "tq-duong-ham",
+      "ten": "Đường hầm điêu khắc",
+      "loai": "tham-quan",
+      "dich": "/duong-ham-dieu-khac-tuyet-tac-kien-truc/",
+      "mau": "duong ham|clay tunnel|sculpture tunnel"
+    },
+    {
+      "key": "tq-cho-dem",
+      "ten": "Chợ đêm / chợ Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-cho-dem-da-lat/",
+      "mau": "cho dem|cho da lat|^cho "
+    },
+    {
+      "key": "tq-ve-dem",
+      "ten": "Đà Lạt về đêm",
+      "loai": "tham-quan",
+      "dich": "/da-lat-ve-dem-top-nhung-noi-phai-den/",
+      "mau": "ve dem|da lat dem|at night|thanh pho .*dem"
+    },
+    {
+      "key": "tq-khac",
+      "ten": "Điểm tham quan khác (Datanla, Bali, Cao đẳng SP, Fairytale…)",
+      "loai": "tham-quan",
+      "dich": "/da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat/",
+      "mau": "co gi choi|datanla|cong troi|bali|cao dang su pham|lat college|fairytale|langbiang|cau dat|doi che|thung lung|wonderland|lac hu|thon 330|an son|doc thi|check in|dia diem|du lich|tham quan|choi gi|di dau|travel|things to do|hot tourist|lich trinh|thanh pho ngan hoa|nghieng nghieng|photo ?booth|tourist"
+    },
+    {
+      "key": "luu-tru",
+      "ten": "Homestay / khách sạn",
+      "loai": "tham-quan",
+      "dich": "/goi-y-homestay-da-lat-cho-chuyen-di-3-ngay-2-dem/",
+      "mau": "homestay|khach san|hotel|gac ngang doi|goc ngang doi|goc hien|mot chiec home|g family"
+    }
+  ],
+  "duongCtr": {
+    "1": 0.25,
+    "2": 0.14,
+    "3": 0.1,
+    "4": 0.07,
+    "5": 0.055,
+    "6": 0.045,
+    "7": 0.035,
+    "8": 0.03,
+    "9": 0.025,
+    "10": 0.02,
+    "20": 0.01,
+    "50": 0.003,
+    "100": 0.001,
+    "_ghi_chu": "CTR uoc luong theo vi tri trung binh (tham khao, de tinh tiem nang luot nhap; KHONG phai so cua Google)"
+  },
+  "nguong": {
+    "_ghi_chu": "Nguong xep loai (tinh tren tong KHONG ke cum nhieu)",
+    "coreTiLeNhap": 0.05,
+    "coreViTriToiDa": 4,
+    "coHoiTiLeHienThi": 0.01,
+    "coHoiHienThiToiThieu": 50,
+    "coHoiViTriTu": 4,
+    "coHoiCtrSoVoiKyVong": 0.5,
+    "coHoiNhapTiemNangToiThieu": 3,
+    "tangNhanhTiLe": 0.4,
+    "tangNhanhHienThiToiThieu": 30,
+    "viTriMucTieu": 3,
+    "trongSo": {
+      "_ghi_chu": "Trong so kinh doanh khi xep viec: khach tim quan nuong / dat ban (dich-vu) gia tri hon khach doc bai diem tham quan (tham-quan, bac O)",
+      "thuong-hieu": 1,
+      "dich-vu": 1,
+      "tham-quan": 0.3
+    }
+  }
+}
