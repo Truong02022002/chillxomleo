@@ -28,11 +28,17 @@ name: Kiem sitemap va URL chuan
 #
 # Bai dang theo lich khong di qua day (push cua bot khong kich hoat workflow khac),
 # nen dang-bai-theo-lich.yml tu chay kiem-sitemap TRUOC khi commit.
+#
+# Buoc thu hai chay tools/audit-links.mjs: link noi bo hong, trang mo coi (0 link vao) va
+# CUM mo coi — trang chi duoc cac trang cung lac tro toi, di tu / va /en/ khong toi (them
+# 13-10-2026 theo bai "Orphan Page"). Truoc day audit chi chay khi bot dang bai, nen sua tay
+# lam gay link thi khong ai biet. Dong "Ghi chu" trong log liet ke bai chua co link trong
+# than bai trang khac — chi de xem dinh ky, khong lam do run.
 
 on:
   push:
     branches: [main]
-    paths: ['**.html', 'sitemap.xml', 'robots.txt', 'tools/kiem-sitemap.mjs']
+    paths: ['**.html', 'sitemap.xml', 'robots.txt', 'tools/kiem-sitemap.mjs', 'tools/audit-links.mjs', 'tools/bac-dln.mjs']
   workflow_dispatch:
 
 permissions:
@@ -54,3 +60,7 @@ jobs:
 
       - name: Doi soat sitemap voi URL chuan
         run: node tools/kiem-sitemap.mjs
+
+      - name: Kiem link noi bo va trang mo coi
+        if: always()
+        run: OUT="$RUNNER_TEMP/audit-findings.json" node tools/audit-links.mjs --ci

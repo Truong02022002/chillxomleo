@@ -24,10 +24,12 @@ for (const f of files) {
   pages.set(route, f);
 }
 
-const findings = { deadAnchor: [], brokenLink: [], orphan: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [], langSwitch: [], crossLang: [], robotsMeta: [], dupFaq: [], dln: [], mdSot: [] };
+const findings = { deadAnchor: [], brokenLink: [], orphan: [], unreachable: [], sitemapMissing: [], sitemapStale: [], badJson: [], danglingToc: [], h1: [], dupTitle: [], hreflang: [], emptyHref: [], iframeTitle: [], langSwitch: [], crossLang: [], robotsMeta: [], dupFaq: [], dln: [], mdSot: [] };
 const faqBlocks = new Map(); // danh sach cau hoi cua khoi FAQ -> cac trang
 const bacOf = new Map(); // route -> bac DLN (<html data-dln>, xem tools/bac-dln.mjs)
 const inbound = new Map(); // route -> count
+const ke = new Map(); // route -> Set(route dich) — do thi link de do kha nang di toi tu trang chu
+const vaoThan = new Map(); // route -> Set(route nguon) — link nam trong THAN BAI cua trang khac
 const titles = new Map();
 
 const stripped = new Map();
@@ -98,6 +100,9 @@ for (const f of files) {
   }
 
   // 5) links: broken internal + inbound tally — whole body, so nav and footer count too
+  const ra = new Set();
+  ke.set(route, ra);
+  const coLink = (r) => { inbound.set(r, (inbound.get(r) || 0) + 1); try { ra.add(decodeURIComponent(r)); } catch { ra.add(r); } };
   for (const m of body.matchAll(/<a\s([^>]*?)>/g)) {
     const attrs = m[1];
     const hm = attrs.match(/href="([^"]*)"/);
@@ -107,7 +112,7 @@ for (const f of files) {
     if (/^(https?:|mailto:|tel:|javascript:)/.test(href)) {
       if (href.startsWith('https://xomleo.vn/')) {
         const r = norm(href.replace('https://xomleo.vn', ''));
-        if (r) { if (!exists(r)) findings.brokenLink.push(`${f} -> ${href}`); else inbound.set(r, (inbound.get(r) || 0) + 1); }
+        if (r) { if (!exists(r)) findings.brokenLink.push(`${f} -> ${href}`); else coLink(r); }
       }
       continue;
     }
@@ -115,7 +120,25 @@ for (const f of files) {
     if (href.startsWith('/')) {
       const r = norm(href);
       if (r && !exists(r)) findings.brokenLink.push(`${f} -> ${href}`);
-      else if (r) inbound.set(r, (inbound.get(r) || 0) + 1);
+      else if (r) coLink(r);
+    }
+  }
+  // Stub chuyen huong: di tiep toi trang dich (link cu vao stub van dua nguoi va bot toi noi)
+  const toi = (s.match(/http-equiv="refresh"[^>]*url=([^"'>\s]+)/i) || [])[1];
+  if (toi) { const r = norm(toi.replace('https://xomleo.vn', '')); if (r) ra.add(r); }
+
+  // 5d) Link trong THAN BAI (bai "Internal Link", 13-10-2026): bo menu, chan trang, cac khoi
+  //     <aside> (Bai viet lien quan / Nguon) va luoi the bai cua /blog/. Chi de ghi chu, khong tinh loi:
+  //     bai moi dang theo lich chi duoc noi qua khoi lien quan (muc noiTu) nen luon bat dau o 0.
+  if (!stub) {
+    let than = main.replace(/<aside\b[\s\S]*?<\/aside>/g, '').replace(/<nav\b[\s\S]*?<\/nav>/g, '');
+    const iLuoi = than.indexOf('id="blog-grid"');
+    if (iLuoi >= 0) than = than.slice(0, iLuoi);
+    for (const m of than.matchAll(/<a\s[^>]*?href="(?:https:\/\/xomleo\.vn)?(\/[^"#?]*)/g)) {
+      const r = norm(m[1]);
+      if (!r || r === route) continue;
+      if (!vaoThan.has(r)) vaoThan.set(r, new Set());
+      vaoThan.get(r).add(route);
     }
   }
 
@@ -224,6 +247,21 @@ for (const [route, f] of pages) {
   if (!inbound.get(route)) findings.orphan.push(`${route}  (${f})`);
 }
 
+// 9b) cum mo coi — trang co link vao nhung chi tu nhung trang cung lac (A <-> B <-> C), di tu
+//     trang chu VI lan EN theo moi link (ca menu, chan trang) van khong toi. Muc 9 dem "0 link vao"
+//     nen khong bat duoc truong hop nay (bai "Orphan Page", 13-10-2026).
+const toiDuoc = new Set(['/', '/en/']);
+const hang = ['/', '/en/'];
+while (hang.length) for (const r of ke.get(hang.shift()) || []) if (!toiDuoc.has(r)) { toiDuoc.add(r); hang.push(r); }
+for (const [route, f] of pages) {
+  if (skipPage(route, f) || toiDuoc.has(route) || findings.orphan.some((x) => x.startsWith(route + ' '))) continue;
+  const tu = [...ke].filter(([, s]) => s.has(route)).map(([r]) => r);
+  findings.unreachable.push(`${route}  (chi co link tu: ${tu.slice(0, 4).join(', ')}${tu.length > 4 ? '…' : ''})`);
+}
+// Ghi chu: trang chi duoc tro toi tu menu / khoi lien quan / the bai, chua co cau nao trong than bai link sang
+const chuaCoThan = [...pages].filter(([route, f]) => !skipPage(route, f) && route !== '/' && route !== '/en/'
+  && !(vaoThan.get(route)?.size) && !/data-dln="(hub|legal)"/.test(stripped.get(f).slice(0, 3000))).map(([r]) => r);
+
 // iframe phai co title, va nhieu iframe tren cung trang phai co ten khac nhau —
 // nguoi dung tro nang chi nghe title de biet dang o khung nao.
 for (const [route, f] of pages) {
@@ -247,6 +285,7 @@ for (const [route, { vi, en }] of altOf) {
 const LABEL = {
   badJson: 'JSON-LD hỏng', brokenLink: 'Link nội bộ hỏng', deadAnchor: 'Text CTA mất href',
   emptyHref: 'href rỗng', danglingToc: 'Anchor mục lục không tồn tại', orphan: 'Trang mồ côi (0 inbound)',
+  unreachable: 'Cụm mồ côi (có link vào nhưng đi từ trang chủ VI/EN không tới)',
   sitemapMissing: 'Thiếu trong sitemap', sitemapStale: 'Sitemap trỏ trang không tồn tại',
   h1: 'H1 sai số lượng', dupTitle: 'Title trùng', hreflang: 'hreflang thiếu self-ref',
   iframeTitle: 'iframe thiếu title hoặc trùng title',
@@ -265,5 +304,10 @@ for (const k of Object.keys(findings)) {
   for (const line of v.slice(0, 25)) console.log(`      ${line}`);
   if (v.length > 25) console.log(`      … và ${v.length - 25} dòng nữa`);
 }
+console.log(`\nGhi chú (không tính lỗi) — ${chuaCoThan.length} trang chưa có link nào trong THÂN BÀI trang khác trỏ tới, chỉ có menu / khối liên quan / thẻ /blog/:`);
+for (const r of chuaCoThan.slice(0, 14)) console.log(`      ${r}`);
+if (chuaCoThan.length > 14) console.log(`      … và ${chuaCoThan.length - 14} trang nữa`);
 console.log(`\nTỔNG: ${total}`);
-fs.writeFileSync(process.env.OUT || 'audit-findings.json', JSON.stringify(findings, null, 2));
+fs.writeFileSync(process.env.OUT || 'audit-findings.json', JSON.stringify({ ...findings, ghiChuChuaCoLinkThanBai: chuaCoThan }, null, 2));
+// --ci: thoat ma 1 khi co loi, de workflow do
+if (process.argv.includes('--ci') && total) process.exit(1);
