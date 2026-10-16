@@ -16,7 +16,7 @@
  */
 
 const MA_DO_LUONG = 'G-YWGENK065S';   // luong web cua xomleo.vn (connected tag G-1YNW7BWD6W la property khac)
-const PHIEN_BAN = '2026-10-16';
+const PHIEN_BAN = '2026-10-16b';
 const KY_HOP_LE = [7, 28, 90];
 const SU_KIEN = ['click_call', 'chat_open', 'click_directions', 'click_booking_cta', 'generate_lead'];
 const SAI_TOI_DA = 15;                  // lan sai moi cua so 15 phut, tinh chung ca script
@@ -46,13 +46,16 @@ function doPost(e) {
 
   const ky = KY_HOP_LE.indexOf(Number(yc.ky)) >= 0 ? Number(yc.ky) : 28;
   try {
+    // Trang tu cap nhat muc "Ngay luc nay" moi phut bang { chi: 'tgt' } — khong keo lai ca bao cao ky
+    if (yc.chi === 'tgt') return traJson_({ thoiGianThuc: thoiGianThuc_(propertyId, cache) });
     const khoa = 'so-' + ky;
     let so = JSON.parse(cache.get(khoa) || 'null');
     if (!so) {
       so = tongHop_(propertyId, ky);
       try { cache.put(khoa, JSON.stringify(so), LUU_TAM_GIAY); } catch (err) { /* qua 100 KB thi thoi khong luu tam */ }
     }
-    so.online = dangOnline_(propertyId, cache);
+    so.thoiGianThuc = thoiGianThuc_(propertyId, cache);
+    so.online = so.thoiGianThuc.n30;
     return traJson_(so);
   } catch (err) {
     return traJson_({ loi: 'ga4', chiTiet: String((err && err.message) || err).slice(0, 300) });
@@ -119,17 +122,37 @@ function bang_(rep) {
   });
 }
 
-function dangOnline_(propertyId, cache) {
-  const daCo = cache.get('online');
-  if (daCo !== null) return Number(daCo);
-  try {
-    const r = AnalyticsData.Properties.runRealtimeReport({ metrics: [{ name: 'activeUsers' }] }, 'properties/' + propertyId);
-    const n = r.rows && r.rows[0] ? Number(r.rows[0].metricValues[0].value) : 0;
-    cache.put('online', String(n), 60);
-    return n;
-  } catch (err) {
-    return null;
-  }
+// Muc "Ngay luc nay" — giong bao cao Tong quan theo thoi gian thuc cua GA4 (30 phut gan nhat). Luu tam 60 giay.
+// Moi bao cao chay rieng: mot bao cao loi (vd. GA4 chua ho tro chieu firstUserSource o thoi gian thuc) thi
+// chi muc do trong, phan con lai van hien.
+function thoiGianThuc_(propertyId, cache) {
+  const daCo = cache.get('tgt');
+  if (daCo) return JSON.parse(daCo);
+  const ten = 'properties/' + propertyId;
+  const p30 = [{ startMinutesAgo: 29, endMinutesAgo: 0 }];
+  const chay = (body) => {
+    try { return bang_(AnalyticsData.Properties.runRealtimeReport(body, ten)); } catch (err) { return null; }
+  };
+  const tong = (ds) => (ds && ds[0] ? ds[0].activeUsers || 0 : ds ? 0 : null);
+  const giam = (metricName) => [{ metric: { metricName }, desc: true }];
+  const theoPhut = chay({ dimensions: [{ name: 'minutesAgo' }], metrics: [{ name: 'activeUsers' }], minuteRanges: p30, limit: 30 });
+  const trang = chay({ dimensions: [{ name: 'unifiedScreenName' }], metrics: [{ name: 'screenPageViews' }, { name: 'activeUsers' }], minuteRanges: p30, orderBys: giam('screenPageViews'), limit: 10 });
+  const thanhPho = chay({ dimensions: [{ name: 'city' }], metrics: [{ name: 'activeUsers' }], minuteRanges: p30, orderBys: giam('activeUsers'), limit: 10 });
+  const nguon = chay({ dimensions: [{ name: 'firstUserSource' }], metrics: [{ name: 'activeUsers' }], minuteRanges: p30, orderBys: giam('activeUsers'), limit: 10 });
+  const suKien = chay({ dimensions: [{ name: 'eventName' }], metrics: [{ name: 'eventCount' }], minuteRanges: p30,
+    dimensionFilter: { filter: { fieldName: 'eventName', inListFilter: { values: SU_KIEN } } } });
+  const kq = {
+    luc: new Date().toISOString(),
+    n30: tong(chay({ metrics: [{ name: 'activeUsers' }], minuteRanges: p30 })),
+    n5: tong(chay({ metrics: [{ name: 'activeUsers' }], minuteRanges: [{ startMinutesAgo: 4, endMinutesAgo: 0 }] })),
+    theoPhut: theoPhut && theoPhut.map((x) => ({ phut: Number(x.minutesAgo), nguoi: x.activeUsers || 0 })),
+    trang: trang && trang.map((x) => ({ ten: x.unifiedScreenName, luotXem: x.screenPageViews || 0, nguoi: x.activeUsers || 0 })),
+    thanhPho: thanhPho && thanhPho.map((x) => ({ ten: x.city, nguoi: x.activeUsers || 0 })),
+    nguon: nguon && nguon.map((x) => ({ nguon: x.firstUserSource, nguoi: x.activeUsers || 0 })),
+    suKien: suKien && suKien.map((x) => ({ su: x.eventName, lan: x.eventCount || 0 })),
+  };
+  try { cache.put('tgt', JSON.stringify(kq), 60); } catch (err) { /* bo qua */ }
+  return kq;
 }
 
 // ---------- tien ich ----------
@@ -183,6 +206,9 @@ function kiemTra() {
   const so = tongHop_(propertyId, 7);
   const t = so.tong.nay || {};
   console.log('Lấy thử 7 ngày: ' + (t.nguoi || 0) + ' người truy cập, ' + (t.luotXem || 0) + ' lượt xem trang, ' +
-    so.trang.length + ' trang, ' + so.nguon.length + ' dòng nguồn. Đang online: ' + dangOnline_(propertyId, CacheService.getScriptCache()));
+    so.trang.length + ' trang, ' + so.nguon.length + ' dòng nguồn.');
+  const tgt = thoiGianThuc_(propertyId, CacheService.getScriptCache());
+  console.log('Thời gian thực: ' + tgt.n30 + ' người trong 30 phút, ' + tgt.n5 + ' người trong 5 phút' +
+    (tgt.nguon ? '' : ' (GA4 không cho xem nguồn ở thời gian thực — mục đó sẽ trống)') + '.');
   console.log('Xong. Bước tiếp: Triển khai → Tùy chọn triển khai mới → Ứng dụng web (xem HUONG-DAN.md).');
 }

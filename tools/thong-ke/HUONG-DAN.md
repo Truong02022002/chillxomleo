@@ -1,7 +1,8 @@
 # Trang thống kê truy cập xomleo.vn/quan-tri/
 
 Trang `https://xomleo.vn/quan-tri/` hiện số liệu Google Analytics 4 (GA4) của web quán:
-- người truy cập, lượt xem, lượt ghé;
+- **Ngay lúc này** (giống màn hình "Tổng quan theo thời gian thực" của GA4, tự cập nhật mỗi phút): số người trên web trong 30 phút và 5 phút, cột theo từng phút, đang xem trang nào, đến từ đâu, ở thành phố nào, vừa bấm gì;
+- người truy cập, lượt xem, lượt ghé theo 7 / 28 / 90 ngày;
 - khách bấm gọi / Zalo / chỉ đường / đặt bàn;
 - khách đến từ đâu, trang nào được xem, giờ nào đông, thiết bị, thành phố.
 

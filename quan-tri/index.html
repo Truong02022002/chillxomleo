@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-tR5a0AmnRVLm6WtsAcsobQ+3UfPwANebHwDcrzXLEJs=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'none'; upgrade-insecure-requests">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'sha256-dIyuyV+rJU//lmnjROMygsxuoA+nup5hSLQGlsNWDis=' https://www.googletagmanager.com https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.google-analytics.com https://www.googletagmanager.com; font-src 'self'; media-src 'self'; frame-src https://www.google.com https://www.youtube.com https://www.youtube-nocookie.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://www.google-analytics.com https://analytics.google.com https://*.google-analytics.com https://www.google.com https://www.googletagmanager.com https://cloudflareinsights.com https://static.cloudflareinsights.com; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thống kê truy cập | Tiệm Nướng &amp; Chill Xóm Lèo</title>
@@ -58,15 +58,12 @@
     .hang-nut { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
     .bao { border: 1px solid var(--loi); color: var(--chu); background: rgba(224, 122, 95, 0.1); padding: .7rem .9rem; }
 
-    /* thanh ky + online */
+    /* thanh chon ky */
     .thanh { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .7rem 1rem; }
     .chon-ky { display: inline-flex; border: 1px solid var(--vien); border-radius: 3px; overflow: hidden; }
     .chon-ky button { font: 600 .92rem var(--f-than); background: transparent; color: var(--chu-2); border: 0; padding: .5rem .9rem; cursor: pointer; }
     .chon-ky button + button { border-left: 1px solid var(--vien); }
     .chon-ky button[aria-pressed="true"] { background: var(--dong); color: var(--go); }
-    .online { display: inline-flex; align-items: center; gap: .5rem; font-size: .95rem; }
-    .online .cham { width: .6rem; height: .6rem; border-radius: 50%; background: var(--tang); box-shadow: 0 0 0 4px rgba(127, 203, 142, 0.18); }
-    .online b { font-family: var(--f-so); font-weight: 500; font-size: 1.15rem; }
 
     /* o so */
     .luoi-so { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--ke); border: 1px solid var(--ke); }
@@ -115,6 +112,19 @@
     @media (min-width: 760px) { .hai-cot { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
     details summary { cursor: pointer; color: var(--chu-2); font-size: .9rem; }
     details[open] summary { margin-bottom: .5rem; }
+    /* ngay luc nay (thoi gian thuc) */
+    .tgt-so { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: var(--ke); border: 1px solid var(--ke); }
+    .tgt-so .o-so .gia-tri { font-size: clamp(2.2rem, 1.8rem + 1.4vw, 3rem); }
+    .tgt-ds { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; }
+    .the-ds { background: var(--the); border: 1px solid var(--ke); padding: .9rem 1rem; display: grid; gap: .5rem; align-content: start; min-width: 0; }
+    .the-ds h3 { margin: 0; font-size: .95rem; font-weight: 600; color: var(--chu-2); }
+    .the-ds ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .35rem; }
+    .the-ds li { display: flex; justify-content: space-between; gap: .8rem; font-size: .93rem; }
+    .the-ds li span:first-child { min-width: 0; overflow-wrap: anywhere; }
+    .the-ds li span:last-child { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--dong); font-weight: 600; }
+    .the-ds .trong { color: var(--chu-2); font-size: .88rem; }
+    .cham-song { display: inline-block; width: .55rem; height: .55rem; border-radius: 50%; background: var(--tang); box-shadow: 0 0 0 4px rgba(127, 203, 142, 0.18); margin-right: .45rem; vertical-align: middle; }
+    .tgt .cac-cot { height: 130px; }
     .ghi-chu { border-top: 1px solid var(--vien); padding-top: 1rem; display: grid; gap: .5rem; }
     .ghi-chu ul { margin: 0; padding-left: 1.2rem; display: grid; gap: .35rem; color: var(--chu-2); font-size: .9rem; max-width: 75ch; }
     @media (prefers-reduced-motion: no-preference) { .cac-cot .cot, .dong-thanh .rang i { transition: height .3s ease, width .3s ease; } }
@@ -147,13 +157,19 @@
     </form>
 
     <div id="bang" class="cot-doc" hidden>
+      <section aria-labelledby="h-tgt" class="tgt">
+        <div class="tieu-de-muc"><h2 id="h-tgt"><span class="cham-song" aria-hidden="true"></span>Ngay lúc này</h2><p class="mo nho" id="tgt-luc"></p></div>
+        <div class="tgt-so" id="tgt-so"></div>
+        <div class="bieu-do" id="bd-phut"></div>
+        <div class="tgt-ds" id="tgt-ds"></div>
+      </section>
+
       <div class="thanh">
         <div class="chon-ky" role="group" aria-label="Chọn khoảng thời gian">
           <button type="button" data-ky="7" aria-pressed="false">7 ngày</button>
           <button type="button" data-ky="28" aria-pressed="true">28 ngày</button>
           <button type="button" data-ky="90" aria-pressed="false">90 ngày</button>
         </div>
-        <p class="online" id="online" hidden><span class="cham" aria-hidden="true"></span><span><b id="so-online">0</b> người đang xem web (30 phút qua)</span></p>
       </div>
       <p class="mo nho" id="trang-thai" role="status" aria-live="polite"></p>
       <p class="bao" id="loi-bang" role="alert" hidden></p>
@@ -204,7 +220,7 @@
       <section class="ghi-chu" aria-labelledby="h-gc">
         <h2 id="h-gc">Cách đọc số</h2>
         <ul>
-          <li>Số lấy từ Google Analytics 4 của xomleo.vn, được lưu tạm 15 phút. Số người đang xem cập nhật mỗi phút.</li>
+          <li>Số lấy từ Google Analytics 4 của xomleo.vn. Mục Ngay lúc này tự cập nhật mỗi phút khi trang đang mở; các mục theo 7 / 28 / 90 ngày được lưu tạm 15 phút.</li>
           <li>GA4 chỉ bắt đầu đếm sau khi trang tải xong vài giây, nên lượt ghé rất ngắn bị bỏ sót. Số thật cao hơn một chút, tỉ lệ đặt bàn trông tốt hơn thực tế.</li>
           <li>Kỳ đang xem gồm cả hôm nay (chưa hết ngày), nên khi so với kỳ trước thường hơi thấp. Cột hôm nay trên biểu đồ tô nhạt.</li>
           <li>Đặt bàn thành công chỉ tính khi hệ thống đặt bàn xác nhận đã nhận đơn. Khách gọi điện hoặc nhắn Zalo rồi đặt qua đó thì không nằm trong số này.</li>
@@ -288,13 +304,13 @@
   const st = { diaChi: DIA_CHI_MAC_DINH || luu.diaChi || '', matMa: luu.matMa || '', nho: !!luu.nho, ky: [7, 28, 90].includes(luu.ky) ? luu.ky : 28, dangTai: false };
 
   // ---------- goi Apps Script ----------
-  async function goi(ky) {
+  async function goi(them) {
     const huy = new AbortController();
     const hen = setTimeout(() => huy.abort(), 45000);
     try {
       // text/plain de khong phai preflight; Apps Script tra 302 sang googleusercontent kem Access-Control-Allow-Origin: *
       const r = await fetch(st.diaChi, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ matMa: st.matMa, ky }), credentials: 'omit', redirect: 'follow', signal: huy.signal });
+        body: JSON.stringify(Object.assign({ matMa: st.matMa }, them)), credentials: 'omit', redirect: 'follow', signal: huy.signal });
       if (!r.ok) return { loi: 'http', chiTiet: 'HTTP ' + r.status };
       return await r.json();
     } catch (e) {
@@ -316,7 +332,7 @@
     nut.disabled = true; nut.textContent = 'Đang lấy số…';
     $('trang-thai').textContent = 'Đang lấy số từ Google Analytics…';
     document.querySelectorAll('.chon-ky button, #nut-tai-lai').forEach((b) => { b.disabled = true; });
-    const d = await goi(st.ky);
+    const d = await goi({ ky: st.ky });
     st.dangTai = false;
     nut.disabled = false; nut.textContent = 'Xem số liệu';
     document.querySelectorAll('.chon-ky button, #nut-tai-lai').forEach((b) => { b.disabled = false; });
@@ -334,6 +350,7 @@
     $('dang-nhap').hidden = true;
     $('bang').hidden = false;
     ve(d);
+    batTuDong();
   }
 
   function hienDangNhap(loi) {
@@ -354,8 +371,7 @@
     const luc = new Date(d.capNhat || Date.now());
     $('trang-thai').textContent = 'Số của ' + ky + ' ngày gần nhất (gồm hôm nay), lấy lúc ' +
       luc.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' }) + ' ngày ' + luc.toLocaleDateString('vi-VN') + '.';
-    $('online').hidden = d.online == null;
-    $('so-online').textContent = so(d.online);
+    veTgt(d.thoiGianThuc);
     $('so-voi').textContent = 'So với ' + ky + ' ngày liền trước';
 
     // Tong quan
@@ -433,6 +449,42 @@
       : [h('tr', {}, h('td', { colspan: 2, class: 'mo', text: 'Chưa có số liệu.' }))]));
   }
 
+  // ---------- ngay luc nay (thoi gian thuc, 30 phut gan nhat) ----------
+  let henTgt = null, lanTgt = 0;
+  function veTgt(t) {
+    if (!t) return;
+    lanTgt = Date.now();
+    const luc = new Date(t.luc || Date.now());
+    $('tgt-luc').textContent = 'Tự cập nhật mỗi phút · lúc ' + luc.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
+    $('tgt-so').replaceChildren(...[
+      ['Người trên web trong 30 phút qua', t.n30], ['Người trên web trong 5 phút qua', t.n5],
+    ].map(([nhan, v]) => h('div', { class: 'o-so' }, h('span', { class: 'nhan', text: nhan }), h('span', { class: 'gia-tri', text: v == null ? '—' : so(v) }))));
+    const phut = new Array(30).fill(0);
+    for (const x of t.theoPhut || []) if (x.phut >= 0 && x.phut < 30) phut[x.phut] = x.nguoi;
+    veCot($('bd-phut'), phut.map((v, m) => ({ v, m })).reverse().map(({ v, m }) => ({ v, nhan: m === 0 ? 'bây giờ' : '-' + m + ' phút',
+      tieuDe: (m === 0 ? 'Phút này' : m + '–' + (m + 1) + ' phút trước') + ': ' + so(v) + ' người' })),
+      { buoc: 5, donVi: 'người mỗi phút', moTa: 'Biểu đồ cột số người trên web theo từng phút, 30 phút gần nhất' });
+    const nhanSk = Object.fromEntries(SU_KIEN.map(([ma, nhan]) => [ma, nhan]));
+    const the = (tieuDe, ds, chu, so_, rong) => h('div', { class: 'the-ds' }, h('h3', { text: tieuDe }),
+      ds && ds.length ? h('ol', {}, ds.map((x) => h('li', {}, h('span', { text: chu(x) }), h('span', { text: so(so_(x)) })))) : h('p', { class: 'trong', text: rong }));
+    $('tgt-ds').replaceChildren(...[
+      the('Đang xem trang nào', t.trang, (x) => x.ten || '(không tên)', (x) => x.luotXem, 'Chưa có lượt xem nào.'),
+      t.nguon ? the('Đến từ đâu (nguồn lần đầu)', t.nguon, (x) => x.nguon === '(direct)' ? 'Gõ thẳng địa chỉ / lưu sẵn' : x.nguon, (x) => x.nguoi, 'Chưa có ai.') : null,
+      the('Ở thành phố nào', t.thanhPho, (x) => THANH_PHO[x.ten] || x.ten, (x) => x.nguoi, 'Chưa có ai.'),
+      the('Vừa bấm gì', t.suKien, (x) => nhanSk[x.su] || x.su, (x) => x.lan, 'Chưa ai bấm gọi, Zalo, chỉ đường hay đặt bàn trong 30 phút qua.'),
+    ].filter(Boolean));
+  }
+  async function capNhatTgt() {
+    if (document.hidden || $('bang').hidden || st.dangTai || !st.matMa) return;
+    const d = await goi({ chi: 'tgt' });
+    if (d && d.thoiGianThuc) veTgt(d.thoiGianThuc);
+  }
+  function batTuDong() {
+    clearInterval(henTgt);
+    henTgt = setInterval(capNhatTgt, 60000);
+  }
+  document.addEventListener('visibilitychange', () => { if (!document.hidden && Date.now() - lanTgt > 60000) capNhatTgt(); });
+
   function dongThanh(ten, tiLe, soChu) {
     return h('div', { class: 'dong-thanh' }, h('span', { class: 'ten', text: ten }),
       h('span', { class: 'rang', 'aria-hidden': 'true' }, h('i', { style: 'width:' + Math.max(1, Math.round(tiLe * 100)) + '%' })),
@@ -486,7 +538,7 @@
     tai(false);
   }));
   $('nut-tai-lai').addEventListener('click', () => tai(false));
-  $('nut-thoat').addEventListener('click', () => { st.matMa = ''; quen(); $('o-mat-ma').value = ''; hienDangNhap(''); });
+  $('nut-thoat').addEventListener('click', () => { clearInterval(henTgt); st.matMa = ''; quen(); $('o-mat-ma').value = ''; hienDangNhap(''); });
 
   if (RE_DIA_CHI.test(st.diaChi) && st.matMa) tai(false); else hienDangNhap('');
 })();
