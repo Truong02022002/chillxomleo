@@ -1045,7 +1045,11 @@ document.addEventListener('DOMContentLoaded', () => {
       const content = sessionStorage.getItem('xomleo_utm_content') || '';
 
       // Google Apps Script (obfuscated endpoint)
-      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J6dmNCVk1VVTU1RWlsTHEtV2VLZ3d1b0RfcF8yQTIzWC1CY3R5eklRdzI4NEhuT3ZLRHZ0b3hIcjc5dzBtc0psenRQdy9leGVj';
+      // 20-10-2026 đổi sang bản triển khai AKfycbwkak…: bản cũ AKfycbzvcBVM… chạy code cũ còn
+      // token bot Telegram đã revoke 07-10 (token là hằng số trong code), nên từ 07-10 mọi tin
+      // báo đơn Telegram đều rớt dù đơn vẫn vào Sheet. Đổi token/code Apps Script thì phải
+      // triển khai lại, rồi mới đổi URL ở đây.
+      const _0x = 'aHR0cHM6Ly9zY3JpcHQuZ29vZ2xlLmNvbS9tYWNyb3Mvcy9BS2Z5Y2J3a2FrS2VoR0x3Z3ZYek5jMjBMVkFWaXoxXzctS2hiX1Z0cGlvSFNGUExUd29pQzBxTm03amVWQ0tOTnBfZGZacF81Zy9leGVj';
       const scriptURL = atob(_0x);
 
       const formData = new URLSearchParams({
