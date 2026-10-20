@@ -137,10 +137,11 @@ function coLichSuDayDu() {
 }
 
 // Ngay commit gan nhat lam DOI noi dung file, khong tinh commit ky thuat.
+const CUA_SO_LOG = 40;
 function ngayDoiNoiDung(rel) {
   let log;
   try {
-    log = git(['log', '-40', '--format=%H%x09%ad', '--date=short', '--', rel])
+    log = git(['log', '-' + CUA_SO_LOG, '--format=%H%x09%ad', '--date=short', '--', rel])
       .trim().split('\n').filter(Boolean).map((x) => x.split('\t'));
   } catch { return null; }
   if (!log.length) return null; // file chua vao git (bai vua dang) — de nguyen lastmod
@@ -158,7 +159,13 @@ function ngayDoiNoiDung(rel) {
   for (let i = 1; i < log.length; i++) {
     if (bamTai(log[i][0]) !== hienTai) return log[i - 1][1];
   }
-  return log[log.length - 1][1]; // khong doi trong 40 commit gan nhat
+  // Het lich su file (it hon CUA_SO_LOG commit): commit dau tien la luc tao noi dung.
+  // Du CUA_SO_LOG commit ma van khong doi: lan doi that nam NGOAI cua so, khong biet
+  // ngay -> de nguyen lastmod. Truoc 20-10-2026 nhanh nay tra ngay commit cu nhat trong
+  // cua so, nen moi commit ky thuat (cache-bust 92 trang) day "ngay that" troi them mot
+  // buoc va CI do oan: /chinh-sach-bao-mat/ + /dieu-khoan-su-dung/ (>100 commit) bi bao
+  // that=09-16 trong khi cua so 200 commit xac nhan lastmod 09-15 trong sitemap la dung.
+  return log.length < CUA_SO_LOG ? log[log.length - 1][1] : null;
 }
 
 // ---------- doc sitemap va site ----------
