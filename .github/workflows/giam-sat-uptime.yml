@@ -1,0 +1,53 @@
+name: Giam sat uptime
+
+# Moi ~15 phut goi thu 6 muc (trang chu, thuc don, bai blog, robots.txt, sitemap,
+# webhook Apps Script dat ban). Hong thi mo issue "[giam-sat] Su co: ..." -> GitHub
+# gui email cho chu repo + bao TELEGRAM; len lai thi issue tu dong. Chep tu
+# giam-sat-uptime.yml cua repo tramdungchill.vn (19-10-2026), CHUNG bot Telegram.
+#
+# Ly do ton tai: giam-sat-do-luong.yml chi chay moi tuan va lich hay tre 5-7 tieng,
+# nen web sap hay webhook bi go trien khai co the nam do ca tuan khong ai hay.
+#
+# CAN CAI (GitHub -> Settings -> Secrets and variables -> Actions):
+#   TELEGRAM_BOT_TOKEN   ma bot giam sat — CUNG ma voi secret cung ten ben tramdungchill.vn
+# Tuy chon: TELEGRAM_CHAT_ID (mac dinh NGUOI_NHAN trong script). Chua cai thi van bao
+# qua email (issue). Bam "Run workflow" tay -> luon gui 1 tin thu ve Telegram.
+# Chi tiet: tools/giam-sat-uptime.md.
+
+on:
+  schedule:
+    # Lech khoi phut 00 — dau gio la luc Actions dong nhat, lich hay bi tre / bo.
+    # Cung lech khoi 7/22/37/52 cua ben tramdungchill.vn de hai tin khong chong nhau.
+    - cron: '3,18,33,48 * * * *'
+  workflow_dispatch:
+
+# Luot truoc con chay (dang cho thu lai) thi luot sau xep hang, khong chay song song —
+# tranh hai luot cung mo hai issue su co.
+concurrency:
+  group: giam-sat-uptime
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  giam-sat:
+    name: Goi thu web + duong nhan don
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: 'Kiem 6 muc — hong thi mo issue + bao Telegram, len lai thi dong'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node tools/giam-sat-uptime.mjs
