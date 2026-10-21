@@ -203,7 +203,9 @@ function captureTrafficSource() {
 // `pointerdown`/`keydown`/`touchstart` — tức là TRƯỚC sự kiện `click` mà khối này
 // nghe, nên lệnh `config` luôn nằm trước `event` trong hàng đợi.
 const XL_DO = (function () {
-  const duongDan = (window.location.pathname || '/').toLowerCase().replace(/index\.html$/, '');
+  // Trang dich /zh/ /ko/ /ja/ /ru/ /th/ (21-10-2026) dung lai duong dan Viet sau tien to: bo tien to
+  // de page_type / intent_stage giong ban Viet; ngon ngu da co rieng o page_language.
+  const duongDan = (window.location.pathname || '/').toLowerCase().replace(/index\.html$/, '').replace(/^\/(zh|ko|ja|ru|th)(?=\/)/, '');
 
   // page_type: nhóm trang để báo cáo Landing Page → Key Events (mục 253) đọc được
   // ngay, khỏi phải tự gom 123 URL bằng tay trong Explorations.
@@ -309,6 +311,19 @@ const XL_DO = (function () {
   return { gui: gui, loaiTrang: LOAI_TRANG, giaiDoan: GIAI_DOAN, viTri: viTri };
 })();
 
+// --- Chu do JS sinh ra theo ngon ngu trang (21-10-2026) ---
+// Tieng Viet va tieng Anh viet thang trong code nhu cu. Trang /zh/ /ko/ /ja/ /ru/ /th/ nap them
+// js/ngon-ngu.js TRUOC main.min.js: file do dat window.XL_DICH = { "<cau tieng Anh>": "<ban dich>" }
+// cho dung ngon ngu cua trang. Cau chua co ban dich thi hien tieng Anh. {0} {1}… la cho dien bien.
+// Them cau moi: viet tieng Anh qua dichJs('...') roi bo sung ban dich vao js/ngon-ngu.js.
+const XL_NN = (document.documentElement.lang || 'vi').slice(0, 2).toLowerCase();
+const XL_LA_VI = XL_NN === 'vi';
+function dichJs(cau) {
+  const bien = Array.prototype.slice.call(arguments, 1);
+  const t = (window.XL_DICH && window.XL_DICH[cau]) || cau;
+  return t.replace(/\{(\d+)\}/g, (_, i) => bien[i]);
+}
+
 // --- Gio mat troi lan tai quan (05-10-2026) ---
 // Hoang hon la ly do so 1 khach tim toi quan, nhung site chi noi chung chung "17:20–18:15 tuy
 // thang". Tinh dung gio cho tung ngay theo cong thuc NOAA Solar Calculator, toa do lay tu
@@ -351,7 +366,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Hoang hon hom nay: dai "Hom nay" tren bang gio trang chu + dong lich trinh trang Trai nghiem ---
   // HTML co san cau tinh (17:20–18:15 tuy thang) cho may khong chay JS; o day thay bang gio that.
   (function () {
-    const en = document.documentElement.lang === 'en';
+    const en = !XL_LA_VI;
     const [nam, thang, ngay, phut] = XL_HOANG_HON.bayGio();
     const homNay = XL_HOANG_HON.tinh(nam, thang, ngay);
     const o = (gio) => '<span class="lat" aria-hidden="true">' + gio.split('').map((k) => (k === ':' ? '<span class="lat-cham">:</span>' : '<span class="lat-o">' + k + '</span>')).join('') + '</span>';
@@ -363,27 +378,27 @@ document.addEventListener('DOMContentLoaded', () => {
       if (phut >= 23 * 60) {
         const mai = XL_HOANG_HON.bayGio(1);
         const r = XL_HOANG_HON.tinh(mai[0], mai[1], mai[2]);
-        nhan = en ? 'Tomorrow' : 'Ngày mai';
-        cau = en ? 'Sunset at' : 'Mặt trời lặn lúc';
+        nhan = en ? dichJs('Tomorrow') : 'Ngày mai';
+        cau = en ? dichJs('Sunset at') : 'Mặt trời lặn lúc';
         mat = r.lan;
-        them = en ? `golden hour from ${XL_HOANG_HON.hm(r.vang)}` : `giờ vàng từ ${XL_HOANG_HON.hm(r.vang)}`;
+        them = en ? dichJs('golden hour from {0}', XL_HOANG_HON.hm(r.vang)) : `giờ vàng từ ${XL_HOANG_HON.hm(r.vang)}`;
       } else if (phut >= homNay.lan) {
-        nhan = en ? 'Tonight' : 'Tối nay';
-        cau = en ? 'The sun set at' : 'Mặt trời đã lặn lúc';
+        nhan = en ? dichJs('Tonight') : 'Tối nay';
+        cau = en ? dichJs('The sun set at') : 'Mặt trời đã lặn lúc';
         mat = homNay.lan;
-        them = en ? 'the greenhouse valley is lighting up' : 'thung lũng nhà kính đang lên đèn';
+        them = en ? dichJs('the greenhouse valley is lighting up') : 'thung lũng nhà kính đang lên đèn';
       } else {
-        nhan = en ? 'Today' : 'Hôm nay';
-        cau = en ? 'Sunset at' : 'Mặt trời lặn lúc';
+        nhan = en ? dichJs('Today') : 'Hôm nay';
+        cau = en ? dichJs('Sunset at') : 'Mặt trời lặn lúc';
         mat = homNay.lan;
-        them = en ? `golden hour from ${XL_HOANG_HON.hm(homNay.vang)}` : `giờ vàng từ ${XL_HOANG_HON.hm(homNay.vang)}`;
+        them = en ? dichJs('golden hour from {0}', XL_HOANG_HON.hm(homNay.vang)) : `giờ vàng từ ${XL_HOANG_HON.hm(homNay.vang)}`;
       }
       const gio = XL_HOANG_HON.hm(mat);
       bang.innerHTML =
         `<p class="bg-hn-nhan">${nhan}</p>` +
-        `<p class="bg-hn-chu"><span class="an-mat">${nhan}: ${cau.toLowerCase()} ${gio}${en ? ' (Vietnam time)' : ''}, ${them}.</span>` +
-        `<span aria-hidden="true">${cau}</span>${o(gio)}<span aria-hidden="true" class="bg-hn-them">${them}${en ? ' · Vietnam time' : ''}</span></p>` +
-        `<a class="bg-hn-dat" href="#booking">${en ? 'Book a sunset table' : 'Đặt bàn ngắm hoàng hôn'}</a>`;
+        `<p class="bg-hn-chu"><span class="an-mat">${en ? dichJs('{0}: {1} {2} (Vietnam time), {3}.', nhan, cau.toLowerCase(), gio, them) : `${nhan}: ${cau.toLowerCase()} ${gio}, ${them}.`}</span>` +
+        `<span aria-hidden="true">${cau}</span>${o(gio)}<span aria-hidden="true" class="bg-hn-them">${them}${en ? dichJs(' · Vietnam time') : ''}</span></p>` +
+        `<a class="bg-hn-dat" href="#booking">${en ? dichJs('Book a sunset table') : 'Đặt bàn ngắm hoàng hôn'}</a>`;
     }
 
     // Trang Trai nghiem: "Mat troi lan khoang 17:20–18:15 tuy thang" + " · hom nay 17:34". Ban EN
@@ -392,9 +407,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const s = document.createElement('span');
       s.className = 'hh-hom-nay';
       const p = homNay.lan;
-      s.textContent = en
+      // Tieng Anh viet gio 12h nhu dong goc cua ban EN; cac tieng khac dich tu ban Viet (24h).
+      s.textContent = XL_NN === 'en'
         ? ` · today ${(Math.floor(p / 60) % 12) || 12}:${String(p % 60).padStart(2, '0')} ${p < 720 ? 'AM' : 'PM'}`
-        : ' · hôm nay ' + XL_HOANG_HON.hm(p);
+        : en ? dichJs(' · today {0}', XL_HOANG_HON.hm(p)) : ' · hôm nay ' + XL_HOANG_HON.hm(p);
       el.appendChild(s);
     });
   })();
@@ -407,9 +423,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const ICON_MO = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`;
     const ICON_DONG = `<svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`;
     // Nhan doi theo trang thai: truoc 05-10-2026 nut luon doc "Mo menu" ke ca khi menu dang mo.
-    const enMenu = document.documentElement.lang === 'en';
-    const NHAN_MENU = enMenu
-      ? { mo: 'Open navigation menu', dong: 'Close navigation menu' }
+    const NHAN_MENU = !XL_LA_VI
+      ? { mo: dichJs('Open navigation menu'), dong: dichJs('Close navigation menu') }
       : { mo: 'Mở menu điều hướng', dong: 'Đóng menu điều hướng' };
 
     // Panel chi bi day ra ngoai bang transform nen khi "dong" no van nam trong
@@ -486,116 +501,18 @@ document.addEventListener('DOMContentLoaded', () => {
   highlightActiveNav();
 
 
-  // --- Language Switcher UI Toggle ---
-  const langSwitchers = document.querySelectorAll('.lang-switcher');
-
-  let currentPathForInit = window.location.pathname;
-  if (currentPathForInit.endsWith('/index.html')) currentPathForInit = currentPathForInit.replace('/index.html', '');
-  if (currentPathForInit.endsWith('/')) currentPathForInit = currentPathForInit.slice(0, -1);
-  const pathSegment = currentPathForInit.split('/').pop() || '';
-
-  const isEnPageInitial = pathSegment === 'en' || pathSegment.endsWith('-en') || currentPathForInit.endsWith('-en.html') || currentPathForInit.endsWith('en.html') || currentPathForInit.startsWith('/en/');
-
-  let currentLang = localStorage.getItem('xomleo_lang') || 'vn';
-
-  // Override if URL explicitly indicates language
-  if (isEnPageInitial) currentLang = 'en';
-  else if (!isEnPageInitial && currentPathForInit !== '') currentLang = 'vn';
-
-  function updateLangUI(lang) {
-    langSwitchers.forEach(switcher => {
-      const btnVN = switcher.querySelector('.data-lang-vn');
-      const btnEN = switcher.querySelector('.data-lang-en');
-      if (!btnVN || !btnEN) return;
-
-      if (lang === 'en') {
-        btnEN.classList.add('text-primary', 'pointer-events-none');
-        btnEN.classList.remove('hover:text-primary');
-        btnVN.classList.remove('text-primary', 'pointer-events-none');
-        btnVN.classList.add('hover:text-primary');
-      } else {
-        btnVN.classList.add('text-primary', 'pointer-events-none');
-        btnVN.classList.remove('hover:text-primary');
-        btnEN.classList.remove('text-primary', 'pointer-events-none');
-        btnEN.classList.add('hover:text-primary');
-      }
+  // --- Bo chon ngon ngu (21-10-2026) ---
+  // 7 thu tieng: <details class="chon-ngon-ngu"> (thanh dieu huong may tinh) va <ul class="cnn-luoi">
+  // (menu dien thoai), sinh boi tools/dich/bo-chon.mjs voi href DUNG trang tuong ung cua tung thu
+  // tieng — khong con doan duong dan bang JS nhu bo VN | EN cu (bo doan -en sai voi /en/directions/).
+  // Khong co JS thi <details> van mo/dong duoc; JS chi them: bam ra ngoai hoac Esc thi dong.
+  document.querySelectorAll('details.chon-ngon-ngu').forEach((hop) => {
+    document.addEventListener('click', (e) => { if (hop.open && !hop.contains(e.target)) hop.open = false; });
+    hop.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || !hop.open) return;
+      hop.open = false;
+      hop.querySelector('summary').focus();
     });
-  }
-
-  function setLanguage(lang) {
-    currentLang = lang;
-    localStorage.setItem('xomleo_lang', lang);
-    updateLangUI(lang);
-
-    let path = window.location.pathname;
-    try { path = decodeURIComponent(path); } catch (e) { }
-
-    // Normalize path: lowercase, remove index.html, remove trailing slash
-    path = path.toLowerCase().replace(/\/index\.html$/, '').replace(/\/$/, '');
-    if (!path) path = '/';
-
-    const pageMap = {
-      'vn_to_en': {
-        '/': '/en/',
-        '/about': '/about-en/',
-        '/menu': '/menu-en/',
-        '/ve-chung-toi': '/about-us-en/',
-        '/blog': '/blog-en/',
-        '/chinh-sach-bao-mat': '/en/privacy-policy/',
-        '/dieu-khoan-su-dung': '/en/terms-of-use/',
-        '/duong-di': '/en/directions/'
-      },
-      'en_to_vn': {
-        '/en': '/',
-        '/about-en': '/about/',
-        '/menu-en': '/menu/',
-        '/about-us-en': '/ve-chung-toi/',
-        '/blog-en': '/blog/',
-        '/en/privacy-policy': '/chinh-sach-bao-mat/',
-        '/en/terms-of-use': '/dieu-khoan-su-dung/',
-        '/en/directions': '/duong-di/'
-      }
-    };
-
-    let newPath = '';
-
-    if (lang === 'en') {
-      if (pageMap.vn_to_en[path]) {
-        newPath = pageMap.vn_to_en[path];
-      } else if (!path.endsWith('-en') && !path.startsWith('/en')) {
-        newPath = path + '-en/';
-      }
-    } else if (lang === 'vn') {
-      if (pageMap.en_to_vn[path]) {
-        newPath = pageMap.en_to_vn[path];
-      } else if (path.endsWith('-en')) {
-        newPath = path.substring(0, path.length - 3) + '/';
-      } else if (path.startsWith('/en')) {
-        newPath = path.replace('/en', '') + '/';
-      }
-    }
-
-    // Final cleanup of newPath
-    if (newPath) {
-      // GitHub Pages giai ma %2F: xomleo.vn/%2Fevil.example%2F..%2Fmenu/ van tra trang
-      // /menu/, decodeURIComponent o tren bien no thanh "//evil.example/../menu" va
-      // "//..." la URL khac ten mien -> bam nut ngon ngu la bi dua sang trang la.
-      // Gop moi "/" hoac "\" dau chuoi thanh mot "/", roi chi di neu van cung origin.
-      newPath = '/' + newPath.replace(/^[\/\\]+/, '');
-      const dich = new URL(newPath, window.location.origin);
-      if (dich.origin === window.location.origin && dich.pathname !== window.location.pathname) {
-        window.location.href = dich.pathname;
-      }
-    }
-  }
-
-  updateLangUI(currentLang);
-
-  langSwitchers.forEach(switcher => {
-    const btnVN = switcher.querySelector('.data-lang-vn');
-    const btnEN = switcher.querySelector('.data-lang-en');
-    if (btnVN) btnVN.addEventListener('click', (e) => { e.preventDefault(); setLanguage('vn'); });
-    if (btnEN) btnEN.addEventListener('click', (e) => { e.preventDefault(); setLanguage('en'); });
   });
 
   // --- Glassmorphism Navbar on Scroll ---
@@ -712,7 +629,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // focus first error on submit"). Cau bao noi luon cach sua, khong chi noi "sai".
   function validateBookingInput(name, phone, guests, note, date, time, isEnglish) {
     const errors = [];
-    const loi = (o, vi, en) => errors.push({ o, loi: isEnglish ? en : vi });
+    const loi = (o, vi, en, ...bien) => errors.push({ o, loi: isEnglish ? dichJs(en, ...bien) : vi });
     // Name: 1-50 chars, no dangerous chars
     if (!name || name.trim().length === 0) {
       loi('book_name', 'Vui lòng nhập tên để quán gọi lại xác nhận', 'Please enter your name so we can confirm');
@@ -737,7 +654,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     // Note: max 200 chars
     if (note && note.length > 200) {
-      loi('book_note', `Ghi chú tối đa 200 ký tự (đang có ${note.length})`, `Notes can be up to 200 characters (now ${note.length})`);
+      loi('book_note', `Ghi chú tối đa 200 ký tự (đang có ${note.length})`, 'Notes can be up to 200 characters (now {0})', note.length);
     }
     // Date + Time: không cho đặt quá khứ. Nếu hôm nay, time phải >= now + 30min (đủ để NV nhắn Zalo xác nhận trước khi khách tới).
     if (!date) {
@@ -814,16 +731,16 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.className = 'fixed top-10 left-1/2 -translate-x-1/2 bg-surface border border-primary/30 p-6 rounded-lg shadow-[0_10px_40px_rgba(160,63,0,0.15)] z-[9999] flex flex-col items-center text-center animate-fade-in max-w-sm w-11/12';
     toast.setAttribute('role', 'alert');
     toast.innerHTML = `
-      <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
+      <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? dichJs('Close notification') : 'Đóng thông báo'}">
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
-      <h4 class="text-lg font-serif text-primary mb-2">${isEnglish ? 'Your booking was not sent' : 'Chưa gửi được thông tin đặt bàn'}</h4>
+      <h4 class="text-lg font-serif text-primary mb-2">${isEnglish ? dichJs('Your booking was not sent') : 'Chưa gửi được thông tin đặt bàn'}</h4>
       <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${isEnglish
-        ? 'The connection failed, so the restaurant has not received your request. Your details are still in the form — try again, or call or Zalo us to hold a table right away.'
+        ? dichJs('The connection failed, so the restaurant has not received your request. Your details are still in the form — try again, or call or Zalo us to hold a table right away.')
         : 'Đường truyền trục trặc nên quán chưa nhận được yêu cầu của bạn. Thông tin bạn nhập vẫn còn nguyên — bạn thử gửi lại, hoặc gọi/nhắn Zalo để quán giữ bàn ngay nhé.'}</p>
       <div class="flex flex-wrap justify-center gap-3">
-        <a href="tel:0764527336" class="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? 'Call +84 76 452 7336' : 'Gọi 076 452 7336'}</a>
-        <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0068FF] hover:bg-[#0055DD] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? 'Chat via Zalo' : 'Nhắn qua Zalo'}</a>
+        <a href="tel:0764527336" class="inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? dichJs('Call +84 76 452 7336') : 'Gọi 076 452 7336'}</a>
+        <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0068FF] hover:bg-[#0055DD] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider">${isEnglish ? dichJs('Chat via Zalo') : 'Nhắn qua Zalo'}</a>
       </div>
     `;
     document.body.appendChild(toast);
@@ -918,13 +835,13 @@ document.addEventListener('DOMContentLoaded', () => {
       // tràn sang ô Thời gian. CSS chỉ ẩn chữ gốc khi có .co-chu (xem style.css).
       const chuNgay = dateInput.parentElement.querySelector('.o-ngay-hien');
       if (chuNgay) {
-        const enNgay = document.documentElement.lang === 'en';
+        const enNgay = !XL_LA_VI;
         const hienNgay = () => {
           const [y, m, d] = dateInput.value.split('-');
           chuNgay.toggleAttribute('data-trong', !d);
-          if (!d) { chuNgay.textContent = enNgay ? 'Choose a date' : 'Chọn ngày'; return; }
+          if (!d) { chuNgay.textContent = enNgay ? dichJs('Choose a date') : 'Chọn ngày'; return; }
           chuNgay.textContent = enNgay
-            ? new Date(+y, m - 1, +d).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+            ? new Date(+y, m - 1, +d).toLocaleDateString(XL_NN === 'en' ? 'en-GB' : document.documentElement.lang, { day: 'numeric', month: 'short', year: 'numeric' })
             : `${d}/${m}/${y}`;
         };
         dateInput.addEventListener('input', hienNgay);
@@ -941,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // gio dang chon co kip khong; neu khong thi goi y hai khung gio kip giờ vang.
       const timeSel = document.getElementById('book_time');
       if (timeSel) {
-        const enHH = document.documentElement.lang === 'en';
+        const enHH = !XL_LA_VI;
         const goiY = document.createElement('p');
         goiY.className = 'goi-y-hh';
         (dateInput.closest('.grid') || dateInput.parentElement).insertAdjacentElement('afterend', goiY);
@@ -953,22 +870,22 @@ document.addEventListener('DOMContentLoaded', () => {
           const lan = XL_HOANG_HON.hm(r.lan), vang = XL_HOANG_HON.hm(r.vang);
           const gio = timeSel.value;
           const chon = phutCua(gio);
-          const kip = [...timeSel.options].map((o) => o.value).filter((v) => phutCua(v) <= r.lan - 30).slice(-2).join(enHH ? ' or ' : ' hoặc ');
+          const kip = [...timeSel.options].map((o) => o.value).filter((v) => phutCua(v) <= r.lan - 30).slice(-2).join(enHH ? dichJs(' or ') : ' hoặc ');
           const la = (a) => a[0] === y && a[1] === m && a[2] === d;
-          const ngayChu = la(XL_HOANG_HON.bayGio()) ? (enHH ? 'Today' : 'Hôm nay')
-            : la(XL_HOANG_HON.bayGio(1)) ? (enHH ? 'Tomorrow' : 'Ngày mai')
-            : (enHH ? `On ${d}/${m}` : `Ngày ${d}/${m}`);
+          const ngayChu = la(XL_HOANG_HON.bayGio()) ? (enHH ? dichJs('Today') : 'Hôm nay')
+            : la(XL_HOANG_HON.bayGio(1)) ? (enHH ? dichJs('Tomorrow') : 'Ngày mai')
+            : (enHH ? dichJs('On {0}/{1}', d, m) : `Ngày ${d}/${m}`);
           if (chon <= r.lan - 30) {
             goiY.textContent = enHH
-              ? `${ngayChu} the sun sets around ${lan} — arriving at ${gio} you’ll catch golden hour (from ${vang}).`
+              ? dichJs('{0} the sun sets around {1} — arriving at {2} you’ll catch golden hour (from {3}).', ngayChu, lan, gio, vang)
               : `${ngayChu} mặt trời lặn khoảng ${lan} — đến lúc ${gio} là kịp giờ vàng (từ ${vang}).`;
           } else if (chon < r.lan + 45) {
             goiY.textContent = enHH
-              ? `${ngayChu} the sun sets around ${lan} — ${gio} is cutting it close; pick ${kip} to get a good table before golden hour.`
+              ? dichJs('{0} the sun sets around {1} — {2} is cutting it close; pick {3} to get a good table before golden hour.', ngayChu, lan, gio, kip)
               : `${ngayChu} mặt trời lặn khoảng ${lan} — ${gio} hơi sát giờ lặn, chọn ${kip} để có bàn đẹp trước giờ vàng.`;
           } else {
             goiY.textContent = enHH
-              ? `${ngayChu} the sun sets around ${lan} — by ${gio} it’s dark and the valley lights are on; for the sunset, pick ${kip}.`
+              ? dichJs('{0} the sun sets around {1} — by {2} it’s dark and the valley lights are on; for the sunset, pick {3}.', ngayChu, lan, gio, kip)
               : `${ngayChu} mặt trời lặn khoảng ${lan} — lúc ${gio} trời đã tối, hợp ngắm thung lũng lên đèn; muốn ngắm hoàng hôn thì chọn ${kip}.`;
           }
         };
@@ -992,7 +909,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const isEnglish = window.location.pathname.includes('/en/') || window.location.pathname.includes('/en.');
+      // Theo <html lang> (21-10-2026): truoc day doan theo duong dan '/en/' nen trang /zh/… hien loi tieng Viet.
+      const isEnglish = !XL_LA_VI;
 
       const nameVal = document.getElementById('book_name').value;
       const phoneVal = document.getElementById('book_phone').value;
@@ -1016,7 +934,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cooldown = canSubmitForm();
       if (cooldown > 0) {
         baoTrangThai(isEnglish
-          ? `Your request was just sent — please wait ${cooldown} seconds before sending again.`
+          ? dichJs('Your request was just sent — please wait {0} seconds before sending again.', cooldown)
           : `Bạn vừa gửi xong — vui lòng đợi ${cooldown} giây rồi hãy gửi lại.`);
         return;
       }
@@ -1024,7 +942,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Nut giu nguyen cho toi luc THAT SU gui; luc gui thi khoa + vong quay + "Dang gui…".
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
       const originalHTML = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<span class="quay-vong" aria-hidden="true"></span>' + (isEnglish ? 'Sending…' : 'Đang gửi…');
+      submitBtn.innerHTML = '<span class="quay-vong" aria-hidden="true"></span>' + (isEnglish ? dichJs('Sending…') : 'Đang gửi…');
       submitBtn.setAttribute('aria-busy', 'true');
       submitBtn.disabled = true;
 
@@ -1150,11 +1068,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const vnHour = new Date(Date.now() + 7 * 3600 * 1000).getUTCHours();
       const trongGio = vnHour >= 15 && vnHour < 23;
       const henXacNhan = isEnglish
-        ? (trongGio ? 'within a few minutes' : 'once we open at 3pm (Vietnam time)')
+        ? (trongGio ? dichJs('within a few minutes') : dichJs('once we open at 3pm (Vietnam time)'))
         : (trongGio ? 'trong ít phút' : 'khi quán mở cửa lúc 15:00');
-      const toastTitle = isEnglish ? '✨ Booking Request Sent!' : '✨ Đã gửi thông tin đặt bàn';
+      const toastTitle = isEnglish ? dichJs('✨ Booking Request Sent!') : '✨ Đã gửi thông tin đặt bàn';
       const toastDesc = isEnglish
-        ? `Thank you <strong class="text-primary">${safeName}</strong> for your reservation!<br>Our staff will contact you at <strong class="text-primary">${safePhone}</strong> ${henXacNhan} to confirm your booking.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} guests</span>`
+        ? dichJs('Thank you {0} for your reservation!', `<strong class="text-primary">${safeName}</strong>`) + '<br>' +
+          dichJs('Our staff will contact you at {0} {1} to confirm your booking.', `<strong class="text-primary">${safePhone}</strong>`, henXacNhan) +
+          `<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${dichJs('{0} guests', safeGuests)}</span>`
         : `Cảm ơn <strong class="text-primary">${safeName}</strong> đã gửi thông tin đặt bàn!<br>Nhân viên của Tiệm Nướng & Chill Xóm Lèo sẽ liên hệ lại qua số <strong class="text-primary">${safePhone}</strong> ${henXacNhan} để xác nhận cho bạn nhé.<br><span class="text-foreground/50 text-xs mt-1 block">📅 ${formattedDate} • 🕐 ${time} • 👥 ${safeGuests} khách</span>`;
 
       const toast = document.createElement('div');
@@ -1162,7 +1082,7 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.setAttribute('role', 'status');
       toast.setAttribute('aria-live', 'polite');
       toast.innerHTML = `
-        <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? 'Close notification' : 'Đóng thông báo'}">
+        <button type="button" data-toast-close class="absolute top-2 right-2 p-2 text-foreground/50 hover:text-foreground transition-colors" aria-label="${isEnglish ? dichJs('Close notification') : 'Đóng thông báo'}">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true" focusable="false"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
         <div data-ve-cho class="w-14 h-14 rounded-full bg-primary/10 flex flex-col items-center justify-center text-primary mb-4">
@@ -1172,14 +1092,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <p class="text-sm text-foreground/80 font-light mb-4 leading-relaxed">${toastDesc}</p>
         <a href="https://zalo.me/0764527336" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 bg-[#0068FF] hover:bg-[#0055DD] text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 mb-3 shadow-lg hover:shadow-[#0068FF]/30 hover:-translate-y-0.5">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-          ${isEnglish ? 'Chat via Zalo' : 'Nhắn qua Zalo'}
+          ${isEnglish ? dichJs('Chat via Zalo') : 'Nhắn qua Zalo'}
         </a>
         <div class="w-full bg-muted/20 h-1 mt-2 relative overflow-hidden rounded"><div class="absolute top-0 left-0 h-full w-full bg-primary animate-progress" style="transform-origin: left center; transform: scaleX(1);"></div></div>
       `;
       document.body.appendChild(toast);
 
       // Cập nhật lại Text nút submit
-      submitBtn.textContent = isEnglish ? '✓ BOOKING SENT!' : '✓ ĐÃ GỬI ĐẶT BÀN!';
+      submitBtn.textContent = isEnglish ? dichJs('✓ BOOKING SENT!') : '✓ ĐÃ GỬI ĐẶT BÀN!';
       submitBtn.removeAttribute('aria-busy');
 
       // Dong toast: dung chung cho nut X va cho bo dem, de du dong bang cach nao thi form
@@ -1242,7 +1162,11 @@ document.addEventListener('DOMContentLoaded', () => {
       // Khong tai duoc file ve thi thong bao giu nguyen nhu truoc (dau tich + tu dong sau 8 giay).
       const tenVe = String(name).trim();
       let VE = null;
-      napVeTau().then((v) => { VE = v; return v.ve({ ten: tenVe, ngay: date, gio: time, khach: guests, dip: occasion, en: isEnglish }); }).then((c) => {
+      // Ve in CHU hien thi cua lua chon dip (trang /zh/… dich chu nhung value van tieng Viet de
+      // tin bao don cua quan doc duoc); "Không có"/"None" thi khong in dong dip.
+      const oDip = document.getElementById('book_occasion');
+      const dipVe = oDip && !/^(không có|none)$/i.test(oDip.value) ? ((oDip.selectedOptions[0] && oDip.selectedOptions[0].textContent.trim()) || occasion) : '';
+      napVeTau().then((v) => { VE = v; return v.ve({ ten: tenVe, ngay: date, gio: time, khach: guests, dip: dipVe, en: isEnglish }); }).then((c) => {
         if (daDong) return;
         const anh = document.createElement('img');
         anh.className = 've-xem';
@@ -1352,9 +1276,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // nghe nhan tieng Viet. Doc thang <html lang> chu KHONG dung cach
     // `pathname.includes('/en/')` nhu khoi dat ban: bai viet ban EN nam o duong
     // dan dang `/thien-vien-truc-lam-en/`, khong co '/en/' nen se doan sai.
-    const enTrang = document.documentElement.lang === 'en';
-    const nhan = enTrang
-      ? { vung: 'Quick contact', goi: 'Call', goiDay: 'Call 076 452 7336', zalo: 'Chat on Zalo', zaloDay: 'Chat on Zalo 076 452 7336', len: 'Back to top' }
+    const nhan = !XL_LA_VI
+      ? { vung: dichJs('Quick contact'), goi: dichJs('Call'), goiDay: dichJs('Call 076 452 7336'), zalo: dichJs('Chat on Zalo'), zaloDay: dichJs('Chat on Zalo 076 452 7336'), len: dichJs('Back to top') }
       : { vung: 'Liên hệ nhanh', goi: 'Gọi ngay', goiDay: 'Gọi điện 076 452 7336', zalo: 'Chat Zalo', zaloDay: 'Chat Zalo 076 452 7336', len: 'Cuộn lên đầu trang' };
     const floatingHTML = `
       <div class="floating-contact" role="complementary" aria-label="${nhan.vung}">
@@ -1441,9 +1364,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const laNen = v.id === 'hero-video';
     const khung = laNen ? v.closest('.hero-cinematic') : v.parentElement;
     if (!khung) return;
-    const en = document.documentElement.lang === 'en';
-    const nhan = en
-      ? { dung: laNen ? 'Pause background video' : 'Pause video', phat: laNen ? 'Play background video' : 'Play video' }
+    const nhan = !XL_LA_VI
+      ? { dung: dichJs(laNen ? 'Pause background video' : 'Pause video'), phat: dichJs(laNen ? 'Play background video' : 'Play video') }
       : { dung: laNen ? 'Tạm dừng video nền' : 'Tạm dừng video', phat: laNen ? 'Phát video nền' : 'Phát video' };
     const ICON_DUNG = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M7 5h3.6v14H7zM13.4 5H17v14h-3.6z"/></svg>';
     const ICON_PHAT = '<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M8 5.2v13.6L19 12z"/></svg>';

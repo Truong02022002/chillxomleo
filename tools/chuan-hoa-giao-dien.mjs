@@ -35,7 +35,9 @@ import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const BO_QUA_THU_MUC = new Set(['.git', '.github', 'node_modules', '.claude', 'skills', 'tools', 'hang-doi', 'img', 'uploads', 'css', 'js', 'fonts']);
+// zh ko ja ru th: trang do tools/dich/dung.mjs dung lai tu ban Viet + kho ban dich moi lan chay — sua o
+// day thi lan dung sau mat, va doi dau kieu Viet/Anh khong hop chu Han/Thai. Chuan hoa ban Viet roi dung lai.
+const BO_QUA_THU_MUC = new Set(['.git', '.github', 'node_modules', '.claude', 'skills', 'tools', 'hang-doi', 'img', 'uploads', 'css', 'js', 'fonts', 'zh', 'ko', 'ja', 'ru', 'th']);
 
 // Mot "the" HTML day du (thuoc tinh co the chua ">" trong dau nhay), comment, doctype, hoac chu.
 const TOKEN = /<!--[\s\S]*?-->|<![^>]*>|<\/?[a-zA-Z][\w:-]*(?:\s+[^\s"'>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*\s*\/?>|[^<]+|</g;

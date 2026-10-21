@@ -11,6 +11,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
+import { thayBoChon } from './dich/bo-chon.mjs';
 
 const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
@@ -274,13 +275,12 @@ for (const lang of ['vi', 'en']) {
   // Nav chep tu bai khung nen nut doi ngon ngu VN|EN van tro ve bai khung. Bai nhom dong
   // (dang 18-09-2026) va ca ba ban nhap sau do len song nhu vay: bam "EN" tren bai moi lai
   // nhay sang bai view xe lua. Phat hien 21-09-2026.
-  let doiNN = 0;
-  const nav = goc.slice(goc.indexOf('</head>'), goc.indexOf('<article'))
-    .replace(/(<a\s+href=")[^"]*("\s+hreflang="(vi|en)")/g, (_, a, b, l) => {
-      doiNN++;
-      return a + (l === 'vi' ? `/${d.slug}/` : `/${d.slug}-en/`) + b;
-    });
-  if (!doiNN) { console.error(`Khong tim thay nut doi ngon ngu trong nav cua ${KHUNG}${hau}.`); process.exit(1); }
+  // Tu 21-10-2026 bo chon co 7 thu tieng (tools/dich/bo-chon.mjs): dung lai ca khoi cho bai moi —
+  // vi/en tro ve chinh bai, 5 thu tieng moi ve trang chu cua tung thu tieng cho toi khi bai duoc dich.
+  const bc = thayBoChon(goc.slice(goc.indexOf('</head>'), goc.indexOf('<article')),
+    { hienTai: lang, ban: { vi: `/${d.slug}/`, en: `/${d.slug}-en/` } });
+  const nav = bc.html;
+  if (!bc.so) { console.error(`Khong tim thay nut doi ngon ngu trong nav cua ${KHUNG}${hau}.`); process.exit(1); }
   // Phan sau </article> cua bai khung co khoi <section id="faq"> "Giai dap nhanh" — 7 cau
   // hoi RIENG cua bai view xe lua (tau chay may gio, ban view tau co phu phi...). Chep nguyen
   // thi bai moi hien lai dung khoi do: bai nhom dong len song 18-09 mang theo no. Bai moi da

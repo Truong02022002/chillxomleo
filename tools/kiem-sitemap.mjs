@@ -114,12 +114,20 @@ function docTrang(html) {
 // Dau van tay noi dung: chi phan chu nguoi doc thay, bo boilerplate.
 function vanTay(html) {
   const title = giaiMa((html.match(/<title[^>]*>([\s\S]*?)<\/title>/i) || [])[1] || '').replace(/\s+/g, ' ').trim();
-  const desc = giaiMa((html.match(/<meta[^>]+name=["']description["'][^>]*content=["']([^"']*)["']/i) || [])[1] || '').replace(/\s+/g, ' ').trim();
+  // content="..." hoac content='...': lop [^"'] cu cat mo ta o dau nhay don ("a day's food…"),
+  // sua mo ta co dau nhay thi khong nang lastmod (20-10-2026).
+  const md = html.match(/<meta[^>]+name=["']description["'][^>]*content=(?:"([^"]*)"|'([^']*)')/i);
+  const desc = giaiMa(md ? (md[1] ?? md[2]) : '').replace(/\s+/g, ' ').trim();
   const vung = (html.match(/<body\b[^>]*>([\s\S]*)<\/body>/i)?.[1] ?? html)
     .replace(/<footer\b[\s\S]*?<\/footer>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|template|svg)\b[\s\S]*?<\/\1>/gi, ' ')
-    .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ');
+    .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ')
+    // Bo chon ngon ngu (khung trang, khong phai noi dung). Ban dien thoai nam ngoai <nav>; doi
+    // "VN | EN" -> 7 thu tieng (21-10-2026) khong duoc nang lastmod ca 92 trang Viet/Anh.
+    .replace(/<div\b[^>]*\blang-switcher\b[^>]*>[\s\S]*?<\/div>/gi, ' ')
+    .replace(/<details class="chon-ngon-ngu"[\s\S]*?<\/details>/gi, ' ')
+    .replace(/<ul class="cnn-luoi"[\s\S]*?<\/ul>/gi, ' ');
   // Nhay cong / dau … (tools/chuan-hoa-giao-dien.mjs, 05-10-2026) la doi KIEU chu, khong phai
   // noi dung: quy ve nhay thang truoc khi bam de lan chuan hoa khong nang lastmod ~60 trang.
   const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()

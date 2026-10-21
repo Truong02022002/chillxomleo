@@ -215,7 +215,10 @@ for (const f of files) {
   const noindex = /<meta[^>]+name=["'](robots|googlebot)["'][^>]+content=["'][^"']*(noindex|none)/i.test(html);
   const canonical = (html.match(/<link\b[^>]*rel=["']canonical["'][^>]*>/i) || [''])[0].match(/href=["']([^"']+)["']/)?.[1];
   const h1 = (boMa(html).match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i) || [])[1];
-  const navBc = (html.match(/<nav\b[^>]*aria-label=["']Breadcrumb["'][^>]*>([\s\S]*?)<\/nav>/i) || [])[1];
+  // Trang /zh/ /ko/ … (tools/dich/) dich ca aria-label "Breadcrumb" -> nhan them <nav> co danh sach <ol>
+  // (thanh dieu huong chinh / menu dien thoai / chan trang khong dung <ol>).
+  const navBc = (html.match(/<nav\b[^>]*aria-label=["']Breadcrumb["'][^>]*>([\s\S]*?)<\/nav>/i) || [])[1]
+    ?? [...html.matchAll(/<nav\b[^>]*aria-label=["'][^"']*["'][^>]*>([\s\S]*?)<\/nav>/gi)].map((m) => m[1]).find((x) => /<ol\b/i.test(x));
   const coNavBreadcrumb = Boolean(navBc);
   // Nhan breadcrumb dang hien — bo cac <li aria-hidden> chi chua dau phan cach
   const nhanNav = navBc ? [...navBc.matchAll(/<li\b([^>]*)>([\s\S]*?)<\/li>/gi)]

@@ -17,6 +17,7 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
 import { phutDoc, nhanPhutDoc } from './phut-doc.mjs';
+import { thayBoChon } from './dich/bo-chon.mjs';
 
 const ROOT = process.cwd();
 const HANG_DOI = path.join(ROOT, 'hang-doi');
@@ -84,8 +85,17 @@ function layMauCard(html) {
   return cac[1];
 }
 
+// srcset lay moi bien the co that (640w/960w/1280w) nhu tools/tao-bai-nhap.mjs. Truoc 20-10-2026
+// the chi co 640w + ban goc: o 91vw dien thoai DPR cao can ~1000px nen tai ban goc 2560px (336-536 KB).
+const BIEN_THE = [640, 960, 1280];
+function srcsetThe(tenAnh, kt) {
+  const bienThe = BIEN_THE.filter((n) => n < kt.w && fs.existsSync(path.join(ROOT, `${tenAnh}-${n}w.webp`)))
+    .map((n) => `../${tenAnh}-${n}w.webp ${n}w`);
+  return [...bienThe, `../${tenAnh}.webp ${kt.w}w`].join(', ');
+}
+
 function theImg(d, alt, tenAnh, kt) {
-  return `<img srcset="../${tenAnh}-640w.webp 640w, ../${tenAnh}.webp ${kt.w}w" sizes="(max-width: 768px) 91vw, 361px" width="${kt.w}" height="${kt.h}" loading="lazy" decoding="async"
+  return `<img srcset="${srcsetThe(tenAnh, kt)}" sizes="(max-width: 768px) 91vw, 361px" width="${kt.w}" height="${kt.h}" loading="lazy" decoding="async"
                          src="../${tenAnh}.webp"
                          alt="${alt}"
                          class="object-cover absolute inset-0 w-full h-full transition-transform duration-1000 group-hover:scale-110"
@@ -253,6 +263,9 @@ function kiemTraBaiNhap(d) {
     const nho = path.join(ROOT, d.anh.replace(/\.webp$/, '-640w.webp'));
     if (!fs.existsSync(goc)) v.push(`khong thay anh ${d.anh}`);
     if (!fs.existsSync(nho)) v.push(`khong thay bien the ${path.relative(ROOT, nho)} (card can ban 640w)`);
+    const kt = fs.existsSync(goc) ? kichThuocWebp(goc) : null;
+    const thieu = kt ? BIEN_THE.filter((n) => n > 640 && n < kt.w && !fs.existsSync(goc.replace(/\.webp$/, `-${n}w.webp`))) : [];
+    if (thieu.length) canhBao.push(`${d.slug}: anh ${d.anh} rong ${kt.w}px thieu ban ${thieu.map((n) => n + 'w').join(', ')} — dien thoai se tai ban goc o the /blog/ va anh bia`);
   }
 
   if (d.noiTu !== undefined && !Array.isArray(d.noiTu)) v.push('"noiTu" phai la mang slug');
@@ -451,7 +464,9 @@ function dongBoKhung(fileBai, fileMau, slug, bac) {
   if (robots && !t.includes('<meta name="robots"')) {
     t = t.replace(/([ \t]*)(<meta name="viewport"[^>]*>)/, (_, thut, the) => thut + the + nl + thut + robots);
   }
-  t = t.replace(/(<a\s+href=")[^"]*("\s+hreflang="(vi|en)")/g, (_, a, b, l) => a + (l === 'vi' ? `/${slug}/` : `/${slug}-en/`) + b);
+  // Bo chon ngon ngu (21-10-2026: 7 thu tieng, tools/dich/bo-chon.mjs): dung lai ca khoi cho dung bai —
+  // ban nhap soan truoc ngay do con nut "VN | EN" cu; nav chep tu bai khung thi tro ve bai khung.
+  t = thayBoChon(t, { hienTai: /-en\/index\.html$/.test(fileBai.split(path.sep).join('/')) ? 'en' : 'vi', ban: { vi: `/${slug}/`, en: `/${slug}-en/` } }).html;
   // Nhan nut VN | EN (12-10-2026): ten doc ra phai CHUA chu hien thi "VN"/"EN" (WCAG 2.5.3) — ban nhap
   // soan truoc ngay do con nhan cu "Chuyển sang tiếng Việt"...
   for (const [cu, moi] of [

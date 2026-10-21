@@ -21,7 +21,15 @@
   if (!mua && !thu) return;
 
   var cfg = window.xomleoMua || {};
-  var en = /^en/i.test(h.lang);
+  // Moi trang khong phai tieng Viet di nhanh tieng Anh; trang /zh/ /ko/ /ja/ /ru/ /th/ con dich tiep qua
+  // window.XL_DICH (js/ngon-ngu.js nap truoc main.min.js). {0} {1}… la cho dien bien.
+  var en = !/^vi/i.test(h.lang || 'vi');
+  var laEn = /^en/i.test(h.lang);
+  var DICH = window.XL_DICH || {};
+  function t(s) {
+    var a = arguments;
+    return (DICH[s] || s).replace(/\{(\d+)\}/g, function (_, i) { return a[+i + 1]; });
+  }
   var N = 864e5;
   // Gio Viet Nam (UTC+7) bieu dien nhu UTC — cung quy uoc voi doan <head>, doc bang getUTC*.
   var nay = Date.now() + 252e5;
@@ -43,6 +51,11 @@
   function ngay(ms, coThu, coNam) {
     var x = new Date(ms);
     var dd = x.getUTCDate(), mm = x.getUTCMonth(), yy = x.getUTCFullYear(), w = x.getUTCDay();
+    if (en && !laEn) {
+      try {
+        return new Intl.DateTimeFormat(h.lang, { timeZone: 'UTC', weekday: coThu ? 'short' : undefined, day: 'numeric', month: 'short', year: coNam ? 'numeric' : undefined }).format(x);
+      } catch (e) { /* trinh duyet cu: roi xuong kieu tieng Anh */ }
+    }
     if (en) return (coThu ? THU_EN[w] + ' ' : '') + dd + ' ' + THANG_EN[mm] + (coNam ? ' ' + yy : '');
     return (coThu ? THU_VI[w] + ' ' : '') + dd + '/' + (mm + 1) + (coNam ? '/' + yy : '');
   }
@@ -78,14 +91,14 @@
   function loiChuc() {
     if (mua === 'tet') {
       return en
-        ? ['Happy Lunar New Year', 'Chúc Mừng Năm Mới · Year of the ' + giap.en + ' ' + namTet]
+        ? [t('Happy Lunar New Year'), t('Chúc Mừng Năm Mới · Year of the {0} {1}', t(giap.en), namTet)]
         : ['Cung Chúc Tân Xuân', 'Xuân ' + giap.vi + ' ' + namTet + ' · Ga Xóm Lèo'];
     }
     // Noel keo tu 1/12 den het 1/1: tu 27/12 doi sang chuc nam moi.
     var x = new Date(nay), m = x.getUTCMonth(), dd = x.getUTCDate();
     var namMoi = m === 11 ? x.getUTCFullYear() + 1 : x.getUTCFullYear();
     var tet = (m === 11 && dd >= 27) || (m === 0 && dd === 1);
-    if (en) return tet ? ['Happy New Year ' + namMoi, 'Bonne Année · Xom Leo Station'] : ['Merry Christmas', 'Joyeux Noël · Xom Leo Station'];
+    if (en) return tet ? [t('Happy New Year {0}', namMoi), t('Bonne Année · Xom Leo Station')] : [t('Merry Christmas'), t('Joyeux Noël · Xom Leo Station')];
     return tet ? ['Chúc Mừng Năm Mới ' + namMoi, 'Bonne Année · Ga Xóm Lèo'] : ['Giáng Sinh An Lành', 'Joyeux Noël · Ga Xóm Lèo'];
   }
 
@@ -113,23 +126,23 @@
   function thongBaoTet(l) {
     var ten, o = [];
     var oNghi = en
-      ? oThongBao('Closed', '28th of the 12th lunar month – 1st day of Tết', ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1))
+      ? oThongBao(t('Closed'), t('28th of the 12th lunar month – 1st day of Tết'), ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1))
       : oThongBao('Nghỉ Tết', '28 tháng Chạp – hết mùng 1', ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1));
     var oMo = en
-      ? oThongBao('Reopening', '2nd day of Tết · from 15:00', ngay(l.moLai, 1, 1))
+      ? oThongBao(t('Reopening'), t('2nd day of Tết · from 15:00'), ngay(l.moLai, 1, 1))
       : oThongBao('Mở lại', 'Mùng 2 · từ 15:00', ngay(l.moLai, 1, 1));
     var oPhuThu = en
-      ? oThongBao(l.pt + '% Tết surcharge', '2nd – 10th day of Tết', ngay(l.moLai) + ' – ' + ngay(l.mung10, 0, 1))
+      ? oThongBao(t('{0}% Tết surcharge', l.pt), t('2nd – 10th day of Tết'), ngay(l.moLai) + ' – ' + ngay(l.mung10, 0, 1))
       : oThongBao('Phụ thu Tết ' + l.pt + '%', 'Mùng 2 – hết mùng 10', ngay(l.moLai) + ' – ' + ngay(l.mung10, 0, 1));
     if (l.pha === 'truoc') {
-      ten = en ? 'Tết Holiday Hours · Year of the ' + giap.en : 'Lịch Tết Xuân ' + giap.vi;
+      ten = en ? t('Tết Holiday Hours · Year of the {0}', t(giap.en)) : 'Lịch Tết Xuân ' + giap.vi;
       o = [oNghi, oMo, oPhuThu];
     } else if (l.pha === 'nghi') {
-      ten = en ? 'Closed for Tết · see you on the 2nd day' : 'Quán đang nghỉ Tết · hẹn gặp mùng 2';
+      ten = en ? t('Closed for Tết · see you on the 2nd day') : 'Quán đang nghỉ Tết · hẹn gặp mùng 2';
       o = [oMo, oPhuThu];
     } else {
-      ten = en ? 'Open again · Year of the ' + giap.en : 'Đã mở cửa đón Xuân ' + giap.vi;
-      o = [en ? oThongBao('Open', '15:00 – 23:00', 'Every day') : oThongBao('Mở cửa', '15:00 – 23:00', 'Hằng ngày'), oPhuThu];
+      ten = en ? t('Open again · Year of the {0}', t(giap.en)) : 'Đã mở cửa đón Xuân ' + giap.vi;
+      o = [en ? oThongBao(t('Open'), '15:00 – 23:00', t('Every day')) : oThongBao('Mở cửa', '15:00 – 23:00', 'Hằng ngày'), oPhuThu];
     }
     var e = the('div', 'mua-tb', '<p class="mua-tb-ten">' + ten + '</p><ul class="mua-tb-luoi">' + o.join('') + '</ul>');
     e.setAttribute('role', 'note');
@@ -139,16 +152,16 @@
   function dongGioTet(l) {
     if (l.pha === 'truoc') {
       return en
-        ? 'Tết: closed ' + ngay(l.nghiTu) + ' – ' + ngay(l.nghiDen) + ', reopening ' + ngay(l.moLai) + ' from 15:00'
+        ? t('Tết: closed {0} – {1}, reopening {2} from 15:00', ngay(l.nghiTu), ngay(l.nghiDen), ngay(l.moLai))
         : 'Tết: nghỉ ' + ngay(l.nghiTu) + ' – ' + ngay(l.nghiDen) + ', mở lại mùng 2 (' + ngay(l.moLai) + ') từ 15:00';
     }
     if (l.pha === 'nghi') {
       return en
-        ? 'Closed for Tết · reopening ' + ngay(l.moLai, 1) + ' at 15:00'
+        ? t('Closed for Tết · reopening {0} at 15:00', ngay(l.moLai, 1))
         : 'Đang nghỉ Tết · mở lại 15:00 ' + ngay(l.moLai, 1);
     }
     return en
-      ? l.pt + '% Tết surcharge until ' + ngay(l.mung10)
+      ? t('{0}% Tết surcharge until {1}', l.pt, ngay(l.mung10))
       : 'Phụ thu Tết ' + l.pt + '% đến hết mùng 10 (' + ngay(l.mung10) + ')';
   }
 
@@ -268,16 +281,16 @@
   }
 
   function nhanXemThu() {
-    var ten = { noel: 'Noel', tet: 'Tết', thuong: en ? 'regular days' : 'ngày thường' }[thu] || thu;
+    var ten = { noel: 'Noel', tet: 'Tết', thuong: en ? t('regular days') : 'ngày thường' }[thu] || thu;
     var e = the('div', 'mua-thu');
     e.setAttribute('role', 'status');
-    e.appendChild(d.createTextNode((en ? 'Preview: ' : 'Xem thử: ') + ten));
+    e.appendChild(d.createTextNode((en ? t('Preview: ') : 'Xem thử: ') + ten));
     var a = the('a');
     // KHONG ghep location.pathname: 404.html phuc vu moi duong dan, nen
     // xomleo.vn//ten-mien-la/x?mua=noel cho pathname "//ten-mien-la/x" va link
     // thanh "//ten-mien-la/..." -> dan khach sang trang khac. Chi doi query.
     a.href = '?mua=tu-dong';
-    a.textContent = en ? 'Back to auto' : 'Về tự động';
+    a.textContent = en ? t('Back to auto') : 'Về tự động';
     e.appendChild(a);
     d.body.appendChild(e);
   }

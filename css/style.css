@@ -7924,6 +7924,207 @@ footer.bg-surface::after {
 }
 /* ===================== HET NANG CAP 9 ===================== */
 
+/* ===================== DA NGON NGU (21-10-2026) =====================
+   Bo chon 7 thu tieng (tools/dich/bo-chon.mjs sinh markup) thay cho nut "VN | EN".
+   - May tinh: <details class="chon-ngon-ngu"> = nut tron qua dia cau + ma (VI) mo danh sach tha
+     xuong. Khong can JS de mo/dong; main.js chi them dong khi bam ra ngoai / Esc.
+   - Dien thoai: <ul class="cnn-luoi"> trong menu toan man hinh, bay san 7 nut.
+   - Trang /zh/ /ja/ /ko/ /th/ /ru/: font cua site (Signika, Oswald, Dancing Script) la ban subset
+     Latin + Viet, chu Han/Kana/Hangul/Thai/Kirin roi xuong font he thong qua cac face "Fallback"
+     (local Arial). Dancing Script / Oswald khong co cac bo chu nay nen chu viet tay + gian chu rong
+     cua Tailwind (tracking-[0.4em]…) tren chu Han/Thai trong rat roi -> thu nho khoang gian, chu Thai
+     bo han (dau thanh tach khoi phu am), va cho dong cao hon de dau thanh Thai khong bi cat. */
+.chon-ngon-ngu {
+  position: relative;
+}
+
+.chon-ngon-ngu > summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(233, 214, 175, 0.4);
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  color: var(--kem, #F2E4C6);
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.chon-ngon-ngu > summary::-webkit-details-marker {
+  display: none;
+}
+
+.chon-ngon-ngu > summary:hover,
+.chon-ngon-ngu[open] > summary {
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.chon-ngon-ngu > summary:focus-visible {
+  outline: 2px solid var(--kem, #F2E4C6);
+  outline-offset: 3px;
+}
+
+.cnn-dia-cau,
+.cnn-ma {
+  color: var(--primary);
+}
+
+.cnn-mui {
+  opacity: 0.7;
+  transition: transform 0.2s;
+}
+
+.chon-ngon-ngu[open] .cnn-mui {
+  transform: rotate(180deg);
+}
+
+.cnn-ds {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 60;
+  min-width: 11.5rem;
+  margin: 0;
+  padding: 0.4rem;
+  list-style: none;
+  background: #0E0B08;
+  border: 1px solid rgba(217, 174, 98, 0.35);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px -12px rgba(0, 0, 0, 0.85);
+}
+
+.cnn-ds a,
+.cnn-luoi a {
+  display: block;
+  color: #F2E4C6;
+  text-decoration: none;
+}
+
+.cnn-ds a {
+  padding: 0.6rem 0.9rem;
+  border-radius: 9px;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+.cnn-ds a:hover,
+.cnn-ds a:focus-visible {
+  background: rgba(217, 174, 98, 0.12);
+  color: #FFFFFF;
+}
+
+.cnn-ds a[aria-current],
+.cnn-luoi a[aria-current] {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.cnn-luoi {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+.cnn-luoi a {
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgba(233, 214, 175, 0.3);
+  border-radius: 9999px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.cnn-luoi a[aria-current] {
+  border-color: var(--primary);
+}
+
+:is(html:lang(zh), html:lang(ja), html:lang(ko)) [class*="tracking-["],
+:is(html:lang(zh), html:lang(ja), html:lang(ko)) .tracking-widest,
+:is(html:lang(zh), html:lang(ja), html:lang(ko)) #navbar a[class*="py-1 px-3 rounded-full"],
+:is(html:lang(zh), html:lang(ja), html:lang(ko)) #navbar a.bg-primary {
+  letter-spacing: 0.06em;
+}
+
+html:lang(th) #navbar a[class*="py-1 px-3 rounded-full"],
+html:lang(th) #navbar a.bg-primary {
+  letter-spacing: normal;
+}
+
+html:lang(th) [class*="tracking-"],
+html:lang(th) [style*="letter-spacing"] {
+  letter-spacing: normal !important;
+}
+
+html:lang(th) body {
+  line-height: 1.7;
+}
+
+/* Tieng Han co khoang trang giua cac tu: ngat dong theo tu ("메뉴" khong vo thanh "메/뉴") nhu
+   van ban Han Quoc chuan; chuoi dai khong khoang trang (URL, so dien thoai) van duoc be. */
+html:lang(ko) body {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+html:lang(th) :is(h1, h2, h3, h4, .leading-none, .leading-tight, .leading-snug) {
+  line-height: 1.45;
+}
+
+/* Chu viet tay: giu Dancing Script cho chu Latin (ten quan), phan con lai roi ve font than bai thay vi
+   "cursive" (Windows map ra Comic Sans — co ca chu Kirin nen ban /ru/ hien Comic Sans). */
+:is(html:lang(zh), html:lang(ja), html:lang(ko), html:lang(th), html:lang(ru)) {
+  --font-script: 'Dancing Script', 'Dancing Script Fallback', var(--font-base);
+  --font-tay: 'Dancing Script Chu', 'Dancing Script Fallback', var(--font-base);
+}
+/* Chu do CSS sinh ra (content:) — ban Viet + :lang(en) o cac khoi tren; day la 5 thu tieng moi.
+   Muc menu dien thoai khop theo href nen trang dich (/zh/menu/…) can luat rieng. */
+article.blog-item:lang(zh) .p-6 > div:first-child > span:last-child::before { content: "大叻"; content: "大叻" / ""; }
+#mobile-menu:lang(zh)::before { content: "线路图 · Xóm Lèo 站"; content: "线路图 · Xóm Lèo 站" / ""; }
+.ve-lon:lang(zh) > .container > div::after { content: "Nº 1922 · 单程票"; content: "Nº 1922 · 单程票" / ""; }
+#mobile-menu > nav > a[href="/zh/"]::after { content: "主站 · 订座与营业时间"; content: "主站 · 订座与营业时间" / ""; }
+#mobile-menu > nav > a[href="/zh/about/"]::after { content: "日落、火车与山谷灯火"; content: "日落、火车与山谷灯火" / ""; }
+#mobile-menu > nav > a[href="/zh/menu/"]::after { content: "翻页菜单与价格"; content: "翻页菜单与价格" / ""; }
+#mobile-menu > nav > a[href="/zh/blog/"]::after { content: "大叻旅行攻略"; content: "大叻旅行攻略" / ""; }
+article.blog-item:lang(ko) .p-6 > div:first-child > span:last-child::before { content: "달랏"; content: "달랏" / ""; }
+#mobile-menu:lang(ko)::before { content: "노선도 · Xóm Lèo 역"; content: "노선도 · Xóm Lèo 역" / ""; }
+.ve-lon:lang(ko) > .container > div::after { content: "Nº 1922 · 편도 승차권"; content: "Nº 1922 · 편도 승차권" / ""; }
+#mobile-menu > nav > a[href="/ko/"]::after { content: "메인 역 · 예약과 영업시간"; content: "메인 역 · 예약과 영업시간" / ""; }
+#mobile-menu > nav > a[href="/ko/about/"]::after { content: "일몰, 기차, 계곡의 불빛"; content: "일몰, 기차, 계곡의 불빛" / ""; }
+#mobile-menu > nav > a[href="/ko/menu/"]::after { content: "넘겨 보는 메뉴판과 가격"; content: "넘겨 보는 메뉴판과 가격" / ""; }
+#mobile-menu > nav > a[href="/ko/blog/"]::after { content: "달랏 여행 가이드"; content: "달랏 여행 가이드" / ""; }
+article.blog-item:lang(ja) .p-6 > div:first-child > span:last-child::before { content: "ダラット"; content: "ダラット" / ""; }
+#mobile-menu:lang(ja)::before { content: "路線図 · Xóm Lèo 駅"; content: "路線図 · Xóm Lèo 駅" / ""; }
+.ve-lon:lang(ja) > .container > div::after { content: "Nº 1922 · 片道乗車券"; content: "Nº 1922 · 片道乗車券" / ""; }
+#mobile-menu > nav > a[href="/ja/"]::after { content: "メイン駅 · 予約と営業時間"; content: "メイン駅 · 予約と営業時間" / ""; }
+#mobile-menu > nav > a[href="/ja/about/"]::after { content: "夕日・列車・谷の夜景"; content: "夕日・列車・谷の夜景" / ""; }
+#mobile-menu > nav > a[href="/ja/menu/"]::after { content: "めくれるメニューと価格"; content: "めくれるメニューと価格" / ""; }
+#mobile-menu > nav > a[href="/ja/blog/"]::after { content: "ダラット旅行ガイド"; content: "ダラット旅行ガイド" / ""; }
+article.blog-item:lang(ru) .p-6 > div:first-child > span:last-child::before { content: "ДАЛАТ"; content: "ДАЛАТ" / ""; }
+#mobile-menu:lang(ru)::before { content: "Схема линии · станция Xóm Lèo"; content: "Схема линии · станция Xóm Lèo" / ""; }
+.ve-lon:lang(ru) > .container > div::after { content: "Nº 1922 · Билет в одну сторону"; content: "Nº 1922 · Билет в одну сторону" / ""; }
+#mobile-menu > nav > a[href="/ru/"]::after { content: "Главная станция · бронь и часы работы"; content: "Главная станция · бронь и часы работы" / ""; }
+#mobile-menu > nav > a[href="/ru/about/"]::after { content: "Закат, поезд и огни долины"; content: "Закат, поезд и огни долины" / ""; }
+#mobile-menu > nav > a[href="/ru/menu/"]::after { content: "Меню-книжка и цены"; content: "Меню-книжка и цены" / ""; }
+#mobile-menu > nav > a[href="/ru/blog/"]::after { content: "Путеводитель по Далату"; content: "Путеводитель по Далату" / ""; }
+article.blog-item:lang(th) .p-6 > div:first-child > span:last-child::before { content: "ดาลัด"; content: "ดาลัด" / ""; }
+#mobile-menu:lang(th)::before { content: "แผนผังเส้นทาง · สถานี Xóm Lèo"; content: "แผนผังเส้นทาง · สถานี Xóm Lèo" / ""; }
+.ve-lon:lang(th) > .container > div::after { content: "Nº 1922 · ตั๋วเที่ยวเดียว"; content: "Nº 1922 · ตั๋วเที่ยวเดียว" / ""; }
+#mobile-menu > nav > a[href="/th/"]::after { content: "สถานีหลัก · จองโต๊ะและเวลาเปิด"; content: "สถานีหลัก · จองโต๊ะและเวลาเปิด" / ""; }
+#mobile-menu > nav > a[href="/th/about/"]::after { content: "พระอาทิตย์ตก รถไฟ และแสงไฟหุบเขา"; content: "พระอาทิตย์ตก รถไฟ และแสงไฟหุบเขา" / ""; }
+#mobile-menu > nav > a[href="/th/menu/"]::after { content: "เมนูแบบพลิกหน้าและราคา"; content: "เมนูแบบพลิกหน้าและราคา" / ""; }
+#mobile-menu > nav > a[href="/th/blog/"]::after { content: "คู่มือเที่ยวดาลัด"; content: "คู่มือเที่ยวดาลัด" / ""; }
+/* ===================== HET DA NGON NGU ===================== */
+
 /* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat

@@ -46,3 +46,10 @@ hang-doi/
 fix_*.js
 audit_*.js
 audit_*.py
+
+# Bo dich da ngon ngu: goi viec + ban dich tho (kho da gop o tools/dich/kho/ moi duoc commit)
+tools/dich/viec/
+tools/dich/ban-dich/
+
+# nguon.json sinh lai bang tools/dich/tach.mjs moi lan chay
+tools/dich/nguon.json

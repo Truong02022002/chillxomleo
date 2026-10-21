@@ -41,6 +41,9 @@ window.XL_VE = (function () {
     return t.trimEnd() + '…';
   };
 
+  // Ngoai tieng Viet: chu tieng Anh, hoac ban dich trong window.XL_DICH (js/ngon-ngu.js) neu trang co.
+  const t = (s) => (window.XL_DICH && window.XL_DICH[s]) || s;
+
   async function ve(o) {
     const en = !!o.en;
     try {
@@ -81,7 +84,7 @@ window.XL_VE = (function () {
 
     // Dau ve
     x.fillStyle = MAU.dong; x.font = '700 24px ' + SANS;
-    chuGian(x, en ? 'XOM LEO STATION · DA LAT 1932' : 'GA XÓM LÈO · ĐÀ LẠT 1932', W / 2, 196, 7, 'center');
+    chuGian(x, en ? t('XOM LEO STATION · DA LAT 1932') : 'GA XÓM LÈO · ĐÀ LẠT 1932', W / 2, 196, 7, 'center');
     x.save();
     x.translate(W / 2 - 50, 218); x.scale(4.2, 4.2);
     x.strokeStyle = MAU.muc; x.lineWidth = 1.45; x.lineCap = 'round'; x.lineJoin = 'round';
@@ -89,9 +92,9 @@ window.XL_VE = (function () {
     [6, 11.2, 16.4].forEach((cx) => { x.beginPath(); x.arc(cx, 18.1, 1.8, 0, Math.PI * 2); x.stroke(); });
     x.restore();
     x.fillStyle = MAU.muc; x.font = '600 92px ' + SERIF; x.textAlign = 'center';
-    x.fillText(en ? 'Table Ticket' : 'Vé đặt bàn', W / 2, 424);
+    x.fillText(en ? t('Table Ticket') : 'Vé đặt bàn', W / 2, 424);
     x.fillStyle = MAU.nau; x.font = '400 30px ' + SANS;
-    x.fillText(en ? 'Xom Leo Grill & Chill · Da Lat' : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', W / 2, 476);
+    x.fillText(en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', W / 2, 476);
     // Vach trang tri: hai vach + mat thoi
     x.strokeStyle = MAU.dong; x.lineWidth = 2;
     x.beginPath(); x.moveTo(W / 2 - 150, 522); x.lineTo(W / 2 - 22, 522); x.moveTo(W / 2 + 22, 522); x.lineTo(W / 2 + 150, 522); x.stroke();
@@ -100,24 +103,24 @@ window.XL_VE = (function () {
     // Cac truong
     const nhan = (s, px, py) => { x.fillStyle = MAU.dong; x.font = '700 21px ' + SANS; chuGian(x, s, px, py, 5, 'left'); };
     const C1 = 170, C2 = 600;
-    nhan(en ? 'GUEST' : 'HÀNH KHÁCH', C1, 600);
+    nhan(en ? t('GUEST') : 'HÀNH KHÁCH', C1, 600);
     // Toi da 500px: con dau do "Da gui" nam ben phai tu x ~720 (ten dai 20 ky tu tung cham dau)
     const ten = vua(x, o.ten || '—', '600 {c}px ' + SANS, 56, 500, 32);
     x.fillStyle = MAU.muc; x.textAlign = 'left'; x.fillText(ten, C1, 664);
     const dip = o.dip && !/^(không có|none)$/i.test(o.dip) ? o.dip : '';
-    if (dip) { x.fillStyle = MAU.tem; x.font = '600 26px ' + SANS; x.fillText((en ? 'Occasion: ' : 'Dịp: ') + dip, C1, 708); }
+    if (dip) { x.fillStyle = MAU.tem; x.font = '600 26px ' + SANS; x.fillText((en ? t('Occasion: ') : 'Dịp: ') + dip, C1, 708); }
 
-    nhan(en ? 'DATE' : 'NGÀY', C1, 770);
-    nhan(en ? 'TIME' : 'GIỜ', C2, 770);
+    nhan(en ? t('DATE') : 'NGÀY', C1, 770);
+    nhan(en ? t('TIME') : 'GIỜ', C2, 770);
     x.fillStyle = MAU.muc; x.font = '600 60px ' + SERIF; x.textAlign = 'left';
     x.fillText(d ? `${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}` : '—', C1, 836);
     x.fillText(o.gio || '—', C2, 836);
 
-    nhan(en ? 'GUESTS' : 'SỐ KHÁCH', C1, 892);
-    nhan(en ? 'SUNSET THAT DAY' : 'HOÀNG HÔN HÔM ĐÓ', C2, 892);
+    nhan(en ? t('GUESTS') : 'SỐ KHÁCH', C1, 892);
+    nhan(en ? t('SUNSET THAT DAY') : 'HOÀNG HÔN HÔM ĐÓ', C2, 892);
     x.fillStyle = MAU.muc; x.font = '600 40px ' + SANS;
-    x.fillText(String(o.khach || '—') + (en ? ' guests' : ' người'), C1, 940);
-    x.fillText(hh ? (en ? 'about ' : 'khoảng ') + XL_HOANG_HON.hm(hh.lan) : '—', C2, 940);
+    x.fillText(String(o.khach || '—') + (en ? t(' guests') : ' người'), C1, 940);
+    x.fillText(hh ? (en ? t('about ') : 'khoảng ') + XL_HOANG_HON.hm(hh.lan) : '—', C2, 940);
 
     // Dau do: chua phai xac nhan
     x.save();
@@ -126,17 +129,17 @@ window.XL_VE = (function () {
     x.lineWidth = 4; bo(x, -118, -52, 236, 104, 10); x.stroke();
     x.lineWidth = 1.5; bo(x, -108, -42, 216, 84, 6); x.stroke();
     x.textAlign = 'center';
-    x.font = '600 38px ' + SERIF; x.fillText(en ? 'SENT' : 'ĐÃ GỬI', 0, 4);
-    x.font = '700 15px ' + SANS; chuGian(x, en ? 'AWAITING CALL-BACK' : 'CHỜ GỌI XÁC NHẬN', 0, 30, en ? 1.5 : 3, 'center');
+    x.font = '600 38px ' + SERIF; x.fillText(en ? t('SENT') : 'ĐÃ GỬI', 0, 4);
+    x.font = '700 15px ' + SANS; chuGian(x, en ? t('AWAITING CALL-BACK') : 'CHỜ GỌI XÁC NHẬN', 0, 30, en ? 1.5 : 3, 'center');
     x.restore();
 
     // Cuong ve
-    nhan(en ? 'PLATFORM' : 'SÂN GA', C1, 1036);
+    nhan(en ? t('PLATFORM') : 'SÂN GA', C1, 1036);
     x.fillStyle = MAU.muc; x.font = '600 46px ' + SERIF; x.textAlign = 'left';
     x.fillText('113 Huỳnh Tấn Phát', C1, 1094);
     x.fillStyle = MAU.nau; x.font = '400 27px ' + SANS;
-    x.fillText(en ? 'Trai Mat, Da Lat · open 15:00–23:00' : 'Trại Mát, Đà Lạt · mở cửa 15:00–23:00', C1, 1140);
-    x.fillText(en ? 'Call / Zalo +84 76 452 7336' : 'Gọi / Zalo 076 452 7336', C1, 1180);
+    x.fillText(en ? t('Trai Mat, Da Lat · open 15:00–23:00') : 'Trại Mát, Đà Lạt · mở cửa 15:00–23:00', C1, 1140);
+    x.fillText(en ? t('Call / Zalo +84 76 452 7336') : 'Gọi / Zalo 076 452 7336', C1, 1180);
 
     x.fillStyle = MAU.dongSang; x.font = '600 26px ' + SANS;
     chuGian(x, 'XOMLEO.VN', W / 2, 1300, 9, 'center');
@@ -148,11 +151,11 @@ window.XL_VE = (function () {
   async function luu(c, en) {
     const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
     if (!blob) return 'cancel';
-    const tenTep = en ? 'xom-leo-table-ticket.png' : 've-dat-ban-xom-leo.png';
+    const tenTep = en ? t('xom-leo-table-ticket.png') : 've-dat-ban-xom-leo.png';
     if (window.matchMedia('(pointer: coarse)').matches && navigator.canShare && typeof File === 'function') {
       const tep = new File([blob], tenTep, { type: 'image/png' });
       if (navigator.canShare({ files: [tep] })) {
-        try { await navigator.share({ files: [tep], title: en ? 'My Xom Leo table ticket' : 'Vé đặt bàn Xóm Lèo' }); return 'share'; }
+        try { await navigator.share({ files: [tep], title: en ? t('My Xom Leo table ticket') : 'Vé đặt bàn Xóm Lèo' }); return 'share'; }
         catch (e) { if (e && e.name === 'AbortError') return 'cancel'; }
       }
     }

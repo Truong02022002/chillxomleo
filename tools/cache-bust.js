@@ -38,6 +38,9 @@ const ASSETS = [
   // Ve tau sau khi dat ban (05-10-2026): URL nam o thuoc tinh data-ve-tau cua #zaloBookingForm
   // tren 2 trang chu; main.js doc thuoc tinh do roi nap file luc khach bat dau dien form.
   { file: 'js/ve-tau.min.js', pattern: /ve-tau\.min\.js\?[a-z]*[0-9a-f]+/g, name: 've-tau.min.js' },
+  // Ban dich chu do JS sinh ra cho 5 thu tieng moi (21-10-2026): chi trang /zh/ /ko/ /ja/ /ru/ /th/ nap,
+  // the <script> do tools/dich/dung.mjs chen truoc main.min.js.
+  { file: 'js/ngon-ngu.js', pattern: /ngon-ngu\.js\?[a-z]*[0-9a-f]+/g, name: 'ngon-ngu.js' },
 ];
 
 // Chuan hoa xuong dong TRUOC khi bam. Repo dat core.autocrlf=true va khong co

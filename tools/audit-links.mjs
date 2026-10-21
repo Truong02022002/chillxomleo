@@ -53,14 +53,17 @@ const exists = (r) => {
 
 // ngon ngu + cap VI<->EN cua tung trang, doc tu <html lang> va <link rel="alternate" hreflang>
 const pathOf = (u) => u.replace('https://xomleo.vn', '');
-const langOf = new Map();   // route -> 'vi' | 'en'
-const altOf = new Map();    // route -> { vi, en }
+// Tu 21-10-2026 co them 5 thu tieng (zh ko ja ru th, tools/dich/): khoa la 2 chu dau cua hreflang
+// ("zh-Hans" -> zh) de khop voi <html lang>.
+const langOf = new Map();   // route -> 'vi' | 'en' | 'zh' | 'ko' | 'ja' | 'ru' | 'th'
+const altOf = new Map();    // route -> { vi, en, zh?, ko?, ja?, ru?, th? }
+const TRANG_CHU_NN = { vi: '/', en: '/en/', zh: '/zh/', ko: '/ko/', ja: '/ja/', ru: '/ru/', th: '/th/' };
 for (const [route, f] of pages) {
   const s = stripped.get(f);
   langOf.set(route, (s.match(/<html[^>]*\slang="([a-z]+)/) || [])[1]);
-  const vi = (s.match(/<link rel="alternate" hreflang="vi" href="([^"]+)"/) || [])[1];
-  const en = (s.match(/<link rel="alternate" hreflang="en" href="([^"]+)"/) || [])[1];
-  if (vi && en) altOf.set(route, { vi: pathOf(vi), en: pathOf(en) });
+  const alt = {};
+  for (const m of s.matchAll(/<link rel="alternate" hreflang="([a-zA-Z-]+)" href="([^"]+)"/g)) if (m[1] !== 'x-default') alt[m[1].slice(0, 2)] = pathOf(m[2]);
+  if (alt.vi && alt.en) altOf.set(route, alt);
 }
 
 for (const f of files) {
@@ -68,12 +71,15 @@ for (const f of files) {
   const body = s.slice(s.indexOf('<body'));
   const route = f === 'index.html' ? '/' : '/' + f.replace(/index\.html$/, '');
 
-  // Nut doi ngon ngu VN|EN phai tro ve dung cap hreflang cua CHINH trang. Bai nhom dong
-  // (18-09-2026) chep nav tu bai khung nen nut "EN" nhay sang bai view xe lua.
+  // Nut doi ngon ngu phai tro ve dung cap hreflang cua CHINH trang. Bai nhom dong
+  // (18-09-2026) chep nav tu bai khung nen nut "EN" nhay sang bai view xe lua. Thu tieng nao
+  // trang chua co ban dich thi nut do phai ve trang chu cua thu tieng do (tools/dich/bo-chon.mjs).
   const alt = altOf.get(route);
   if (alt) {
-    for (const m of body.matchAll(/<a\s+href="([^"]*)"\s+hreflang="(vi|en)"/g)) {
-      if (m[1] !== alt[m[2]]) findings.langSwitch.push(`${f}: nut ${m[2]} -> ${m[1]}, dung ra ${alt[m[2]]}`);
+    for (const m of body.matchAll(/<a\s+href="([^"]*)"\s+hreflang="([a-zA-Z-]+)"/g)) {
+      const nn = m[2].slice(0, 2);
+      const dung = alt[nn] || TRANG_CHU_NN[nn];
+      if (dung && m[1] !== dung) findings.langSwitch.push(`${f}: nut ${nn} -> ${m[1]}, dung ra ${dung}`);
     }
   }
   const main = s.includes('</main>') ? s.slice(s.indexOf('<main'), s.indexOf('</main>')) : body;
@@ -259,7 +265,7 @@ for (const [route, f] of pages) {
   findings.unreachable.push(`${route}  (chi co link tu: ${tu.slice(0, 4).join(', ')}${tu.length > 4 ? '…' : ''})`);
 }
 // Ghi chu: trang chi duoc tro toi tu menu / khoi lien quan / the bai, chua co cau nao trong than bai link sang
-const chuaCoThan = [...pages].filter(([route, f]) => !skipPage(route, f) && route !== '/' && route !== '/en/'
+const chuaCoThan = [...pages].filter(([route, f]) => !skipPage(route, f) && !Object.values(TRANG_CHU_NN).includes(route)
   && !(vaoThan.get(route)?.size) && !/data-dln="(hub|legal)"/.test(stripped.get(f).slice(0, 3000))).map(([r]) => r);
 
 // iframe phai co title, va nhieu iframe tren cung trang phai co ten khac nhau —
