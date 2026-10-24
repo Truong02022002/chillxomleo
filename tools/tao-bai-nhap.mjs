@@ -11,7 +11,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
-import { thayBoChon } from './dich/bo-chon.mjs';
+import { thayBoChon, thayHreflang, thayOgLocale } from './dich/bo-chon.mjs';
 
 const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
@@ -194,8 +194,6 @@ ${JSON.stringify(ldFaq, null, 1)}
 function dungHead(khung, t, lang) {
   const hau = lang === 'vi' ? '' : '-en';
   const url = `https://xomleo.vn/${d.slug}${hau}/`;
-  const urlVi = `https://xomleo.vn/${d.slug}/`;
-  const urlEn = `https://xomleo.vn/${d.slug}-en/`;
   const anhUrl = `https://xomleo.vn/${d.anhBia}`;
   let h = khung;
 
@@ -209,9 +207,13 @@ function dungHead(khung, t, lang) {
   h = h.replace(/(<meta name="twitter:title" content=")[^"]*(")/, (_, a, b) => a + escAttr(t.title) + b);
   h = h.replace(/(<meta name="twitter:description" content=")[^"]*(")/, (_, a, b) => a + escAttr(t.moTa) + b);
   h = h.replace(/(<meta name="twitter:image" content=")[^"]*(")/, (_, a, b) => a + anhUrl + b);
-  h = h.replace(/(<link rel="alternate" hreflang="vi" href=")[^"]*(")/, (_, a, b) => a + urlVi + b);
-  h = h.replace(/(<link rel="alternate" hreflang="en" href=")[^"]*(")/, (_, a, b) => a + urlEn + b);
-  h = h.replace(/(<link rel="alternate" hreflang="x-default" href=")[^"]*(")/, (_, a, b) => a + urlVi + b);
+  // Tu 21-10-2026 bai khung co hreflang + og:locale:alternate cho 7 thu tieng. Truoc 24-10-2026
+  // ham nay chi thay vi/en/x-default nen 5 dong zh/ko/ja/ru/th van tro ve ban dich cua BAI KHUNG
+  // (audit-links bao "nut doi ngon ngu tro sai trang" -> lich dang bai dung lai). Bai moi chi co
+  // vi/en; 5 thu tieng duoc khai sau khi tools/dich/dung.mjs dung ban dich.
+  const ban = { vi: `/${d.slug}/`, en: `/${d.slug}-en/` };
+  h = thayHreflang(h, ban).html;
+  h = thayOgLocale(h, lang, ban).html;
 
   // Cau truc @id da chot khi ra soat schema 12-09-2026 — giu dung nhu cac bai dang song,
   // tools/kiem-schema.mjs se bao neu lech.
