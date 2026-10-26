@@ -30,7 +30,7 @@
 
 ## 1. Làng Xóm Lèo nằm ở đâu tại Đà Lạt?
 
-Khu Xóm Lèo tọa lạc tại một vị trí khá yên tĩnh, cách trung tâm thành phố khoảng 5km. Dù nằm ngoài khu vực đông đúc, nơi đây lại mang trong mình nét đẹp bình dị của vùng ngoại ô – với những con hẻm nhỏ, nhà gỗ cổ, và quán cà phê đậm chất Đà Lạt xưa. Cảm giác như thời gian chậm lại, cho phép bạn sống chậm và cảm nhận trọn vẹn từng khoảnh khắc.
+Khu Xóm Lèo tọa lạc tại một vị trí khá yên tĩnh, cách trung tâm thành phố khoảng 8 km. Dù nằm ngoài khu vực đông đúc, nơi đây lại mang trong mình nét đẹp bình dị của vùng ngoại ô – với những con hẻm nhỏ, nhà gỗ cổ, và quán cà phê đậm chất Đà Lạt xưa. Cảm giác như thời gian chậm lại, cho phép bạn sống chậm và cảm nhận trọn vẹn từng khoảnh khắc.
 
 ## 2. Xóm Lèo Đà Lạt ban đêm có gì đặc biệt?
 

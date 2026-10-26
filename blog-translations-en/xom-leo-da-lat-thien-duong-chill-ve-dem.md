@@ -4,7 +4,7 @@ Da Lat is inherently famous for its dreamy beauty and cold, romantic atmosphere.
 
 ## 1. Where is Xom Leo Village located in Da Lat?
 
-Xom Leo area is located in a quite quiet location, about 5km from the city center. Although located outside the crowded area, this place has the simple beauty of the suburbs - with small alleys, old wooden houses, and cafes typical of old Da Lat. It feels like time slows down, allowing you to live slowly and fully enjoy each moment.
+Xom Leo area is located in a quite quiet location, about 8 km from the city center. Although located outside the crowded area, this place has the simple beauty of the suburbs - with small alleys, old wooden houses, and cafes typical of old Da Lat. It feels like time slows down, allowing you to live slowly and fully enjoy each moment.
 
 ## 2. What's special about Xom Leo Da Lat at night?
 
