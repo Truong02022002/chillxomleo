@@ -66,6 +66,12 @@ jobs:
         if: steps.dang.outputs.so_bai
         run: node tools/chuan-hoa-giao-dien.mjs --write
 
+      - name: Khoi sao danh gia cho bai moi
+        # Ban nhap soan truoc 27-10-2026 chua co khoi bam sao cuoi bai. Script chen khoi con thieu
+        # (ban Viet/Anh) va ghi diem hien co; bai da co khoi thi khong doi gi. Xem tools/sao-bai.mjs.
+        if: steps.dang.outputs.so_bai
+        run: node tools/sao-bai.mjs --write
+
       - name: Nhet CSS vao bai moi
         # Ban nhap cu tren nhanh noi-dung con <link> toi css/site.css. Tu 13-09-2026 moi trang
         # nhet thang bundle vao <style id="site-css"> (xem tools/build-css.js); buoc nay thay

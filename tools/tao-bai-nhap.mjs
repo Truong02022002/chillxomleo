@@ -12,6 +12,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
 import { thayBoChon, thayHreflang, thayOgLocale } from './dich/bo-chon.mjs';
+// Khoi bam sao cuoi bai (27-10-2026): chua du phieu nen an; tools/sao-bai.mjs ghi so khi du.
+import { khoiSao } from './sao/khoi.mjs';
 
 const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
@@ -186,6 +188,7 @@ ${faqHtml}
 <script type="application/ld+json">
 ${JSON.stringify(ldFaq, null, 1)}
 </script>
+${khoiSao(lang, `/${d.slug}/`)}
         </article>`;
 }
 

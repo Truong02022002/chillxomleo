@@ -107,7 +107,9 @@ function thongTin(html, url) {
   vung = vung
     .replace(/<!--[\s\S]*?-->/g, ' ')
     .replace(/<(script|style|template|svg)\b[\s\S]*?<\/\1>/gi, ' ')
-    .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ');
+    .replace(/<nav\b[\s\S]*?<\/nav>/gi, ' ')
+    // Khoi sao danh gia cuoi bai (tools/sao-bai.mjs): so phieu moi khong phai noi dung moi.
+    .replace(/<section class="sao-bai"[\s\S]*?<\/section>/gi, ' ');
   const anh = (vung.match(/<img\b[^>]*>/gi) || []).map((t) => `${(thuocTinh(t, 'src') || '').split('?')[0]}|${thuocTinh(t, 'alt') ?? ''}`);
   const lienKet = (vung.match(/<a\b[^>]*>/gi) || []).map((t) => boCacheBust(thuocTinh(t, 'href') || ''));
   // Nhay cong / dau … (tools/chuan-hoa-giao-dien.mjs, 05-10-2026) la doi KIEU chu: quy ve nhay

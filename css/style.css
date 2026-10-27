@@ -8126,6 +8126,83 @@ article.blog-item:lang(th) .p-6 > div:first-child > span:last-child::before { co
 /* ===================== HET DA NGON NGU ===================== */
 
 /* ---------------------------------------------------------------------------
+   SAO DANH GIA BAI VIET (27-10-2026)
+   Khoi <section class="sao-bai"> cuoi bai do tools/sao-bai.mjs chen va ghi so;
+   phan bam sao do js/main.js bat. Cung kieu o voi muc luc (.blog-toc, "bang
+   gio tau") va CHI dung token: khoi NANG CAP 8 doi token sang nen dem thi the
+   tu doi theo. Tren o go #17100B: vien sao rong --muted #BCAA8C va sao da
+   chon --primary #D9AE62 deu tren 7:1 (can 3:1 cho thanh phan giao dien).
+   An/hien bang thuoc tinh hidden nen [hidden] phai thang display:flex ben duoi.
+   --------------------------------------------------------------------------- */
+.sao-bai {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  max-width: 48rem;
+  margin: 2.5rem auto 0;
+  padding: 1.25rem 1.5rem;
+  background: var(--giay-sang);
+  background-image: var(--giay-van);
+  border: 1px solid var(--ke-dam);
+  border-radius: 3px;
+  color: var(--foreground);
+  text-align: center;
+}
+.sao-bai[hidden],
+.sao-bai [hidden] {
+  display: none !important;
+}
+.sao-bai p {
+  margin: 0;
+}
+.sao-bai-tong,
+.sao-bai-hoi {
+  font-weight: 600;
+}
+.sao-bai-tong span {
+  color: var(--primary);
+}
+.sao-bai-nut {
+  display: inline-flex;
+  gap: 0.125rem;
+  margin-top: 0.25rem;
+}
+.sao-bai-nut button {
+  padding: 0.375rem;
+  line-height: 0;
+  background: none;
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.sao-bai-nut button:disabled {
+  cursor: default;
+}
+.sao-bai-nut button:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.sao-bai-nut svg {
+  width: 2rem;
+  height: 2rem;
+  fill: transparent;
+  stroke: var(--muted);
+  stroke-width: 1.5;
+  stroke-linejoin: round;
+  transition: fill 0.15s, stroke 0.15s;
+}
+.sao-bai-nut .sang svg {
+  fill: var(--primary);
+  stroke: var(--primary);
+}
+.sao-bai [aria-live] p {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* ---------------------------------------------------------------------------
    KHOI GIAM CHUYEN DONG TOAN CUC
    Truoc day chi co mot khoi prefers-reduced-motion duy nhat va no chi tat
    transition cua flipbook. Cac animation lap vo han van chay: train-move,

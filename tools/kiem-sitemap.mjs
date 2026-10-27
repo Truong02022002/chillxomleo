@@ -127,7 +127,10 @@ function vanTay(html) {
     // "VN | EN" -> 7 thu tieng (21-10-2026) khong duoc nang lastmod ca 92 trang Viet/Anh.
     .replace(/<div\b[^>]*\blang-switcher\b[^>]*>[\s\S]*?<\/div>/gi, ' ')
     .replace(/<details class="chon-ngon-ngu"[\s\S]*?<\/details>/gi, ' ')
-    .replace(/<ul class="cnn-luoi"[\s\S]*?<\/ul>/gi, ' ');
+    .replace(/<ul class="cnn-luoi"[\s\S]*?<\/ul>/gi, ' ')
+    // Khoi sao danh gia cuoi bai (tools/sao-bai.mjs, 27-10-2026): so phieu doi hang ngay ma bai
+    // khong doi chu nao — khong duoc nang lastmod.
+    .replace(/<section class="sao-bai"[\s\S]*?<\/section>/gi, ' ');
   // Nhay cong / dau … (tools/chuan-hoa-giao-dien.mjs, 05-10-2026) la doi KIEU chu, khong phai
   // noi dung: quy ve nhay thang truoc khi bam de lan chuan hoa khong nang lastmod ~60 trang.
   const chu = giaiMa(vung.replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim()

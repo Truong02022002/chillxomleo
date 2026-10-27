@@ -1594,4 +1594,78 @@ document.addEventListener('DOMContentLoaded', () => {
       window.addEventListener('resize', () => { if (trainVisible) henVe(); }, { passive: true });
     }
   }
+
+  // --- Sao danh gia bai viet (27-10-2026) ---
+  // Khoi <section class="sao-bai"> cuoi bai do tools/sao-bai.mjs chen va ghi so: diem + so luot chi
+  // hien (va chi khai schema) khi bai co tu 5 phieu that. Khoi nay chi lo phan BAM: hien 5 nut sao,
+  // gui phieu toi Apps Script (tools/sao/Code.gs), nho phieu cua may trong localStorage. Chu tren khoi
+  // (cau hoi, cam on, bao loi) nam san trong HTML theo thu tieng cua trang — JS chi bat/tat hidden.
+  // Diem tren trang KHONG doi ngay sau khi bam: so moi vao trang qua lan --keo --write hang ngay.
+  // Dia chi Apps Script nam o data-sao-url (tools/sao-bai.mjs ghi tu "nguon" trong tools/sao/diem.json);
+  // khoi chua co thuoc tinh do = chua trien khai Apps Script: khong hien nut nao.
+  const khoiSao = document.querySelector('.sao-bai[data-sao][data-sao-url]');
+  if (khoiSao) {
+    const XL_SAO_URL = khoiSao.dataset.saoUrl;
+    const trang = khoiSao.dataset.sao;   // duong dan ban Viet: moi thu tieng cua bai chung mot tong
+    const nutSao = Array.from(khoiSao.querySelectorAll('.sao-bai-nut button'));
+    const camOn = khoiSao.querySelector('[data-sao-cam-on]');
+    const baoLoi = khoiSao.querySelector('[data-sao-loi]');
+    const KHOA_SAO = 'xomleo_sao';
+    const docSao = () => { try { return JSON.parse(localStorage.getItem(KHOA_SAO) || '{}'); } catch (e) { return {}; } };
+    const ghiSao = (ds) => { try { localStorage.setItem(KHOA_SAO, JSON.stringify(ds)); } catch (e) { /* localStorage bị tắt — bỏ qua */ } };
+    // Ma may ngau nhien: chi de Apps Script lay phieu MOI NHAT khi cung may cham lai, khong gan voi ai.
+    function maMay(ds) {
+      if (!/^[a-z0-9]{16,40}$/.test(ds.may || '')) {
+        const b = new Uint8Array(12);
+        crypto.getRandomValues(b);
+        ds.may = Array.from(b, (x) => x.toString(16).padStart(2, '0')).join('');
+      }
+      return ds.may;
+    }
+    let khoa = false;
+    const to = (n) => nutSao.forEach((b, i) => b.classList.toggle('sang', i < n));
+    function daCham(n) {
+      khoa = true;
+      to(n);
+      nutSao.forEach((b) => { b.disabled = true; b.setAttribute('aria-pressed', String(Number(b.value) === n)); });
+      camOn.hidden = false;
+    }
+
+    khoiSao.hidden = false;
+    khoiSao.querySelector('[data-sao-chon]').hidden = false;
+    const cu = docSao()[trang];
+    if (cu >= 1 && cu <= 5) daCham(cu);
+    nutSao.forEach((b) => {
+      const n = Number(b.value);
+      b.addEventListener('pointerenter', () => { if (!khoa) to(n); });
+      b.addEventListener('focus', () => { if (!khoa) to(n); });
+      b.addEventListener('pointerleave', () => { if (!khoa) to(0); });
+      b.addEventListener('blur', () => { if (!khoa) to(0); });
+      b.addEventListener('click', async () => {
+        if (khoa) return;
+        khoa = true;
+        to(n);
+        nutSao.forEach((x) => { x.disabled = true; });
+        baoLoi.hidden = true;
+        const ds = docSao();
+        let ok = false;
+        try {
+          // URLSearchParams = "simple request", khong co preflight OPTIONS (Apps Script khong xu ly
+          // duoc) — giong form dat ban.
+          const res = await fetch(XL_SAO_URL, { method: 'POST', body: new URLSearchParams({ trang, sao: String(n), may: maMay(ds) }) });
+          ok = res.ok && (await res.json()).status === 'ok';
+        } catch (e) { /* mất mạng, hoặc Apps Script không trả JSON */ }
+        if (!ok) {
+          khoa = false;
+          to(0);
+          nutSao.forEach((x) => { x.disabled = false; });
+          baoLoi.hidden = false;
+          return;
+        }
+        ds[trang] = n;
+        ghiSao(ds);
+        daCham(n);
+      });
+    });
+  }
 });

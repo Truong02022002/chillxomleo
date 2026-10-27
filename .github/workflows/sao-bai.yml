@@ -1,0 +1,64 @@
+name: Sao danh gia bai viet
+
+# Moi sang keo tong phieu cham sao cua ban doc tu Apps Script (tools/sao/Code.gs) ve
+# tools/sao/diem.json, roi ghi diem + schema vao cac bai (tools/sao-bai.mjs). Bai duoi 5 phieu
+# khong hien diem, khong co schema. "nguon" trong tools/sao/diem.json con trong (chua trien khai
+# Apps Script) thi khong keo gi: run van xanh, khong commit. Chu site dan URL Apps Script vao "nguon"
+# (sua thang tren GitHub cung duoc) la workflow tu chay va nut bam sao len song.
+
+on:
+  schedule:
+    # 02:00 UTC = 09:00 gio Viet Nam, sau lich dang bai (08:00). Cron cua GitHub chay theo UTC.
+    - cron: '0 2 * * *'
+  # Sua "nguon" (dan URL Apps Script) hay xoa diem tay trong diem.json thi ap dung ngay vao cac trang.
+  # Push cua bot o buoc cuoi khong kich hoat lai workflow nay.
+  push:
+    branches: [main]
+    paths: ['tools/sao/diem.json']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  # Chung nhom voi dang-bai-theo-lich.yml: ca hai push vao main, khong duoc chay chong nhau.
+  group: dang-bai-theo-lich
+  cancel-in-progress: false
+
+jobs:
+  sao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Keo phieu va ghi vao bai
+        # Apps Script tra loi / tra 0 bai trong khi dang co diem thi script thoat 1, giu nguyen diem cu.
+        run: node tools/sao-bai.mjs --keo --write
+
+      - name: Kiem structured data
+        # Diem va so luot trong schema phai trung chu hien tren trang (luat g-review). Co LOI thi
+        # buoc commit ben duoi khong chay.
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then node tools/kiem-schema.mjs --chi-loi; fi
+
+      - name: Commit va push
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Khong co phieu moi — khong commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit \
+            -m "Sao danh gia bai viet: cap nhat diem ban doc" \
+            -m "Tu dong boi .github/workflows/sao-bai.yml (node tools/sao-bai.mjs --keo --write). Chi bai du 5 phieu moi hien diem va co schema."
+          git push
