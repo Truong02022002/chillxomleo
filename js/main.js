@@ -721,6 +721,38 @@ document.addEventListener('DOMContentLoaded', () => {
     sessionStorage.setItem('xomleo_last_booking', Date.now().toString());
   }
 
+  // --- Chống trùng đơn (26-10-2026) ---
+  // Khoá 30 s ở trên chỉ chặn bấm liên tay trong MỘT tab. Khách sốt ruột gửi lại sau vài
+  // phút, hoặc mở tab khác gửi lần nữa, thì quán nhận 2 đơn và GA4 đếm 2 lead. Nhớ vân tay
+  // (SHA-256, KHÔNG lưu số điện thoại thô) của đơn ĐÃ ĐƯỢC WEBHOOK XÁC NHẬN trong 24 giờ:
+  //  - y hệt đơn cũ (SĐT + ngày + giờ + số khách) -> không gửi lại, báo đã gửi lúc mấy giờ;
+  //  - cùng SĐT + ngày nhưng đổi giờ/số khách -> vẫn gửi (quán cần biết), không tính thêm lead.
+  // Chỉ ghi khi webhook xác nhận: đơn 'khong_ro' có thể chưa tới, chặn gửi lại là mất đơn.
+  const KHOA_DON = 'xomleo_don_da_gui';
+  const HAN_DON = 24 * 3600 * 1000;
+  async function vanTayDon(chuoi) {
+    try {
+      const bam = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(chuoi));
+      return Array.from(new Uint8Array(bam).slice(0, 12), (b) => b.toString(16).padStart(2, '0')).join('');
+    } catch (e) {
+      // crypto.subtle chỉ có trên https/localhost — dự phòng djb2.
+      let h = 5381;
+      for (let i = 0; i < chuoi.length; i++) h = ((h << 5) + h + chuoi.charCodeAt(i)) | 0;
+      return 'd' + (h >>> 0).toString(16);
+    }
+  }
+  function docDonDaGui() {
+    try {
+      const ds = JSON.parse(localStorage.getItem(KHOA_DON) || '{}');
+      const bay = Date.now();
+      for (const k in ds) if (!(bay - ds[k] < HAN_DON)) delete ds[k];
+      return ds;
+    } catch (e) { return {}; }
+  }
+  function ghiDonDaGui(ds) {
+    try { localStorage.setItem(KHOA_DON, JSON.stringify(ds)); } catch (e) { /* localStorage bị tắt — bỏ qua */ }
+  }
+
   // Gửi đặt bàn thất bại: nói thật là quán CHƯA nhận được, đưa hai đường giữ bàn
   // ngay. Không tự ẩn như thông báo thành công — khách phải kịp đọc số điện thoại.
   function hienLoiDatBan(isEnglish) {
@@ -939,6 +971,20 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Đơn y hệt đã được xác nhận trong 24 giờ (kể cả ở tab khác) thì không gửi lại.
+      const soSach = phoneVal.replace(/\D/g, '');
+      const ngayDat = document.getElementById('book_date').value;
+      const khoaDon = 'o:' + await vanTayDon([soSach, ngayDat, document.getElementById('book_time').value, guestsVal].join('|'));
+      const khoaLead = 'l:' + await vanTayDon([soSach, ngayDat].join('|'));
+      const donDaGui = docDonDaGui();
+      if (donDaGui[khoaDon]) {
+        const luc = new Date(donDaGui[khoaDon]).toLocaleTimeString(isEnglish ? 'en-GB' : 'vi-VN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' });
+        baoTrangThai(isEnglish
+          ? dichJs('This booking was already sent at {0} — the restaurant will call to confirm. To change it, call +84 76 452 7336.', luc)
+          : `Đơn này đã gửi lúc ${luc} — quán sẽ gọi xác nhận. Muốn đổi thông tin thì gọi 076 452 7336.`);
+        return;
+      }
+
       // Nut giu nguyen cho toi luc THAT SU gui; luc gui thi khoa + vong quay + "Dang gui…".
       const submitBtn = zaloForm.querySelector('button[type="submit"]');
       const originalHTML = submitBtn.innerHTML;
@@ -1022,7 +1068,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Honeypot, rate limit và lỗi nhập liệu đều đã `return` phía trên nên không
       // lọt vào đây. KHÔNG gửi tên/số điện thoại/ghi chú của khách vào GA4.
+      // Lead tính theo SĐT + ngày đặt: khách gửi lại để đổi giờ/số khách là cùng một lead.
+      const tinhLead = ketQua === 'xac_nhan' && !donDaGui[khoaLead];
       if (ketQua === 'xac_nhan') {
+        donDaGui[khoaDon] = Date.now();
+        if (tinhLead) donDaGui[khoaLead] = Date.now();
+        ghiDonDaGui(donDaGui);
+      }
+      if (tinhLead) {
         const DIP = {
           'Không có': 'none', 'None': 'none',
           'Sinh nhật': 'birthday', 'Birthday': 'birthday',

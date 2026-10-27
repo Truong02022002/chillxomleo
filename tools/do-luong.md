@@ -64,7 +64,7 @@ quyền `return` ngay sau lần khớp đầu tiên.
 | `chat_open` | bấm link `zalo.me` hoặc `m.me`/`messenger.com` | `chat_channel`: `zalo` \| `messenger` | **Không** — ý định |
 | `click_directions` | bấm link Google Maps (`google.*/maps`, `goo.gl/maps`, `maps.app.goo.gl`) | `map_target: 'google_maps'` | **Không** — ý định |
 | `click_booking_cta` | bấm nút trỏ tới `#booking` | không có | **Không** — ý định |
-| `generate_lead` | webhook Apps Script **trả lời xác nhận** đã nhận đơn đặt bàn | `form_id`, `lead_type`, `guests` (số), `occasion` | **Có — Key Event duy nhất** |
+| `generate_lead` | webhook Apps Script **trả lời xác nhận** đã nhận đơn đặt bàn; cùng SĐT + ngày đặt chỉ tính **một lần trong 24 giờ** trên cùng trình duyệt (26-10-2026, mục 6) | `form_id`, `lead_type`, `guests` (số), `occasion` | **Có — Key Event duy nhất** |
 | `save_ticket` | bấm "Lưu vé tàu" trong thông báo đặt bàn thành công (từ 05-10-2026, `js/ve-tau.js`) | `method`: `share` (điện thoại, bảng chia sẻ) \| `download` (tải PNG); bấm rồi huỷ chia sẻ thì không bắn | **Không** — đo xem khách có mang vé đi khoe không |
 
 **Vì sao chỉ một Key Event** (mục 280-281). Bấm số điện thoại chưa có nghĩa là cuộc gọi
@@ -177,11 +177,25 @@ Cloudflare, cache SW). Có thêm form gửi kiểu truyền thống thì phải 
   gửi một đơn thật, nên chưa làm. `doGet` của cùng webhook trả JSON nên nhiều khả năng
   `doPost` cũng vậy. Nếu không, mọi đơn rơi vào nhánh thứ ba: khách vẫn thấy "Đã gửi"
   nhưng `generate_lead` về 0. Cách kiểm và cách sửa ở mục 8.
+- **Chống trùng đơn (26-10-2026).** Khoá 30 giây cũ chỉ chặn bấm liên tay trong một tab;
+  khách sốt ruột gửi lại sau vài phút hoặc mở tab khác thì quán nhận 2 đơn, GA4 đếm 2 lead.
+  Nay `js/main.js` nhớ vân tay (SHA-256, không lưu SĐT thô) của đơn **đã được webhook xác
+  nhận** trong 24 giờ, ở `localStorage` khoá `xomleo_don_da_gui`:
+
+  | Khách gửi lại trong 24 giờ | Đơn | GA4 |
+  |---|---|---|
+  | Y hệt (SĐT + ngày + giờ + số khách) | **không gửi**, báo "Đơn này đã gửi lúc HH:MM…" | không gì |
+  | Cùng SĐT + ngày, đổi giờ hoặc số khách | gửi (quán cần biết thay đổi) | không tính thêm lead |
+  | Khác ngày | gửi | `generate_lead` |
+
+  Đơn rơi vào nhánh "không đọc được trả lời" **không** được ghi vân tay — đơn đó có thể chưa
+  tới, chặn gửi lại là mất đơn. Giới hạn: chỉ chống trùng trên cùng trình duyệt; khách gửi từ
+  hai máy vẫn ra hai dòng trong sheet (lọc theo SĐT + ngày ở Apps Script nếu cần).
 - **Số liệu chia cho hai property** chừng nào connected tag ở mục 2 còn đó.
 
 ## 7. Kiểm lại trước khi publish
 
-    node tools/kiem-do-luong.mjs        # 33 phép thử, Chrome headless
+    node tools/kiem-do-luong.mjs        # 36 phép thử, Chrome headless
     node tools/kiem-do-luong.mjs --giu  # giữ Chrome lại để tự xem
 
 Phép thử chặn mọi request tới Google ở tầng CDP và trả 200 giả cho endpoint Apps Script
@@ -226,6 +240,29 @@ nào:
   `page_view` với Content group lần lượt `1-orient` … `5-act`, bước cuối `generate_lead`. Đây
   là chỗ duy nhất thấy được khách đi qua các bậc nào trước khi đặt bàn (lý do ở mục 4).
   `content_group` không cần đăng ký. Chỉ có số từ 22-09-2026 trở đi.
+- **Đọc *Khám phá → Khám phá đường dẫn* (Path exploration) cho đúng.** Phễu DLN ở trên cho
+  thấy khách *có* đi qua các bậc theo thiết kế không; Path exploration cho thấy khách *thật sự*
+  đi thế nào. Cách dựng: bấm "Bắt đầu lại", chọn **điểm cuối** là sự kiện `generate_lead` để
+  xem ngược các trang khách đi qua trước khi đặt bàn; làm thêm một bản điểm cuối
+  `click_call` / `chat_open` vì gọi và Zalo mới là kênh đặt bàn chính của quán. Khi thấy
+  hành trình dừng ở một URL, xem **điểm cuối có gì** trước khi kết luận đó là điểm rơi:
+
+  | Hành trình dừng ở | Nghĩa | Làm gì |
+  |---|---|---|
+  | `generate_lead` | đặt bàn qua form thành công (webhook xác nhận) | chuyển đổi — không sửa |
+  | `click_call`, `chat_open` | khách gọi / nhắn Zalo, Messenger | gần như chuyển đổi, chỉ không xác nhận được — đối soát với sổ đặt bàn (mục 11), đừng coi là điểm rơi |
+  | `click_directions` | mở Google Maps — thường là đang tới quán | ý định cao, không sửa |
+  | `/menu/`, `/duong-di/` không kèm sự kiện | khách ở bậc R/A, có thể gọi bằng máy khác hay nhớ địa chỉ | chỉ xem lại nếu thời gian tương tác thấp bất thường |
+  | bài bậc O/C, không sự kiện, không sang trang nào | điểm rơi thật nếu bài không trả lời câu hỏi hoặc thiếu bước tiếp theo | kiểm bài còn link sang bậc kế (`audit-links`, khối "Gợi ý thêm từ quán") trước khi đổi giao diện |
+
+  Nhớ giới hạn ở mục 6: phiên ngắn dưới 5–8 giây không vào GA4, nên Path exploration thiếu
+  đúng nhóm khách rời nhanh nhất.
+- **Không làm trang cảm ơn riêng (quyết định 26-10-2026).** Form đặt bàn không chuyển trang;
+  thành công được xác nhận bằng `generate_lead` (chọn làm điểm cuối trong Path exploration
+  được), kèm thông báo + vé tàu tại chỗ. Trang cảm ơn chỉ đổi chỗ hiển thị, không tăng độ
+  chính xác, mà thêm một URL phải chặn index, chặn F5 đếm lại và dịch 7 thứ tiếng. Cần làm khi
+  có nhu cầu đo bằng URL (ví dụ quảng cáo chỉ nhận chuyển đổi theo trang): dựng
+  `/dat-ban-thanh-cong/` `noindex`, chỉ mở sau nhánh xác nhận, không bắn thêm lead.
 - Tạo internal traffic filter để lượt truy cập của quán không lẫn vào số liệu.
 - Xem DebugView xác nhận GA4 nhận đúng tên và tham số.
 - Xử lý connected site tag `G-1YNW7BWD6W` ở mục 2 — giữ hay gỡ.
@@ -374,3 +411,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 19-09-2026 | Nguồn có UTM ghi thành `<trang vào>/<utm_source>` (ví dụ `menu/google_maps`), bỏ medium khỏi nhãn nguồn. Đơn TEST trên site thật xác nhận webhook nhận đơn và sheet giữ đủ dấu `_`. |
 | 22-09-2026 | Thêm `content_group` = bậc DLN của trang (`<html data-dln>`, mục 4) vào lệnh `config`; 89 trang được gán bậc; `kiem-do-luong.mjs` thêm 4 phép thử, `audit-links.mjs` chặn trang thiếu bậc; lịch đăng bài bắt buộc trường `bac`. |
 | 05-10-2026 | Tách quảng cáo trên AI khỏi trích dẫn AI: `oppref` → `ChatGPT Ads`; `utm_source` của trợ lý AI đi kèm medium trả phí hoặc mã click thì không còn ghi `AI: …`; UTM của chiến dịch trước bị xoá khi có nguồn mới; thêm dòng quảng cáo ChatGPT vào bảng link (mục 11); `kiem-do-luong.mjs` thêm 3 phép thử. |
+| 26-10-2026 | Chống trùng đơn theo vân tay 24 giờ (mục 6): gửi lại y hệt đơn đã xác nhận thì không gửi, đổi giờ/số khách thì gửi nhưng không tính thêm lead; `kiem-do-luong.mjs` thêm 3 phép thử (33 → 36). Thêm cách đọc Path exploration và lý do chưa làm trang cảm ơn (mục 8). |

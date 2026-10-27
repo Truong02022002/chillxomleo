@@ -196,9 +196,11 @@ async function thuBam(nhan, chon, tenMongDoi, kiem) {
   bao(nhan, !loi, loi || JSON.stringify(ev1[0].tham));
 }
 
-async function thuGuiForm(gia) {
+// giuVanTay: giu van tay don da gui (localStorage) de thu phan chong trung don.
+async function thuGuiForm(gia, giuVanTay = false) {
   return await ev(`(function(){
     try { sessionStorage.removeItem('xomleo_last_booking'); } catch(e){}
+    ${giuVanTay ? '' : "try { localStorage.removeItem('xomleo_don_da_gui'); } catch(e){}"}
     var d = ${JSON.stringify(gia)};
     for (var k in d) { var el = document.getElementById(k); if (el) el.value = d[k]; }
     var f = document.getElementById('zaloBookingForm');
@@ -255,6 +257,34 @@ await sleep(2500);
   bao('generate_lead du ngu canh va KHONG co PII',
     !coPII && t.form_id === 'zaloBookingForm' && t.lead_type === 'booking_form' && t.guests === 4 && t.occasion === 'birthday',
     JSON.stringify(t));
+  const vanTay = await ev(`localStorage.getItem('xomleo_don_da_gui') || ''`);
+  bao('Van tay don KHONG chua SDT/ten tho', vanTay.length > 0 && !vanTay.includes('0912345678') && !/kiem/i.test(vanTay), vanTay.slice(0, 80));
+}
+
+// Chong trung don (26-10-2026): mo lai trang (nhu tab moi), het khoa 30 s, gui y het don vua
+// xac nhan -> khong goi webhook, khong lead, bao da gui. Doi gio cung ngay -> van gui, khong lead.
+appsScript = 'ok';
+await moTrang('/');
+await xoaGhi();
+{
+  const truoc = soAppsScript;
+  await thuGuiForm(GIA_HOP_LE, true);
+  await sleep(1500);
+  const coLead = (await docEvent()).some((x) => x.ten === 'generate_lead');
+  const cau = await ev(`(document.getElementById('booking-trang-thai') || {}).textContent || ''`);
+  bao('Gui lai y het don da xac nhan (24 gio, tab khac) -> KHONG goi webhook, KHONG lead, bao da gui',
+    soAppsScript === truoc && !coLead && /đã gửi lúc/.test(cau), 'webhook +' + (soAppsScript - truoc) + ' | ' + cau);
+}
+await moTrang('/');
+await xoaGhi();
+{
+  const truoc = soAppsScript;
+  await thuGuiForm({ ...GIA_HOP_LE, book_time: '20:00' }, true);
+  await sleep(2500);
+  const coLead = (await docEvent()).some((x) => x.ten === 'generate_lead');
+  const gd = await giaoDien();
+  bao('Doi gio cung SDT + ngay -> van gui don cho quan, KHONG tinh them lead',
+    soAppsScript > truoc && !coLead && gd.daGui, 'webhook +' + (soAppsScript - truoc) + ' ' + JSON.stringify(gd));
 }
 
 for (const [che, nhan] of [['loi_mang', 'Loi mang'], ['server_loi', 'Webhook tra {"status":"error"}']]) {
