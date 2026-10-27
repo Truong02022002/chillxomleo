@@ -8153,6 +8153,12 @@ article.blog-item:lang(th) .p-6 > div:first-child > span:last-child::before { co
 .sao-bai [hidden] {
   display: none !important;
 }
+/* Trang khong phai bai (menu, about, duong di, blog, chinh sach): khoi nam thang cuoi <main>,
+   ngoai moi container co dem le — tu chua le de tren dien thoai the khong dinh sat mep man hinh. */
+main > .sao-bai {
+  width: calc(100% - 2rem);
+  margin: 3rem auto;
+}
 .sao-bai p {
   margin: 0;
 }

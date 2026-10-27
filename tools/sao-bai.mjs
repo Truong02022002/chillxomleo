@@ -1,9 +1,10 @@
-// Sao danh gia bai viet (27-10-2026): khoi bam sao cuoi moi bai + diem ban doc + schema sao.
+// Sao danh gia (27-10-2026): khoi bam sao cuoi moi trang trong sitemap (tru trang chu) + diem ban doc
+// + schema sao. Bai viet hoi "Bai viet nay co ich...", trang khac hoi "Trang nay co ich...".
 //
-// Chay:  node tools/sao-bai.mjs            kiem: moi bai co dung MOT khoi sao, so tren trang va schema
+// Chay:  node tools/sao-bai.mjs            kiem: moi trang co dung MOT khoi sao, so tren trang va schema
 //                                          khop tools/sao/diem.json (thoat 1 neu lech)
 //        node tools/sao-bai.mjs --keo      keo tong phieu tu Apps Script (tools/sao/Code.gs) ve diem.json
-//        node tools/sao-bai.mjs --write    chen khoi con thieu (ban Viet/Anh), ghi so + schema vao moi bai
+//        node tools/sao-bai.mjs --write    chen khoi con thieu (ban Viet/Anh), ghi so + schema vao moi trang
 //
 // Vi sao co: chu site muon sao vang tren ket qua Google nhu cac trang dich vu SEO (plugin kieu kk Star
 // Ratings). Diem o day la phieu THAT cua ban doc tren chinh bai do — khong lay diem Google Maps, khong
@@ -30,7 +31,6 @@ import { CHU, khoiSao } from './sao/khoi.mjs';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const F_DIEM = path.join(ROOT, 'tools', 'sao', 'diem.json');
 const NGUONG = 5;
-const BO_QUA = new Set(['.git', '.github', '.claude', 'skills', 'tools', 'hang-doi', 'img', 'css', 'js', 'fonts', 'uploads', 'node_modules']);
 // Dau thap phan theo thu tieng. Trang dich nhan "4,7" cua ban Viet qua dung.mjs; --write sua lai.
 const PHAY = new Set(['vi', 'ru']);
 
@@ -102,29 +102,30 @@ if (KEO) {
   }
 }
 
-// ---------- trang bai ----------
+// ---------- trang nhan khoi ----------
 
-function dsTrangBai() {
+// Moi URL trong sitemap.xml (trang canonical duoc index, du 7 thu tieng) TRU trang chu — chu site
+// chot 27-10-2026 "hien thi tren tat ca cac trang". Trang chu da khai sao Google Maps o node #danh-gia
+// (b3b137d0): them diem ban doc thi mot trang hai diem lech nhau, va buoc go schema ben duoi se xoa
+// mat node do vi trung @id.
+const LA_TRANG_CHU = /^\/((zh|ko|ja|ru|th|en)\/)?$/;
+function dsTrang() {
   const ds = [];
-  const di = (thuMuc, sau) => {
-    for (const e of fs.readdirSync(thuMuc, { withFileTypes: true })) {
-      if (!e.isDirectory() || BO_QUA.has(e.name) || e.name.startsWith('.')) continue;
-      const p = path.join(thuMuc, e.name);
-      const f = path.join(p, 'index.html');
-      if (fs.existsSync(f)) {
-        const html = fs.readFileSync(f, 'utf8');
-        const laBai = [...html.matchAll(RE_LD)].some((m) => nutLd(m[1]).some((n) => laLoai(n, 'Article')));
-        if (laBai && !/http-equiv="refresh"/i.test(html)) ds.push({ f, rel: path.relative(ROOT, f).split(path.sep).join('/'), html });
-      }
-      if (sau) di(p, false); // trang dich: /zh/<slug>/
-    }
-  };
-  di(ROOT, true);
+  for (const m of fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8').matchAll(/<loc>https:\/\/xomleo\.vn([^<]*)<\/loc>/g)) {
+    let p;
+    try { p = decodeURI(m[1]); } catch { p = m[1]; }
+    if (LA_TRANG_CHU.test(p)) continue;
+    const f = path.join(ROOT, p.slice(1), 'index.html');
+    if (!fs.existsSync(f)) { loi.push(`sitemap co ${p} nhung khong co file`); continue; }
+    const html = fs.readFileSync(f, 'utf8');
+    const laBai = [...html.matchAll(RE_LD)].some((x) => nutLd(x[1]).some((n) => laLoai(n, 'Article')));
+    ds.push({ f, rel: path.relative(ROOT, f).split(path.sep).join('/'), html, laBai });
+  }
   return ds;
 }
 
 // Tra ve html moi, hoac { thieu } neu trang dich chua co khoi (cho dung.mjs).
-function apDung(html, rel, diem) {
+function apDung(html, rel, diem, laBai) {
   const lang = ((html.match(/<html\b[^>]*\blang="([^"]+)"/) || [])[1] || '').slice(0, 2);
   const links = html.match(/<link\b[^>]*>/gi) || [];
   const canonical = links.map((t) => (thuocTinh(t, 'rel') === 'canonical' ? thuocTinh(t, 'href') : null)).find(Boolean);
@@ -140,17 +141,21 @@ function apDung(html, rel, diem) {
   if (so > 1) { loi.push(`${rel}: co ${so} khoi sao`); return html; }
   if (!so) {
     if (!CHU[lang]) return { thieu: true };
-    // Truoc khoi "Nguon tham khao" (cuoi than bai); bai khong co thi truoc "Bai viet lien quan",
-    // khong nua thi ngay truoc </article>.
-    const asides = [...html.matchAll(/<aside\b[^>]*aria-label="([^"]*)"/g)];
-    const neo = asides.find((m) => /^(Nguồn tham khảo|References|Sources)/i.test(m[1]))
-      || asides.find((m) => /^(Bài viết liên quan|Related)/i.test(m[1]));
-    let viTri = neo ? neo.index : html.lastIndexOf('</article>');
+    // Bai: truoc khoi "Nguon tham khao" (cuoi than bai); bai khong co thi truoc "Bai viet lien quan",
+    // khong nua thi ngay truoc </article>. Trang khac (menu, about, duong di, blog, chinh sach): cuoi
+    // <main> — KHONG dung </article> vi /blog/ co 40 the article.blog-item.
+    let viTri;
+    if (laBai) {
+      const asides = [...html.matchAll(/<aside\b[^>]*aria-label="([^"]*)"/g)];
+      const neo = asides.find((m) => /^(Nguồn tham khảo|References|Sources)/i.test(m[1]))
+        || asides.find((m) => /^(Bài viết liên quan|Related)/i.test(m[1]));
+      viTri = neo ? neo.index : html.lastIndexOf('</article>');
+    } else viTri = html.lastIndexOf('</main>');
     if (viTri < 0) { loi.push(`${rel}: khong tim duoc cho chen khoi sao`); return html; }
     // Chen o dau dong (truoc khoang thut le) de the phia sau giu nguyen thut le.
     const dauDong = html.lastIndexOf('\n', viTri - 1) + 1;
     if (/^[ \t]*$/.test(html.slice(dauDong, viTri))) viTri = dauDong;
-    html = html.slice(0, viTri) + khoiSao(lang, key).replace(/\n/g, nl) + nl + html.slice(viTri);
+    html = html.slice(0, viTri) + khoiSao(lang, key, laBai).replace(/\n/g, nl) + nl + html.slice(viTri);
   }
 
   const tb = du ? v.tb.toFixed(1) : '';
@@ -160,21 +165,29 @@ function apDung(html, rel, diem) {
     .replace(/(<span translate="no" data-sao-diem>)[^<]*(<\/span>)/, `$1${PHAY.has(lang) ? tb.replace('.', ',') : tb}$2`)
     .replace(/(<span translate="no" data-sao-luot>)[^<]*(<\/span>)/, `$1${du ? v.n : ''}$2`);
 
-  // Schema: go khoi #danh-gia cu (neu co), du phieu thi chen lai ngay sau khoi Article.
+  // Schema: go khoi #danh-gia cu (neu co), du phieu thi chen lai ngay sau khoi Article — trang khong
+  // phai bai thi sau khoi mang node cua chinh trang (WebPage/CollectionPage), khong co nua thi khoi dau.
   html = html.replace(/(\r?\n)?<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (m, _, json) =>
     (nutLd(json).some((n) => laLoai(n, 'CreativeWorkSeries') && /#danh-gia$/.test(n['@id'] || '')) ? '' : m));
   if (du) {
-    const khoiArticle = [...html.matchAll(RE_LD)].find((m) => nutLd(m[1]).some((n) => laLoai(n, 'Article')));
-    const headline = nutLd(khoiArticle[1]).find((n) => laLoai(n, 'Article')).headline;
+    const khoiLd = [...html.matchAll(RE_LD)];
+    const laNutTrang = (n) => (n['@id'] === canonical || n.url === canonical) && typeof n.name === 'string';
+    const kArticle = khoiLd.find((m) => nutLd(m[1]).some((n) => laLoai(n, 'Article')));
+    const kTrang = khoiLd.find((m) => nutLd(m[1]).some(laNutTrang));
+    const khoi = kArticle || kTrang || khoiLd[0];
+    const ten = kArticle ? nutLd(kArticle[1]).find((n) => laLoai(n, 'Article')).headline
+      : kTrang ? nutLd(kTrang[1]).find(laNutTrang).name
+        : (html.match(/<title>([^<]*)<\/title>/) || [])[1];
+    if (!khoi || !ten) { loi.push(`${rel}: khong co JSON-LD / ten trang de khai schema sao`); return html; }
     const ld = {
       '@context': 'https://schema.org',
       '@type': 'CreativeWorkSeries',
       '@id': `${canonical}#danh-gia`,
-      name: headline,
+      name: ten,
       url: canonical,
       aggregateRating: { '@type': 'AggregateRating', ratingValue: tb, bestRating: '5', worstRating: '1', ratingCount: String(v.n) },
     };
-    const cuoi = khoiArticle.index + khoiArticle[0].length;
+    const cuoi = khoi.index + khoi[0].length;
     html = html.slice(0, cuoi) + nl + `<script type="application/ld+json">\n${JSON.stringify(ld, null, 2)}\n</script>`.replace(/\n/g, nl) + html.slice(cuoi);
   }
   return html;
@@ -188,12 +201,12 @@ const diem = docDiem();
     || (diem.nguon && !/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(diem.nguon) ? `"nguon" phai la URL web app dang https://script.google.com/macros/s/…/exec` : null);
   if (sai) { console.error(`tools/sao/diem.json khong hop le: ${sai}`); process.exit(1); }
 }
-const bai = dsTrangBai();
+const bai = dsTrang();
 const keyBai = new Set();
 let chen = 0, sua = 0, thieu = 0;
 for (const t of bai) {
   const coKhoi = t.html.includes('<section class="sao-bai"');
-  const moi = apDung(t.html, t.rel, diem);
+  const moi = apDung(t.html, t.rel, diem, t.laBai);
   if (typeof moi === 'object') { thieu++; canhBao.push(`${t.rel}: trang dich chua co khoi sao — chay tools/dich/dung.mjs`); continue; }
   const m = moi.match(/<section class="sao-bai" data-sao="([^"]+)"/);
   if (m) keyBai.add(m[1]);
@@ -202,10 +215,10 @@ for (const t of bai) {
   if (GHI) fs.writeFileSync(t.f, moi);
   else loi.push(`${t.rel}: ${coKhoi ? 'so / schema sao lech tools/sao/diem.json' : 'chua co khoi sao'}`);
 }
-for (const k of Object.keys(diem.trang)) if (!keyBai.has(k)) canhBao.push(`diem.json co ${k} nhung khong bai nao mang data-sao do`);
+for (const k of Object.keys(diem.trang)) if (!keyBai.has(k)) canhBao.push(`diem.json co ${k} nhung khong trang nao mang data-sao do`);
 
 const du = Object.values(diem.trang).filter((v) => v.n >= NGUONG).length;
-console.log(`${bai.length} trang bai, ${Object.keys(diem.trang).length} bai co phieu, ${du} bai du ${NGUONG} phieu (hien diem + schema).`);
+console.log(`${bai.length} trang (${bai.filter((t) => t.laBai).length} trang bai), ${Object.keys(diem.trang).length} trang co phieu, ${du} trang du ${NGUONG} phieu (hien diem + schema).`);
 if (GHI) console.log(`Da chen ${chen} khoi, sua ${sua} trang.`);
 canhBao.forEach((x) => console.log('CANH_BAO ' + x));
 loi.forEach((x) => console.log('LOI ' + x));

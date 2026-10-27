@@ -36,7 +36,8 @@ jobs:
         run: node tools/kiem-schema.mjs
 
       - name: Kiem khoi sao danh gia bai viet
-        # Moi bai co dung mot khoi bam sao; diem, so luot va schema sao khop tools/sao/diem.json.
+        # Moi trang trong sitemap (tru trang chu) co dung mot khoi bam sao; diem, so luot va schema
+        # sao khop tools/sao/diem.json.
         # KHONG nghe tools/sao/diem.json: doi file do thi sao-bai.yml ghi lai trang; kiem o day cung
         # luc se do oan vi trang chua kip ghi.
         if: always()

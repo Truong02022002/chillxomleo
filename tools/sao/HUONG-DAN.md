@@ -1,8 +1,12 @@
 # Sao đánh giá bài viết xomleo.vn
 
-Cuối mỗi bài cẩm nang có 5 ngôi sao để bạn đọc chấm "Bài viết này có ích cho bạn không?". Khi một bài có
-**từ 5 phiếu thật** trở lên, trang bài hiện "Điểm bạn đọc: 4,7/5 · Lượt chấm: 12" và khai dữ liệu có cấu
-trúc để Google có thể hiện sao vàng dưới kết quả tìm kiếm, giống các trang dịch vụ SEO.
+Cuối mỗi trang (bài cẩm nang, menu, giới thiệu, đường đi, blog, chính sách — **trừ trang chủ**) có 5 ngôi
+sao để bạn đọc chấm "Bài viết này / Trang này có ích cho bạn không?". Khi một trang có **từ 5 phiếu thật**
+trở lên, trang hiện "Điểm bạn đọc: 4,7/5 · Lượt chấm: 12" và khai dữ liệu có cấu trúc để Google có thể hiện
+sao vàng dưới kết quả tìm kiếm, giống các trang dịch vụ SEO.
+
+Trang chủ không có nút chấm vì đã khai sao Google Maps (4,8 · 1.978 đánh giá); thêm điểm bạn đọc thì một
+trang có hai điểm khác nhau.
 
 ```
 bạn đọc bấm sao  -->  Apps Script (tài khoản Google của quán)  -->  Google Sheet "Sao bài viết xomleo.vn"
@@ -52,8 +56,8 @@ Cài một lần, khoảng 10 phút, làm trên máy tính. Trước khi cài, n
    `"nguon": "https://script.google.com/macros/s/AKfy…/exec",`
 3. Bấm **Commit changes**.
 
-GitHub tự chạy workflow **Sao danh gia bai viet** (tab Actions): ghi URL vào cả 280 trang bài rồi đẩy lên
-web. Vài phút sau, mở một bài bất kỳ, kéo xuống cuối là thấy 5 ngôi sao.
+GitHub tự chạy workflow **Sao danh gia bai viet** (tab Actions): ghi URL vào cả 322 trang rồi đẩy lên
+web. Vài phút sau, mở một trang bất kỳ (trừ trang chủ), kéo xuống cuối là thấy 5 ngôi sao.
 
 Nếu workflow báo đỏ ở bước "Keo phieu": URL sai hoặc bước 3 chưa chọn "Bất kỳ ai". Sửa lại `diem.json`.
 
