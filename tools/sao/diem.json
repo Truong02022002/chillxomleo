@@ -1,5 +1,30 @@
 {
   "nguon": "https://script.google.com/macros/s/AKfycbz5aHAgYHNyt0vaAYQ0jLpq0Zue9deVcm2iY2c7Ew7O6gjkDqUdfel3Vf00u3PTKgS-Ig/exec",
-  "capNhat": "2026-10-27",
-  "trang": {}
+  "capNhat": "2026-10-28",
+  "trang": {
+    "/about/": {
+      "n": 1,
+      "tb": 5
+    },
+    "/blog/": {
+      "n": 1,
+      "tb": 5
+    },
+    "/chi-phi-an-uong-o-da-lat/": {
+      "n": 1,
+      "tb": 5
+    },
+    "/menu/": {
+      "n": 1,
+      "tb": 5
+    },
+    "/quan-an-da-lat-mo-cua-tet/": {
+      "n": 1,
+      "tb": 5
+    },
+    "/thuc-don-nhau-da-lat/": {
+      "n": 1,
+      "tb": 5
+    }
+  }
 }
