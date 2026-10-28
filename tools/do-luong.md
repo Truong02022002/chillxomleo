@@ -66,6 +66,7 @@ quyền `return` ngay sau lần khớp đầu tiên.
 | `click_booking_cta` | bấm nút trỏ tới `#booking` | không có | **Không** — ý định |
 | `generate_lead` | webhook Apps Script **trả lời xác nhận** đã nhận đơn đặt bàn; cùng SĐT + ngày đặt chỉ tính **một lần trong 24 giờ** trên cùng trình duyệt (26-10-2026, mục 6) | `form_id`, `lead_type`, `guests` (số), `occasion` | **Có — Key Event duy nhất** |
 | `save_ticket` | bấm "Lưu vé tàu" trong thông báo đặt bàn thành công (từ 05-10-2026, `js/ve-tau.js`) | `method`: `share` (điện thoại, bảng chia sẻ) \| `download` (tải PNG); bấm rồi huỷ chia sẻ thì không bắn | **Không** — đo xem khách có mang vé đi khoe không |
+| `rate_page` | Apps Script **xác nhận** đã nhận phiếu chấm sao ở khối "Bài viết / Trang này có ích…" cuối 322 trang (từ 28-10-2026, `tools/sao/`); mỗi máy một lần mỗi bài vì phiếu nhớ trong localStorage và nút khoá lại; phiếu bị từ chối hay mất mạng thì không bắn | `rating` (số 1–5) | **Không** — cho biết khách dừng ở bài vì đã tìm được thông tin (4–5) hay chưa (1–2), xem mục 8 |
 
 **Vì sao chỉ một Key Event** (mục 280-281). Bấm số điện thoại chưa có nghĩa là cuộc gọi
 kết nối, mở Zalo chưa có nghĩa là có hội thoại, bấm chỉ đường chưa có nghĩa là khách tới.
@@ -195,7 +196,7 @@ Cloudflare, cache SW). Có thêm form gửi kiểu truyền thống thì phải 
 
 ## 7. Kiểm lại trước khi publish
 
-    node tools/kiem-do-luong.mjs        # 36 phép thử, Chrome headless
+    node tools/kiem-do-luong.mjs        # 40 phép thử, Chrome headless
     node tools/kiem-do-luong.mjs --giu  # giữ Chrome lại để tự xem
 
 Phép thử chặn mọi request tới Google ở tầng CDP và trả 200 giả cho endpoint Apps Script
@@ -234,8 +235,9 @@ nào:
   theo tuần giảm hơn 50% so với tuần trước, và `generate_lead` có biến động bất thường.
   Bộ giám sát hằng tuần ở mục 7 chỉ biết hệ thống còn chạy, không biết số liệu có sụt không.
 - Đăng ký Custom Definitions cho `page_type`, `intent_stage`, `page_language`,
-  `cta_position`, `chat_channel`, `occasion` — chưa đăng ký thì báo cáo không lọc được
-  theo các tham số này.
+  `cta_position`, `chat_channel`, `occasion`, `rating` — chưa đăng ký thì báo cáo không lọc
+  được theo các tham số này. `rating` đăng ký dạng chiều (dimension) phạm vi sự kiện để lọc
+  được "4–5 sao" / "1–2 sao" trong Path exploration.
 - Tạo sẵn một exploration **Phễu DLN** (*Khám phá → Phễu*, bật "phễu mở"): bước 1 đến 5 là
   `page_view` với Content group lần lượt `1-orient` … `5-act`, bước cuối `generate_lead`. Đây
   là chỗ duy nhất thấy được khách đi qua các bậc nào trước khi đặt bàn (lý do ở mục 4).
@@ -253,6 +255,8 @@ nào:
   | `click_call`, `chat_open` | khách gọi / nhắn Zalo, Messenger | gần như chuyển đổi, chỉ không xác nhận được — đối soát với sổ đặt bàn (mục 11), đừng coi là điểm rơi |
   | `click_directions` | mở Google Maps — thường là đang tới quán | ý định cao, không sửa |
   | `/menu/`, `/duong-di/` không kèm sự kiện | khách ở bậc R/A, có thể gọi bằng máy khác hay nhớ địa chỉ | chỉ xem lại nếu thời gian tương tác thấp bất thường |
+  | `rate_page` với `rating` 4–5 | khách đọc hết bài và thấy có ích — ở bậc O/C đó là hoàn thành mục tiêu của bài | không phải điểm rơi; nếu nhiều bài như vậy mà ít ai sang bậc kế thì xem lại khối "Gợi ý thêm từ quán", đừng sửa nội dung |
+  | `rate_page` với `rating` 1–2 | khách đọc tới cuối mà chưa tìm được thứ cần | sửa **nội dung** bài (thông tin sai, cũ, thiếu) — đổi nút hay màu CTA không chữa được |
   | bài bậc O/C, không sự kiện, không sang trang nào | điểm rơi thật nếu bài không trả lời câu hỏi hoặc thiếu bước tiếp theo | kiểm bài còn link sang bậc kế (`audit-links`, khối "Gợi ý thêm từ quán") trước khi đổi giao diện |
 
   Nhớ giới hạn ở mục 6: phiên ngắn dưới 5–8 giây không vào GA4, nên Path exploration thiếu
@@ -412,3 +416,4 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 22-09-2026 | Thêm `content_group` = bậc DLN của trang (`<html data-dln>`, mục 4) vào lệnh `config`; 89 trang được gán bậc; `kiem-do-luong.mjs` thêm 4 phép thử, `audit-links.mjs` chặn trang thiếu bậc; lịch đăng bài bắt buộc trường `bac`. |
 | 05-10-2026 | Tách quảng cáo trên AI khỏi trích dẫn AI: `oppref` → `ChatGPT Ads`; `utm_source` của trợ lý AI đi kèm medium trả phí hoặc mã click thì không còn ghi `AI: …`; UTM của chiến dịch trước bị xoá khi có nguồn mới; thêm dòng quảng cáo ChatGPT vào bảng link (mục 11); `kiem-do-luong.mjs` thêm 3 phép thử. |
 | 26-10-2026 | Chống trùng đơn theo vân tay 24 giờ (mục 6): gửi lại y hệt đơn đã xác nhận thì không gửi, đổi giờ/số khách thì gửi nhưng không tính thêm lead; `kiem-do-luong.mjs` thêm 3 phép thử (33 → 36). Thêm cách đọc Path exploration và lý do chưa làm trang cảm ơn (mục 8). |
+| 28-10-2026 | Thêm `rate_page` (mục 3): khối chấm sao gửi `rating` 1–5 vào GA4 khi Apps Script xác nhận phiếu, mỗi máy một lần mỗi bài; Path exploration (mục 8) phân biệt được bài dừng vì đã có ích với bài dừng vì chưa trả lời được. `kiem-do-luong.mjs` thêm 4 phép thử (36 → 40). |

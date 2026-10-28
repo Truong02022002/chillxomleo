@@ -1665,6 +1665,10 @@ document.addEventListener('DOMContentLoaded', () => {
         ds[trang] = n;
         ghiSao(ds);
         daCham(n);
+        // Chi ban khi Apps Script xac nhan, va moi may chi mot lan moi bai (phieu nho trong
+        // localStorage, nut khoa lai) — giong generate_lead. Tin hieu "khach da tim duoc thong tin"
+        // de doc diem dung trong Path exploration (do-luong.md muc 3, 8). KHONG phai Key Event.
+        XL_DO.gui('rate_page', { rating: n });
       });
     });
   }

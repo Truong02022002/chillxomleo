@@ -141,6 +141,8 @@ ws.addEventListener('message', async (e) => {
       soAppsScript++;
       const post = request.method === 'POST';
       if (appsScript === 'loi_mang') await goi('Fetch.failRequest', { requestId, errorReason: 'Failed' });
+      // Phieu cham sao (tools/sao/Code.gs) tra {"status":"ok"}, khac webhook dat ban.
+      else if (post && /(^|&)sao=/.test(request.postData || '')) await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: CORS, body: b64(appsScript === 'server_loi' ? '{"status":"error","loi":"ban"}' : '{"status":"ok"}') });
       else if (!post) await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: CORS, body: b64('{"status":"ok"}') });
       else if (appsScript === 'khong_doc') await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: [{ name: 'Content-Type', value: 'text/html' }], body: b64('<html>ok</html>') });
       else await goi('Fetch.fulfillRequest', { requestId, responseCode: 200, responseHeaders: CORS, body: b64(appsScript === 'server_loi' ? '{"status":"error","message":"sheet"}' : '{"status":"success"}') });
@@ -383,6 +385,38 @@ for (const [duong, mongDoi] of [['/', '5-act'], ['/en/', '5-act'], ['/menu/', '4
   const cg = cfg.length === 1 ? (cfg[0][2] || {}).content_group : undefined;
   bao(duong + ' -> config gui content_group=' + mongDoi, cfg.length === 1 && cg === mongDoi, 'config: ' + JSON.stringify(cfg));
 }
+
+console.log('\n=== CHAM SAO -> rate_page ===');
+// rate_page chi ban khi Apps Script xac nhan phieu, moi may mot lan moi bai (do-luong.md muc 3).
+const bamSao = async (n) => {
+  await xoaGhi();
+  const co = await ev(`(function(){ var b = document.querySelector('.sao-bai-nut button[value="${n}"]'); if(!b) return 'KHONG-CO-NUT'; if(b.disabled) return 'NUT-KHOA'; b.click(); return 'ok'; })()`);
+  await sleep(1500);
+  return { co, e: await docEvent() };
+};
+await moTrang('/thien-vien-truc-lam/');
+appsScript = 'server_loi';
+{
+  const { co, e } = await bamSao(4);
+  const loiHien = await ev(`!document.querySelector('[data-sao-loi]').hidden`);
+  bao('Phieu sao bi tu choi -> khong ban event, bao loi, mo lai nut', co === 'ok' && e.length === 0 && loiHien, co + ' | ' + JSON.stringify(e.map((x) => x.ten)));
+}
+appsScript = 'ok';
+{
+  const { co, e } = await bamSao(5);
+  const t = e[0] && e[0].tham;
+  const khoaThua = t ? Object.keys(t).filter((k) => !['page_type', 'intent_stage', 'page_language', 'rating'].includes(k)) : [];
+  bao('Phieu sao duoc xac nhan -> 1 rate_page, rating=5 (so), chi tham so ngu canh',
+    co === 'ok' && e.length === 1 && e[0].ten === 'rate_page' && t.rating === 5 && t.page_type === 'blog_post' && t.page_language === 'vi' && khoaThua.length === 0,
+    co + ' | ' + JSON.stringify(e));
+}
+await moTrang('/thien-vien-truc-lam/');
+{
+  const { co, e } = await bamSao(3);
+  bao('Mo lai bai da cham -> nut khoa, khong ban lan hai', co === 'NUT-KHOA' && e.length === 0, co + ' | ' + JSON.stringify(e.map((x) => x.ten)));
+}
+await moTrang('/en/');
+bao('Trang chu khong co khoi cham sao', await ev(`!document.querySelector('.sao-bai')`));
 
 console.log('\n=== MANG ===');
 console.log('  request toi Google bi chan: ' + soChan + ' | request Apps Script bi giu lai: ' + soAppsScript);
