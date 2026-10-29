@@ -7,6 +7,8 @@
 // lan hom do — luu thanh anh hoac chia se thang vao Zalo tren dien thoai. Ve tren may khach
 // (canvas), KHONG gui di dau; khong in so dien thoai. Khong co ma dat cho: don chua duoc xac nhan,
 // nen ve dong dau "Da gui · cho goi xac nhan" de khong ai tuong da chac cho.
+// Tieu de "Yeu cau dat ban" (29-10-2026): truoc la "Ve dat ban" — chu to nhat tren phieu, khach doc
+// thanh "da co ve, da dat xong" ma bo qua con dau nho o goc.
 window.XL_VE = (function () {
   const W = 1080, H = 1350;
   const SERIF = '"Playfair Display", "Playfair Fallback G", Georgia, serif';
@@ -48,7 +50,7 @@ window.XL_VE = (function () {
     const en = !!o.en;
     try {
       await Promise.all([
-        document.fonts.load('600 92px "Playfair Display"', 'Vé đặt bàn Table Ticket 0123456789/:'),
+        document.fonts.load('600 92px "Playfair Display"', 'Yêu cầu đặt bàn Booking Request 0123456789/:'),
         document.fonts.load('700 24px Signika', 'ĐÀ LẠT GA XÓM LÈO'),
         document.fonts.load('600 52px Signika', o.ten || 'a'),
       ]);
@@ -91,8 +93,10 @@ window.XL_VE = (function () {
     TAU.forEach((p) => x.stroke(new Path2D(p)));
     [6, 11.2, 16.4].forEach((cx) => { x.beginPath(); x.arc(cx, 18.1, 1.8, 0, Math.PI * 2); x.stroke(); });
     x.restore();
-    x.fillStyle = MAU.muc; x.font = '600 92px ' + SERIF; x.textAlign = 'center';
-    x.fillText(en ? t('Table Ticket') : 'Vé đặt bàn', W / 2, 424);
+    // Ban dich dai hon (vd tieng Nga) thi nho chu dan cho vua trong khung ve
+    const tieuDe = vua(x, en ? t('Booking Request') : 'Yêu cầu đặt bàn', '600 {c}px ' + SERIF, 92, 780, 60);
+    x.fillStyle = MAU.muc; x.textAlign = 'center';
+    x.fillText(tieuDe, W / 2, 424);
     x.fillStyle = MAU.nau; x.font = '400 30px ' + SANS;
     x.fillText(en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', W / 2, 476);
     // Vach trang tri: hai vach + mat thoi
@@ -151,11 +155,11 @@ window.XL_VE = (function () {
   async function luu(c, en) {
     const blob = await new Promise((r) => c.toBlob(r, 'image/png'));
     if (!blob) return 'cancel';
-    const tenTep = en ? t('xom-leo-table-ticket.png') : 've-dat-ban-xom-leo.png';
+    const tenTep = en ? t('xom-leo-booking-request.png') : 'yeu-cau-dat-ban-xom-leo.png';
     if (window.matchMedia('(pointer: coarse)').matches && navigator.canShare && typeof File === 'function') {
       const tep = new File([blob], tenTep, { type: 'image/png' });
       if (navigator.canShare({ files: [tep] })) {
-        try { await navigator.share({ files: [tep], title: en ? t('My Xom Leo table ticket') : 'Vé đặt bàn Xóm Lèo' }); return 'share'; }
+        try { await navigator.share({ files: [tep], title: en ? t('My Xom Leo booking request') : 'Yêu cầu đặt bàn Xóm Lèo' }); return 'share'; }
         catch (e) { if (e && e.name === 'AbortError') return 'cancel'; }
       }
     }

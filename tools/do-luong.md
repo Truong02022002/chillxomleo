@@ -65,7 +65,7 @@ quyền `return` ngay sau lần khớp đầu tiên.
 | `click_directions` | bấm link Google Maps (`google.*/maps`, `goo.gl/maps`, `maps.app.goo.gl`) | `map_target: 'google_maps'` | **Không** — ý định |
 | `click_booking_cta` | bấm nút trỏ tới `#booking` | không có | **Không** — ý định |
 | `generate_lead` | webhook Apps Script **trả lời xác nhận** đã nhận đơn đặt bàn; cùng SĐT + ngày đặt chỉ tính **một lần trong 24 giờ** trên cùng trình duyệt (26-10-2026, mục 6) | `form_id`, `lead_type`, `guests` (số), `occasion` | **Có — Key Event duy nhất** |
-| `save_ticket` | bấm "Lưu vé tàu" trong thông báo đặt bàn thành công (từ 05-10-2026, `js/ve-tau.js`) | `method`: `share` (điện thoại, bảng chia sẻ) \| `download` (tải PNG); bấm rồi huỷ chia sẻ thì không bắn | **Không** — đo xem khách có mang vé đi khoe không |
+| `save_ticket` | bấm "Lưu phiếu" (phiếu "Yêu cầu đặt bàn"; trước 29-10-2026 là "Lưu vé tàu" / "Vé đặt bàn") trong thông báo đặt bàn thành công (từ 05-10-2026, `js/ve-tau.js`) — giữ tên event cũ để số liệu GA4 liền mạch | `method`: `share` (điện thoại, bảng chia sẻ) \| `download` (tải PNG); bấm rồi huỷ chia sẻ thì không bắn | **Không** — đo xem khách có mang vé đi khoe không |
 | `rate_page` | Apps Script **xác nhận** đã nhận phiếu chấm sao ở khối "Bài viết / Trang này có ích…" cuối 322 trang (từ 28-10-2026, `tools/sao/`); mỗi máy một lần mỗi bài vì phiếu nhớ trong localStorage và nút khoá lại; phiếu bị từ chối hay mất mạng thì không bắn | `rating` (số 1–5) | **Không** — cho biết khách dừng ở bài vì đã tìm được thông tin (4–5) hay chưa (1–2), xem mục 8 |
 
 **Vì sao chỉ một Key Event** (mục 280-281). Bấm số điện thoại chưa có nghĩa là cuộc gọi
@@ -192,11 +192,17 @@ Cloudflare, cache SW). Có thêm form gửi kiểu truyền thống thì phải 
   Đơn rơi vào nhánh "không đọc được trả lời" **không** được ghi vân tay — đơn đó có thể chưa
   tới, chặn gửi lại là mất đơn. Giới hạn: chỉ chống trùng trên cùng trình duyệt; khách gửi từ
   hai máy vẫn ra hai dòng trong sheet (lọc theo SĐT + ngày ở Apps Script nếu cần).
+- **Dòng "đã gửi" còn lại dưới nút (29-10-2026).** Thông báo "Đã gửi" đóng (bấm X, Esc, hoặc
+  tự tắt sau 8 giây khi vé tàu không tải được) thì form reset, nhưng dưới nút còn dòng
+  `#booking-trang-thai.o-xong` "Đơn này đã gửi lúc HH:MM…" (cùng câu với dòng 1 bảng trên, màu
+  nhãn + dấu tích, không phải kiểu lỗi). Trước đó đóng xong là không còn dấu vết: khách quay lại,
+  hoặc agent AI đặt bàn hộ chụp màn hình chậm hơn 8 giây, thấy form trống và tưởng chưa gửi được.
+  Không bắn event nào.
 - **Số liệu chia cho hai property** chừng nào connected tag ở mục 2 còn đó.
 
 ## 7. Kiểm lại trước khi publish
 
-    node tools/kiem-do-luong.mjs        # 40 phép thử, Chrome headless
+    node tools/kiem-do-luong.mjs        # 41 phép thử, Chrome headless
     node tools/kiem-do-luong.mjs --giu  # giữ Chrome lại để tự xem
 
 Phép thử chặn mọi request tới Google ở tầng CDP và trả 200 giả cho endpoint Apps Script

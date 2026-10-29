@@ -3786,6 +3786,17 @@ button.bg-primary:active {
   justify-content: center;
   text-align: center;
 }
+/* Don da di (29-10-2026): "Don nay da gui luc HH:MM…" — sau khi thong bao "Da gui" dong, hoac gui
+   lai don y het. Khong phai loi nen khong mau do tem: mau nhan + dau tich. Icon dung mask theo
+   currentColor nen tu doi mau theo token, khong can ban rieng cho nen toi nhu .o-loi::before. */
+#booking-trang-thai.o-xong {
+  color: var(--primary);
+}
+#booking-trang-thai.o-xong::before {
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M7.8 12.4l2.9 2.9 5.5-5.9'/%3E%3C/svg%3E") center / contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='9.5'/%3E%3Cpath d='M7.8 12.4l2.9 2.9 5.5-5.9'/%3E%3C/svg%3E") center / contain no-repeat;
+}
 
 /* Nut gui dang cho: vong quay + "Dang gui…" (truoc: chu "DANG XU LY..." dung yen). */
 #zaloBookingForm button[aria-busy="true"] {

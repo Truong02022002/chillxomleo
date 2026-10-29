@@ -821,7 +821,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Dong trang thai chung duoi nut gui (cho cho "doi 30 giay" truoc day la alert()).
     const submitBtn0 = zaloForm.querySelector('button[type="submit"]');
     let trangThai = null;
-    const baoTrangThai = (cau) => {
+    // xong = bao don DA DI (dau tich, khong mau do); mac dinh la cau can khach sua/doi.
+    const baoTrangThai = (cau, xong = false) => {
       // Chi tao khi co cau can bao: mot vung role="status" rong cung bi tools/kiem-do-luong.mjs
       // (va trinh doc man hinh) coi la "co thong bao".
       if (!trangThai && !cau) return;
@@ -833,8 +834,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (submitBtn0) submitBtn0.insertAdjacentElement('afterend', trangThai);
         else zaloForm.appendChild(trangThai);
       }
+      trangThai.classList.toggle('o-xong', xong);
       trangThai.textContent = cau;
     };
+    // Dung chung cho don y het da gui (chong trung don) va cho dong con lai sau khi thong bao
+    // "Da gui" dong: cung mot cau da dich san trong js/ngon-ngu.js.
+    const baoDaGui = (luc, isEnglish) => baoTrangThai(isEnglish
+      ? dichJs('This booking was already sent at {0} — the restaurant will call to confirm. To change it, call +84 76 452 7336.', luc)
+      : `Đơn này đã gửi lúc ${luc} — quán sẽ gọi xác nhận. Muốn đổi thông tin thì gọi 076 452 7336.`, true);
+    const gioGui = (ms, isEnglish) => new Date(ms).toLocaleTimeString(isEnglish ? 'en-GB' : 'vi-VN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' });
 
     // Chặn chọn ngày quá khứ ở native date picker
     const dateInput = document.getElementById('book_date');
@@ -978,10 +986,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const khoaLead = 'l:' + await vanTayDon([soSach, ngayDat].join('|'));
       const donDaGui = docDonDaGui();
       if (donDaGui[khoaDon]) {
-        const luc = new Date(donDaGui[khoaDon]).toLocaleTimeString(isEnglish ? 'en-GB' : 'vi-VN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Ho_Chi_Minh' });
-        baoTrangThai(isEnglish
-          ? dichJs('This booking was already sent at {0} — the restaurant will call to confirm. To change it, call +84 76 452 7336.', luc)
-          : `Đơn này đã gửi lúc ${luc} — quán sẽ gọi xác nhận. Muốn đổi thông tin thì gọi 076 452 7336.`);
+        baoDaGui(gioGui(donDaGui[khoaDon], isEnglish), isEnglish);
         return;
       }
 
@@ -1157,6 +1162,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Dong toast: dung chung cho nut X va cho bo dem, de du dong bang cach nao thi form
       // van duoc mo khoa lai (khong de nguoi dung ket o trang thai nut submit disabled).
+      // Form reset xong thi de lai mot dong co dinh duoi nut (29-10-2026): truoc day toast tu tat
+      // sau 8 giay (khi ve tau khong tai duoc) la khong con dau vet nao, khach quay lai — hoac agent
+      // AI dat ban ho, chup man hinh cham hon 8 giay — thay form trong tron, tuong chua gui duoc.
+      const lucGui = gioGui(Date.now(), isEnglish);
       let daDong = false;
       let hetGio;
       const bamEsc = (e) => { if (e.key === 'Escape') dongToast(); };
@@ -1174,6 +1183,7 @@ document.addEventListener('DOMContentLoaded', () => {
         zaloForm.reset();
         submitBtn.innerHTML = originalHTML;
         submitBtn.disabled = false;
+        baoDaGui(lucGui, isEnglish);
       };
 
       toast.querySelector('[data-toast-close]').addEventListener('click', dongToast);
@@ -1210,7 +1220,8 @@ document.addEventListener('DOMContentLoaded', () => {
       toast.addEventListener('focusout', (e) => { if (!toast.contains(e.relatedTarget)) chayTiep(); });
       requestAnimationFrame(() => requestAnimationFrame(chayTiep));
 
-      // Ve tau (js/ve-tau.js): ve xong thi thay dau tich bang anh ve + nut "Luu ve tau". Thong bao da
+      // Ve tau (js/ve-tau.js): ve xong thi thay dau tich bang anh phieu "Yeu cau dat ban" + nut "Luu phieu"
+      // (truoc 29-10-2026: "Ve dat ban" / "Luu ve tau" — khach tuong da dat xong). Thong bao da
       // co nut can bam thi KHONG duoc tu bien mat (WCAG 2.2.1) — tat bo dem, khach tu dong bang X / Esc.
       // Khong tai duoc file ve thi thong bao giu nguyen nhu truoc (dau tich + tu dong sau 8 giay).
       const tenVe = String(name).trim();
@@ -1226,8 +1237,8 @@ document.addEventListener('DOMContentLoaded', () => {
         anh.width = 1080;
         anh.height = 1350;
         anh.alt = isEnglish
-          ? `Your table ticket: ${tenVe}, ${formattedDate} at ${time}, ${guests} guests`
-          : `Vé đặt bàn của ${tenVe}: ngày ${formattedDate} lúc ${time}, ${guests} khách`;
+          ? dichJs('Booking request from {0}: {1} at {2}, {3} guests — awaiting a confirmation call', tenVe, formattedDate, time, guests)
+          : `Yêu cầu đặt bàn của ${tenVe}: ngày ${formattedDate} lúc ${time}, ${guests} khách — chờ quán gọi xác nhận`;
         anh.src = c.toDataURL('image/jpeg', 0.86);
         const cho = toast.querySelector('[data-ve-cho]');
         if (cho) cho.replaceWith(anh);
@@ -1235,7 +1246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nut.type = 'button';
         nut.className = 'inline-flex items-center gap-2 bg-primary text-white px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider mb-3';
         nut.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></svg>'
-          + (isEnglish ? 'Save my ticket' : 'Lưu vé tàu');
+          + (isEnglish ? dichJs('Save request') : 'Lưu phiếu');
         const zalo = toast.querySelector('a[href*="zalo.me"]');
         if (zalo) zalo.insertAdjacentElement('beforebegin', nut);
         else toast.appendChild(nut);

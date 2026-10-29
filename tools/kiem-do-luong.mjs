@@ -262,6 +262,21 @@ await sleep(2500);
   const vanTay = await ev(`localStorage.getItem('xomleo_don_da_gui') || ''`);
   bao('Van tay don KHONG chua SDT/ten tho', vanTay.length > 0 && !vanTay.includes('0912345678') && !/kiem/i.test(vanTay), vanTay.slice(0, 80));
 }
+// Dong thong bao "Da gui" (bam X; bo dem 8 giay goi dung ham dong nay) -> form reset nhung con mot
+// dong co dinh duoi nut kieu "xong" (29-10-2026): truoc day dong xong la khong con dau vet don da di.
+const dongTrangThai = () => ev(`JSON.stringify((function(){
+  var p = document.getElementById('booking-trang-thai');
+  return { cau: p ? p.textContent : '', xong: !!p && p.classList.contains('o-xong'), hien: !!p && getComputedStyle(p).display !== 'none' };
+})())`).then(JSON.parse);
+{
+  await ev(`(function(){ var b = document.querySelector('.toast-dat-ban [data-toast-close]'); if (b) b.click(); return !!b; })()`);
+  await sleep(800);
+  const s = await dongTrangThai();
+  const conToast = await ev(`!!document.querySelector('.toast-dat-ban')`);
+  const tenTrong = await ev(`(document.getElementById('book_name') || {}).value === ''`);
+  bao('Dong thong bao "Da gui" -> form reset, CON dong "da gui luc" kieu xong duoi nut',
+    /đã gửi lúc/.test(s.cau) && s.xong && s.hien && !conToast && tenTrong, JSON.stringify({ ...s, conToast, tenTrong }));
+}
 
 // Chong trung don (26-10-2026): mo lai trang (nhu tab moi), het khoa 30 s, gui y het don vua
 // xac nhan -> khong goi webhook, khong lead, bao da gui. Doi gio cung ngay -> van gui, khong lead.
@@ -273,9 +288,9 @@ await xoaGhi();
   await thuGuiForm(GIA_HOP_LE, true);
   await sleep(1500);
   const coLead = (await docEvent()).some((x) => x.ten === 'generate_lead');
-  const cau = await ev(`(document.getElementById('booking-trang-thai') || {}).textContent || ''`);
+  const s = await dongTrangThai();
   bao('Gui lai y het don da xac nhan (24 gio, tab khac) -> KHONG goi webhook, KHONG lead, bao da gui',
-    soAppsScript === truoc && !coLead && /đã gửi lúc/.test(cau), 'webhook +' + (soAppsScript - truoc) + ' | ' + cau);
+    soAppsScript === truoc && !coLead && /đã gửi lúc/.test(s.cau) && s.xong, 'webhook +' + (soAppsScript - truoc) + ' | ' + JSON.stringify(s));
 }
 await moTrang('/');
 await xoaGhi();
