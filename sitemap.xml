@@ -81,7 +81,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog-en/</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -289,7 +289,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru-en/" />
@@ -302,7 +302,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/deo-prenn-da-lat-cung-duong-quyen-ru-en/" />
@@ -705,7 +705,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/nha-tho-con-ga/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/nha-tho-con-ga/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/nha-tho-con-ga-en/" />
@@ -718,7 +718,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/nha-tho-con-ga-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/nha-tho-con-ga/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/nha-tho-con-ga-en/" />
@@ -809,7 +809,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat-en/" />
@@ -822,7 +822,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-30</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat-en/" />
@@ -4277,5 +4277,21 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://xomleo.vn/ru/quan-an-da-lat-mo-cua-tet/" />
     <xhtml:link rel="alternate" hreflang="th" href="https://xomleo.vn/th/quan-an-da-lat-mo-cua-tet/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/quan-an-da-lat-mo-cua-tet/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/da-lat-thang-12-giang-sinh/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/da-lat-thang-12-giang-sinh/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/da-lat-thang-12-giang-sinh-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/da-lat-thang-12-giang-sinh/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/da-lat-thang-12-giang-sinh-en/</loc>
+    <lastmod>2026-10-30</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/da-lat-thang-12-giang-sinh/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/da-lat-thang-12-giang-sinh-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/da-lat-thang-12-giang-sinh/" />
   </url>
 </urlset>
