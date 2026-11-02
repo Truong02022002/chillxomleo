@@ -18,6 +18,7 @@ import { execFileSync } from 'node:child_process';
 import { BAC_DLN, datBac } from './bac-dln.mjs';
 import { phutDoc, nhanPhutDoc } from './phut-doc.mjs';
 import { thayBoChon } from './dich/bo-chon.mjs';
+import { docQuyTac, trangSitemap, cumCuaTrang, timChongLan } from './vai-tro-trang.mjs';
 
 const ROOT = process.cwd();
 const HANG_DOI = path.join(ROOT, 'hang-doi');
@@ -279,6 +280,19 @@ function kiemTraBaiNhap(d) {
     }
   }
   if (!d.noiTu || !d.noiTu.length) canhBao.push(`${d.slug}: khong khai "noiTu" — bai len song chi co link tu the /blog/`);
+
+  // Mot y dinh = mot URL (29-10-2026, tools/vai-tro-trang.mjs). Chi CANH BAO, khong chan: bai trong hang doi
+  // da duyet tu truoc, nhung bai moi chua gan cum thi ban do nhu cau khong do duoc no sau khi len song, con
+  // tieu de trung dau voi trang co san la dau hieu hai URL cung tranh mot truy van.
+  const urlBai = `/${d.slug}/`;
+  if (!cumCuaTrang(urlBai, docQuyTac(ROOT)).length) {
+    canhBao.push(`${d.slug}: chua co cum truy van nao tro toi ${urlBai} trong tools/cum-chu-de.json — them cum (mau truy van, bac, nguoi tim, CTA) de do duoc bai sau khi len`);
+  }
+  const fVi = path.join(HANG_DOI, d.slug, 'index.html');
+  const h1 = fs.existsSync(fVi) ? ((fs.readFileSync(fVi, 'utf8').match(/<h1(?:\s[^>]*)?>([\s\S]*?)<\/h1>/) || [])[1] || '').replace(/<[^>]+>/g, ' ') : '';
+  for (const k of timChongLan([d.tieuDe, h1], trangSitemap(ROOT), urlBai)) {
+    canhBao.push(`${d.slug}: tieu de / H1 trung "${k.chung}" voi ${k.url} — hai trang co cung mot y dinh khong? Neu co, gop vao trang cu thay vi dang URL moi`);
+  }
   return v;
 }
 

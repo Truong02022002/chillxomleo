@@ -2191,6 +2191,19 @@ footer {
   position: relative;
 }
 
+/* 02-11-2026: ghi chú "trang này dịch từ bản Việt, có AI hỗ trợ" dưới dòng © của 5 thứ tiếng dựng máy
+   (tools/dich/dung.mjs chèn). Nhỏ, màu nhạt, có link về bản gốc; bản Việt/Anh không có. */
+.ghi-chu-dich {
+  margin-top: 0.5rem;
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  text-align: center;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 footer::before {
   content: "";
   position: absolute;

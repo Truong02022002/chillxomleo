@@ -435,6 +435,13 @@ html[data-mua="noel"] :is(a.bg-primary, button.bg-primary, a[class*="bg-[#A03F00
   background: var(--mua-chop) no-repeat 0 0 / 100% 100%;
   animation: mua-hien 1.6s ease-out both;
 }
+/* Giao dien 10-10-2026: nut "Dat ban" tren thanh dieu huong la vien bo tron (border-radius 999px)
+   -> vach tuyet thang tu mep 3px de len hai dau cong. Chi cho tuyet dong tren doan thang cua mep tren. */
+html[data-mua="noel"] #navbar a.bg-primary::after {
+  top: -3px;
+  left: 16px;
+  right: 16px;
+}
 
 /* ---------- 5. To thong bao lich Tet (duoi bang gio ga, trang chu) ----------
    Giay do dan len bang go: vien vang kep nhu ve tau, dau "Tet" o goc. Chu that (doc duoc,
@@ -633,16 +640,18 @@ html[data-mua] :is(span.uppercase.font-bold.text-primary[class*="tracking-[0.3em
   position: relative;
 }
 
-/* Noel: lop tuyet dong tren vien ngoai cua bien (outline lech 2px -> mep ngoai o -3px) */
+/* Noel: mot canh o ro cai o goc tren ben phai (cung hinh voi canh tren logo), doi xung voi bong mai
+   cua Tet. Truoc 29-10-2026 la lop tuyet dong tren vien ngoai cua bien men — giao dien 10-10 bo
+   vien/nen cua nhan (chu tron, nen trong suot) nen lop tuyet thanh vach trang lo lung tren chu. */
 html[data-mua="noel"] :is(span.uppercase.font-bold.text-primary[class*="tracking-[0.3em]"], span.uppercase.font-bold.text-primary[class*="tracking-[0.4em]"], p.uppercase.font-bold.text-primary[class*="tracking-[0.25em]"])::after {
   content: "";
   position: absolute;
-  top: -8px;
-  left: -5px;
-  right: -5px;
-  height: 7px;
+  top: -15px;
+  right: -26px;
+  width: 30px;
+  height: 21px;
   pointer-events: none;
-  background: var(--mua-chop) no-repeat 0 0 / 100% 100%;
+  background: var(--mua-dinh) no-repeat 0 0 / 30px 21px;
   animation: mua-hien 1.6s ease-out both;
 }
 

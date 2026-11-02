@@ -11,9 +11,13 @@
 // thanh "da co ve, da dat xong" ma bo qua con dau nho o goc.
 window.XL_VE = (function () {
   const W = 1080, H = 1350;
-  const SERIF = '"Playfair Display", "Playfair Fallback G", Georgia, serif';
+  // Theo giao dien 10-10-2026 ("go + giay da", style.css NANG CAP 9) tu 29-10-2026: tieu de + so = Oswald
+  // (--font-serif), dong ten quan = chu viet tay (--font-tay), giay = --giay, muc = --muc-giay. Truoc do
+  // ve van theo giao dien kem sang 24-09: Playfair, giay #FBF4E8.
+  const HOA = 'Oswald, "Oswald Fallback", Arial, sans-serif';
+  const TAY = '"Dancing Script Chu", "Dancing Script Fallback", cursive';
   const SANS = 'Signika, "Signika Fallback", "Segoe UI", sans-serif';
-  const MAU = { nen: '#2B1B11', giay: '#FBF4E8', muc: '#2E1D12', nau: '#6B5443', dong: '#8A6428', dongSang: '#D9A45C', ke: '#CDB08C', tem: '#9B2C1F' };
+  const MAU = { nen: '#1A120C', giay: '#E9D6AF', muc: '#2B1C10', nau: '#574026', dong: '#7A4A1E', dongSang: '#D9A45C', ke: '#B89565', tem: '#9B2C1F' };
   // Dau may hoi nuoc: cung bo net voi icon trang Trai nghiem (24x24)
   const TAU = ['M3 15.5V7.6h5.5v7.9', 'M2.2 7.6h7.1', 'M4.5 9.2h2.6v2.5H4.5z', 'M8.5 10.6h9.2a1.8 1.8 0 0 1 1.8 1.8v3.1', 'M15.1 10.6V7.4h2.5v3.2', 'M14.5 7.4h3.7', 'M2.4 15.5h18.3l1.3 2.1', 'M17.6 5.2a1.4 1.4 0 0 1 2.4-1.3 1.2 1.2 0 0 1 1.6 1.6'];
 
@@ -50,7 +54,8 @@ window.XL_VE = (function () {
     const en = !!o.en;
     try {
       await Promise.all([
-        document.fonts.load('600 92px "Playfair Display"', 'Yêu cầu đặt bàn Booking Request 0123456789/:'),
+        document.fonts.load('600 92px Oswald', 'YÊU CẦU ĐẶT BÀN BOOKING REQUEST 0123456789/: 113 Huỳnh Tấn Phát'),
+        document.fonts.load('400 44px "Dancing Script Chu"', 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt'),
         document.fonts.load('700 24px Signika', 'ĐÀ LẠT GA XÓM LÈO'),
         document.fonts.load('600 52px Signika', o.ten || 'a'),
       ]);
@@ -75,6 +80,13 @@ window.XL_VE = (function () {
     x.shadowColor = 'rgba(0,0,0,0.5)'; x.shadowBlur = 44; x.shadowOffsetY = 20;
     x.fillStyle = MAU.giay; bo(x, L, T, R - L, B - T, 16); x.fill();
     x.restore();
+    // Mep giay sam dan vao trong nhu to giay da tren trang chu (--giay-nen: vien chay sem)
+    x.save();
+    bo(x, L, T, R - L, B - T, 16); x.clip();
+    const sem = x.createRadialGradient(W / 2, (T + B) / 2, 260, W / 2, (T + B) / 2, 760);
+    sem.addColorStop(0, 'rgba(122,78,30,0)'); sem.addColorStop(1, 'rgba(122,78,30,0.30)');
+    x.fillStyle = sem; x.fillRect(L, T, R - L, B - T);
+    x.restore();
     x.strokeStyle = MAU.ke; x.lineWidth = 2; bo(x, L + 22, T + 22, R - L - 44, B - T - 44, 8); x.stroke();
     x.strokeStyle = 'rgba(138,100,40,0.5)'; x.lineWidth = 1.2; x.setLineDash([6, 6]);
     bo(x, L + 32, T + 32, R - L - 64, B - T - 64, 5); x.stroke(); x.setLineDash([]);
@@ -86,19 +98,20 @@ window.XL_VE = (function () {
 
     // Dau ve
     x.fillStyle = MAU.dong; x.font = '700 24px ' + SANS;
-    chuGian(x, en ? t('XOM LEO STATION · DA LAT 1932') : 'GA XÓM LÈO · ĐÀ LẠT 1932', W / 2, 196, 7, 'center');
+    // 1922 nhu huy hieu "XOM LEO STATION · DA LAT 1922" cua giao dien (style.css NANG CAP 8, khop menu in)
+    chuGian(x, en ? t('XOM LEO STATION · DA LAT 1922') : 'GA XÓM LÈO · ĐÀ LẠT 1922', W / 2, 196, 7, 'center');
     x.save();
     x.translate(W / 2 - 50, 218); x.scale(4.2, 4.2);
     x.strokeStyle = MAU.muc; x.lineWidth = 1.45; x.lineCap = 'round'; x.lineJoin = 'round';
     TAU.forEach((p) => x.stroke(new Path2D(p)));
     [6, 11.2, 16.4].forEach((cx) => { x.beginPath(); x.arc(cx, 18.1, 1.8, 0, Math.PI * 2); x.stroke(); });
     x.restore();
-    // Ban dich dai hon (vd tieng Nga) thi nho chu dan cho vua trong khung ve
-    const tieuDe = vua(x, en ? t('Booking Request') : 'Yêu cầu đặt bàn', '600 {c}px ' + SERIF, 92, 780, 60);
+    // In hoa nhu tieu de tren site ("DAT BAN"); ban dich dai hon (vd tieng Nga) thi nho chu dan cho vua khung
+    const tieuDe = vua(x, (en ? t('Booking Request') : 'Yêu cầu đặt bàn').toLocaleUpperCase(document.documentElement.lang || 'vi'), '600 {c}px ' + HOA, 96, 780, 60);
     x.fillStyle = MAU.muc; x.textAlign = 'center';
     x.fillText(tieuDe, W / 2, 424);
-    x.fillStyle = MAU.nau; x.font = '400 30px ' + SANS;
-    x.fillText(en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', W / 2, 476);
+    x.fillStyle = MAU.dong;
+    x.fillText(vua(x, en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', '400 {c}px ' + TAY, 42, 760, 28), W / 2, 482);
     // Vach trang tri: hai vach + mat thoi
     x.strokeStyle = MAU.dong; x.lineWidth = 2;
     x.beginPath(); x.moveTo(W / 2 - 150, 522); x.lineTo(W / 2 - 22, 522); x.moveTo(W / 2 + 22, 522); x.lineTo(W / 2 + 150, 522); x.stroke();
@@ -116,7 +129,7 @@ window.XL_VE = (function () {
 
     nhan(en ? t('DATE') : 'NGÀY', C1, 770);
     nhan(en ? t('TIME') : 'GIỜ', C2, 770);
-    x.fillStyle = MAU.muc; x.font = '600 60px ' + SERIF; x.textAlign = 'left';
+    x.fillStyle = MAU.muc; x.font = '600 62px ' + HOA; x.textAlign = 'left';
     x.fillText(d ? `${String(d).padStart(2, '0')}/${String(m).padStart(2, '0')}/${y}` : '—', C1, 836);
     x.fillText(o.gio || '—', C2, 836);
 
@@ -133,13 +146,13 @@ window.XL_VE = (function () {
     x.lineWidth = 4; bo(x, -118, -52, 236, 104, 10); x.stroke();
     x.lineWidth = 1.5; bo(x, -108, -42, 216, 84, 6); x.stroke();
     x.textAlign = 'center';
-    x.font = '600 38px ' + SERIF; x.fillText(en ? t('SENT') : 'ĐÃ GỬI', 0, 4);
+    x.font = '600 38px ' + HOA; x.fillText(en ? t('SENT') : 'ĐÃ GỬI', 0, 4);
     x.font = '700 15px ' + SANS; chuGian(x, en ? t('AWAITING CALL-BACK') : 'CHỜ GỌI XÁC NHẬN', 0, 30, en ? 1.5 : 3, 'center');
     x.restore();
 
     // Cuong ve
     nhan(en ? t('PLATFORM') : 'SÂN GA', C1, 1036);
-    x.fillStyle = MAU.muc; x.font = '600 46px ' + SERIF; x.textAlign = 'left';
+    x.fillStyle = MAU.muc; x.font = '600 48px ' + HOA; x.textAlign = 'left';
     x.fillText('113 Huỳnh Tấn Phát', C1, 1094);
     x.fillStyle = MAU.nau; x.font = '400 27px ' + SANS;
     x.fillText(en ? t('Trai Mat, Da Lat · open 15:00–23:00') : 'Trại Mát, Đà Lạt · mở cửa 15:00–23:00', C1, 1140);

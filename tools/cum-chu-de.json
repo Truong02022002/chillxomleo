@@ -7,7 +7,13 @@
     "'loai': thuong-hieu | dich-vu | tham-quan | nhieu. Cum 'nhieu' bi loai khoi ban do (van liet ke rieng).",
     "'dich': trang tren site nen dung cho cum (de doi chieu bac DLN + so lieu trang). null = chua co trang / khong nen co.",
     "'ngoaiPhamVi': true = nhu cau khong phai cua quan (buffet, nuong Han Quoc, thanh pho khac) -> khong xep vao co hoi.",
-    "Them cum moi: xem muc 'Truy van chua phan cum' trong bao cao roi bo sung o day."
+    "Them cum moi: xem muc 'Truy van chua phan cum' trong bao cao roi bo sung o day.",
+    "29-10-2026 — chuoi Keyword Intelligence (Entity -> Intent -> Persona -> DLN -> Page Role -> URL -> CTA -> KPI). Cum thuong mai (thuong-hieu, dich-vu) khai them:",
+    "  'bac': bac DLN cua NGUOI TIM (y dinh cua truy van), doc lap voi data-dln cua trang dich. tools/vai-tro-trang.mjs bao khi hai bac lech.",
+    "  'nguoi' (ai tim), 'canBiet' (cau hoi / noi lo truoc khi quyet), 'bangChung' (trang dich phai cho thay gi), 'cta' (hanh dong ke tiep: dat-ban | goi | chi-duong | menu — vai-tro-trang.mjs kiem link that trong <main> trang dich), 'kpi' (do bang gi).",
+    "  Cum tham-quan dung chung 'macDinh.tham-quan' (khong co bac / CTA dat ban rieng).",
+    "  'nguoi' la GIA THUYET: kiem bang generate_lead (guests, occasion) theo trang vao trong GA4 — sai thi sua o day, dung giu cho dep.",
+    "Mot y dinh = mot URL: nhieu cum co the cung tro mot trang (bien the, dong nghia), nhung mot trang moi phai co cum rieng hoac khai ly do trong 'trangKhongCum'."
   ],
   "thuongHieu": "x[oô]m\\.? ?l[eè]o|xomleo|som leo|xom\\.leo",
   "cum": [
@@ -16,7 +22,14 @@
       "ten": "Hỏi nối tiếp kiểu AI Mode",
       "loai": "dich-vu",
       "dich": "/",
-      "mau": "^(co|ok|113|dia chi quan|gia ve|buoi chieu toi|di xe rieng|o da lat|da lat|yes|vang|chua|2|ca 2|an|muon|tem|giá|gia|menu|address|dia chi|giờ mở|gio mo|mat khau|may tang|trang tri|ticket price|restaurant name|driving directions|cultural facts|lich su|fee \\?|cu the|in english pls|yes all above|other places too|hinh anh ong ay|day nua|day la o dau|day la dau|dia diem nay o dau|cho minh vi tri|cho xin dia chi cu the|give me the specific location|xin gia|kem gia|gia tung mon|gia mac ko|gia nhu the nao|menu va gia|menu and prices|menu quan nay|gia menu|mon best seller|danh gia bao nhieu|co gi noi bat|co view dep|co tam linh ko|con cho nao nua ko|con cai nao khac khong\\?|them quan di|quan nao ngon|goi y quan an ngon|what would you recommend\\?|what do you recommend\\?|interesting facts about it|xem hinh anh|toi can cho mua|non nuoc huu tinh|phong canh dep|hoa gi\\?|sit down view|chill location|20,000d|비용은\\?|中文)$"
+      "mau": "^(co|ok|113|dia chi quan|gia ve|buoi chieu toi|di xe rieng|o da lat|da lat|yes|vang|chua|2|ca 2|an|muon|tem|giá|gia|menu|address|dia chi|giờ mở|gio mo|mat khau|may tang|trang tri|ticket price|restaurant name|driving directions|cultural facts|lich su|fee \\?|cu the|in english pls|yes all above|other places too|hinh anh ong ay|day nua|day la o dau|day la dau|dia diem nay o dau|cho minh vi tri|cho xin dia chi cu the|give me the specific location|xin gia|kem gia|gia tung mon|gia mac ko|gia nhu the nao|menu va gia|menu and prices|menu quan nay|gia menu|mon best seller|danh gia bao nhieu|co gi noi bat|co view dep|co tam linh ko|con cho nao nua ko|con cai nao khac khong\\?|them quan di|quan nao ngon|goi y quan an ngon|what would you recommend\\?|what do you recommend\\?|interesting facts about it|xem hinh anh|toi can cho mua|non nuoc huu tinh|phong canh dep|hoa gi\\?|sit down view|chill location|20,000d|비용은\\?|中文)$",
+      "nguoi": "Người đang hỏi nối tiếp trong AI Mode / trợ lý AI về quán",
+      "canBiet": "Giá, thực đơn, vị trí — hỏi bằng câu cụt",
+      "bangChung": "Giá, giờ mở cửa, địa chỉ viết bằng chữ (không chỉ trong ảnh), khớp nhau giữa các trang",
+      "cta": [
+        "dat-ban"
+      ],
+      "kpi": "Hiển thị GSC của cụm (AI Mode chưa tách riêng trong GSC)"
     },
     {
       "key": "ten-gan-giong",
@@ -38,7 +51,16 @@
       "loai": "thuong-hieu",
       "dich": "/menu/",
       "mau": "{TH}",
-      "canCo": "menu|thuc don|\\bgia\\b|mon an|best seller"
+      "canCo": "menu|thuc don|\\bgia\\b|mon an|best seller",
+      "bac": "R",
+      "nguoi": "Người đã biết tên quán, xem giá trước khi đi",
+      "canBiet": "Giá từng món, đã gồm VAT chưa, gọi bao nhiêu là đủ cho nhóm mình",
+      "bangChung": "Giá in trên cuốn menu (đã gồm VAT), ba mức gọi món tính sẵn theo đầu người",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "click_booking_cta, click_call, generate_lead có trang vào /menu/"
     },
     {
       "key": "th-dia-chi",
@@ -46,7 +68,16 @@
       "loai": "thuong-hieu",
       "dich": "/duong-di/",
       "mau": "{TH}|113 huynh tan phat|^(duong )?huynh tan phat da lat|huynh tan phat phuong 11",
-      "canCo": "dia chi|huynh tan phat|duong di|o dau|ban do|map|xuan truong|chi duong|113"
+      "canCo": "dia chi|huynh tan phat|duong di|o dau|ban do|map|xuan truong|chi duong|113",
+      "bac": "A",
+      "nguoi": "Người đã chốt đi, đang trên đường hoặc sắp xuất phát",
+      "canBiet": "Cách trung tâm bao xa, đi đường nào, có chỗ để xe không",
+      "bangChung": "Địa chỉ 113 Huỳnh Tấn Phát khớp Google Maps, lộ trình ~8 km từ trung tâm, mốc nhận biết cổng quán",
+      "cta": [
+        "chi-duong",
+        "goi"
+      ],
+      "kpi": "click_directions, click_call"
     },
     {
       "key": "th-danh-gia",
@@ -54,7 +85,15 @@
       "loai": "thuong-hieu",
       "dich": "/about/",
       "mau": "{TH}",
-      "canCo": "danh gia|review|hinh anh|\\banh\\b|hoang hon|co gi"
+      "canCo": "danh gia|review|hinh anh|\\banh\\b|hoang hon|co gi",
+      "bac": "P",
+      "nguoi": "Người biết tên quán nhưng còn phân vân, muốn xem người khác nói gì",
+      "canBiet": "View tàu / hoàng hôn có đúng như ảnh không, đồ ăn có ổn không",
+      "bangChung": "Ảnh thật tại quán, giờ lặn theo ngày, giờ tàu qua, điểm đánh giá Google Maps hiển thị đúng số",
+      "cta": [
+        "dat-ban"
+      ],
+      "kpi": "Nhấp sang /menu/ hoặc #booking (Path exploration), rate_page"
     },
     {
       "key": "th-ca-phe",
@@ -62,14 +101,32 @@
       "loai": "thuong-hieu",
       "dich": "/menu/",
       "mau": "{TH}",
-      "canCo": "cafe|ca phe|coffee"
+      "canCo": "cafe|ca phe|coffee",
+      "bac": "R",
+      "nguoi": "Người biết quán, hỏi quán có đồ uống / cà phê không",
+      "canBiet": "Có món uống gì, giá bao nhiêu",
+      "bangChung": "Trang đồ uống trong cuốn menu, giá in",
+      "cta": [
+        "dat-ban"
+      ],
+      "kpi": "click_booking_cta có trang vào /menu/"
     },
     {
       "key": "thuong-hieu",
       "ten": "Tên quán (điều hướng)",
       "loai": "thuong-hieu",
       "dich": "/",
-      "mau": "{TH}|tiem nuong (&|va )?chill( xom)?$|^tiem nuong chill( o)? da lat$"
+      "mau": "{TH}|tiem nuong (&|va )?chill( xom)?$|^tiem nuong chill( o)? da lat$",
+      "bac": "A",
+      "nguoi": "Người đã biết tên quán (bạn giới thiệu, TikTok, Google Maps), đang chốt đi",
+      "canBiet": "Giờ này còn mở không, đặt bàn thế nào, đi đường nào",
+      "bangChung": "Giờ mở cửa, địa chỉ chữ khớp Maps, số điện thoại, form đặt bàn ngay màn hình đầu",
+      "cta": [
+        "dat-ban",
+        "goi",
+        "chi-duong"
+      ],
+      "kpi": "generate_lead, click_call, click_directions (content_group 5-act)"
     },
     {
       "key": "ngoai-khu-vuc",
@@ -94,18 +151,67 @@
       "mau": "dalat88|dalatan|vi ban|lilom|antiblue|blogspot|huong quan|selena|solena|lang khet|le anh|campi|co xuan|song sanh|ma dao|mau vang|tren lau|linh dong|hem chill|chang vang|moc chill|20 forest|tiem dien thoai|vay maxi|mo lon|ni loi|lo ghim|hem 108|27 huynh tan phat|87 huynh tan phat|dam co nuong|jeunesse|the chimney|cafe tre|him cafe|quyen cafe|egg coffee"
     },
     {
+      "key": "tet",
+      "ten": "Tết: quán nào mở cửa, mùng mấy",
+      "loai": "dich-vu",
+      "dich": "/quan-an-da-lat-mo-cua-tet/",
+      "mau": "\\btet\\b|giao thua|lunar new year",
+      "bac": "C",
+      "nguoi": "Du khách đi Đà Lạt dịp Tết, sợ tới nơi quán đóng cửa",
+      "canBiet": "Mùng mấy quán mở lại, mở giờ nào, có phụ thu không",
+      "bangChung": "Lịch nghỉ / mở theo từng ngày (âm và dương), phụ thu 8% mùng 2–10 ghi thẳng",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "generate_lead có ngày đặt trong dịp Tết (đọc ở sheet đơn — GA4 không gửi ngày đặt)"
+    },
+    {
       "key": "view-tau",
       "ten": "Quán nướng view xe lửa / tàu",
       "loai": "dich-vu",
       "dich": "/quan-nuong-da-lat-view-xe-lua/",
-      "mau": "(nuong|quan|tiem|bbq|lau).*(xe lua|tau lua|tau hoa|duong tau|nha ga|chuyen tau)|(xe lua|tau lua|duong tau|nha ga).*(nuong|bbq)"
+      "mau": "(nuong|quan|tiem|bbq|lau).*(xe lua|tau lua|tau hoa|duong tau|nha ga|chuyen tau)|(xe lua|tau lua|duong tau|nha ga).*(nuong|bbq)",
+      "bac": "P",
+      "nguoi": "Người muốn bữa tối có khoảnh khắc: cặp đôi, nhóm bạn chụp ảnh, khách mê tàu",
+      "canBiet": "Tàu qua giờ nào, ngồi đâu thì thấy, có chắc thấy không",
+      "bangChung": "Giờ tàu qua quán, ảnh chụp thật từ bàn ăn, vị trí bàn so với đường ray",
+      "cta": [
+        "dat-ban"
+      ],
+      "kpi": "generate_lead có trang vào là bài này; CTR cụm (đang 8,8% ở vt 9,6 — kỳ 16/6–15/9)"
+    },
+    {
+      "key": "sinh-nhat",
+      "ten": "Tổ chức sinh nhật",
+      "loai": "dich-vu",
+      "dich": "/dat-tiec-sinh-nhat-o-da-lat/",
+      "mau": "sinh nhat|birthday|(dat|to chuc) tiec (?!cuoi)",
+      "bac": "C",
+      "nguoi": "Người tổ chức sinh nhật cho bạn hoặc người thân, nhóm nhỏ tới vừa",
+      "canBiet": "Có mang bánh kem vào được không, cả nhóm hết bao nhiêu, có góc chụp ảnh không",
+      "bangChung": "Danh sách việc cần hỏi trước, bảng tính một bữa nhóm 6 từ giá in trên menu",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "generate_lead occasion = birthday"
     },
     {
       "key": "nhom-dong-tiec",
       "ten": "Đặt tiệc / nhóm đông / khách đoàn",
       "loai": "dich-vu",
       "dich": "/quan-nuong-da-lat-cho-nhom-dong/",
-      "mau": "khach doan|nhom dong|tiec cuoi|tiec sinh nhat|sinh nhat|liên hoan|lien hoan|hop lop|cho be|khu vui choi"
+      "mau": "khach doan|nhom dong|tiec cuoi|liên hoan|lien hoan|hop lop|cho be|khu vui choi|tiec cong ty|year end party|team ?building",
+      "bac": "C",
+      "nguoi": "Người tổ chức họp lớp, liên hoan công ty, khách đoàn — khoảng 10 tới 60 người",
+      "canBiet": "Cả nhóm có ngồi chung một dãy được không, xe khách vào được không, cọc bao nhiêu",
+      "bangChung": "Tối đa 60 khách, mỗi bàn một bếp than, xe 16–29 chỗ quay đầu được, cọc tuỳ đoàn",
+      "cta": [
+        "goi",
+        "dat-ban"
+      ],
+      "kpi": "generate_lead guests ≥ 10; click_call từ bài"
     },
     {
       "key": "ngoai-pham-vi-nuong",
@@ -120,21 +226,125 @@
       "ten": "Quán nướng / quán ăn \"gần đây\" (tìm quanh mình)",
       "loai": "dich-vu",
       "dich": "/duong-di/",
-      "mau": "gan day|quanh day|trong vong [0-9]"
+      "mau": "gan day|quanh day|trong vong [0-9]",
+      "bac": "A",
+      "nguoi": "Người đang ở Đà Lạt, muốn đi ăn ngay",
+      "canBiet": "Có gần không, giờ này còn mở không",
+      "bangChung": "Khoảng cách và thời gian đi từ trung tâm, giờ mở cửa (xếp hạng \"gần đây\" do Hồ sơ Google quyết định, không phải web)",
+      "cta": [
+        "chi-duong",
+        "goi"
+      ],
+      "kpi": "click_directions, click_call; tương tác Hồ sơ doanh nghiệp Google"
+    },
+    {
+      "key": "nhau",
+      "ten": "Đi nhậu: gọi món cho nhóm",
+      "loai": "dich-vu",
+      "dich": "/thuc-don-nhau-da-lat/",
+      "mau": "an nhau|quan nhau|di nhau|do nhau|moi nhau|thuc don nhau|nhau (o |tai )?da lat|^nhau|\\bbia\\b|lai rai",
+      "truKhi": "(cung|voi|gap|ben) nhau",
+      "bac": "R",
+      "nguoi": "Nhóm bạn 4–10 người đi nhậu buổi tối",
+      "canBiet": "Gọi mấy món là đủ, cả nhóm hết khoảng bao nhiêu, bia giá bao nhiêu",
+      "bangChung": "Thực đơn gợi ý theo số người, tính từ giá in (đã gồm VAT)",
+      "cta": [
+        "dat-ban",
+        "menu"
+      ],
+      "kpi": "generate_lead guests 4–10; nhấp sang /menu/"
+    },
+    {
+      "key": "chi-phi",
+      "ten": "Chi phí ăn uống ở Đà Lạt",
+      "loai": "dich-vu",
+      "dich": "/chi-phi-an-uong-o-da-lat/",
+      "mau": "chi phi (an|du lich|di|o|1|mot)|(an uong|an|du lich|di) .*het bao nhieu|ngan sach|bao nhieu tien (1|mot) (ngay|nguoi|bua)|(1|mot) (ngay|bua) .*bao nhieu tien|gia ca (o |an uong )?da lat",
+      "bac": "R",
+      "nguoi": "Người đang dự trù ngân sách chuyến đi, chưa chọn quán",
+      "canBiet": "Một ngày ăn hết bao nhiêu, quán có view thì có đắt hơn hẳn không",
+      "bangChung": "Bảng chi phí theo bữa; mức 250–300k/người đã gồm VAT của quán đặt cạnh mức chung",
+      "cta": [
+        "menu",
+        "dat-ban"
+      ],
+      "kpi": "Nhấp sang /menu/, rate_page"
     },
     {
       "key": "mon-nuong",
       "ten": "Món cụ thể (bò, gà, khoai lang, lẩu cá tầm…)",
       "loai": "dich-vu",
       "dich": "/tiem-nuong-da-lat-duoc-yeu-thich/",
-      "mau": "(bo|ga|long|chan ga|khoai lang|xuc xich|xien|trung|pho mai|thit|may) nuong|lau ca tam|lau ga la e|ca tam|oc nhoi|cac mon nuong|mon nuong|bo .*pho mai|^bbq$|^nuong( bbq)?$|^do nuong$|^lau$|tiem nuong khoai"
+      "mau": "(bo|ga|long|chan ga|khoai lang|xuc xich|xien|trung|pho mai|thit|may) nuong|lau ca tam|lau ga la e|ca tam|oc nhoi|cac mon nuong|mon nuong|bo .*pho mai|^bbq$|^nuong( bbq)?$|^do nuong$|^lau$|tiem nuong khoai",
+      "bac": "C",
+      "nguoi": "Người thèm một món cụ thể (bò nướng, lẩu cá tầm, khoai lang nướng), đang tìm chỗ ăn",
+      "canBiet": "Quán nào có món đó, ngon không, giá bao nhiêu",
+      "bangChung": "Ảnh món thật, giá từng món, quán làm món đó thế nào",
+      "cta": [
+        "menu",
+        "dat-ban"
+      ],
+      "kpi": "Nhấp sang /menu/, generate_lead"
     },
     {
       "key": "quan-nuong-chung",
       "ten": "Quán nướng Đà Lạt (chung)",
       "loai": "dich-vu",
       "dich": "/",
-      "mau": "(quan|tiem|nha hang|lang|chon)? ?(do )?nuong|bbq|nuong (chill|ngon)|chill nuong|an toi|quan an toi|lau nuong"
+      "mau": "(quan|tiem|nha hang|lang|chon)? ?(do )?nuong|bbq|nuong (chill|ngon)|chill nuong|an toi|quan an toi|lau nuong",
+      "bac": "C",
+      "nguoi": "Du khách sắp hoặc đang ở Đà Lạt, chọn quán nướng cho bữa tối — chưa biết tên quán nào",
+      "canBiet": "Quán nào hợp (view, không khí, giá), có xa trung tâm không, có bị chặt chém không",
+      "bangChung": "Ảnh không gian thật, giá in đã gồm VAT, khoảng cách ~8 km nói thẳng, điểm Google Maps hiển thị",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "generate_lead từ lượt vào không thương hiệu (GSC cụm này + GA4 trang vào)"
+    },
+    {
+      "key": "thang-12-giang-sinh",
+      "ten": "Tháng 12, Giáng sinh, Festival Hoa",
+      "loai": "tham-quan",
+      "dich": "/da-lat-thang-12-giang-sinh/",
+      "mau": "giang sinh|noel|christmas|thang 12|thang muoi hai|festival hoa|le hoi hoa"
+    },
+    {
+      "key": "thang-3",
+      "ten": "Tháng 3 ở Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/thang-3-da-lat-co-gi/",
+      "mau": "thang (3|ba)\\b|mua hoa mai anh dao"
+    },
+    {
+      "key": "suong-mu-thoi-tiet",
+      "ten": "Sương mù / thời tiết theo mùa",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-da-lat-thanh-pho-suong-mu/",
+      "mau": "suong mu|thoi tiet|nhiet do|mua mua|mua kho|lanh nhat|weather|\\bfog"
+    },
+    {
+      "key": "lich-trinh-1-ngay",
+      "ten": "Lịch trình 1 ngày",
+      "loai": "tham-quan",
+      "dich": "/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo/",
+      "mau": "(lich trinh|\\bdi\\b|choi|kham pha).*\\b(1|mot) ngay|trong ngay|one day|day trip",
+      "truKhi": "homestay|khach san|hotel"
+    },
+    {
+      "key": "lich-trinh",
+      "ten": "Lịch trình nhiều ngày",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-da-lat-2-ngay-1-dem/",
+      "mau": "lich trinh|[0-9] ?ngay [0-9] ?dem|[0-9]n[0-9]d|itinerary",
+      "truKhi": "homestay|khach san|hotel"
+    },
+    {
+      "key": "cam-nang",
+      "ten": "Cẩm nang / kinh nghiệm du lịch",
+      "loai": "tham-quan",
+      "dich": "/cam-nang-du-lich-da-lat/",
+      "mau": "cam nang|kinh nghiem (du lich|di)|di da lat can|chuan bi (gi )?di da lat|^du lich da lat( tu tuc)?$|travel guide|blog"
     },
     {
       "key": "hoang-hon",
@@ -169,7 +379,7 @@
       "ten": "Ăn gì / món ngon Đà Lạt",
       "loai": "tham-quan",
       "dich": "/mon-ngon-da-lat/",
-      "mau": "mon gi ngon|co gi ngon|gi ngon|mon ngon|an gi|mon an|do an|quan an|quan ngon|mon la|specialties|vietnamese food|grilled food|da lat an|an trua|mon nuoc|mi tron|banh|tra sua|dau giam|^an$|an nhau|quan nhau|nha hang|hang an|tiem an|quan lau|food"
+      "mau": "mon gi ngon|co gi ngon|gi ngon|mon ngon|an gi|mon an|do an|quan an|quan ngon|mon la|specialties|vietnamese food|grilled food|da lat an|an trua|mon nuoc|mi tron|banh|tra sua|dau giam|^an$|nha hang|hang an|tiem an|quan lau|food"
     },
     {
       "key": "tq-robin",
@@ -270,11 +480,67 @@
       "mau": "ve dem|da lat dem|at night|thanh pho .*dem"
     },
     {
+      "key": "tq-ga-xe-lua",
+      "ten": "Ga xe lửa Đà Lạt / tàu Trại Mát",
+      "loai": "tham-quan",
+      "dich": "/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat/",
+      "mau": "ga xe lua|ga da lat|nha ga|xe lua|tau hoa|tau lua|duong sat|railway|train station|\\bve tau"
+    },
+    {
+      "key": "tq-langbiang",
+      "ten": "Đỉnh LangBiang",
+      "loai": "tham-quan",
+      "dich": "/dinh-langbiang/",
+      "mau": "lang ?biang|lam vien peak"
+    },
+    {
+      "key": "tq-datanla",
+      "ten": "Thác Datanla / máng trượt",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-thac-datanla-da-lat-thien-duong-phieu-luu/",
+      "mau": "datanla|da tan la|mang truot|alpine coaster"
+    },
+    {
+      "key": "tq-bali",
+      "ten": "Cổng Trời Bali",
+      "loai": "tham-quan",
+      "dich": "/cong-troi-bali-da-lat-diem-goc-song-ao-dep-tua-bali/",
+      "mau": "cong troi|bali"
+    },
+    {
+      "key": "tq-fairytale",
+      "ten": "Dalat Fairytale Land",
+      "loai": "tham-quan",
+      "dich": "/dalat-fairytale-land-bo-tui-kinh-nghiem-vui-choi/",
+      "mau": "fairytale|fairy tale|xu co tich"
+    },
+    {
+      "key": "tq-wonderland",
+      "ten": "Wonderland Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/wonderland-da-lat-dia-diem-vui-choi-song-ao-hot-nhat/",
+      "mau": "wonderland"
+    },
+    {
+      "key": "tq-thung-lung",
+      "ten": "Thung Lũng Tình Yêu",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-thung-lung-tinh-yeu-2025/",
+      "mau": "thung lung|valley of love"
+    },
+    {
+      "key": "tq-cao-dang",
+      "ten": "Cao đẳng Sư phạm Đà Lạt",
+      "loai": "tham-quan",
+      "dich": "/kham-pha-cao-dang-su-pham-da-lat-kien-truc-co/",
+      "mau": "cao dang su pham|lat college|su pham da lat"
+    },
+    {
       "key": "tq-khac",
-      "ten": "Điểm tham quan khác (Datanla, Bali, Cao đẳng SP, Fairytale…)",
+      "ten": "Đà Lạt chơi gì / điểm tham quan khác (Cầu Đất, đồi chè, check-in…)",
       "loai": "tham-quan",
       "dich": "/da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat/",
-      "mau": "co gi choi|datanla|cong troi|bali|cao dang su pham|lat college|fairytale|langbiang|cau dat|doi che|thung lung|wonderland|lac hu|thon 330|an son|doc thi|check in|dia diem|du lich|tham quan|choi gi|di dau|travel|things to do|hot tourist|lich trinh|thanh pho ngan hoa|nghieng nghieng|photo ?booth|tourist"
+      "mau": "co gi choi|cau dat|doi che|lac hu|thon 330|an son|doc thi|check in|dia diem|du lich|tham quan|choi gi|di dau|travel|things to do|hot tourist|thanh pho ngan hoa|nghieng nghieng|photo ?booth|tourist"
     },
     {
       "key": "luu-tru",
@@ -318,5 +584,20 @@
       "dich-vu": 1,
       "tham-quan": 0.3
     }
+  },
+  "macDinh": {
+    "tham-quan": {
+      "nguoi": "Du khách đang lên lịch trình Đà Lạt, chưa nghĩ tới ăn ở đâu",
+      "canBiet": "Giờ mở cửa, giá vé, đường đi, lúc nào đẹp, có còn mở không",
+      "bangChung": "Dữ kiện có nguồn + ngày cập nhật, quãng đường thật; mục \"Gợi ý thêm từ quán\" tự khai là quán nhà",
+      "cta": [],
+      "kpi": "rate_page 4–5; nhấp sang trang C/P/R của quán (Path exploration, content_group 1-orient)"
+    }
+  },
+  "trangKhongCum": {
+    "_ghi_chu": "Trang trong sitemap co chu y KHONG gan cum (khong co nhu cau tim kiem rieng). Khoa = URL, gia tri = ly do.",
+    "/blog/": "Trang tổng (hub) — nhu cầu \"blog/cẩm nang\" đi vào cụm cam-nang",
+    "/chinh-sach-bao-mat/": "Pháp lý",
+    "/dieu-khoan-su-dung/": "Pháp lý"
   }
 }

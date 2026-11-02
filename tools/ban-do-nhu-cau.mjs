@@ -19,6 +19,11 @@
  *   - Mac dinh ghi bao cao canh file --hien-tai (ban-do-nhu-cau-<ngay>.html + .json). KHONG ghi vao repo:
  *     repo nay la site GitHub Pages, file nam trong repo se thanh trang cong khai.
  *
+ * Tu 29-10-2026 moi cum thuong mai mang them chuoi nguoi tim -> can biet -> bang chung -> CTA -> KPI va bac y dinh
+ * cua nguoi tim (xem _ghi_chu trong cum-chu-de.json); bao cao in chuoi do canh tung viec, va bao khi bac nguoi tim
+ * lech bac trang dich. Phan kiem khong can GSC (trang chua co cum, CTA thieu, hai trang trung tieu de) nam o
+ * tools/vai-tro-trang.mjs.
+ *
  * GIOI HAN DU LIEU (doc truoc khi ket luan):
  *   - File export chi co 1.000 truy van dau; truy van an danh (Google giau) khong co trong file -> tong hien thi
  *     cua cac cum NHO HON tong cua site (bao cao in ti le phu).
@@ -217,8 +222,14 @@ export function phanTich(filesNay, filesTruoc, quyTac) {
     const nghi = (x) => x.q.includes('"') || (x.c === 0 && x.p <= 10 && x.q.split(/\s+/).length >= 7 && lapTieuDe(x.q, bac && bac.title));
     const tiLeNgoac = c.ds.filter(nghi).reduce((s, x) => s + x.i, 0) / (i || 1);
     const t = dich ? trang.get(dich) : null;
+    // Chuoi nguoi tim -> can biet -> bang chung -> CTA -> KPI (29-10-2026): khai rieng o cum thuong mai,
+    // cum tham-quan dung macDinh. bacYDinh = bac cua NGUOI TIM; lech bac trang dich thi ghi vao ly do viec.
+    const md = (quyTac.macDinh && quyTac.macDinh[c.loai]) || {};
+    const chuoi = Object.fromEntries(['nguoi', 'canBiet', 'bangChung', 'cta', 'kpi'].map((k) => [k, c[k] ?? md[k] ?? null]));
+    const bacTrang = bac && bac.bac ? { '1-orient': 'O', '2-choose': 'C', '3-prove': 'P', '4-rate': 'R', '5-act': 'A' }[bac.bac] : null;
     return {
       key: c.key, ten: c.ten, loai: c.loai, ngoaiPhamVi: !!c.ngoaiPhamVi, dich, dichVi: c.dich,
+      bacYDinh: c.bac || null, lechBac: !!(c.bac && bacTrang && c.bac !== bacTrang), chuoi,
       bac, trangDich: t ? { c: t.c, i: t.i, p: +(t.pi / (t.i || 1)).toFixed(1) } : null,
       i, c: cl, ctr: i ? cl / i : 0, p: +p.toFixed(1), soTruyVan: c.ds.length,
       tiLeAnh: +tiLeAnh.toFixed(2), tiLeNgoac: +tiLeNgoac.toFixed(2),
@@ -270,6 +281,8 @@ export function phanTich(filesNay, filesTruoc, quyTac) {
       loaiViec = 'viet-trang-moi'; lyDo = 'Có nhu cầu nhưng site chưa có trang phục vụ cụm này.';
     } else if (c.o === 'co-hoi' && c.p > 8) {
       loaiViec = 'day-len-trang-1'; lyDo = `Vị trí TB ${c.p} (trang 2): củng cố trang đích + thêm liên kết nội bộ có chữ neo mô tả từ các bài cùng cụm.`;
+      // Lech bac: them link khong sua duoc viec trang dich tra loi sai cau hoi
+      if (c.lechBac) lyDo += ` Lưu ý: người tìm đang ở bậc ${c.bacYDinh} (${c.bacYDinh === 'C' ? 'so sánh, chọn' : 'khác'}) mà trang đích là ${c.bac.tenBac} — trang có thể đúng quán nhưng không trả lời câu họ đang hỏi. Cân nhắc trang bậc ${c.bacYDinh} riêng, hoặc thêm khối trả lời đúng câu đó lên trang đích.`;
     } else if (c.o === 'co-hoi') {
       loaiViec = 'tang-ctr'; lyDo = `Đã ở trang 1 (vị trí ${c.p}) nhưng CTR ${(c.ctr * 100).toFixed(1)}% < kỳ vọng ~${(ctrKyVong(duong, c.p) * 100).toFixed(1)}%: viết lại title / mô tả cho khớp truy vấn.`;
     } else if (c.o === 'tang-nhanh') {
@@ -277,7 +290,7 @@ export function phanTich(filesNay, filesTruoc, quyTac) {
     } else if (c.o === 'core' && c.loai !== 'thuong-hieu') {
       loaiViec = 'bao-ve'; lyDo = 'Cụm đang mang lượt nhấp: giữ trang đích cập nhật, không đổi URL/tiêu đề tuỳ tiện.';
     }
-    if (loaiViec) viec.push({ key: c.key, ten: c.ten, o: c.o, loai: c.loai, loaiViec, lyDo, nhapTiemNang: c.nhapTiemNang, diem: c.diem, viTriMucTieu: c.viTriMucTieu, i: c.i, c: c.c, ctr: c.ctr, p: c.p, dich: c.dich, bac: c.bac, top: c.top.slice(0, 5) });
+    if (loaiViec) viec.push({ key: c.key, ten: c.ten, o: c.o, loai: c.loai, loaiViec, lyDo, nhapTiemNang: c.nhapTiemNang, diem: c.diem, viTriMucTieu: c.viTriMucTieu, i: c.i, c: c.c, ctr: c.ctr, p: c.p, dich: c.dich, bac: c.bac, bacYDinh: c.bacYDinh, lechBac: c.lechBac, chuoi: c.chuoi, top: c.top.slice(0, 5) });
   }
   const UU_TIEN = { 'viet-trang-moi': 0, 'day-len-trang-1': 1, 'tang-ctr': 2, 'don-dau': 3, 'theo-doi-ai': 4, 'bao-ve': 5, 'kiem-tra-ctr-thuong-hieu': 6 };
   viec.sort((a, b) => b.diem - a.diem || UU_TIEN[a.loaiViec] - UU_TIEN[b.loaiViec] || b.i - a.i);

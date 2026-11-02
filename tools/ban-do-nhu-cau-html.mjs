@@ -28,6 +28,18 @@ const VIEC = {
   'kiem-tra-ctr-thuong-hieu': 'CTR thương hiệu',
 };
 const LOAI = { 'thuong-hieu': 'Thương hiệu', 'dich-vu': 'Quán / dịch vụ', 'tham-quan': 'Du lịch (bậc O)', nhieu: 'Nhiễu' };
+const TEN_CTA = { 'dat-ban': 'Đặt bàn', goi: 'Gọi', 'chi-duong': 'Chỉ đường', menu: 'Xem menu' };
+
+// Chuoi nguoi tim -> can biet -> bang chung -> CTA -> KPI cua cum (khai trong tools/cum-chu-de.json)
+function chuoiHtml(ch) {
+  if (!ch || !ch.nguoi) return '';
+  const dong = [
+    ['Người tìm', ch.nguoi], ['Cần biết', ch.canBiet], ['Trang phải cho thấy', ch.bangChung],
+    ['Hành động kế tiếp', ch.cta && ch.cta.length ? ch.cta.map((k) => TEN_CTA[k] || k).join(' · ') : 'Đọc tiếp sang trang của quán'],
+    ['Đo bằng', ch.kpi],
+  ].filter(([, v]) => v);
+  return `<dl class="chuoi">${dong.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>`;
+}
 
 function bieuDo(kq) {
   const W = 960, H = 560, L = 70, R = 28, T = 28, B = 58;
@@ -113,7 +125,8 @@ export function taoHtml(kq) {
           <div><dt>Vị trí TB</dt><dd>${vt(v.p)}</dd></div>
           ${v.nhapTiemNang ? `<div class="tiem-nang"><dt>Tiềm năng</dt><dd>+${so(v.nhapTiemNang)} nhấp / quý <span>nếu lên vị trí ${vt(v.viTriMucTieu)}</span></dd></div>` : ''}
         </dl>
-        ${v.dich ? `<p class="dich">Trang đích: <a href="https://xomleo.vn${esc(v.dich)}">xomleo.vn${esc(v.dich)}</a>${v.bac && v.bac.tonTai ? ` <span class="bac">${esc(v.bac.tenBac)}</span>` : ' <span class="bac canh-bao">trang chưa có</span>'}</p>` : ''}
+        ${v.dich ? `<p class="dich">Trang đích: <a href="https://xomleo.vn${esc(v.dich)}">xomleo.vn${esc(v.dich)}</a>${v.bac && v.bac.tonTai ? ` <span class="bac">${esc(v.bac.tenBac)}</span>` : ' <span class="bac canh-bao">trang chưa có</span>'}${v.lechBac ? ` <span class="bac canh-bao">người tìm ở bậc ${esc(v.bacYDinh)}</span>` : ''}</p>` : ''}
+        ${chuoiHtml(v.chuoi)}
         <details><summary>${v.top.length} truy vấn đứng đầu</summary>
           <table class="bang-nho"><thead><tr><th scope="col">Truy vấn</th><th scope="col">Hiển thị</th><th scope="col">Nhấp</th><th scope="col">Vị trí</th></tr></thead><tbody>
           ${v.top.map((t) => `<tr><td>${esc(t.q)}</td><td>${so(t.i)}</td><td>${so(t.c)}</td><td>${vt(+t.p.toFixed(1))}</td></tr>`).join('')}
@@ -124,7 +137,7 @@ export function taoHtml(kq) {
         <th scope="row">${esc(c.ten)}${c.nghiTuDong || c.tiLeNgoac >= 0.3 ? ` <span class="ghi">${pt(c.tiLeNgoac)} nghi máy tự tìm</span>` : ''}${c.tiLeAnh > 0.5 ? ' <span class="ghi">tiếng Anh</span>' : ''}</th>
         <td><span class="chip chip-${esc(c.o)}">${esc(O[c.o].vn)}</span></td>
         <td>${so(c.i)}</td><td>${tang(c.tang)}</td><td>${so(c.c)}</td><td>${pt(c.ctr)}</td><td>${vt(c.p)}</td>
-        <td>${c.dich ? `<a href="https://xomleo.vn${esc(c.dich)}">${esc(c.dich)}</a>` : '—'}${c.bac && c.bac.tonTai ? `<br><span class="bac">${esc(c.bac.tenBac)}</span>` : ''}</td>
+        <td>${c.dich ? `<a href="https://xomleo.vn${esc(c.dich)}">${esc(c.dich)}</a>` : '—'}${c.bac && c.bac.tonTai ? `<br><span class="bac">${esc(c.bac.tenBac)}</span>` : ''}${c.lechBac ? ` <span class="bac canh-bao">người tìm ở bậc ${esc(c.bacYDinh)}</span>` : ''}${c.chuoi && c.chuoi.nguoi && c.loai !== 'tham-quan' ? `<br><span class="nguoi">${esc(c.chuoi.nguoi)}</span>` : ''}</td>
       </tr>`).join('');
 
   const hangNhieu = nhieu.map((c) => `<li><strong>${esc(c.ten)}</strong> — ${so(c.i)} hiển thị, ${so(c.c)} nhấp. <span class="mo">Ví dụ: ${c.top.slice(0, 4).map((t) => '“' + esc(t.q) + '”').join(', ')}</span></li>`).join('');
@@ -215,6 +228,12 @@ ol.ds-viec { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; 
 .dich { font-size: .92rem; overflow-wrap: anywhere; }
 .bac { font-size: .78rem; color: var(--muc-2); border: 1px solid var(--ke); padding: 0 .4rem; white-space: nowrap; }
 .bac.canh-bao { color: var(--s-cohoi); border-color: currentColor; }
+.chuoi { display: grid; gap: .25rem; margin: .2rem 0 0; padding: .6rem .8rem; border-left: 3px solid var(--ke); font-size: .9rem; }
+.chuoi div { display: grid; grid-template-columns: minmax(7.5rem, auto) 1fr; gap: .8rem; }
+.chuoi dt { color: var(--muc-3); }
+.chuoi dd { margin: 0; color: var(--muc-2); }
+.nguoi { font-size: .8rem; color: var(--muc-3); }
+@media (max-width: 30rem) { .chuoi div { grid-template-columns: 1fr; gap: 0; } }
 details summary { cursor: pointer; color: var(--muc-2); font-size: .9rem; }
 .cuon { overflow-x: auto; border: 1px solid var(--ke); background: var(--mat); }
 table { border-collapse: collapse; width: 100%; font-size: .9rem; }

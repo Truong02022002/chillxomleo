@@ -25,6 +25,26 @@ const RE_MA = /<(\/?)([a-z][a-z0-9]*?)(\d+)(\/?)>/g;
 const escChu = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/ /g, '&nbsp;');
 const escTT = (s) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
+// 02-11-2026: ghi chú minh bạch dưới dòng © của trang dựng máy — người đọc biết đây là bản dịch có AI
+// hỗ trợ, số liệu lấy theo bản Việt, và có link về bản gốc (Google: nên nói rõ cách dùng AI khi điều đó
+// giúp người đọc đánh giá nội dung). {goc} = URL bản Việt. CSS: .ghi-chu-dich trong css/style.css.
+const GHI_CHU_DICH = {
+  zh: '本页由越南语原文翻译而成（AI 辅助翻译）。价格、营业时间以<a href="{goc}" hreflang="vi">越南语原文</a>为准；发现译文有误，请通过 Zalo 076 452 7336 告诉我们。',
+  ko: '이 페이지는 베트남어 원문을 AI의 도움을 받아 번역한 것입니다. 가격과 영업시간은 <a href="{goc}" hreflang="vi">베트남어 원문</a>을 기준으로 하며, 번역 오류는 Zalo 076 452 7336으로 알려 주세요.',
+  ja: 'このページはベトナム語の原文をAIの補助で翻訳したものです。料金・営業時間は<a href="{goc}" hreflang="vi">ベトナム語原文</a>を正とします。誤訳に気づいたら Zalo 076 452 7336 までお知らせください。',
+  ru: 'Эта страница переведена с вьетнамского оригинала с помощью ИИ. Цены и часы работы — по <a href="{goc}" hreflang="vi">вьетнамскому оригиналу</a>; об ошибках перевода сообщите в Zalo 076 452 7336.',
+  th: 'หน้านี้แปลจากต้นฉบับภาษาเวียดนามโดยมี AI ช่วย ราคาและเวลาเปิดทำการยึดตาม<a href="{goc}" hreflang="vi">ต้นฉบับภาษาเวียดนาม</a> พบคำแปลผิดแจ้งได้ทาง Zalo 076 452 7336',
+};
+function chenGhiChuDich(html, n, duongVi) {
+  const chu = GHI_CHU_DICH[n.ma];
+  if (!chu) return { html, so: 0 };
+  // Link về bản gốc để tương đối gốc (/menu/) như mọi link nội bộ — tools/audit-links.mjs coi a[hreflang] là nút đổi ngôn ngữ.
+  const doan = `<p class="ghi-chu-dich" lang="${n.lang}">${chu.replace('{goc}', duongVi)}</p>`;
+  let so = 0;
+  const ra = html.replace(/(<p class="[^"]*">\s*© 20\d\d[^<]*<\/p>\s*<\/div>)/, (m) => { so++; return m + doan; });
+  return { html: ra, so };
+}
+
 const KHO = Object.fromEntries(MOI.map((n) => {
   const f = path.join(KHO_DIR, `${n.ma}.json`);
   return [n.ma, fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')) : {}];
@@ -212,6 +232,9 @@ function dungTrang(x, n) {
   ra = ra.replace(/(<meta property="og:locale" content=")[^"]*(")/, `$1${n.locale}$2`);
   ra = thayOgLocale(ra, n.ma, ban).html;
   ra = thayHreflang(ra, ban).html;
+  const gc = chenGhiChuDich(ra, n, x.duong);
+  if (!gc.so) console.log(`  ! ${n.ma}${duong}: không chèn được ghi chú dịch (không thấy dòng © trong footer)`);
+  ra = gc.html;
   // Bảng dịch chữ do JS sinh ra (js/ngon-ngu.js) nạp TRƯỚC main.min.js; hash cùng cách tools/cache-bust.js.
   ra = ra.replace(/([ \t]*)(<script src="[^"]*main\.min\.js\?[^"]*" defer><\/script>)/, (_, thut, the) => `${thut}<script src="/js/ngon-ngu.js?h${HASH_NGON_NGU}" defer></script>${src.includes('\r\n') ? '\r\n' : '\n'}${thut}${the}`);
   if (!ra.includes('/js/ngon-ngu.js?')) console.log(`  ! ${n.ma}${duong}: không chèn được js/ngon-ngu.js`);
