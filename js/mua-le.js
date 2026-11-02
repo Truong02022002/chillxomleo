@@ -36,11 +36,11 @@
 
   // Lich Tet cua QUAN tung nam. CHI ghi nam da duoc chu site xac nhan: nam chua co van
   // trang tri Tet binh thuong nhung KHONG hien thong bao (khong doan lich nghi cua quan).
-  // nghiTu = ngay nghi dau tien (28 thang Chap, duong lich). Tu do suy ra: nghi het mung 1,
+  // nghiTu = ngay nghi dau tien (23 thang Chap, duong lich; chu site doi 02-11-2026, truoc do la 28). Tu do suy ra: nghi het mung 1,
   // mo lai mung 2 tu 15:00, phu thu mung 2 -> het mung 10 (chu site chot 17-09 + 20-09-2026).
   // Tet Dinh Mui khong co 30 Tet: thang Chap chi 29 ngay.
   var LICH_TET = {
-    2027: { nghiTu: '2027-02-04', phuThu: 8 }
+    2027: { nghiTu: '2027-01-30', phuThu: 8 }
   };
 
   var THU_VI = ['Chủ nhật', 'Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy'];
@@ -104,7 +104,7 @@
 
   // ---------- Lich Tet: pha hien tai ----------
   // truoc   : chua nghi -> bao du lich nghi / mo lai / phu thu
-  // nghi    : 28 Chap -> het mung 1
+  // nghi    : 23 Chap -> het mung 1
   // phu-thu : mung 2 -> het mung 10
   // sau mung 10: khong bao gi nua.
   function lichTet() {
@@ -126,8 +126,8 @@
   function thongBaoTet(l) {
     var ten, o = [];
     var oNghi = en
-      ? oThongBao(t('Closed'), t('28th of the 12th lunar month – 1st day of Tết'), ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1))
-      : oThongBao('Nghỉ Tết', '28 tháng Chạp – hết mùng 1', ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1));
+      ? oThongBao(t('Closed'), t('23rd of the 12th lunar month – 1st day of Tết'), ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1))
+      : oThongBao('Nghỉ Tết', '23 tháng Chạp – hết mùng 1', ngay(l.nghiTu, 1) + ' – ' + ngay(l.nghiDen, 1, 1));
     var oMo = en
       ? oThongBao(t('Reopening'), t('2nd day of Tết · from 15:00'), ngay(l.moLai, 1, 1))
       : oThongBao('Mở lại', 'Mùng 2 · từ 15:00', ngay(l.moLai, 1, 1));
