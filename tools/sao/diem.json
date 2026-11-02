@@ -1,6 +1,6 @@
 {
   "nguon": "https://script.google.com/macros/s/AKfycbz5aHAgYHNyt0vaAYQ0jLpq0Zue9deVcm2iY2c7Ew7O6gjkDqUdfel3Vf00u3PTKgS-Ig/exec",
-  "capNhat": "2026-10-29",
+  "capNhat": "2026-11-02",
   "trang": {
     "/about/": {
       "n": 1,
@@ -15,8 +15,8 @@
       "tb": 5
     },
     "/menu/": {
-      "n": 2,
-      "tb": 3
+      "n": 3,
+      "tb": 3.7
     },
     "/quan-an-da-lat-mo-cua-tet/": {
       "n": 1,
