@@ -360,6 +360,18 @@
       "loiThe": "Lau, tra nong",
       "ruiRoTrung": "da-lat-mua-mua-thang-9-10 — mot bai ve THOI TIET, mot bai ve MON AN",
       "ghiChuMua": "Di theo bai mua mua o tren."
+    },
+    {
+      "nhom": "thucDung",
+      "bac": "C",
+      "slug": "chon-quan-nuong-da-lat",
+      "ngayDang": "2026-11-03",
+      "lichCu": null,
+      "trongMua": true,
+      "yDinh": "Chon quan nuong o Da Lat — nguoi tim 'quan nuong da lat', 'bo nuong da lat'... chua biet ten quan (cum quan-nuong-chung + mon-nuong trong cum-chu-de.json)",
+      "loiThe": "Bai bac C cho cum dang do ve trang chu bac A (vai-tro-trang bao lech bac tu 29-10). Du kien chua trang nao co: 5 kieu quan nuong o Da Lat, duong chim bay 6 km vs duong xe 9 km, 6 cau hoi dung cho moi quan, bang gia theo mon",
+      "ruiRoTrung": "Khong xep hang quan. Khong chep lai 'hop voi ai' cua 2 trang P (link sang). Tieu de khong trung 5 chu dau voi trang chu / bai nhom dong / bai view xe lua.",
+      "ghiChuMua": "Ngoai ke hoach 19 bai: dang 03-11-2026 theo lenh 'fix' cua chu site (viec 4 cua phien 29-10). Khong doi lich cac bai con lai."
     }
   ]
 }

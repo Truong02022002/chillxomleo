@@ -111,6 +111,28 @@
         "quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat",
         "deo-prenn-da-lat-cung-duong-quyen-ru"
       ]
+    },
+    {
+      "slug": "chon-quan-nuong-da-lat",
+      "ngayDang": "2026-11-03",
+      "bac": "C",
+      "nhom": "an-uong",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Chọn quán nướng Đà Lạt – 6 điều kiểm trước khi đặt bàn",
+      "tieuDeEn": "Choosing a BBQ Restaurant in Da Lat – 6 Things to Check",
+      "tomTat": "Than tại bàn, nướng ngói, buffet hay xiên chợ đêm — chọn kiểu nào, ngồi trung tâm hay vòng ngoài, mỗi người bao nhiêu là bình thường, và sáu câu nên hỏi bất kỳ quán nào trước khi đặt bàn.",
+      "tomTatEn": "Charcoal at the table, tile grills, buffets or night-market skewers — which to pick, centre or outskirts, what a normal bill per head looks like, and six questions to ask any place before you book.",
+      "anh": "uploads/blogs/co-gai-ao-do-ngam-hoang-hon-ben-ban-lau-xom-leo.webp",
+      "anhAlt": "Cô gái áo đỏ ngắm hoàng hôn bên bàn lẩu nướng ngoài trời tại Tiệm Nướng & Chill Xóm Lèo, phía dưới là thung lũng nhà kính Trại Mát",
+      "anhAltEn": "A woman in a red jacket watching the sunset beside an outdoor grill table at Xom Leo Grill & Chill, the Trai Mat greenhouse valley below",
+      "uuTien": "0.6",
+      "noiTu": [
+        "da-lat-ve-dem-top-nhung-noi-phai-den",
+        "tiem-nuong-da-lat-duoc-yeu-thich",
+        "cam-nang-du-lich-da-lat",
+        "quan-nuong-da-lat-view-xe-lua"
+      ]
     }
   ]
 }
