@@ -116,7 +116,11 @@ playwright-cli (từ cwd scratchpad) ở 1280px và 390px: console 0 lỗi, bả
    `noiTu` = 2–4 slug **có khối `<aside aria-label="Bài viết liên quan">` ở cả VI lẫn EN** —
    các bài sinh bằng tao-bai-nhap không có khối này). Ghi vào `ke-hoach-26-bai.json`.
 4. `node tools/dang-bai-theo-lich.mjs --thu --ngay YYYY-MM-DD` rồi bỏ `--thu` (hoặc để CI
-   đăng 08:00 giờ VN từ nhánh noi-dung). Script không commit.
+   đăng 08:00 giờ VN từ nhánh noi-dung). Script không commit. **Đăng tay thì phải chạy nốt
+   đúng các bước của `dang-bai-theo-lich.yml`:** `chuan-hoa-giao-dien.mjs --write` →
+   `sao-bai.mjs --write` (khối sao + schema cho trang mới; thiếu là CI "Kiem structured data"
+   đỏ) → `build-css --write` → `cache-bust --write` → `csp-hash --write` → `kiem-schema` →
+   `kiem-sitemap --sua`.
 5. `anh-ti-le.mjs --sharp <thư mục có sharp> --ld` → chuỗi ở trên → dịch ít nhất 4 đoạn thẻ
    blog (nhãn ngày, tiêu đề, tóm tắt, alt) để 5 trang `/xx/blog/` có thẻ; thân bài dịch khi
    chủ site yêu cầu.
