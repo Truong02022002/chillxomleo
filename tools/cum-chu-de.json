@@ -112,6 +112,23 @@
       "kpi": "click_booking_cta có trang vào /menu/"
     },
     {
+      "key": "th-mon",
+      "ten": "Tên quán + món nên gọi",
+      "loai": "thuong-hieu",
+      "dich": "/tiem-nuong-da-lat-duoc-yeu-thich/",
+      "mau": "{TH}",
+      "canCo": "nen goi|goi gi|goi mon|an gi|mon (nao|gi|ngon|nen)|dac san|bo tang|suon cay|ca tam|oc nhoi|tom chien|ba chi|\blau\b|nuong gi|signature|dishes|what to (eat|order)",
+      "bac": "P",
+      "nguoi": "Người đã biết tên quán, muốn biết gọi món gì cho đáng trước khi đi",
+      "canBiet": "Món nào đáng gọi, giá từng món, ăn thế nào, hợp với ai",
+      "bangChung": "Ảnh món thật chụp tại quán, giá in đã gồm VAT, mục \"hợp với ai, chưa hợp với ai\"",
+      "cta": [
+        "menu",
+        "dat-ban"
+      ],
+      "kpi": "Nhấp sang /menu/ và #booking (Path exploration), rate_page"
+    },
+    {
       "key": "thuong-hieu",
       "ten": "Tên quán (điều hướng)",
       "loai": "thuong-hieu",
@@ -274,7 +291,7 @@
       "key": "mon-nuong",
       "ten": "Món cụ thể (bò, gà, khoai lang, lẩu cá tầm…)",
       "loai": "dich-vu",
-      "dich": "/tiem-nuong-da-lat-duoc-yeu-thich/",
+      "dich": "/chon-quan-nuong-da-lat/",
       "mau": "(bo|ga|long|chan ga|khoai lang|xuc xich|xien|trung|pho mai|thit|may) nuong|lau ca tam|lau ga la e|ca tam|oc nhoi|cac mon nuong|mon nuong|bo .*pho mai|^bbq$|^nuong( bbq)?$|^do nuong$|^lau$|tiem nuong khoai",
       "bac": "C",
       "nguoi": "Người thèm một món cụ thể (bò nướng, lẩu cá tầm, khoai lang nướng), đang tìm chỗ ăn",
@@ -284,13 +301,13 @@
         "menu",
         "dat-ban"
       ],
-      "kpi": "Nhấp sang /menu/, generate_lead"
+      "kpi": "Nhấp sang /menu/ và bài 8 món (P), generate_lead"
     },
     {
       "key": "quan-nuong-chung",
       "ten": "Quán nướng Đà Lạt (chung)",
       "loai": "dich-vu",
-      "dich": "/",
+      "dich": "/chon-quan-nuong-da-lat/",
       "mau": "(quan|tiem|nha hang|lang|chon)? ?(do )?nuong|bbq|nuong (chill|ngon)|chill nuong|an toi|quan an toi|lau nuong",
       "bac": "C",
       "nguoi": "Du khách sắp hoặc đang ở Đà Lạt, chọn quán nướng cho bữa tối — chưa biết tên quán nào",
@@ -300,7 +317,7 @@
         "dat-ban",
         "goi"
       ],
-      "kpi": "generate_lead từ lượt vào không thương hiệu (GSC cụm này + GA4 trang vào)"
+      "kpi": "generate_lead + nhấp sang /menu/, /#booking, tel: từ lượt vào không thương hiệu (GSC cụm này + GA4 content_group 2-choose)"
     },
     {
       "key": "thang-12-giang-sinh",
