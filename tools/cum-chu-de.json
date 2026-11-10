@@ -222,7 +222,7 @@
       "mau": "khach doan|nhom dong|tiec cuoi|liên hoan|lien hoan|hop lop|cho be|khu vui choi|tiec cong ty|year end party|team ?building",
       "bac": "C",
       "nguoi": "Người tổ chức họp lớp, liên hoan công ty, khách đoàn — khoảng 10 tới 60 người",
-      "canBiet": "Cả nhóm có ngồi chung một dãy được không, xe khách vào được không, cọc bao nhiêu",
+      "canBiet": "Cả nhóm có ngồi chung một dãy được không, xe khách vào được không, cọc bao nhiêu. Cùng truy vấn có hai người: người tự quyết (lớp trưởng, trưởng nhóm) chỉ cần gọi giữ bàn; người được giao đi tìm (hành chính, thư ký công ty) phải trình lại sếp và kế toán nên cần hoá đơn VAT, mức cọc, giá theo đầu người, và cả điều quán chưa đáp ứng",
       "bangChung": "Tối đa 60 khách, mỗi bàn một bếp than, xe 16–29 chỗ quay đầu được, cọc tuỳ đoàn",
       "cta": [
         "goi",
