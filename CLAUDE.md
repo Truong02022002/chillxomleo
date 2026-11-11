@@ -28,7 +28,7 @@ trang đang nhắc tới nó (VI, EN, 5 bản dịch, JSON-LD, bản lưu hang-d
 
 | Mục | Giá trị đã chốt |
 |---|---|
-| Tên quán | VI **Tiệm Nướng & Chill Xóm Lèo**; EN **Xom Leo Grill & Chill**. Không rút gọn thành "quán nướng Xóm Lèo". "Xóm Lèo" đứng một mình là tên xóm. |
+| Tên quán | VI **Tiệm Nướng & Chill Xóm Lèo**; EN **Xom Leo Grill & Chill**. Không rút gọn thành "quán nướng Xóm Lèo"; cần cụm tìm kiếm thì viết **"quán nướng ở Xóm Lèo Đà Lạt"** (chốt 10-11-2026). "Xóm Lèo" đứng một mình là tên xóm. Cách gọi tắt chỉ để trong `alternateName` của schema. |
 | Địa chỉ hiển thị | VI `113 Huỳnh Tấn Phát, Phường Xuân Trường - Đà Lạt, Lâm Đồng`; EN `113 Huynh Tan Phat, Xuan Truong Ward - Da Lat, Lam Dong`. Câu văn chỉ nhắc đường thì để nguyên, không nhét địa chỉ đầy đủ. |
 | PostalAddress (JSON-LD) | Tách trường, giữ tiếng Việt có dấu cả trang EN: streetAddress `113 Huỳnh Tấn Phát, Phường Xuân Trường`, addressLocality `Đà Lạt`, addressRegion `Lâm Đồng`, postalCode `67000`. |
 | Bản đồ | Google Maps `cid=11166661116585636255`, toạ độ 11.9543314, 108.4944158. Ghim Maps dẫn đúng chỗ; gọi để quán gửi định vị là lựa chọn thêm, không phải cảnh báo. |
@@ -101,7 +101,7 @@ node tools/csp-hash.mjs --write       # lỗi errno -4094 thì chạy lại
 node tools/kiem-sitemap.mjs --sua     # chạy ĐÚNG NGÀY push (lastmod); chậm >5 phút, chạy nền
 ```
 
-**Kiểm trước khi báo xong** (CI chạy lại 9 workflow trong `.github/workflows/`):
+**Kiểm trước khi báo xong** (CI chạy lại 10 workflow trong `.github/workflows/`):
 `kiem-schema.mjs` (0/0), `audit-links.mjs` (TỔNG 0), `kiem-do-luong.mjs` (đủ phép thử),
 `vai-tro-trang.mjs` (0 ở 5 mục), `tools/dich/dung.mjs --kiem`, `build-css.js` (lệch 12 = nháp
 hang-doi, bình thường), `mua-le.mjs`, `cache-bust.js`. Soi trình duyệt bằng server tĩnh +
@@ -142,6 +142,16 @@ lại sau khi sửa. URL Apps Script của sao đánh giá chỉ ở `tools/sao/
 **Sau khi push:** chờ HTML live đổi sang hash mới **rồi mới** gọi URL asset — gọi sớm là
 Cloudflare giữ bản cũ dưới khoá mới 30 ngày. Kiểm CI qua `curl api.github.com/repos/…/actions/runs`.
 
+**Khi Google tung core / spam update** (Search Status Dashboard, mục Ranking): từ ngày bắt đầu tới
+hết 7 ngày sau khi xong **không sửa hàng loạt, không đổi URL / title / H1 / cấu trúc trang đang chạy
+tốt** — sửa dữ kiện sai, lỗi chức năng, bài đã lên lịch vẫn làm. Ngày các đợt ở
+`tools/dot-cap-nhat-google.json`; đối chiếu trước / sau bằng `tools/doi-chieu-cap-nhat.mjs`; quy
+trình, quy ước tụt nhẹ / tụt mạnh, giả thuyết ghi trước: `tools/do-luong.md` mục 13. Tụt trùng lúc có
+đợt chưa chắc là do đợt đó: core update không nhắm site nào; spam update thì hạ site vi phạm tự động,
+không báo trong Search Console. Tụt nhẹ (kiểu 2 → 4) không sửa. Chạy lại `build-js` / `cache-bust` /
+`csp-hash` chỉ đổi hash, `kiem-sitemap --sua` không nâng lastmod khi nội dung không đổi — không tính là
+sửa hàng loạt.
+
 ## 5. Môi trường Windows — bẫy đã vấp
 
 - File CRLF: **không `sed -i`** (xoá CR, cả file thành diff). Thay chuỗi bằng Node, kiểm
@@ -176,7 +186,9 @@ Cloudflare giữ bản cũ dưới khoá mới 30 ngày. Kiểm CI qua `curl api
   xem CI xanh và kiểm live. **Không commit/push khi chưa được bảo.**
 - **Dán một bài viết / ảnh công cụ / quảng cáo khoá học mà không kèm lời dặn** = "soi site theo
   tiêu chí trong đó rồi vá". Trả lời theo ba nhóm: đã đạt sẵn (đừng rà lại), đã sửa (chưa
-  commit), cố ý không làm (kèm lý do). Việc cần chủ quyết thì liệt kê, không tự làm.
+  commit), cố ý không làm (kèm lý do). Việc cần chủ quyết thì liệt kê, không tự làm. **Trong cửa sổ
+  đợt cập nhật Google** (mục 4, mục 8): chỉ soi và liệt kê; vá trang sau khi hết 7 ngày sau ngày
+  xong — trừ dữ kiện sai, lỗi chức năng.
 - **"fix đi" / "làm đi" / "kiểm tra tiếp"** = làm ngay việc vừa nêu hoặc việc đang treo gần
   nhất trong cùng mạch; "bạn tự quyết đi" = chọn phương án tốt nhất rồi làm.
 - **Câu hỏi** ("hiểu thế nào", "có nên…") = trả lời bằng ví dụ của chính site, không sửa gì.
@@ -193,7 +205,8 @@ Cloudflare giữ bản cũ dưới khoá mới 30 ngày. Kiểm CI qua `curl api
 
 | Mảng | Tài liệu |
 |---|---|
-| Đo lường GA4, sự kiện, Path exploration, chống trùng đơn | `tools/do-luong.md` (12 mục, có nhật ký) |
+| Đo lường GA4, sự kiện, Path exploration, chống trùng đơn | `tools/do-luong.md` (13 mục, nhật ký ở mục 12) |
+| Đợt cập nhật Google: giữ yên site, đối chiếu trước / sau, giả thuyết | `tools/do-luong.md` mục 13, `tools/doi-chieu-cap-nhat.mjs`, `tools/dot-cap-nhat-google.json`; báo khi đợt bắt đầu / xong: `tools/theo-doi-dot-google.mjs` (workflow mỗi sáng → issue `[dot-google]` + Telegram) |
 | Hàng đợi bài, điều kiện đăng, `lich-dang.json` | `hang-doi/README.md` |
 | Kế hoạch chủ đề, bậc DLN từng bài, câu đã hỏi chủ, slug đã bỏ/gộp | `hang-doi/ke-hoach-26-bai.json` |
 | Cụm từ khoá → trang → CTA → KPI, ngưỡng bản đồ nhu cầu | `tools/cum-chu-de.json` (`_ghi_chu` ở đầu) |
@@ -210,5 +223,25 @@ Cloudflare giữ bản cũ dưới khoá mới 30 ngày. Kiểm CI qua `curl api
 - Cloudflare: TLS ≥ 1.2, SSL strict, HSTS, redirect `http://www` một bước — việc của chủ.
 - GA4 admin (Key Event, Custom Definitions `rating`/`occasion`/`guests`), GSC export mới, GBP
   giờ nghỉ Tết, TripAdvisor listing, MST/giấy phép ở chân trang — việc của chủ.
+- Trích dẫn ngoài site (soát 10-11): bài mia.vn "Tiệm nướng Xóm Lèo" ghi giờ 16:00–22:00, không
+  số nhà, không link → chủ xin sửa + thêm link; listing Trip.com (id 149106969) đúng địa chỉ/giờ
+  nhưng chưa có website. TripAdvisor chỉ vào `sameAs` khi listing đã về đúng geo Đà Lạt.
+- Không có số liệu đối thủ kiểu Ahrefs (DR, referring domain, tốc độ backlink): connector chưa
+  cấp quyền; site quán địa phương không chạy chỉ tiêu "N backlink/tháng".
+- **November 2026 core update** (bắt đầu 10-11 giờ Pacific, tối đa 2 tuần; kiểm 11-11: chưa xong):
+  giữ yên site tới hết 7 ngày sau khi xong (mục 4). Chủ: xuất GSC kỳ trước 03–09/11 (từ 12-11), thêm
+  ghi chú ngày 10-11 trên biểu đồ Hiệu suất. Dashboard báo xong ngày D → điền `xong` vào
+  `tools/dot-cap-nhat-google.json`; kỳ sau D+1 → D+7, **xuất từ D+10** (kỳ sau + file 6 tháng), chạy
+  `doi-chieu-cap-nhat` (quy trình: `tools/do-luong.md` mục 13). Kỳ trước chưa sạch (site đổi 321/333
+  URL trong 13-10 → 02-11): đọc nhóm trang không đổi nội dung (`/menu/`, `/menu-en/`…) và truy vấn tên
+  quán trước — giữ `/menu/` không đổi suốt cửa sổ.
+- Việc 10-11 soạn sẵn, **chưa đẩy** (11-11 chỉ đẩy phần sửa dữ kiện: nguồn chết bài về đêm ×7, câu Jazz
+  bài Giáng sinh ×2). Patch + cách áp lại ở `.claude/cho-day/` (ngoài git): (1) form nhận 60 khách —
+  đẩy **sau khi chủ kiểm `doPost` của Apps Script không chặn trên 50 khách** (hoặc gửi một đơn TEST 55
+  khách ngay sau khi deploy); (2) cụm "quán nướng ở Xóm Lèo Đà Lạt" ở title/H1 `/duong-di/` ×6 và 2 câu
+  FAQ trang chủ ×6 — đổi cụm từ, để **sau D+7** (bản dịch đã có sẵn trong `tools/dich/kho/`).
+- `sao-bai.yml` vẫn chạy mỗi sáng trong cửa sổ đợt: trang đủ 5 phiếu sẽ hiện điểm + schema (`/menu/`
+  đang 3/5). Công cụ đối chiếu tự đánh dấu trang bật điểm sao; chủ quyết có tắt tạm workflow tới D+7
+  để giữ `/menu/` làm đối chứng sạch không.
 - Bài chưa có 5 bản dịch: `da-lat-thang-12-giang-sinh`, `chon-quan-nuong-da-lat` (thẻ blog đã dịch).
 - Các bài sinh bằng `tao-bai-nhap` chưa có khối "Bài viết liên quan" → chưa khai được `noiTu` từ chúng.

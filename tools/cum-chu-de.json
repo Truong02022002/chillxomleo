@@ -46,6 +46,16 @@
       "mau": "tram dung chill|tram chill|111 huynh tan phat|tram nuong"
     },
     {
+      "key": "xom-leo-dia-danh",
+      "ten": "Xóm Lèo — tên xóm (địa danh), không kèm chữ quán/nướng",
+      "loai": "tham-quan",
+      "dich": null,
+      "mau": "^(khu )?xom\\.? ?leo( (o )?(da lat|dalat))?( (o dau|co gi|co gi choi|hoang hon|check ?in|sunset))?$",
+      "nguoi": "GIẢ THUYẾT: người đọc cẩm nang thấy 'Xóm Lèo – điểm ngắm hoàng hôn Trại Mát', chưa nhắm quán nào",
+      "canBiet": "Xóm Lèo ở đâu, có gì, đi giờ nào, có mất phí không",
+      "ghiChu": "Tách khỏi cụm tên quán 10-11-2026 (export GSC 16/6–15/9: ~4.370 hiển thị, vt ~3,1, CTR 2,1% — người tìm quán vt ~1,8). Trang đích chưa có: chờ chủ chốt hướng bài hub trai-mat-da-lat-co-gi (_canChuSiteXacNhan). 'xom leo da lat dia chi' để ở th-dia-chi vì trang đường đi trả lời được cả hai."
+    },
+    {
       "key": "th-menu",
       "ten": "Tên quán + thực đơn / giá",
       "loai": "thuong-hieu",

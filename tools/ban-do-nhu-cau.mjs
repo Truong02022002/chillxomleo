@@ -30,6 +30,9 @@
  *   - Export chuan KHONG noi truy van <-> trang. "Trang dich" cua cum la trang site NEN dung cho cum (khai trong
  *     cum-chu-de.json); so lieu trang in kem lay tu file Trang (tong moi truy van cua trang do), chi de tham khao.
  *   - Vi tri trung binh cua cum = trung binh co trong so theo hien thi.
+ *
+ * Tu 11-11-2026 bo doc export (docNguon, timBang, docBangChiSo...) va quy tac gom cum (taoGanCum) duoc
+ * tools/doi-chieu-cap-nhat.mjs dung chung — sua o day la sua ca hai cong cu.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -62,7 +65,7 @@ function docZip(file) {
   }
   return out;
 }
-function docNguon(nguon) {
+export function docNguon(nguon) {
   if (!nguon) return null;
   if (fs.statSync(nguon).isDirectory()) {
     const out = {};
@@ -73,7 +76,7 @@ function docNguon(nguon) {
 }
 
 // ---------------- CSV ----------------
-function docCsv(s) {
+export function docCsv(s) {
   s = s.replace(/^﻿/, '');
   const hang = []; let o = '', h = [], q = false;
   for (let i = 0; i < s.length; i++) {
@@ -87,10 +90,10 @@ function docCsv(s) {
   if (o || h.length) { h.push(o); hang.push(h); }
   return hang.filter((r) => r.length > 1 || r[0]);
 }
-const so = (v) => { if (v == null || v === '') return 0; v = String(v).trim().replace('%', ''); if (/^\d{1,3}(\.\d{3})+$/.test(v)) v = v.replace(/\./g, ''); return parseFloat(v.replace(',', '.')) || 0; };
+export const so = (v) => { if (v == null || v === '') return 0; v = String(v).trim().replace('%', ''); if (/^\d{1,3}(\.\d{3})+$/.test(v)) v = v.replace(/\./g, ''); return parseFloat(v.replace(',', '.')) || 0; };
 
 // Tim bang theo tieu de cot dau (ten file trong zip la tieng cua giao dien GSC, khong on dinh)
-function timBang(files, mauCotDau) {
+export function timBang(files, mauCotDau) {
   for (const [ten, noiDung] of Object.entries(files)) {
     const r = docCsv(noiDung);
     if (r.length && mauCotDau.test(r[0][0])) return { ten, hang: r };
@@ -99,7 +102,7 @@ function timBang(files, mauCotDau) {
 }
 // Bang chi so: cot dau = khoa; cac cot con lai = nhap/hien thi/CTR/vi tri. Export che do SO SANH co 2 bo cot
 // (ky nay + ky truoc) -> tach ra theo chu "truoc / previous" trong tieu de.
-function docBangChiSo(bang) {
+export function docBangChiSo(bang) {
   const td = bang.hang[0];
   const loai = (t) => (/nh[aấ]p|click/i.test(t) ? 'c' : /hi[eể]n th[iị]|impression/i.test(t) ? 'i' : /ctr/i.test(t) ? 'ctr' : /v[iị] tr[ií]|position/i.test(t) ? 'p' : null);
   const laTruoc = (t) => /tr[uư][oớ]c|previous|prior|earlier/i.test(t);
@@ -116,11 +119,27 @@ function docBangChiSo(bang) {
 }
 
 // ---------------- Chuan hoa truy van ----------------
-const boDau = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
+export const boDau = (s) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/đ/g, 'd').replace(/\s+/g, ' ').trim();
+
+// Duong dan p co nam trong thu muc goc (repo) khong. So sau khi chuan hoa that: realpath doi ten 8.3 (PHANDU~1)
+// ra ten dai va sua hoa/thuong; Windows so khong phan biet hoa/thuong (o "d:\" va "D:\" la mot). Thu muc chua
+// co thi chuan hoa phan cha da co roi noi duoi. Dung de chan ghi bao cao chua so GSC vao repo: repo la site
+// GitHub Pages, file nam trong repo se thanh trang cong khai.
+export function trongRepo(goc, p) {
+  const thuc = (x) => {
+    let dau = path.resolve(x); const duoi = [];
+    while (!fs.existsSync(dau)) { const cha = path.dirname(dau); if (cha === dau) break; duoi.unshift(path.basename(dau)); dau = cha; }
+    try { dau = fs.realpathSync.native(dau); } catch { /* giu nguyen */ }
+    const kq = path.join(dau, ...duoi);
+    return process.platform === 'win32' ? kq.toLowerCase() : kq;
+  };
+  const r = path.relative(thuc(goc), thuc(p));
+  return r === '' || !(r === '..' || r.startsWith('..' + path.sep) || path.isAbsolute(r));
+}
 
 // ---------------- Bac DLN cua trang dich (doc <html data-dln>) ----------------
-const TEN_BAC = { '1-orient': 'O · Định hướng', '2-choose': 'C · Chọn', '3-prove': 'P · Kiểm chứng', '4-rate': 'R · Đánh giá', '5-act': 'A · Hành động', hub: 'Trang tổng', legal: 'Pháp lý' };
-function bacCua(url) {
+export const TEN_BAC = { '1-orient': 'O · Định hướng', '2-choose': 'C · Chọn', '3-prove': 'P · Kiểm chứng', '4-rate': 'R · Đánh giá', '5-act': 'A · Hành động', hub: 'Trang tổng', legal: 'Pháp lý' };
+export function bacCua(url) {
   if (!url) return null;
   const f = path.join(ROOT, url.replace(/^\//, ''), 'index.html');
   if (!fs.existsSync(f)) return { tonTai: false };
@@ -143,7 +162,7 @@ function lapTieuDe(q, title) {
 const TU_ANH = /\b(the|of|in|near|best|shop|shops|coffee|cafes?|restaurants?|square|palace|pagoda|lake|hill|garden|field|breakfast|view|places?|things|what|where|how|price|ticket|official|symbol|basement|shopping|entertainment|cable|car|waterfall|tunnel|night|market|church|valley)\b/i;
 const laTiengAnh = (q) => !/[àáảãạăằắẳẵặâầấẩẫậđèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ]/i.test(q) && TU_ANH.test(q);
 const DICH_EN = { '/': '/en/', '/menu/': '/menu-en/', '/about/': '/about-en/', '/duong-di/': '/en/directions/', '/blog/': '/blog-en/' };
-const banEn = (url) => (url ? DICH_EN[url] || url.replace(/\/$/, '-en/') : null);
+export const banEn = (url) => (url ? DICH_EN[url] || url.replace(/\/$/, '-en/') : null);
 
 // ---------------- CTR ky vong theo vi tri ----------------
 function ctrKyVong(duong, vt) {
@@ -153,6 +172,21 @@ function ctrKyVong(duong, vt) {
     if (vt <= moc[i]) { const a = moc[i - 1], b = moc[i]; return duong[a] + (duong[b] - duong[a]) * (vt - a) / (b - a); }
   }
   return duong[moc[moc.length - 1]];
+}
+
+// ---------------- Gom cum (dung chung voi tools/doi-chieu-cap-nhat.mjs) ----------------
+// Truy van so voi 'mau' theo THU TU trong cum-chu-de.json, cum dau tien khop thi nhan; null = chua phan cum.
+export function taoGanCum(quyTac) {
+  const TH = quyTac.thuongHieu;
+  const cumQ = quyTac.cum.map((c) => ({
+    ...c,
+    re: new RegExp(c.mau.replace(/\{TH\}/g, TH), 'i'),
+    canCoRe: c.canCo ? new RegExp(c.canCo, 'i') : null,
+    truRe: c.truKhi ? new RegExp(c.truKhi, 'i') : null,
+    ds: [],
+  }));
+  const ganCum = (truyVan) => { const n = boDau(truyVan); for (const c of cumQ) if (c.re.test(n) && (!c.canCoRe || c.canCoRe.test(n)) && (!c.truRe || !c.truRe.test(n))) return c; return null; };
+  return { cumQ, ganCum };
 }
 
 // ---------------- Phan tich ----------------
@@ -186,16 +220,8 @@ export function phanTich(filesNay, filesTruoc, quyTac) {
   }
 
   // Gom cum
-  const TH = quyTac.thuongHieu;
-  const cumQ = quyTac.cum.map((c) => ({
-    ...c,
-    re: new RegExp(c.mau.replace(/\{TH\}/g, TH), 'i'),
-    canCoRe: c.canCo ? new RegExp(c.canCo, 'i') : null,
-    truRe: c.truKhi ? new RegExp(c.truKhi, 'i') : null,
-    ds: [],
-  }));
+  const { cumQ, ganCum } = taoGanCum(quyTac);
   const chuaPhan = [];
-  const ganCum = (truyVan) => { const n = boDau(truyVan); for (const c of cumQ) if (c.re.test(n) && (!c.canCoRe || c.canCoRe.test(n)) && (!c.truRe || !c.truRe.test(n))) return c; return null; };
   for (const [tv, v] of q.nay) {
     const c = ganCum(tv);
     const truoc = qTruoc ? qTruoc.get(tv) : null;
@@ -317,7 +343,7 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const quyTac = JSON.parse(fs.readFileSync(path.join(ROOT, 'tools/cum-chu-de.json'), 'utf8'));
   const kq = phanTich(docNguon(nay), docNguon(truoc), quyTac);
   const raDir = path.resolve(thamSo('--ra') || path.dirname(path.resolve(nay)));
-  if ((raDir + path.sep).startsWith(ROOT + path.sep) || raDir === ROOT) {
+  if (trongRepo(ROOT, raDir)) {
     console.error('Khong ghi bao cao vao trong repo (se thanh trang cong khai tren GitHub Pages). Dung --ra <thu muc ngoai repo>.');
     process.exit(2);
   }

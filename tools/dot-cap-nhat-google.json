@@ -1,0 +1,53 @@
+{
+  "_ghi_chu": [
+    "Cac dot cap nhat xep hang Google da cong bo tren Search Status Dashboard (status.search.google.com, muc Ranking). tools/doi-chieu-cap-nhat.mjs doc file nay: --dot <key> lay ngay bat dau / xong de kiem khoang ngay doi chieu, va to vung moi dot len bieu do theo ngay.",
+    "Ngay ghi theo gio US/Pacific nhu dashboard va nhu Search Console (GSC chia ngay theo gio Pacific). Vi du: November 2026 core update bat dau 10:06 ngay 10-11 gio Pacific = 01:06 ngay 11-11 gio Viet Nam -> ghi 2026-11-10.",
+    "Dot dang chay: 'xong' = null. Khi trang su co bao 'The rollout was complete as of ...' thi dien ngay do vao 'xong' — cong cu tu chan danh gia som truoc khi co ngay nay.",
+    "Chi them dot co trang su co rieng tren dashboard (doc ngay bat dau + ngay xong tren chinh trang do). Khong them tin don, khong them 'bien dong chua xac nhan' doc tren mang xa hoi.",
+    "Dot truoc 05-2026 chua ghi vi nam ngoai moi export GSC dang co (som nhat 25-04-2026). Danh sach day du: https://status.search.google.com/summary"
+  ],
+  "dot": [
+    {
+      "key": "2026-11-core",
+      "ten": "November 2026 core update",
+      "loai": "core",
+      "batDau": "2026-11-10",
+      "xong": null,
+      "nguon": "https://status.search.google.com/incidents/WLxcJyC6jMWMfryxsKMc",
+      "ghiChu": "10-11 10:06 PST: 'Released the November 2026 core update, which applies globally and to all languages. The rollout may take up to 2 weeks to complete.' Kiem lai 11-11-2026: chua bao xong."
+    },
+    {
+      "key": "2026-09-spam",
+      "ten": "September 2026 spam update",
+      "loai": "spam",
+      "batDau": "2026-09-24",
+      "xong": "2026-10-08",
+      "nguon": "https://status.search.google.com/incidents/XhUDXP7A67iHCD2kmbVu"
+    },
+    {
+      "key": "2026-08-spam",
+      "ten": "August 2026 spam update",
+      "loai": "spam",
+      "batDau": "2026-08-18",
+      "xong": "2026-08-21",
+      "nguon": "https://status.search.google.com/incidents/LEubPCm2octf2uMqCFKE",
+      "ghiChu": "Trung tuan site tu sua nhieu (18-08 srcset + alt anh toan site, 19-08 gop 19 trang vao 5 trang chinh + dung lai /duong-di/, 23-08 doi font toan site), giua mua mua (thang 9 mua nhieu nhat), cuoi he: hien thi -29% va vi tri TB 5,0 -> 9,4 khong tach duoc nguyen nhan; luot nhap roi manh tu dau thang 9. Xem tools/do-luong.md muc 13."
+    },
+    {
+      "key": "2026-06-spam",
+      "ten": "June 2026 spam update",
+      "loai": "spam",
+      "batDau": "2026-06-24",
+      "xong": "2026-06-26",
+      "nguon": "https://status.search.google.com/incidents/YUX1peHev5a4fkxLDiUQ"
+    },
+    {
+      "key": "2026-05-core",
+      "ten": "May 2026 core update",
+      "loai": "core",
+      "batDau": "2026-05-21",
+      "xong": "2026-06-02",
+      "nguon": "https://status.search.google.com/incidents/wdAXJk6LRRihEjpzEeWE"
+    }
+  ]
+}

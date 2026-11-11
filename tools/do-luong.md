@@ -4,7 +4,7 @@ Bản mô tả chính thức của những gì site gửi về Google Analytics 
 kiện bắn, tham số và giá trị hợp lệ. Sửa code đo lường trong `js/main.js` thì sửa cả
 file này; báo cáo GA4 và Custom Definitions bên phía Google đều dựa trên hợp đồng ở đây.
 
-Cập nhật: 22-09-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
+Cập nhật: 11-11-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
 thay đổi ở mục 12.
 
 ## 1. Site đo bằng gì
@@ -243,7 +243,9 @@ nào:
 - Đăng ký Custom Definitions cho `page_type`, `intent_stage`, `page_language`,
   `cta_position`, `chat_channel`, `occasion`, `rating` — chưa đăng ký thì báo cáo không lọc
   được theo các tham số này. `rating` đăng ký dạng chiều (dimension) phạm vi sự kiện để lọc
-  được "4–5 sao" / "1–2 sao" trong Path exploration.
+  được "4–5 sao" / "1–2 sao" trong Path exploration. **`guests` đăng ký dạng chỉ số tuỳ chỉnh
+  (custom metric, phạm vi sự kiện, đơn vị Tiêu chuẩn)** — cộng được "số khách đã đặt" theo
+  nguồn, là con số gần doanh thu nhất mà site có (xem mục 11, CPL / CAC / ROAS).
 - Tạo sẵn một exploration **Phễu DLN** (*Khám phá → Phễu*, bật "phễu mở"): bước 1 đến 5 là
   `page_view` với Content group lần lượt `1-orient` … `5-act`, bước cuối `generate_lead`. Đây
   là chỗ duy nhất thấy được khách đi qua các bậc nào trước khi đặt bàn (lý do ở mục 4).
@@ -408,6 +410,23 @@ Ghi chú:
 3. Số đơn trong sheet mà nhân viên gọi xác nhận được và khách tới thật — đó mới là lead đạt
    chuẩn. Click gọi/Zalo trong GA4 chỉ để so xu hướng, không cộng vào đây.
 
+**CPL / CAC / ROAS — tính ở đâu (10-11-2026).** Ba chỉ số này cần tiền chi và tiền thu, mà site
+không biết cả hai, nên **không tính trong GA4**. Site chỉ lo phần giữa: mỗi lead mang đúng nguồn.
+
+| Chỉ số | Công thức cho quán | Tử số lấy ở | Mẫu số lấy ở |
+|---|---|---|---|
+| CPL | chi phí kênh ÷ số lead của kênh | Google Ads / Meta / TikTok | sheet đặt bàn lọc theo `source` (đơn form) **+** sổ gọi/Zalo của quán ghi nguồn |
+| CAC | chi phí kênh ÷ số **bàn tới thật** của kênh | như trên | cột trạng thái tới / không tới trong sheet — nhân viên điền sau ca |
+| ROAS | doanh thu các bàn đó ÷ chi phí kênh | hoá đơn thật của từng bàn (ghi vào sheet) | như trên |
+
+- Form chỉ là một phần lead; gọi và Zalo là kênh đặt bàn chính (mục 8). Tính CPL chỉ bằng
+  `generate_lead` thì CPL cao giả.
+- Chưa ghi hoá đơn theo bàn thì ước doanh thu bằng **tổng `guests` × 250.000–300.000đ** (giá
+  trung bình đã chốt, CLAUDE.md mục 2) và ghi rõ là ước. **Không** gửi `value` giả vào
+  `generate_lead`: đơn chưa tới quán thì chưa có doanh thu, và số đã vào GA4 không sửa lại được.
+- Site hiện không có thẻ quảng cáo nào (mục 10). Chạy quảng cáo thì gắn UTM theo bảng trên —
+  thiếu UTM là lead quảng cáo rơi vào nguồn tự nhiên và CPL của kênh đó tính sai.
+
 ## 12. Nhật ký thay đổi
 
 Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
@@ -423,3 +442,160 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 05-10-2026 | Tách quảng cáo trên AI khỏi trích dẫn AI: `oppref` → `ChatGPT Ads`; `utm_source` của trợ lý AI đi kèm medium trả phí hoặc mã click thì không còn ghi `AI: …`; UTM của chiến dịch trước bị xoá khi có nguồn mới; thêm dòng quảng cáo ChatGPT vào bảng link (mục 11); `kiem-do-luong.mjs` thêm 3 phép thử. |
 | 26-10-2026 | Chống trùng đơn theo vân tay 24 giờ (mục 6): gửi lại y hệt đơn đã xác nhận thì không gửi, đổi giờ/số khách thì gửi nhưng không tính thêm lead; `kiem-do-luong.mjs` thêm 3 phép thử (33 → 36). Thêm cách đọc Path exploration và lý do chưa làm trang cảm ơn (mục 8). |
 | 28-10-2026 | Thêm `rate_page` (mục 3): khối chấm sao gửi `rating` 1–5 vào GA4 khi Apps Script xác nhận phiếu, mỗi máy một lần mỗi bài; Path exploration (mục 8) phân biệt được bài dừng vì đã có ích với bài dừng vì chưa trả lời được. `kiem-do-luong.mjs` thêm 4 phép thử (36 → 40). |
+| 29-10-2026 | Phiếu sau khi gửi đổi "Vé đặt bàn" → "Yêu cầu đặt bàn" (khách đọc thành đã đặt xong); dòng "Đơn này đã gửi lúc…" còn lại dưới nút khi thông báo đóng (mục 6). `kiem-do-luong.mjs` 40 → 41. |
+| 10-11-2026 | Mục 8 thêm `guests` (custom metric); mục 11 thêm cách tính CPL / CAC / ROAS. Soạn sẵn form nhận tới **60 khách** (hiện vẫn chặn ở 50 — giới hạn kiểm tra từ 04-2026, có trước khi chốt sức chứa đoàn 60 người; đoàn 51–60 được bảo gọi điện) — **chưa lên site**, chờ chủ kiểm `doPost` của Apps Script không chặn trên 50 (CLAUDE.md mục 8). Tên sự kiện, tham số không đổi. |
+| 11-11-2026 | Thêm mục 13 (khi Google tung đợt cập nhật xếp hạng): `tools/doi-chieu-cap-nhat.mjs` + `tools/dot-cap-nhat-google.json`; ghi 5 giả thuyết **trước khi có số** cho November 2026 core update (bắt đầu 10-11 giờ Pacific); tiền lệ tháng 8. Cùng ngày, sau một vòng soát độc lập: chỉ xếp loại vị trí khi kỳ trước đủ ngưỡng, "mất hiển thị" chỉ tính dòng đủ ngưỡng (trước đó tuần nào không đổi gì cũng báo "nhóm tụt rõ"), trang / truy vấn mất hẳn khi đang ở trang 1–2 vào "cần đánh giá sâu", nhóm tên quán có ngưỡng riêng, cảnh báo kỳ trước chưa sạch (đọc lùi 3 tuần) và nhóm đối chứng trang không đổi nội dung, dao động thường bỏ tuần lễ, bước 6 đo bằng Khám phá (tách Hồ sơ doanh nghiệp). Thêm workflow `theo-doi-dot-google.yml`: mỗi sáng đọc Search Status Dashboard, issue `[dot-google]` + Telegram khi đợt bắt đầu / xong. Sự kiện, tham số GA4 không đổi. |
+
+## 13. Khi Google tung đợt cập nhật xếp hạng (core / spam)
+
+Google công bố mỗi đợt trên [Search Status Dashboard](https://status.search.google.com/summary)
+(mục *Ranking*). Ngày bắt đầu / xong của từng đợt ghi ở `tools/dot-cap-nhat-google.json` — nguồn
+duy nhất cho ngày, công cụ đọc từ đó. Tụt hạng đúng lúc có đợt **chưa chắc là do đợt đó**; trùng
+thời gian là chỗ để điều tra, chưa phải nguyên nhân. Core update "don't target specific sites or
+individual web pages" — tụt trùng core update không có nghĩa là bị phạt. Spam update thì khác: đó là
+hệ thống tự động (SpamBrain), site vi phạm chính sách spam "may rank lower in results or not appear in
+results at all" ([Google](https://developers.google.com/search/updates/spam-updates)) mà **không có
+thông báo** nào trong Search Console; mục *Thao tác thủ công* chỉ ghi án do người của Google xét. Tụt
+trùng đợt spam thì đọc lại chính sách spam, nhất là nội dung nhân bản theo quy mô (H2 bên dưới).
+
+**Quy trình của site** (bước 3, 4 và phần đọc báo cáo ở bước 5 làm theo [hướng dẫn của
+Google](https://developers.google.com/search/updates/core-updates), đọc lại 11-11-2026; bước 1, 2, phần
+loại trừ kỹ thuật ở bước 5 và bước 6 là quy ước riêng của site). Workflow `theo-doi-dot-google.yml`
+(`tools/theo-doi-dot-google.mjs`) đọc dashboard mỗi sáng 08:17 giờ VN, mở issue `[dot-google]` và nhắn
+Telegram khi có đợt mới hoặc đợt đang chạy báo xong — mỗi sự kiện một lần; không tự sửa file nào.
+
+1. **Ngày đợt bắt đầu** (workflow báo): thêm dòng vào `tools/dot-cap-nhat-google.json` (`xong: null`).
+   Trong Search Console → Hiệu suất, bấm chuột phải vào ngày đó trên biểu đồ → *Add annotation* (tên đợt).
+2. **Từ ngày bắt đầu tới hết 7 ngày sau khi xong — giữ yên site.** Không sửa hàng loạt, không đổi
+   URL, title, H1, cấu trúc của trang đang chạy tốt; mọi thay đổi trong cửa sổ này trộn vào tác động
+   của Google và không tách ra được nữa (xem tiền lệ tháng 8 bên dưới). Vẫn làm: sửa dữ kiện sai, lỗi
+   chức năng (form, link chết), bài mới đã lên lịch — công cụ tự biết trang nào đổi nội dung (đọc
+   `lastmod` trong lịch sử sitemap, cùng ngày điểm sao bật lên trong `tools/sao/diem.json`), không
+   cần ghi tay. Chạy lại `build-js` / `cache-bust` / `csp-hash` chỉ đổi hash, `kiem-sitemap --sua`
+   không nâng `lastmod` khi nội dung không đổi — không tính là sửa hàng loạt. Chủ dán bài viết không
+   kèm lời dặn trong cửa sổ này thì chỉ soi và liệt kê; vá sau khi hết cửa sổ (trừ dữ kiện sai, lỗi
+   chức năng).
+3. **Xuất kỳ trước:** Hiệu suất → Kết quả tìm kiếm → Ngày → Tuỳ chỉnh = **7 ngày ngay trước ngày
+   bắt đầu** → Xuất → Tải CSV. Xuất sau khi kỳ đó qua ít nhất 3 ngày (Search Console còn bổ sung số
+   của 2–3 ngày gần nhất). Lưu ngoài repo.
+4. **Dashboard báo "The rollout was complete as of D"** (workflow báo kèm các mốc dưới): điền `xong`
+   vào JSON (hoặc chạy công cụ với `--xong D`). Kỳ sau = **D+1 → D+7**. **Từ D+10** (hết D+7 thêm 3 ngày cho Search Console đủ
+   số) mới xuất kỳ sau (một file riêng, **không** dùng chế độ *So sánh* của Search Console) và một
+   file *6 tháng qua* cho biểu đồ theo ngày và dao động thường. Giữ yên site tới hết D+7.
+5. **Loại trừ nguyên nhân kỹ thuật trước**: xem issue `[giam-sat]` của giám sát uptime trong khoảng
+   [ngày bắt đầu, D+7], và Search Console → Cài đặt → Thống kê thu thập dữ liệu → Trạng thái máy chủ
+   (robots.txt, DNS, kết nối) cùng khoảng đó — web sập hay robots.txt lỗi trong cửa sổ cũng cho đúng
+   hình "tụt trùng đợt". Có sự cố thì ghi vào cột kết luận trước khi xét H1–H5. Rồi chạy
+   `node tools/doi-chieu-cap-nhat.mjs --dot <key> --truoc <kỳ trước>.zip --sau <kỳ sau>.zip --ca-ky <6 tháng>.zip --ra <ngoài repo>`
+   — kỳ chạm chính đợt đó, đợt chưa xong, kỳ ngắn hơn 7 ngày, hai file lọc khác nhau thì công cụ
+   dừng; kỳ trùng một đợt **khác** thì chỉ cảnh báo kèm dòng kết luận — đừng sửa theo báo cáo đó.
+   Báo cáo ghi ngoài repo. Đọc theo thứ tự: điều kiện → tổng so với dao động thường → vị trí trên rổ
+   truy vấn cố định → nhóm nào đổi (nhất là nhóm trang **không đổi nội dung**) → từng truy vấn / trang.
+6. **Kiểm chéo GA4** (khách đặt bàn mới là đích): Khám phá → Biểu mẫu tự do; hàng *Trang đích +
+   chuỗi truy vấn*; giá trị *Phiên*, *Số sự kiện*; lọc *Nguồn / phương tiện của phiên* =
+   `google / organic` (link Hồ sơ doanh nghiệp gắn `utm_source=google_maps&utm_medium=organic`, GA4
+   xếp chung vào nhóm Organic Search — lọc theo nguồn mới tách được web khỏi Maps) và tên sự kiện
+   `generate_lead`, `click_call`, `chat_open` (`click_call`, `chat_open` không phải Key Event nên
+   không hiện ở báo cáo Trang đích chuẩn). So kỳ trước với D+1 → D+7 (GA4 chia ngày theo múi giờ của property
+   — Quản trị → Cài đặt property; Search Console theo giờ Pacific — lệch một ngày là bình thường). Đối chứng: dashboard đặt bàn — nhóm "Google tìm kiếm" so với
+   "Google Maps"; Hồ sơ doanh nghiệp → Hiệu suất (gọi, chỉ đường, bấm web) cùng hai kỳ. Maps cũng giảm
+   thì nghiêng về mùa vụ; chỉ web giảm thì đọc báo cáo của công cụ. Lead và cuộc gọi chỉ để **xếp ưu
+   tiên** — một tuần quá ít đơn để gạt đi một lần tụt mạnh; tụt mạnh vẫn đánh giá sâu, so lead theo
+   cửa sổ 4 tuần trở lên.
+7. **Làm gì:** tụt nhẹ → không sửa (Google: "There's no need to take drastic action", tránh sửa nội
+   dung đang chạy tốt); tụt vừa → theo dõi thêm 1–2 tuần, mở kết quả Google thật xem ai lên thay;
+   tụt mạnh, hoặc mất hẳn hiển thị khi đang ở trang 1–2 (Kiểm tra URL trước) → đánh giá sâu **từng
+   trang** theo bộ câu hỏi [Creating helpful, reliable, people-first
+   content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content); tụt
+   rộng trên nhiều cụm, kéo dài từ 2 tuần trở lên → tự đánh giá cả site theo cùng bộ câu hỏi; trang
+   tụt trùng lúc site tự sửa → xem lại thay đổi của mình trước; truy vấn tên quán mất vị trí đầu →
+   kiểm Thao tác thủ công, Vấn đề bảo mật, báo cáo Trang, Thống kê thu thập dữ liệu và Hồ sơ doanh
+   nghiệp trước khi nghĩ tới core update. Sửa xong thì chờ: Google nói có khi vài ngày, có khi vài
+   tháng, có khi phải tới đợt core update sau. Ghi kết luận vào bảng cuối mục này.
+
+**Quy ước xếp loại của site** (neo vào hai ví dụ Google đưa ra: 2 → 4 là tụt nhẹ, 4 → 29 là tụt mạnh):
+
+| Loại | Điều kiện | Làm gì |
+|---|---|---|
+| Ổn định | đổi < max(1 bậc; 15% vị trí tốt hơn của hai kỳ) — lên hay tụt cùng một ngưỡng | không |
+| Tụt nhẹ | vẫn ở trang 1 (≤ 10) và tụt < 5 bậc — rộng hơn ví dụ 2 → 4 của Google | không sửa |
+| Tụt vừa | còn lại: rơi xuống trang 2, hoặc tụt 5–9 bậc | theo dõi, xem SERP thật |
+| Tụt mạnh | đang ở trang 1–2 (≤ 20) và tụt ≥ 10 bậc | đánh giá sâu từng trang |
+| Mất hiển thị | kỳ trước đủ ngưỡng, kỳ sau không còn dòng nào | đang ở trang 1–2: Kiểm tra URL rồi đánh giá như tụt mạnh; trang 3 trở xuống: có thể hết mùa |
+| Mới nổi | kỳ trước không có hoặc dưới ngưỡng, kỳ sau đủ ngưỡng | chưa so được vị trí |
+
+Nhóm **truy vấn có tên quán** có ngưỡng riêng: người đã biết quán phải thấy site ở đầu trang, nên rổ
+tên quán tụt từ 1 bậc hoặc xuống dưới vị trí 3 là "chú ý" (tìm tên quán xem ai đứng trên, kiểm Hồ sơ
+doanh nghiệp), tụt vừa / mạnh là "cần làm" (bước 7).
+
+Chỉ xếp loại theo vị trí khi **kỳ trước** có từ **10 hiển thị / 7 ngày**: một tuần của site chỉ khoảng
+25 truy vấn đạt mức này (phủ ~2/3 hiển thị có truy vấn; đo trên export 16/6–15/9/2026), dưới mức đó vị
+trí trung bình chủ yếu là nhiễu — truy vấn mùa Giáng sinh 2 hiển thị ở vị trí 3 rồi 30 hiển thị ở vị trí
+20 không phải "tụt mạnh". Kỳ trước đủ ngưỡng mà kỳ sau chỉ còn vài hiển thị thì vẫn xếp loại (tụt sâu
+thì hiển thị sập theo), ghi "ít số". "Mất hiển thị" của một nhóm chỉ tính dòng đủ ngưỡng: dòng 1–3 hiển
+thị tuần nào cũng biến mất 30–80% vì nhiễu lấy mẫu (mô phỏng 200 lần "không đổi gì" trên export thật:
+cách tính cũ báo "nhóm tụt rõ" 200/200 lần, cách mới 0–8/200). Vì vậy **kết luận theo cụm và nhóm**,
+không theo một truy vấn lẻ. "Vị trí trên rổ cố định" = chỉ các truy vấn có ở cả hai kỳ, trọng số là
+hiển thị kỳ trước — **ít** bị mùa vụ và truy vấn mới làm xê dịch hơn tổng, nhưng không giữ cơ cấu thiết
+bị bên trong từng truy vấn (máy tính thường đứng thấp hơn điện thoại vài bậc; báo cáo ghi chú khi tỉ lệ
+điện thoại đổi quá 5 điểm %). Bảng truy vấn không có truy vấn ẩn danh và dừng ở 1.000 dòng — trên hai
+export 3 tháng thật nó chỉ chứa 54–55% tổng hiển thị — nên báo cáo ghi rổ cố định phủ bao nhiêu phần
+**tổng** hiển thị và phần ẩn danh / ngoài bảng đổi thế nào, không kết luận "do nhu cầu" khi chỉ phần
+ngoài rổ đổi.
+
+**Dao động thường của site** (không có đợt nào vẫn lên xuống): đo 11-11-2026 trên export 16/6–15/9/2026,
+4 cặp tuần liền nhau không dính đợt cập nhật hay ngày lễ — lượt nhấp **±17%**, lượt hiển thị **±12%**,
+vị trí trung bình **±0,8 bậc** mỗi tuần (1 độ lệch chuẩn). Bốn cặp là **ước lượng thô**, và biên đổi
+theo mùa: export 25/4–24/7 không đủ cặp sạch (dính 30/4, May core, June spam); tính cả tuần 30/4 thì ra
+±61% / ±23% / ±0,6 — lễ làm biên phình to, nên công cụ bỏ tuần lễ, Tết. Tuần site sửa từ 50 trang trở
+lên chỉ bỏ khi còn đủ 4 cặp (site sửa gần như tuần nào cũng có). Tuần sau đổi ít hơn biên thì chưa nói
+lên gì; hơn 2 lần biên thì đáng xem, chưa biết do đâu. Có `--ca-ky` thì công cụ đo lại trên số mới; file
+3 tháng quanh tháng 11-2026 dính cả September spam update lẫn core update nên không đủ tuần sạch — vì
+vậy xuất 6 tháng.
+
+**Năm giả thuyết cho November 2026 core update — ghi 11-11-2026, trước khi có số** (để lúc đọc báo cáo
+không tự "tìm ra" nguyên nhân theo ý mình; công cụ tính sẵn số cho từng nhóm):
+
+| | Nhóm trang | Vì sao đáng ngờ | Nếu nhóm này tụt mà nhóm khác giữ |
+|---|---|---|---|
+| H1 | Bài cẩm nang du lịch (bậc O), bản VI + EN | Chủ đề xa nghề của quán | Xem bài có dữ kiện riêng (quãng đường thật, giờ tàu, ảnh tự chụp) hay chỉ kể lại điều trang khác đã có |
+| H2 | Bản dịch zh / ko / ja / ru / th | Nội dung dịch tự động theo quy mô; vào sitemap 21-10-2026, kỳ trước chúng mới 2–3 tuần tuổi (còn đang được lập chỉ mục) | Xem chất lượng bản dịch trước khi đụng bản gốc |
+| H3 | Trang của quán (bậc C, P, R, A), bản VI + EN | Trang ra tiền | Tụt cùng truy vấn tên quán → nghi kỹ thuật, lập chỉ mục, Hồ sơ Google trước |
+| H4 | Trang mùa vụ (Giáng sinh, Tết) | Hiển thị theo mùa | Đọc vị trí trên rổ cố định, đừng đọc hiển thị |
+| H5 | Trang site tự sửa trong cửa sổ | Tác động của chính mình | Xem lại thay đổi trước khi đổ cho Google |
+
+H1, H3 chỉ tính bản VI + EN nên không trùng H2; H4, H5 có thể trùng trang với H1, H2, H3 (bài mùa vụ,
+bài vừa sửa và các bản dịch của chúng) — đọc cột Trang trước khi cộng dồn kết luận.
+
+**Kỳ trước của đợt 11-2026 chưa sạch.** Trong 3 tuần trước 03-11 (13-10 → 02-11), site đổi nội dung
+321/333 URL trong sitemap (lastmod 21-10: 233 URL — 230 trang bản dịch mới + 3 trang EN sửa; 26-10: 265
+URL; 02-11: 111 URL; 2 URL còn lại là bài chọn quán đăng 03-11), và phần lớn hiển thị kỳ trước nằm ở
+các trang này. Google cần vài ngày tới vài tuần để thu thập lại, nên
+phần đổi của chúng không tách được khỏi tác động của đợt. Công cụ đọc lùi 3 tuần trước kỳ trước và tách
+bảng *Trang theo lần site tự sửa*: nhóm **không đổi nội dung** — 10 URL: `/menu/`, `/menu-en/` (sửa lần
+cuối 07-10), bài ăn sáng và bài sương mù VI/EN, 4 trang pháp lý — cùng nhóm truy vấn tên quán là tín
+hiệu sạch nhất; giữ chúng không đổi suốt cửa sổ. URL không có trong sitemap (đã gộp / chuyển hướng /
+canonical sang trang khác — stub vẫn còn file nhưng không chạy) nằm nhóm riêng: hiển thị tự giảm dần,
+không phải đối chứng.
+
+**Tiền lệ tháng 8-2026 — vì sao bước 2 bắt buộc.** August 2026 spam update chạy 18–21/08. Đúng cách
+Google (tuần 11–17/08 so với 22–28/08): lượt nhấp −5% (trong dao động thường), lượt hiển thị −29% và
+vị trí trung bình cả site 5,0 → 9,4 (cả hai vượt xa dao động thường). Nhưng cùng cửa sổ đó site có 29
+commit sửa trang: 18-08 srcset + alt ảnh toàn site, 19-08 gộp 19 trang trùng từ khoá vào 5 trang chính
+và dựng lại `/duong-di/`, 23-08 đổi font toàn site; lại đúng giữa mùa mưa (tháng 9 mưa nhiều nhất),
+cuối hè. Lượt nhấp rơi mạnh nhất
+từ đầu tháng 9 — hai tuần sau khi đợt đã xong, lúc site sửa heading 121 trang. Không còn cách nào biết
+phần nào do Google, phần nào do mình, phần nào do mùa. Chạy lại:
+`node tools/doi-chieu-cap-nhat.mjs --dot 2026-08-spam --ca-ky <export 16/6–15/9/2026>`.
+
+**Các đợt đã đối chiếu:**
+
+| Đợt | Chạy (giờ Pacific) | Kỳ trước | Kỳ sau | Export dùng | Kết luận |
+|---|---|---|---|---|---|
+| November 2026 core update | 10-11 → chưa xong | 03–09/11/2026 | xong + 1 → xong + 7 | hai file tuần + 6 tháng (xuất từ xong + 10) | chờ; kỳ trước chưa sạch (đoạn trên) — đọc nhóm không đổi nội dung và tên quán trước |
+| August 2026 spam update | 18-08 → 21-08 | 11–17/08/2026 | 22–28/08/2026 | 16/6–15/9 (biên đo trên chính file, 4 cặp) | không tách được nguyên nhân (tiền lệ trên) |
+| June 2026 spam update | 24-06 → 26-06 | 17–23/06/2026 | 27/06–03/07/2026 | 16/6–15/9 (biên đo trên chính file, 4 cặp) | nhấp, vị trí trong dao động thường; hiển thị −21% (hơn biên ±12%, chưa tới 2 lần); 1 commit sửa trang — không có gì phải làm |
+| May 2026 core update | 21-05 → 02-06 | 14–20/05/2026 | 03–09/06/2026 | 25/4–24/7 (không đủ cặp sạch, dùng biên tham khảo) | vị trí TB cả site 7,0 → 5,1 (lên 1,9 bậc, hơn 2 lần biên ±0,8) nhưng 17 commit sửa trang trong cửa sổ — không tách được phần của Google |
+
+Ba dòng cũ chạy bằng `--ca-ky` (export 3 tháng, chỉ có tổng theo ngày) nên chưa có rổ truy vấn cố định;
+từ đợt 11-2026 xuất đủ hai file tuần.

@@ -1,0 +1,44 @@
+name: Theo doi dot cap nhat Google
+
+# Moi ngay doc Search Status Dashboard (status.search.google.com/incidents.json, muc Ranking). Dot dang chay
+# trong tools/dot-cap-nhat-google.json bao xong -> mo issue "[dot-google] Da xong: ..." + bao TELEGRAM (ngay
+# het giu yen site, ngay xuat GSC, lenh chay doi-chieu-cap-nhat); dot moi chua co trong file -> issue + Telegram.
+# Moi su kien bao mot lan. Khong commit gi. Chi tiet: tools/theo-doi-dot-google.mjs, tools/do-luong.md muc 13.
+#
+# Dung chung secret voi giam-sat-uptime.yml: TELEGRAM_BOT_TOKEN (bat buoc de nhan tin), TELEGRAM_CHAT_ID (tuy chon).
+# Bam "Run workflow" tay -> luon gui 1 tin thu ve Telegram.
+
+on:
+  schedule:
+    # 01:17 UTC = 08:17 gio VN; lech khoi phut 00 va khoi lich cua cac workflow khac
+    - cron: '17 1 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: theo-doi-dot-google
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  theo-doi:
+    name: Doc dashboard, bao dot moi / dot xong
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Lay main
+        uses: actions/checkout@v4
+
+      - name: Cai Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Doc dashboard va bao
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: node tools/theo-doi-dot-google.mjs
