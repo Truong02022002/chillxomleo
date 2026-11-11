@@ -76,6 +76,36 @@
       "hoi": "Muc chi trung binh mot nguoi",
       "traLoi": "250.000-300.000d, da gom VAT, KHONG phu thu cuoi tuan va le — RIENG TET PHU THU 8% (20-09-2026). Da sua 54 cho tren site tu muc cu 200.000-250.000d.",
       "muc": "XONG"
+    },
+    {
+      "hoi": "Goc check-in trang tri Noel: (1) ngay dung xong / ngay go; (2) dat o dau — trong nha hay khu mai che ngoai troi, co nhin ra thung lung nha kinh khong; (3) co nhung gi (cay thong, den...); (4) khach khong an co vao chup duoc khong, mien phi?; (5) da co anh that chua; (6) quan co tai khoan Threads chua (bang muc 2 CLAUDE.md chi co Facebook, TikTok)",
+      "viSao": "Chu site muon day manh goc Noel (10-11-2026, mach bai Threads). Site va bang du kien chua co dong nao ve goc nay; bai da-lat-thang-12-giang-sinh muc 'Mot toi thang 12' cung chua nhac. Khong co du kien thi khong viet bai Threads / khong them vao bai Giang sinh.",
+      "traLoi": null,
+      "muc": "CHO"
+    },
+    {
+      "hoi": "Con so 'ban uong bia: do uong thuong chiem 15-20% hoa don' lay tu dau? Hoa don that co bia o quan thuong bao nhieu %?",
+      "viSao": "Soi theo bai 'phan tich doi thu' (10-11-2026): so lieu phai co nguon. Cau nay nam o 3 bai thuong mai (chi-phi-an-uong-o-da-lat, chon-quan-nuong-da-lat, thuc-don-nhau-da-lat — VI/EN, ca FAQ + JSON-LD, 2 bai co 5 ban dich), khong co trong bang muc 2 CLAUDE.md, khong dan nguon. Ba mam mau trong chinh bai thuc-don-nhau (1 chai/nguoi) ra 10,6% / 10,3% / 10,5%; 15-20% chi khop neu uong 2-3 chai/nguoi (cau '12-18 chai cho 6 nguoi' cung chua co nguon). Co so tu may tinh tien / so sach thi giu va ghi 'theo hoa don o quan'; khong co thi sua thanh 'khoang 10% neu moi nguoi mot chai, uong nhieu hon thi tang theo' (tinh tu gia thuc don) + dich lai doan doi id.",
+      "traLoi": null,
+      "muc": "CHO"
+    },
+    {
+      "hoi": "Bai hub trai-mat-da-lat-co-gi (bac O, lich 08-01-2027) co nen doi huong thanh 'Xom Leo Da Lat o dau, co gi' (xom + Trai Mat) va keo lich len som? Neu co: (1) nguon goc ten 'Xom Leo' (co tai lieu/nguoi dan ke khong); (2) ranh gioi xom — tu dau toi dau tren Huynh Tan Phat; (3) khach khong an o quan dung xem hoang hon / tau co bi thu phi hay cam khong; (4) anh that cua xom (khong phai cua quan).",
+      "viSao": "Export GSC 16/6-15/9: truy van ten xom khong kem chu quan/nuong ('xom leo', 'xom leo da lat', 'xom leo o da lat'...) ~4.640 hien thi, vi tri TB ~3 nhung CTR 2,1% (95 nhap) — cam nang du lich (vietnamairlines.com, mia.vn, vietnambooking, mytour) dang an nhap; truy van 'trai mat' chi 1 hien thi. Nguoi tim ten quan thi vt 1,7, CTR 4,8%. Site chua co trang nao tra loi y dinh dia danh (trang chu la bac A). Bai phai tu khai quan cua chung toi, khong liet ke quan/ca phe khac (CLAUDE.md muc 3). Cum xom-leo-dia-danh da tach trong tools/cum-chu-de.json, dich = null cho toi khi chot. Chu xem nhanh trong GSC: Hieu suat > loc truy van 'xom leo da lat' > tab Trang de biet trang nao dang len.",
+      "traLoi": null,
+      "muc": "CHO"
+    },
+    {
+      "hoi": "Tac gia 'Bep truong Xom Leo' tren 42 bai x 7 thu tieng la mot nguoi that (bep truong kiem chu quan) hay but danh chung cua nha quan? Neu la nguoi that: co muon hien ten that / mot dong gioi thieu tren /about/ khong (khong bat buoc)?",
+      "viSao": "Soi schema 11-11-2026 (bai SEO Master ve structured data, anh cong cu bao Organization thieu sameAs/contactPoint). Node Person @id #bep-truong tren 284 trang khai jobTitle 'Bep truong & Chu quan' va sameAs = Facebook + TikTok CUA QUAN — sameAs nghia la 'cung mot thuc the', tuc dang khai nguoi nay chinh la trang Facebook cua quan: sai du chu tra loi the nao. Person.url tro /about/ nhung /about/ khong nhac 'Bep truong' nao, chi ghi 'nha quan' dung AI soan nhap + duyet. Tra loi 'nguoi that' -> bo sameAs, them dong gioi thieu + dinh nghia Person tren /about/. Tra loi 'but danh chung' -> doi author sang Organization @id #organization (byline hien thi giu nguyen hoac doi 'Nha quan Xom Leo'). Ca hai deu sua 284 trang (VI/EN: khung tao-bai-nhap + thay chuoi bang node; 5 ban dich: dung.mjs) -> chi lam sau D+7 cua November 2026 core update.",
+      "traLoi": null,
+      "muc": "CHO"
+    },
+    {
+      "hoi": "Ngoai Facebook tiemnuongvachillxomleo, TikTok @tiemnuongchillxomleo va ghim Google Maps, quan con tai khoan chinh thuc nao dang hoat dong khong (Instagram, kenh YouTube, Zalo OA, Threads)? Hotline 076 452 7336 co nguoi nghe duoc tieng Anh khong, va nghe may trong gio nao (chi 15:00-23:00 hay ca ngay)?",
+      "viSao": "Organization tren 7 trang chu da co sameAs 3 link (dat); muon them link nao phai la ho so chinh thuc dang chay, khong phai video cua khach (link YouTube o /duong-di/ la video le, khong phai kenh). contactPoint (Google ghi 'khuyen nghi neu co') can contactType + availableLanguage + gio nghe may — bang muc 2 CLAUDE.md chua co hai du kien nay; telephone + email da khai thang tren Organization nen thieu contactPoint khong lam hong gi. Them sau D+7, chi o index.html + en/index.html (+ 5 ban dich trang chu).",
+      "traLoi": null,
+      "muc": "CHO"
     }
   ],
   "_khongMoUrlMoi": "Ba viec duoi day phuc vu mua cuoi nam ma KHONG them URL nao — lam truoc vi re va khong co rui ro doorway: (1) sua/xac nhan cau 'ke ca ngay le' o JSON-LD FAQPage trang chu; (2) them mot muc goi mon cho doan vao /menu/ (trang bac R san co) roi tro sang thuc-don-nhau-da-lat khi bai len; (3) noi 36 trang bac O sang cac bai C/R mua nay, dung dung khoi <aside aria-label='Bai viet lien quan'> nhu dot dd910a26 da lam.",
