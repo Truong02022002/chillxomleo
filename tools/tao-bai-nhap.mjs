@@ -17,12 +17,14 @@ import { khoiSao } from './sao/khoi.mjs';
 
 const ROOT = process.cwd();
 const KHUNG = 'quan-nuong-da-lat-view-xe-lua';   // bai lam bo khung
-const TACGIA = 'Bếp trưởng Xóm Lèo';
-const TACGIA_EN = 'Xom Leo Head Chef';
 // Ten quan trong schema theo ngon ngu trang (chu site chot 12-09-2026): ban EN dung ten
 // tieng Anh va giu ten Viet o alternateName de Google van noi duoc voi ho so Maps.
 const TEN_QUAN = 'Tiệm Nướng & Chill Xóm Lèo';
 const TEN_QUAN_EN = 'Xom Leo Grill & Chill';
+// Tac gia = chinh quan (chu site chot 11-11-2026, bo but danh "Bep truong Xom Leo" / Person
+// #bep-truong — xem tools/doi-tac-gia.mjs).
+const TACGIA = TEN_QUAN;
+const TACGIA_EN = TEN_QUAN_EN;
 
 const fileND = process.argv[2];
 if (!fileND) { console.error('Thieu duong dan file noi dung.'); process.exit(1); }
@@ -226,13 +228,7 @@ function dungHead(khung, t, lang) {
     '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#article`,
     headline: t.title, description: t.moTa, url,
     datePublished: d.ngayDang, dateModified: d.ngayDang,
-    author: {
-      '@type': 'Person', '@id': 'https://xomleo.vn/#bep-truong', name: lang === 'vi' ? TACGIA : TACGIA_EN,
-      jobTitle: lang === 'vi' ? 'Bếp trưởng & Chủ quán' : 'Head Chef & Owner',
-      worksFor: { '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', name: tenQuan, url: 'https://xomleo.vn/', ...tenPhu },
-      url: lang === 'vi' ? 'https://xomleo.vn/about/' : 'https://xomleo.vn/about-en/',
-      sameAs: ['https://www.facebook.com/tiemnuongvachillxomleo', 'https://www.tiktok.com/@tiemnuongchillxomleo'],
-    },
+    author: { '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', name: tenQuan, url: 'https://xomleo.vn/', ...tenPhu },
     publisher: {
       '@type': 'Organization', '@id': 'https://xomleo.vn/#organization', url: 'https://xomleo.vn/',
       name: tenQuan, ...tenPhu,

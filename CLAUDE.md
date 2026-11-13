@@ -44,7 +44,7 @@ trang đang nhắc tới nó (VI, EN, 5 bản dịch, JSON-LD, bản lưu hang-d
 | Hoàng hôn | Mặt trời lặn sớm nhất ~17:20 (giữa tháng 11), muộn nhất ~18:15 (đầu tháng 7). Cuối tuần dãy ngoài trời thường kín từ 18:00. |
 | Khoảng cách | Hồ Xuân Hương **7–8 km**, Chợ Đà Lạt **9 km**, "trung tâm khoảng 8 km" (đường xe, OSRM). 12–15 phút xe máy, 15–20 phút ô tô, Grab 60.000–80.000đ một chiều. **Không viết "5 km", không viết "gần"**. Điểm tham quan: Linh Phước 2, Than Thở 6, Robin/Fairytale/Thung lũng Tình yêu/Dinh Bảo Đại 10, Wonderland 12, Datanla 12, Trúc Lâm 13, Đường hầm 16, Tuyền Lâm/Prenn 17, LangBiang 18 km. |
 | Quán chị em | **Trạm Dừng Chill**, 111 Huỳnh Tấn Phát, **cùng chủ**. Link `rel="noopener"`, không `nofollow`, không viết thành listicle tự khen. Giá TDC 95.000–300.000đ gồm VAT (khác Xóm Lèo). |
-| Tác giả | Bút danh `Bếp trưởng Xóm Lèo` / `Xom Leo Head Chef`, `@id https://xomleo.vn/#bep-truong`. |
+| Tác giả | **Ký tên chính quán** (chốt 11-11-2026, bỏ bút danh `Bếp trưởng Xóm Lèo` / `Xom Leo Head Chef` và Person `#bep-truong` — node cũ khai `sameAs` = Facebook/TikTok của quán và chức danh không có trên /about/). Dòng tác giả: VI `Bài viết bởi Tiệm Nướng & Chill Xóm Lèo`, EN `By` / `Written by Xom Leo Grill & Chill`, 5 thứ tiếng giữ tên quán tiếng Việt. JSON-LD `author` = Organization `@id https://xomleo.vn/#organization` (tên theo ngôn ngữ trang, EN kèm `alternateName`). Trang đang chạy còn bút danh cũ tới khi chạy `tools/doi-tac-gia.mjs` (mục 8). |
 | Thời tiết Đà Lạt | Mùa mưa tháng 5–10 (tháng 9 nhiều mưa nhất), khô tháng 12–3, lạnh rõ tối tháng 10–1. Nguồn đã dẫn trong bài sương mù. |
 
 ## 3. Quy tắc nội dung
@@ -63,6 +63,9 @@ trang cùng dẫn về quán mà chỉ đổi đối tượng là doorway. Danh 
 **Viết thật, cho đi trước:**
 - Tiêu đề hỏi thì câu đầu trả lời thẳng (answer-first). Mỗi bài có "Tóm tắt nhanh" ở đầu.
 - Không xếp hạng quán, không "top", không listicle đối thủ, không tự xếp quán mình vào danh sách.
+- Không tự khen quán bằng so sánh nhất: "view đẹp nhất", "ngon & chill nhất", "đẹp nhất nhì", "độc
+  nhất", EN "best / most scenic / one of the best" (chốt 11-11-2026). "Nhất" chỉ giờ, tháng, số liệu
+  ("đẹp nhất 18:30–20:00", "lặn sớm nhất 17:20") và câu cẩm nang tả điểm tham quan thì được.
 - Nhắc Xóm Lèo trong bài cẩm nang thì **tự khai** là quán của chính chúng tôi; mục cuối bài O
   là "Gợi ý thêm từ quán…" với quãng đường thật, không phải "ăn gì gần X".
 - Số liệu phải có nguồn (bài đã dẫn nguồn hoặc bảng mục 2). Ngày "Cập nhật"/`dateModified`
@@ -73,7 +76,10 @@ trang cùng dẫn về quán mà chỉ đổi đối tượng là doorway. Danh 
   chấm hộ, không tự khai aggregateRating** cho quán. Sao trang chủ lấy từ Maps là quyết định
   của chủ site, đừng đề xuất mở rộng.
 - Title ≤ 60 ký tự, không trùng ≥ 5 chữ đầu với trang nào (script đăng bài chặn). 11 title dài
-  hơn là cố ý. Mô tả meta trang EN dùng `&` thô, không `&amp;`.
+  hơn là cố ý. Mô tả meta trang EN viết mới dùng `&` thô, không `&amp;`; 3 trang cũ còn `&amp;`
+  (`/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo-en/`, `/tiem-nuong-da-lat-duoc-yeu-thich-en/`,
+  `/quan-an-da-lat-mo-cua-tet-en/`), trang VI và bản dịch phần lớn `&amp;` — Google đọc như nhau, không
+  sửa; script thay chuỗi trong meta phải tìm cả hai dạng (soát 13-11).
 - Cố ý KHÔNG làm: llms.txt, WebMCP, Content-Signal, trang cảm ơn sau đặt bàn, Pixel/Clarity,
   GTM, listicle đối thủ, combo/set menu, "seed" đánh giá.
 
@@ -226,6 +232,11 @@ sửa hàng loạt.
 - Trích dẫn ngoài site (soát 10-11): bài mia.vn "Tiệm nướng Xóm Lèo" ghi giờ 16:00–22:00, không
   số nhà, không link → chủ xin sửa + thêm link; listing Trip.com (id 149106969) đúng địa chỉ/giờ
   nhưng chưa có website. TripAdvisor chỉ vào `sameAs` khi listing đã về đúng geo Đà Lạt.
+  Kênh YouTube @TiemNuongChillXomLeo của quán (soát 11-11; video chỉ đường ở /duong-di/ và
+  /en/directions/ thuộc kênh này): mô tả video dẫn `goo.gl/maps/DhBm5…` → bản đồ trống (listing cũ đã
+  mất), mô tả kênh dẫn ghim địa chỉ "Phường 11" chứ không phải trang quán, Fanpage `nuongxomleo`, thêm
+  Zalo 089 942 84 34 → chủ sửa mô tả theo mục 2 (link Maps đúng: `maps.app.goo.gl/o9avD58ZWnJE53cx5`).
+  Kênh vào `sameAs` khi chủ xác nhận (câu 2 `_canChuSiteXacNhan`).
 - Không có số liệu đối thủ kiểu Ahrefs (DR, referring domain, tốc độ backlink): connector chưa
   cấp quyền; site quán địa phương không chạy chỉ tiêu "N backlink/tháng".
 - **November 2026 core update** (bắt đầu 10-11 giờ Pacific, tối đa 2 tuần; kiểm 11-11: chưa xong):
@@ -240,6 +251,24 @@ sửa hàng loạt.
   đẩy **sau khi chủ kiểm `doPost` của Apps Script không chặn trên 50 khách** (hoặc gửi một đơn TEST 55
   khách ngay sau khi deploy); (2) cụm "quán nướng ở Xóm Lèo Đà Lạt" ở title/H1 `/duong-di/` ×6 và 2 câu
   FAQ trang chủ ×6 — đổi cụm từ, để **sau D+7** (bản dịch đã có sẵn trong `tools/dich/kho/`).
+- Việc 11-11 soạn sẵn, **chưa áp**, chạy **sau D+7** cùng đợt với (2) ở trên (chủ đã chốt nội dung):
+  `node tools/doi-tac-gia.mjs --write` (tác giả = chính quán, 98 trang VI/EN + bản lưu hang-doi, dòng
+  tác giả 5 thứ tiếng tự suy từ kho) và `node tools/bo-tu-nhat.mjs --write` (bỏ chữ "nhất" quán tự khen:
+  H1 + schema trang chủ VI/EN, 404, /about/ + /about-en/, câu kết bài giới thiệu quán; 7 đoạn dịch viết
+  sẵn trong script) và `node tools/sua-video.mjs --write` (VideoObject cho video chỉ đường `/duong-di/` +
+  `/en/directions/` — video bọc facade nên Google không thấy thẻ nhúng; đổi tên 5 clip /about/
+  `tiktok-N.mp4` → tên tả nội dung, đặt theo khung hình trích từ clip) và `node tools/them-quan-duong-di-en.mjs
+  --write` (12-11: node Restaurant cho `/en/directions/` — VI + 5 bản dịch đã có; thử tại chỗ rồi khôi phục:
+  +55/−0 dòng, kiem-schema 0/0, audit-links 0, csp-hash đồng bộ) → `tach` → `dung` → `cache-bust` →
+  `csp-hash` → bộ kiểm → `kiem-sitemap --sua` (nâng lastmod ~300 URL vì dòng tác giả đổi — đúng, nên mới
+  phải chờ). Thử cả ba script trên worktree 11-11: 326 file + 5 mp4, kiem-schema 0/0, audit-links 0,
+  vai-tro-trang 0×5, kiem-do-luong 41/41, 390/1280px không tràn, clip tên mới tải được. Áp xong thì bỏ câu
+  "trang đang chạy còn bút danh cũ" ở dòng Tác giả mục 2. Còn treo: /about/ "Năm trải nghiệm riêng ở
+  Xóm Lèo" / EN "unique to Xom Leo" trong khi Trạm Dừng Chill sát vách cũng thấy tàu — chờ chủ.
+- Việc 12-11 soạn sẵn, **chưa áp**, chạy **sau D+7** cùng đợt trên: mô tả meta `/chon-quan-nuong-da-lat-en/`
+  208 → 152 ký tự (Google đang cắt mất "six questions to ask") — `.claude/cho-day/` mục 3, script
+  `2026-11-12-meta-en-chon-quan-nuong.mjs --write` (11 chỗ, gồm hang-doi → chép sang `noi-dung`). Bản VI
+  176 ký tự để nguyên. Thử tại chỗ rồi khôi phục: diff 5/5, kiem-schema 0/0, vai-tro-trang 0×5.
 - `sao-bai.yml` vẫn chạy mỗi sáng trong cửa sổ đợt: trang đủ 5 phiếu sẽ hiện điểm + schema (`/menu/`
   đang 3/5). Công cụ đối chiếu tự đánh dấu trang bật điểm sao; chủ quyết có tắt tạm workflow tới D+7
   để giữ `/menu/` làm đối chứng sạch không.

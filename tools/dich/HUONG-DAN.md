@@ -88,7 +88,7 @@ Nhãn giao diện dùng thống nhất trong toàn site:
 | Đường đi | 交通指南 | 오시는 길 | アクセス | Как добраться | การเดินทาง |
 | Cẩm nang | 攻略 | 가이드 | ガイド | Путеводитель | คู่มือ |
 | Hotline | 热线 | 핫라인 | ホットライン | Горячая линия | ฮอตไลน์ |
-| Bếp trưởng Xóm Lèo (tác giả) | Xóm Lèo 主厨 | Xóm Lèo 셰프 | Xóm Lèo 料理長 | шеф-повар Xóm Lèo | เชฟ Xóm Lèo |
+| Bài viết bởi Tiệm Nướng & Chill Xóm Lèo (dòng tác giả; chủ chốt 11-11-2026 bỏ bút danh "Bếp trưởng Xóm Lèo", tên quán giữ tiếng Việt — trang đang chạy đổi bằng `tools/doi-tac-gia.mjs` sau D+7 đợt Google, trước đó đoạn cũ vẫn dịch "Xóm Lèo 主厨"…) | 作者：Tiệm Nướng & Chill Xóm Lèo | 글: Tiệm Nướng & Chill Xóm Lèo | 執筆：Tiệm Nướng & Chill Xóm Lèo | Автор: Tiệm Nướng & Chill Xóm Lèo | บทความโดย Tiệm Nướng & Chill Xóm Lèo |
 | Tóm tắt nhanh | 快速摘要 | 핵심 요약 | 要点まとめ | Коротко | สรุปสั้น ๆ |
 | Mục lục | 目录 | 목차 | 目次 | Содержание | สารบัญ |
 | Câu hỏi thường gặp | 常见问题 | 자주 묻는 질문 | よくある質問 | Частые вопросы | คำถามที่พบบ่อย |
