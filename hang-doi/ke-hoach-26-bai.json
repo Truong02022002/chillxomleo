@@ -106,6 +106,12 @@
       "viSao": "Organization tren 7 trang chu da co sameAs 3 link (dat); muon them link nao phai la ho so chinh thuc dang chay, khong phai video cua khach (11-11 soat lai: video YouTube o /duong-di/ thuoc kenh @TiemNuongChillXomLeo cua quan — truoc ghi nham la 'video le'; neu chu xac nhan thi them kenh vao sameAs). contactPoint (Google ghi 'khuyen nghi neu co') can contactType + availableLanguage + gio nghe may — bang muc 2 CLAUDE.md chua co hai du kien nay; telephone + email da khai thang tren Organization nen thieu contactPoint khong lam hong gi. Them sau D+7, chi o index.html + en/index.html (+ 5 ban dich trang chu). Soat ngoai site 11-11 (bai SEO he thong, muc du lieu dia phuong nhat quan): mo ta video chi duong 6PBFx0cP0lg (22-06-2026) dan goo.gl/maps/DhBm5XqzmPZfFTow5 -> o trong, listing cu 'Tiem nuong & Chill' (cid 1370509105936701621) khong con; mo ta kenh dan maps.app.goo.gl/cCEMKdnWcQALZrkU7 -> chi la ghim dia chi 'Phuong 11', khong phai trang quan co danh gia; dia chi kenh 'Phuong 11, Tp. Da Lat' cu. Viec cua chu (khong dung site, lam ngay duoc): thay ca hai link bang https://maps.app.goo.gl/o9avD58ZWnJE53cx5 (cid 11166661116585636255, khop site) va doi dia chi theo muc 2 CLAUDE.md.",
       "traLoi": null,
       "muc": "CHO"
+    },
+    {
+      "hoi": "Bai dat-ban-truoc (bac A): (1) khach den tre thi giu ban bao lau; (2) dat ban co chon duoc khu ngoi (ngoai troi sat lan can / trong nha) khong; (3) ban duoi 10 nguoi co coc khong, huy / doi gio the nao; (4) anh bia",
+      "viSao": "Bai chon-quan-nuong-da-lat khuyen khach HOI ba cau nay nhung site chua co cau tra loi cua chinh quan — day la du kien moi lam nen URL bac A",
+      "traLoi": "Chu site 16-11-2026: (1) GIU BAN 30 PHUT tinh tu gio hen; (2) CHON DUOC KHU, quan giu dung khu khach xin; (3) ban duoi 10 nguoi KHONG COC, huy / doi gio bao qua hotline + Zalo 076 452 7336 (doan tu 10 nguoi van co coc nhu CLAUDE.md muc 2); (4) anh bia = doi-ban-an-nuong-canh-toa-tau-xom-leo (ban E4, anh dang dung o bai view xe lua). Da ghi CLAUDE.md muc 2 dong 'Dat ban'. Form dat ban chi co gio 15:30-17:00 va 19:30-21:00 (chu site bo 18:00/19:00 ngay 09-04-2026) — bai ghi dung nhu vay, gio khac thi goi / Zalo.",
+      "muc": "XONG"
     }
   ],
   "_khongMoUrlMoi": "Ba viec duoi day phuc vu mua cuoi nam ma KHONG them URL nao — lam truoc vi re va khong co rui ro doorway: (1) sua/xac nhan cau 'ke ca ngay le' o JSON-LD FAQPage trang chu; (2) them mot muc goi mon cho doan vao /menu/ (trang bac R san co) roi tro sang thuc-don-nhau-da-lat khi bai len; (3) noi 36 trang bac O sang cac bai C/R mua nay, dung dung khoi <aside aria-label='Bai viet lien quan'> nhu dot dd910a26 da lam.",
@@ -183,7 +189,8 @@
       "nhom": "thucDung",
       "bac": "A",
       "slug": "dat-ban-truoc-o-da-lat-co-can-khong",
-      "ngayDang": "2026-11-06",
+      "ngayDang": "2026-11-17",
+      "ghiChuDang": "Viet 16-11-2026, tre 11 ngay so voi lich 06-11 (dang trong cua so November 2026 core update — bai da len lich van dang, CLAUDE.md muc 4). Loi the that la 3 cau tra loi cua chu site 16-11 (xem _canChuSiteXacNhan); KHONG dung kenh m.me vi chu site chua xac nhan la kenh dat ban.",
       "lichCu": "2027-01-15",
       "trongMua": true,
       "yDinh": "Co can dat ban truoc khong",
