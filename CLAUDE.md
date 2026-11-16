@@ -40,6 +40,7 @@ trang đang nhắc tới nó (VI, EN, 5 bản dịch, JSON-LD, bản lưu hang-d
 | Khu ngồi | Khu trong nhà + khu mái che ngoài trời, cùng nhìn xuống thung lũng nhà kính Trại Mát. Ngoài trời **lạnh nhanh từ khoảng 19:00**; có mền và trà nóng. |
 | Đậu xe | Bãi trong khuôn viên **khoảng 15 ô tô**, xe máy miễn phí, lối vào đủ cho xe 16–29 chỗ quay đầu. |
 | Đoàn | Tối đa **60 người**; từ 10 người gọi trước. **Có đặt cọc**, mức không cố định (theo số người và có đặt món trước hay không). Trang trí sinh nhật / liên hoan **miễn phí**, báo lúc đặt bàn. Hoá đơn VAT: viết "hỏi và cung cấp thông tin lúc đặt bàn", chủ site không trả lời thêm. |
+| Đặt bàn | Hotline/Zalo **076 452 7336** hoặc form trang chủ: form chỉ nhận giờ tới **15:30–17:00 và 19:30–21:00** (chủ site bỏ 18:00/19:00 ngày 09-04-2026 — cố ý, giờ khác thì gọi/Zalo); trong giờ mở cửa xác nhận trong ít phút, đơn ngoài giờ xác nhận khi mở cửa. **Giữ bàn 30 phút** tính từ giờ hẹn; **chọn được khu ngồi** (ngoài trời / trong nhà), quán giữ đúng khu; bàn **dưới 10 người không cọc**, huỷ / đổi giờ báo qua hotline, Zalo (chốt 16-11-2026, bài `/dat-ban-truoc-o-da-lat-co-can-khong/`). |
 | Tàu Trại Mát | Hai chuyến đêm rời Ga Đà Lạt **18:15 và 20:20**, ngang quán **18:40–19:00 và 20:45–21:10**, quay đầu rời Trại Mát 19:15 và 21:20. **Chỉ chạy khi đủ hành khách** — không hứa chắc. |
 | Hoàng hôn | Mặt trời lặn sớm nhất ~17:20 (giữa tháng 11), muộn nhất ~18:15 (đầu tháng 7). Cuối tuần dãy ngoài trời thường kín từ 18:00. |
 | Khoảng cách | Hồ Xuân Hương **7–8 km**, Chợ Đà Lạt **9 km**, "trung tâm khoảng 8 km" (đường xe, OSRM). 12–15 phút xe máy, 15–20 phút ô tô, Grab 60.000–80.000đ một chiều. **Không viết "5 km", không viết "gần"**. Điểm tham quan: Linh Phước 2, Than Thở 6, Robin/Fairytale/Thung lũng Tình yêu/Dinh Bảo Đại 10, Wonderland 12, Datanla 12, Trúc Lâm 13, Đường hầm 16, Tuyền Lâm/Prenn 17, LangBiang 18 km. |
@@ -237,6 +238,12 @@ sửa hàng loạt.
   mất), mô tả kênh dẫn ghim địa chỉ "Phường 11" chứ không phải trang quán, Fanpage `nuongxomleo`, thêm
   Zalo 089 942 84 34 → chủ sửa mô tả theo mục 2 (link Maps đúng: `maps.app.goo.gl/o9avD58ZWnJE53cx5`).
   Kênh vào `sameAs` khi chủ xác nhận (câu 2 `_canChuSiteXacNhan`).
+  Soát 13-11: cẩm nang Vietnam Airlines "quán nướng Đà Lạt" (mục 20 "Tiệm nướng Xóm Lèo") ghi "Tổ Huỳnh
+  Tấn Phát, Phường 11", giá 100.000–200.000đ, Fanpage `nuongxomleo`, không link site (giờ 15–23 đúng).
+  Wanderlog `place/details/118275` "Tiệm Nướng Xóm Lèo" là bản ghi trộn: place ID `ChIJQcvL-n2OpzER-x9SuaGmArk`
+  (cid 13331401060499202043 — Maps mở ra ô trống) + điểm 4,1/9.189, mô tả thác nước / hồ Tuyền Lâm của nơi
+  khác, giờ 16–22, xếp "Campgrounds" → chủ báo sửa trên Wanderlog. Không có thảo luận về quán trên
+  Reddit / Foody / Lemon8. Không seed cộng đồng, không đăng bài lên Medium / LinkedIn / Substack để lấy hạng.
 - Không có số liệu đối thủ kiểu Ahrefs (DR, referring domain, tốc độ backlink): connector chưa
   cấp quyền; site quán địa phương không chạy chỉ tiêu "N backlink/tháng".
 - **November 2026 core update** (bắt đầu 10-11 giờ Pacific, tối đa 2 tuần; kiểm 11-11: chưa xong):

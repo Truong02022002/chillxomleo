@@ -241,6 +241,22 @@
       "kpi": "generate_lead guests ≥ 10; click_call từ bài"
     },
     {
+      "key": "dat-ban-truoc",
+      "ten": "Đặt bàn trước: có cần không, đặt thế nào",
+      "loai": "dich-vu",
+      "dich": "/dat-ban-truoc-o-da-lat-co-can-khong/",
+      "mau": "dat ban|giu ban|dat truoc (ban|cho ngoi|nha hang|quan)|co can dat (ban|truoc|cho)|book(ing)? (a )?table|table (booking|reservation)|reserve a table|reservation",
+      "bac": "A",
+      "nguoi": "Người đã định đi ăn tối ở Đà Lạt (thường là tối cuối tuần, đêm lễ hoặc đi nhóm), đang lo tới nơi hết bàn",
+      "canBiet": "Có cần đặt không, đặt trước bao lâu, đặt qua kênh nào, tới trễ có mất bàn không, có phải cọc không, có chọn được chỗ ngồi không",
+      "bangChung": "Bảng khi nào cần đặt theo ngày / giờ / số người, lịch các đêm đông tới Tết 2027; câu trả lời của quán: giữ bàn 30 phút, chọn được khu, bàn dưới 10 người không cọc, form nhận giờ tới 15:30–17:00 và 19:30–21:00",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "generate_lead + click_call có trang vào là bài này (content_group 5-act)"
+    },
+    {
       "key": "ngoai-pham-vi-nuong",
       "ten": "Nướng kiểu quán không có (buffet, Hàn Quốc, ngói…)",
       "loai": "dich-vu",
