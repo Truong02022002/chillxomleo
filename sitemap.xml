@@ -81,7 +81,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog-en/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -757,7 +757,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo-en/" />
@@ -770,7 +770,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo-en/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo-en/" />
@@ -783,7 +783,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quan-nuong-da-lat-view-xe-lua/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quan-nuong-da-lat-view-xe-lua/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quan-nuong-da-lat-view-xe-lua-en/" />
@@ -796,7 +796,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/quan-nuong-da-lat-view-xe-lua-en/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/quan-nuong-da-lat-view-xe-lua/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/quan-nuong-da-lat-view-xe-lua-en/" />
@@ -887,7 +887,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich-en/" />
@@ -900,7 +900,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich-en/</loc>
-    <lastmod>2026-11-03</lastmod>
+    <lastmod>2026-11-17</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/tiem-nuong-da-lat-duoc-yeu-thich-en/" />
@@ -4309,5 +4309,21 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/chon-quan-nuong-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/chon-quan-nuong-da-lat-en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/chon-quan-nuong-da-lat/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong-en/</loc>
+    <lastmod>2026-11-17</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/dat-ban-truoc-o-da-lat-co-can-khong/" />
   </url>
 </urlset>
