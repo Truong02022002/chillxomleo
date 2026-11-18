@@ -56,6 +56,23 @@
       "ghiChu": "Tách khỏi cụm tên quán 10-11-2026 (export GSC 16/6–15/9: ~4.370 hiển thị, vt ~3,1, CTR 2,1% — người tìm quán vt ~1,8). Trang đích chưa có: chờ chủ chốt hướng bài hub trai-mat-da-lat-co-gi (_canChuSiteXacNhan). 'xom leo da lat dia chi' để ở th-dia-chi vì trang đường đi trả lời được cả hai."
     },
     {
+      "key": "th-noel",
+      "ten": "Tên quán + Noel / đặt bàn đêm Giáng sinh",
+      "loai": "thuong-hieu",
+      "dich": "/check-in-noel-da-lat-xom-leo/",
+      "mau": "{TH}|dat ban.*(noel|giang sinh|christmas)|(noel|giang sinh|christmas).*(dat ban|book)",
+      "canCo": "noel|giang sinh|christmas|dem 24|24 ?/ ?12",
+      "bac": "A",
+      "nguoi": "Người đã biết tên quán (TikTok, bạn bè, Maps) hoặc đã định ăn tối đêm Noel, muốn biết quán có trang trí Noel không và đêm 24/12 có đặt bàn được không",
+      "canBiet": "Có góc Noel không, ở đâu, tới ngày nào, không ăn có vào chụp được không; đêm 24/12 mở mấy giờ, giá có khác không, đặt bàn thế nào",
+      "bangChung": "Góc check-in Noel khu ngoài trời (cây thông, đèn, tiểu cảnh) giữ tới sau 1/1/2027, chỉ khách ăn tại quán; đêm 24/12 mở 15:00–23:00 cùng thực đơn, cùng giá, nhận đặt bàn; 1/1 không nhận đặt trừ đoàn từ 10 người",
+      "cta": [
+        "dat-ban",
+        "goi"
+      ],
+      "kpi": "generate_lead + click_call có trang vào là bài này (content_group 5-act); đơn có ngày 24/12 ở sheet"
+    },
+    {
       "key": "th-menu",
       "ten": "Tên quán + thực đơn / giá",
       "loai": "thuong-hieu",
@@ -127,7 +144,7 @@
       "loai": "thuong-hieu",
       "dich": "/tiem-nuong-da-lat-duoc-yeu-thich/",
       "mau": "{TH}",
-      "canCo": "nen goi|goi gi|goi mon|an gi|mon (nao|gi|ngon|nen)|dac san|bo tang|suon cay|ca tam|oc nhoi|tom chien|ba chi|\blau\b|nuong gi|signature|dishes|what to (eat|order)",
+      "canCo": "nen goi|goi gi|goi mon|an gi|mon (nao|gi|ngon|nen)|dac san|bo tang|suon cay|ca tam|oc nhoi|tom chien|ba chi|\\blau\\b|nuong gi|signature|dishes|what to (eat|order)",
       "bac": "P",
       "nguoi": "Người đã biết tên quán, muốn biết gọi món gì cho đáng trước khi đi",
       "canBiet": "Món nào đáng gọi, giá từng món, ăn thế nào, hợp với ai",
@@ -176,6 +193,15 @@
       "loai": "nhieu",
       "dich": null,
       "mau": "dalat88|dalatan|vi ban|lilom|antiblue|blogspot|huong quan|selena|solena|lang khet|le anh|campi|co xuan|song sanh|ma dao|mau vang|tren lau|linh dong|hem chill|chang vang|moc chill|20 forest|tiem dien thoai|vay maxi|mo lon|ni loi|lo ghim|hem 108|27 huynh tan phat|87 huynh tan phat|dam co nuong|jeunesse|the chimney|cafe tre|him cafe|quyen cafe|egg coffee"
+    },
+    {
+      "key": "nam-moi-duong-lich",
+      "ten": "Countdown Đà Lạt, đón năm mới dương lịch, đêm 31/12",
+      "loai": "tham-quan",
+      "dich": "/countdown-da-lat/",
+      "mau": "countdown|tet duong lich|duong lich|dem 31|31 ?(/|thang) ?12|new year|(don|chao) nam moi|nam moi 2027|phao hoa.*(31|duong lich|2027|countdown|nam moi)",
+      "truKhi": "lunar|am lich|nguyen dan|mung [0-9]",
+      "ghiChu": "Google Ads 18-11-2026: 'countdown da lat' 320 luot thang 12-2025 (cac thang khac ~10); 'da lat 31/12' 20; 'da lat tet duong lich' 30."
     },
     {
       "key": "tet",
@@ -344,6 +370,15 @@
         "goi"
       ],
       "kpi": "generate_lead + nhấp sang /menu/, /#booking, tel: từ lượt vào không thương hiệu (GSC cụm này + GA4 content_group 2-choose)"
+    },
+    {
+      "key": "noel-da-lat",
+      "ten": "Noel Đà Lạt: có gì, đi đâu, check-in, lịch trình dịp Giáng sinh",
+      "loai": "tham-quan",
+      "dich": "/noel-da-lat/",
+      "mau": "noel|giang sinh|christmas|xmas",
+      "truKhi": "thang 12|thang muoi hai|festival|le hoi hoa",
+      "ghiChu": "Google Ads 18-11-2026 (Th11/Th12-2025): 'noel da lat' 140/210, 'giang sinh o da lat' 70/110, 'giang sinh da lat' 50/110, 'noel o da lat' 40/70, 'da lat dem giang sinh' 10/70, 'noel da lat co gi' 10/50. Ten quan + noel da ve th-noel (dung truoc)."
     },
     {
       "key": "thang-12-giang-sinh",

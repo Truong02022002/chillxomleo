@@ -36,6 +36,7 @@ trang đang nhắc tới nó (VI, EN, 5 bản dịch, JSON-LD, bản lưu hang-d
 | Giờ mở | **15:00–23:00 tất cả các ngày**, kể cả cuối tuần và lễ. Không bữa sáng, không bữa trưa. |
 | Giá | Trung bình **250.000–300.000đ/người** cho bữa đầy đủ, ăn gọn 150.000–180.000đ. Giá in trên thực đơn **đã gồm VAT**; 68 món, 12.000–320.000đ; lẩu 300.000–320.000đ cho 4–6 người. **Không phụ thu cuối tuần, lễ.** Không combo / set menu theo đầu người. |
 | Tết | Phụ thu **8%** từ mùng 2 đến mùng 10. Tết Đinh Mùi 2027: **nghỉ 23 tháng Chạp (T7 30/1) đến hết mùng 1 (T7 6/2)**, mở lại mùng 2 (CN 7/2) đúng 15:00–23:00. Lịch này nằm ở 5 nơi — xem mục 4. |
+| Noel | Mùa Noel 2026: **góc check-in Noel riêng ở khu ngoài trời**, nhìn xuống thung lũng nhà kính — cây thông Noel, đèn trang trí sáng buổi tối, hộp quà / tuần lộc / ông già Noel, thêm bảng phấn + hoa trên bàn. Đang có, **gỡ sau 1/1/2027**; **chỉ dành cho khách ăn tại quán**. Đêm 24/12 như ngày thường (cùng thực đơn, giá, giờ). Bảng phấn "Noel no Anh No Money" trong ảnh chỉ là khẩu hiệu, không phải ưu đãi. Chưa có ảnh chụp chính góc Noel (chủ chốt 17-11-2026, bài `/check-in-noel-da-lat-xom-leo/`). |
 | Bếp, bàn | Nướng than tại bàn, **mỗi bàn đơn một bếp than rời**; ghép bàn thì bấy nhiêu bếp. Bàn gỗ dài kèm băng ghế. |
 | Khu ngồi | Khu trong nhà + khu mái che ngoài trời, cùng nhìn xuống thung lũng nhà kính Trại Mát. Ngoài trời **lạnh nhanh từ khoảng 19:00**; có mền và trà nóng. |
 | Đậu xe | Bãi trong khuôn viên **khoảng 15 ô tô**, xe máy miễn phí, lối vào đủ cho xe 16–29 chỗ quay đầu. |
@@ -279,5 +280,6 @@ sửa hàng loạt.
 - `sao-bai.yml` vẫn chạy mỗi sáng trong cửa sổ đợt: trang đủ 5 phiếu sẽ hiện điểm + schema (`/menu/`
   đang 3/5). Công cụ đối chiếu tự đánh dấu trang bật điểm sao; chủ quyết có tắt tạm workflow tới D+7
   để giữ `/menu/` làm đối chứng sạch không.
-- Bài chưa có 5 bản dịch: `da-lat-thang-12-giang-sinh`, `chon-quan-nuong-da-lat` (thẻ blog đã dịch).
+- Bài mới chỉ dịch thẻ blog, thân bài dịch khi chủ site yêu cầu (17-11-2026: đã dịch đủ thân bài Giáng sinh,
+  chọn quán nướng, đặt bàn trước).
 - Các bài sinh bằng `tao-bai-nhap` chưa có khối "Bài viết liên quan" → chưa khai được `noiTu` từ chúng.
