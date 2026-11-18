@@ -154,6 +154,69 @@
         "quan-nuong-da-lat-view-xe-lua",
         "tiem-nuong-da-lat-duoc-yeu-thich"
       ]
+    },
+    {
+      "slug": "check-in-noel-da-lat-xom-leo",
+      "ngayDang": "2026-11-19",
+      "bac": "A",
+      "nhom": "xom-leo",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Góc check-in Noel Đà Lạt ở Tiệm Nướng & Chill Xóm Lèo",
+      "tieuDeEn": "Christmas in Da Lat at Xom Leo Grill & Chill: Photo Corner",
+      "tomTat": "Góc check-in Noel Đà Lạt ngoài trời nhìn thung lũng nhà kính Trại Mát, có tới sau 1/1/2027; giờ chụp đẹp theo hoàng hôn tháng 12, đêm 24/12 mở 15:00–23:00 và cách đặt bàn.",
+      "tomTatEn": "A Christmas photo corner in Da Lat, outdoors over the Trai Mat greenhouse valley, up until after 1 January 2027; the best photo times by December sunset, Christmas Eve hours and how to book.",
+      "anh": "uploads/blogs/co-gai-vay-noel-do-ben-mam-nuong-ban-e4-toa-tau-xom-leo.webp",
+      "anhAlt": "Cô gái mặc váy Noel đỏ sau mâm nướng ở bàn E4 Tiệm Nướng & Chill Xóm Lèo, sau lưng là toa tàu Đà Lạt – Trại Mát và thung lũng nhà kính",
+      "anhAltEn": "A woman in a red Christmas dress behind a grill spread at table E4, Xom Leo Grill & Chill, with the Da Lat – Trai Mat train carriage and the greenhouse valley behind",
+      "uuTien": "0.6",
+      "noiTu": [
+        "nha-tho-con-ga",
+        "quan-nuong-da-lat-tiem-nuong-va-chill-xom-leo",
+        "quan-nuong-da-lat-view-xe-lua"
+      ]
+    },
+    {
+      "slug": "noel-da-lat",
+      "ngayDang": "2026-11-20",
+      "bac": "O",
+      "nhom": "ke-hoach",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Noel Đà Lạt 2026: đi đâu, chơi gì, lịch trình 3 ngày 2 đêm",
+      "tieuDeEn": "Christmas in Da Lat 2026: Where to Go, 3-Day Itinerary",
+      "tomTat": "Noel Đà Lạt 2026 có gì: Festival Hoa trùng dịp Giáng sinh, chỗ check-in Noel năm trước, lễ đêm nhà thờ Con Gà, tàu cổ lên Trại Mát và lịch trình 3 ngày 2 đêm 24–26/12.",
+      "tomTatEn": "What's on for Christmas in Da Lat 2026: the Flower Festival, last year's Christmas photo spots, Christmas Eve mass at the Chicken Church, the old train to Trai Mat and a 3-day plan for 24–26 December.",
+      "anh": "uploads/blogs/cap-doi-duoi-bien-quan-canh-cay-thong-noel-xom-leo.webp",
+      "anhAlt": "Cặp đôi dưới biển tên Tiệm Nướng & Chill Xóm Lèo, cạnh cây thông Noel quấn kim tuyến bạc và nơ đỏ",
+      "anhAltEn": "A couple under the Xom Leo Grill & Chill sign beside a Christmas tree with silver tinsel and red bows",
+      "uuTien": "0.6",
+      "noiTu": [
+        "ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat",
+        "kham-pha-da-lat-2-ngay-1-dem",
+        "kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet"
+      ]
+    },
+    {
+      "slug": "countdown-da-lat",
+      "ngayDang": "2026-11-24",
+      "bac": "O",
+      "nhom": "ke-hoach",
+      "danhMuc": "Cẩm nang",
+      "danhMucEn": "Travel Guide",
+      "tieuDe": "Countdown Đà Lạt 2027: xem ở đâu, pháo hoa mấy giờ",
+      "tieuDeEn": "Da Lat Countdown 2027: Where to Watch, Fireworks Time",
+      "tomTat": "Countdown Đà Lạt 2027 ở Quảng trường Lâm Viên: chương trình chào năm mới và pháo hoa, hai năm trước diễn ra thế nào, cấm đường, gửi xe, áo ấm và kỳ nghỉ 1–3/1/2027.",
+      "tomTatEn": "The Da Lat countdown to 2027 at Lam Vien Square: the New Year programme and fireworks, how the last two years went, road closures, parking, warm clothes and the 1–3 January 2027 break.",
+      "anh": "uploads/blogs/cap-doi-nang-ly-ruou-vang-hoang-hon-ban-nuong-xom-leo.webp",
+      "anhAlt": "Cặp đôi nâng ly rượu vang bên bàn nướng ngoài trời Tiệm Nướng & Chill Xóm Lèo lúc hoàng hôn",
+      "anhAltEn": "A couple raising glasses of red wine at an outdoor grill table at Xom Leo Grill & Chill at sunset",
+      "uuTien": "0.6",
+      "noiTu": [
+        "quang-truong-lam-vien-bieu-tuong-doc-dao-giua-da-lat",
+        "da-lat-ve-dem-top-nhung-noi-phai-den",
+        "da-lat-choi-o-dau-kham-pha-10-diem-den-hap-dan-nhat"
+      ]
     }
   ]
 }

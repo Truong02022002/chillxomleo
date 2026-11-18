@@ -80,8 +80,8 @@
     {
       "hoi": "Goc check-in trang tri Noel: (1) ngay dung xong / ngay go; (2) dat o dau — trong nha hay khu mai che ngoai troi, co nhin ra thung lung nha kinh khong; (3) co nhung gi (cay thong, den...); (4) khach khong an co vao chup duoc khong, mien phi?; (5) da co anh that chua; (6) quan co tai khoan Threads chua (bang muc 2 CLAUDE.md chi co Facebook, TikTok)",
       "viSao": "Chu site muon day manh goc Noel (10-11-2026, mach bai Threads). Site va bang du kien chua co dong nao ve goc nay; bai da-lat-thang-12-giang-sinh muc 'Mot toi thang 12' cung chua nhac. Khong co du kien thi khong viet bai Threads / khong them vao bai Giang sinh.",
-      "traLoi": null,
-      "muc": "CHO"
+      "traLoi": "17-11-2026: (1) dang co, go sau 1/1/2027; (2) khu ngoai troi, nhin xuong thung lung nha kinh; (3) cay thong Noel, den trang tri sang buoi toi, hop qua / tuan loc / ong gia Noel, them bang phan + hoa tren ban; (4) CHI khach an tai quan; (5) chua co anh chup chinh goc — tam dung anh ban E4 (IMG_7764 bia, 7761/7762 than bai), co anh thi them; (6) Threads: chua tra loi. Them: dem 24/12 nhu ngay thuong (cung thuc don, gia, gio 15:00-23:00). Da ghi CLAUDE.md muc 2 dong Noel, viet bai check-in-noel-da-lat-xom-leo.",
+      "muc": "XONG"
     },
     {
       "hoi": "Con so 'ban uong bia: do uong thuong chiem 15-20% hoa don' lay tu dau? Hoa don that co bia o quan thuong bao nhieu %?",
@@ -409,6 +409,43 @@
       "loiThe": "Bai bac C cho cum dang do ve trang chu bac A (vai-tro-trang bao lech bac tu 29-10). Du kien chua trang nao co: 5 kieu quan nuong o Da Lat, duong chim bay 6 km vs duong xe 9 km, 6 cau hoi dung cho moi quan, bang gia theo mon",
       "ruiRoTrung": "Khong xep hang quan. Khong chep lai 'hop voi ai' cua 2 trang P (link sang). Tieu de khong trung 5 chu dau voi trang chu / bai nhom dong / bai view xe lua.",
       "ghiChuMua": "Ngoai ke hoach 19 bai: dang 03-11-2026 theo lenh 'fix' cua chu site (viec 4 cua phien 29-10). Khong doi lich cac bai con lai."
+    },
+    {
+      "nhom": "dip",
+      "bac": "A",
+      "slug": "check-in-noel-da-lat-xom-leo",
+      "ngayDang": "2026-11-19",
+      "ghiChuDang": "Chu site yeu cau 17-11-2026 'them nhung bai moi ve noel' (chon 3 bai: bai nay, Noel Da Lat + lich trinh, countdown); 18-11 chu dan 'nho theo tu khoa ve noel da lat' -> doi ten/slug ca 3 theo so Google Ads (xem _tuKhoaNoel o bai noel-da-lat). Bai nay giu y dinh thuong hieu + Noel ('check in noel da lat' khong co so — de bai hub noel-da-lat giu tu dau nhom). Anh bia IMG_7764 (ngang, da co trong bai Giang sinh) vi khung bia 16:9 cat giua; IMG_7761/7762 trong than bai. CHUA co anh chup chinh goc Noel — chu gui thi them vao muc goc-noel.",
+      "trongMua": true,
+      "yDinh": "Noel o quan: goc check-in, an toi dem 24/12",
+      "loiThe": "Goc check-in Noel rieng khu ngoai troi, giu toi sau 1/1/2027, chi khach an tai quan (chu site chot 17-11-2026)",
+      "ruiRoTrung": "noel-da-lat (bac O, hub tu khoa 'noel da lat') va da-lat-thang-12-giang-sinh. Bai nay chi noi phan cua quan (goc Noel, gio chup, dem 24 o quan, dat ban).",
+      "ghiChuMua": "Goc Noel dang co; Giang sinh con 5 tuan nen dang ngay."
+    },
+    {
+      "nhom": "mua",
+      "bac": "O",
+      "slug": "noel-da-lat",
+      "ngayDang": "2026-11-20",
+      "ghiChuDang": "Truoc la 'lich-trinh-da-lat-noel-3-ngay-2-dem' (17-11); 18-11 doi thanh hub tu khoa 'noel da lat' (URL khong kem nam de cap nhat hang nam) + them muc 'Noel o Da Lat di dau, check-in o dau' (bang 6 cho theo mua Noel 2025, co nguon). Du kien moi: lich Festival Hoa XI trung dip Noel (Ke hoach 9104/KH-UBND 15/6/2026), gio dai le dem Giang sinh nha tho Con Ga 20:00 (2023, 2025), bang gio tau ban ngay (Vexere, thu cap — ghi ro). Anh bia = anh cu tren site (tiem-nuong-xom-leo, mua Noel truoc) chep sang ten moi.",
+      "_tuKhoaNoel": "Google Ads (VN, tieng Viet, tai khoan Xom Leo, tra 18-11-2026; Th11/Th12-2025): 'noel da lat' 140/210, 'giang sinh o da lat' 70/110, 'giang sinh da lat' 50/110, 'noel o da lat' 40/70, 'da lat dem giang sinh' 10/70, 'noel da lat co gi' 10/50, 'countdown da lat' 10/320, 'da lat thang 12' 720/480, 'lich trinh da lat 3 ngay 2 dem' 70/70; 'lich trinh da lat noel', 'check in noel da lat', 'quan an noel da lat', 'phao hoa da lat', 'don nam moi o da lat' = khong co so.",
+      "trongMua": true,
+      "yDinh": "Noel Da Lat: co gi, di dau, check-in o dau, lich trinh",
+      "loiThe": "Lich Festival Hoa XI trung dip Noel + cho check-in Noel nam truoc + gio le dem + tau Trai Mat, theo tung ngay 24-26/12/2026",
+      "ruiRoTrung": "da-lat-thang-12-giang-sinh (giu 'da lat thang 12', 'festival hoa'; cum noel-da-lat dat truoc cum thang-12 va tru 'thang 12|festival'). Lich trinh chung (kham-pha-da-lat-2-ngay-1-dem) khong co du kien theo ngay le.",
+      "ghiChuMua": "'noel da lat' dinh thang 11-12 (140/210). Dang 20-11. Cap nhat gio le 2026 + trang tri khi giao xu / bao cong bo (thuong giua thang 12)."
+    },
+    {
+      "nhom": "mua",
+      "bac": "O",
+      "slug": "countdown-da-lat",
+      "ngayDang": "2026-11-24",
+      "ghiChuDang": "Truoc la 'don-nam-moi-o-da-lat' (17-11); 18-11 doi theo tu khoa 'countdown da lat' (320 luot thang 12-2025, 'don nam moi o da lat' khong co so). Du kien moi: Ke hoach 9104/KH-UBND chot chuong trinh chao nam moi 2027 + be mac Festival 20:00 31/12 Quang truong Lam Vien, phao hoa no tam thap (bai thang 12 dang ghi 'chua cong bo dia diem'). Tien le 2024/2025 (phao hoa 0:00, 15 phut; cam duong 13:30-1:00 nam 2024) co nguon. URL khong kem nam.",
+      "trongMua": true,
+      "yDinh": "Countdown / don nam moi duong lich 31/12 o Da Lat",
+      "loiThe": "Gio, dia diem, phao hoa dem 31/12/2026 + cam duong nam truoc + an toi o Trai Mat truoc gio dem nguoc",
+      "ruiRoTrung": "da-lat-thang-12-giang-sinh (muc lich cuoi nam) va quan-an-da-lat-mo-cua-tet (Tet Nguyen dan, cum 'tet'). Bai nay chi Tet DUONG lich.",
+      "ghiChuMua": "'countdown da lat' gan nhu chi co thang 12 (320). Dang 24-11. Cap nhat gio phao hoa + phan luong khi Ban to chuc / Cong an tinh cong bo."
     }
   ]
 }
