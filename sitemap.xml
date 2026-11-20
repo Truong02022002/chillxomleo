@@ -81,7 +81,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -94,7 +94,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/blog-en/</loc>
-    <lastmod>2026-11-19</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/blog/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/blog-en/" />
@@ -107,7 +107,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/" />
@@ -120,7 +120,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-da-lat-2-ngay-1-dem-en/" />
@@ -419,7 +419,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat-en/" />
@@ -432,7 +432,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/ga-xe-lua-da-lat-goc-song-ao-co-kinh-bac-nhat-da-lat-en/" />
@@ -601,7 +601,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet-en/" />
@@ -614,7 +614,7 @@
   </url>
   <url>
     <loc>https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet-en/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-11-20</lastmod>
     <priority>0.6</priority>
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/kham-pha-ho-xuan-huong-da-lat-kem-review-chi-tiet-en/" />
@@ -4566,5 +4566,21 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/check-in-noel-da-lat-xom-leo/" />
     <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/check-in-noel-da-lat-xom-leo-en/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/check-in-noel-da-lat-xom-leo/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/noel-da-lat/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/noel-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/noel-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/noel-da-lat/" />
+  </url>
+  <url>
+    <loc>https://xomleo.vn/noel-da-lat-en/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://xomleo.vn/noel-da-lat/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://xomleo.vn/noel-da-lat-en/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://xomleo.vn/noel-da-lat/" />
   </url>
 </urlset>
