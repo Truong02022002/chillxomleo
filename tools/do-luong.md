@@ -4,7 +4,7 @@ Bản mô tả chính thức của những gì site gửi về Google Analytics 
 kiện bắn, tham số và giá trị hợp lệ. Sửa code đo lường trong `js/main.js` thì sửa cả
 file này; báo cáo GA4 và Custom Definitions bên phía Google đều dựa trên hợp đồng ở đây.
 
-Cập nhật: 11-11-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
+Cập nhật: 19-11-2026. Người chịu trách nhiệm: chủ site (GitHub `Truong02022002`). Lịch sử
 thay đổi ở mục 12.
 
 ## 1. Site đo bằng gì
@@ -445,6 +445,7 @@ Commit cụ thể: `git log -- js/main.js tools/do-luong.md`.
 | 29-10-2026 | Phiếu sau khi gửi đổi "Vé đặt bàn" → "Yêu cầu đặt bàn" (khách đọc thành đã đặt xong); dòng "Đơn này đã gửi lúc…" còn lại dưới nút khi thông báo đóng (mục 6). `kiem-do-luong.mjs` 40 → 41. |
 | 10-11-2026 | Mục 8 thêm `guests` (custom metric); mục 11 thêm cách tính CPL / CAC / ROAS. Soạn sẵn form nhận tới **60 khách** (hiện vẫn chặn ở 50 — giới hạn kiểm tra từ 04-2026, có trước khi chốt sức chứa đoàn 60 người; đoàn 51–60 được bảo gọi điện) — **chưa lên site**, chờ chủ kiểm `doPost` của Apps Script không chặn trên 50 (CLAUDE.md mục 8). Tên sự kiện, tham số không đổi. |
 | 11-11-2026 | Thêm mục 13 (khi Google tung đợt cập nhật xếp hạng): `tools/doi-chieu-cap-nhat.mjs` + `tools/dot-cap-nhat-google.json`; ghi 5 giả thuyết **trước khi có số** cho November 2026 core update (bắt đầu 10-11 giờ Pacific); tiền lệ tháng 8. Cùng ngày, sau một vòng soát độc lập: chỉ xếp loại vị trí khi kỳ trước đủ ngưỡng, "mất hiển thị" chỉ tính dòng đủ ngưỡng (trước đó tuần nào không đổi gì cũng báo "nhóm tụt rõ"), trang / truy vấn mất hẳn khi đang ở trang 1–2 vào "cần đánh giá sâu", nhóm tên quán có ngưỡng riêng, cảnh báo kỳ trước chưa sạch (đọc lùi 3 tuần) và nhóm đối chứng trang không đổi nội dung, dao động thường bỏ tuần lễ, bước 6 đo bằng Khám phá (tách Hồ sơ doanh nghiệp). Thêm workflow `theo-doi-dot-google.yml`: mỗi sáng đọc Search Status Dashboard, issue `[dot-google]` + Telegram khi đợt bắt đầu / xong. Sự kiện, tham số GA4 không đổi. |
+| 19-11-2026 | Thêm mục 14 (nếu kênh Google tự nhiên gãy): mốc tên quán / không tên quán từ GSC 6–9/2026, nhu cầu tên quán và CPC từ Keyword Planner, bảng ba kịch bản (core update, trang mất kết quả tên quán, Hồ sơ Maps) với chi phí mua lại ở mức 30 / 50 / 80%. Sự kiện, tham số GA4 không đổi. |
 
 ## 13. Khi Google tung đợt cập nhật xếp hạng (core / spam)
 
@@ -599,3 +600,44 @@ phần nào do Google, phần nào do mình, phần nào do mùa. Chạy lại:
 
 Ba dòng cũ chạy bằng `--ca-ky` (export 3 tháng, chỉ có tổng theo ngày) nên chưa có rổ truy vấn cố định;
 từ đợt 11-2026 xuất đủ hai file tuần.
+
+## 14. Nếu kênh Google tự nhiên gãy — mất gì, bù bằng gì
+
+Tỷ trọng lượt vào chưa nói được thiệt hại: phải biết lượt nào thành khách thật, kênh gãy vì đâu, và mua lại
+tốn bao nhiêu. Với quán, "Google tự nhiên" là **hai tài sản, gãy vì hai lý do khác nhau**: trang web trên Google
+Search (core update, sập, mất tên miền, bị hack) và Hồ sơ Google Maps (tạm ngưng, nhập trùng, mất ghim). Mốc đo
+19-11-2026, trước khi November 2026 core update xong.
+
+**Trang web** (GSC, Web, 16/6–15/9/2026): 1.365 lượt nhấp / 92 ngày ≈ **450/tháng**; 87% rơi vào trang chủ +
+`/menu/`, bài viết và cẩm nang tối đa 13%. Trong 726 lượt nhấp còn hiện truy vấn (phần còn lại là truy vấn ẩn
+danh): **tên quán 587 (81%)**, "xóm lèo" / "xóm lèo đà lạt" ~90 (12% — địa danh, phần lớn vẫn là người tìm
+quán), **không tên quán 31 (4%; 27 là "quán nướng đà lạt view xe lửa")**, cẩm nang ~8. Kỳ 25/4–24/7: 1.238
+lượt nhấp, tên quán 80%, không tên quán 4. Tách lại bằng nhóm *tên quán / không tên quán* của
+`doi-chieu-cap-nhat.mjs` hoặc cột loại cụm của `ban-do-nhu-cau.mjs`.
+
+**Nhu cầu tên quán** (Google Ads Keyword Planner, VN, tiếng Việt, 11/2025–10/2026): "tiệm nướng xóm lèo" TB
+14.800 lượt/tháng (tháng 2: 27.100; 6–8: 22.200; 9: 8.100), "xóm lèo đà lạt" 12.100, "quán nướng xóm lèo" 1.600
+— Search Console chỉ thấy ~1.400 lượt hiển thị/tháng cho "tiệm nướng xóm lèo". Tài khoản chưa chi tiêu nên số
+Keyword Planner bị làm tròn theo dải, nhưng chênh 10–15 lần thì không do làm tròn: phần lớn người gõ tên quán xong
+việc ở Maps / khung thông tin (gọi, chỉ đường) mà không thấy trang — **Maps mới là tài sản lớn**. GBP: 525 lượt bấm
+"Trang web" trong 4–9/2026 (mục 11).
+
+**Giá mua lại** (Keyword Planner cùng kỳ, CPC trung bình): không tên quán 3.000–4.500đ ("quán nướng đà lạt"
+3.900đ / 2.900 lượt tìm mỗi tháng, "tiệm nướng đà lạt" 3.200đ / 1.600, "quán nhậu đà lạt" 4.200đ / 1.000; giá đầu
+trang cao tới 9.500đ); tên quán 3.600–4.600đ.
+
+| Kịch bản | Mất (lượt nhấp web/tháng, ở mức 30 / 50 / 80%) | Mua lại bằng Google Ads | Ghi chú |
+|---|---|---|---|
+| Core update hạ hạng | phần không tên quán (5–13% ≈ 23–59 lượt): 7–18 / 12–30 / 18–47 | < 450.000đ/tháng, kể cả ở giá đầu trang | mục 13 (giữ yên site, đối chiếu). Không phải rủi ro doanh thu; ngược lại là cơ hội chưa có: "quán nướng đà lạt" vị trí ~12, 0 lượt nhấp |
+| Trang mất kết quả tên quán (sập, mất tên miền, bị hack, thao tác thủ công) | 135 / 225 / 360 | 0,5–0,6 / 0,8–1,0 / 1,3–1,7 triệu đ/tháng | đã có `giam-sat-uptime` (15 phút; tên miền ≤ 30 ngày, chứng chỉ < 20 ngày). Người tìm tên quán phần lớn vẫn gọi được qua Maps → thiệt thật nhỏ hơn số lượt nhấp |
+| Hồ sơ Maps tạm ngưng / nhập trùng / mất ghim | chưa đo — cần GBP → Hiệu suất (gọi, chỉ đường, bấm web) | quảng cáo không mua lại được sao, ảnh, đánh giá | tiền lệ: listing cũ `goo.gl/maps/DhBm5…` đã thành ô trống, Wanderlog còn trỏ cid mở ra trống (CLAUDE.md mục 8) |
+
+1,3–1,7 triệu đ/tháng ≈ tiền 1–2 bàn 4 người (250.000–300.000đ/người, CLAUDE.md mục 2) — **ước**, chưa có tỷ lệ
+lượt nhấp → bàn tới thật. Rủi ro không đều theo tháng: tháng 2 (Tết) và 6–8 nhu cầu tên quán gấp 2–3 lần tháng
+9–10, sự cố rơi vào mùa cao điểm đắt gấp chừng ấy.
+
+**Đo lại** mỗi quý, hoặc từ D+10 sau mỗi đợt core update: GSC export 3 tháng (tên quán / không tên quán), Keyword
+Planner cùng bộ từ, GBP → Hiệu suất, và **dashboard Marketing của hệ thống đặt bàn** (doanh thu, số bàn tới theo
+`nguon`) — đó mới là "% doanh thu theo kênh"; % lượt nhấp ở trên chỉ là % lượt vào. Đọc dashboard nhớ: đơn gọi /
+Zalo do nhân viên chọn nguồn; chọn "Zalo" (kênh liên lạc) thay vì nơi khách biết tới quán ("Google Maps",
+"Tiktok") làm Maps trông nhỏ đi.

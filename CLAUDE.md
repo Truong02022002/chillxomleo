@@ -83,7 +83,9 @@ trang cùng dẫn về quán mà chỉ đổi đối tượng là doorway. Danh 
   `/quan-an-da-lat-mo-cua-tet-en/`), trang VI và bản dịch phần lớn `&amp;` — Google đọc như nhau, không
   sửa; script thay chuỗi trong meta phải tìm cả hai dạng (soát 13-11).
 - Cố ý KHÔNG làm: llms.txt, WebMCP, Content-Signal, trang cảm ơn sau đặt bàn, Pixel/Clarity,
-  GTM, listicle đối thủ, combo/set menu, "seed" đánh giá.
+  GTM, listicle đối thủ, combo/set menu, "seed" đánh giá; dàn "Social Entity" / Web 2.0 / blog vệ tinh
+  trỏ link về site, tool ép index (Sinbyte…, Indexing API chỉ dành cho JobPosting / BroadcastEvent), gắn
+  toạ độ GPS vào EXIF ảnh (toạ độ đã có ở `geo` + `hasMap` và hồ sơ Maps) — soát 19-11-2026.
 
 **Ảnh:** chỉ ảnh thật của quán (kho trên máy: `E:\tiemnuongchillxomleo\project\unused_images\img`,
 Drive bộ KOL). Ảnh AI (`E:\mon-an`, `E:\anh-mon-moi`, PNG 1086×1448 trong Downloads) không
@@ -213,7 +215,7 @@ sửa hàng loạt.
 
 | Mảng | Tài liệu |
 |---|---|
-| Đo lường GA4, sự kiện, Path exploration, chống trùng đơn | `tools/do-luong.md` (13 mục, nhật ký ở mục 12) |
+| Đo lường GA4, sự kiện, Path exploration, chống trùng đơn | `tools/do-luong.md` (14 mục, nhật ký ở mục 12; rủi ro kênh / chi phí mua lại ở mục 14) |
 | Đợt cập nhật Google: giữ yên site, đối chiếu trước / sau, giả thuyết | `tools/do-luong.md` mục 13, `tools/doi-chieu-cap-nhat.mjs`, `tools/dot-cap-nhat-google.json`; báo khi đợt bắt đầu / xong: `tools/theo-doi-dot-google.mjs` (workflow mỗi sáng → issue `[dot-google]` + Telegram) |
 | Hàng đợi bài, điều kiện đăng, `lich-dang.json` | `hang-doi/README.md` |
 | Kế hoạch chủ đề, bậc DLN từng bài, câu đã hỏi chủ, slug đã bỏ/gộp | `hang-doi/ke-hoach-26-bai.json` |
@@ -238,7 +240,7 @@ sửa hàng loạt.
   /en/directions/ thuộc kênh này): mô tả video dẫn `goo.gl/maps/DhBm5…` → bản đồ trống (listing cũ đã
   mất), mô tả kênh dẫn ghim địa chỉ "Phường 11" chứ không phải trang quán, Fanpage `nuongxomleo`, thêm
   Zalo 089 942 84 34 → chủ sửa mô tả theo mục 2 (link Maps đúng: `maps.app.goo.gl/o9avD58ZWnJE53cx5`).
-  Kênh vào `sameAs` khi chủ xác nhận (câu 2 `_canChuSiteXacNhan`).
+  Kênh vào `sameAs` khi chủ xác nhận (câu 2 `_canChuSiteXacNhan`); soát lại 19-11: mô tả kênh chưa đổi, chưa có link xomleo.vn.
   Soát 13-11: cẩm nang Vietnam Airlines "quán nướng Đà Lạt" (mục 20 "Tiệm nướng Xóm Lèo") ghi "Tổ Huỳnh
   Tấn Phát, Phường 11", giá 100.000–200.000đ, Fanpage `nuongxomleo`, không link site (giờ 15–23 đúng).
   Wanderlog `place/details/118275` "Tiệm Nướng Xóm Lèo" là bản ghi trộn: place ID `ChIJQcvL-n2OpzER-x9SuaGmArk`
