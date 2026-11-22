@@ -10,7 +10,8 @@
 // Tieu de "Yeu cau dat ban" (29-10-2026): truoc la "Ve dat ban" — chu to nhat tren phieu, khach doc
 // thanh "da co ve, da dat xong" ma bo qua con dau nho o goc.
 // 22-11-2026 (chu site, xem anh khach chup): "Yeu cau dat ban" van bi doc thanh dat xong -> tieu de 2 dong
-// "Yeu cau dat ban / da duoc gui", con dau "Da gui · cho goi xac nhan" -> "Chua xac nhan · cho quan goi lai".
+// "Yeu cau dat ban / da duoc gui", con dau "Da gui · cho goi xac nhan" -> "Chua xac nhan · cho quan lien he lai"
+// (chu site chot chu "lien he lai", khong phai "goi lai" — quan co the nhan Zalo chu khong chi goi).
 window.XL_VE = (function () {
   const W = 1080, H = 1350;
   // Theo giao dien 10-10-2026 ("go + giay da", style.css NANG CAP 9) tu 29-10-2026: tieu de + so = Oswald
@@ -163,7 +164,13 @@ window.XL_VE = (function () {
     x.lineWidth = 1.5; bo(x, -118, -42, 236, 84, 6); x.stroke();
     x.textAlign = 'center';
     x.fillText(vua(x, en ? t('NOT CONFIRMED') : 'CHƯA XÁC NHẬN', '600 {c}px ' + HOA, 36, 216, 24), 0, 4);
-    x.font = '700 15px ' + SANS; chuGian(x, en ? t('AWAITING CALL-BACK') : 'CHỜ QUÁN GỌI LẠI', 0, 30, en ? 1.5 : 3, 'center');
+    // Dong duoi: dai qua khung trong (216px) thi bot gian chu roi bot co chu
+    const duoi = en ? t('AWAITING CALL-BACK') : 'CHỜ QUÁN LIÊN HỆ LẠI';
+    let coDuoi = 15, gianDuoi = en ? 1.5 : 3;
+    const rongDuoi = () => { x.font = '700 ' + coDuoi + 'px ' + SANS; return [...duoi].reduce((a, k) => a + x.measureText(k).width, 0) + gianDuoi * ([...duoi].length - 1); };
+    while (rongDuoi() > 216 && gianDuoi > 1) gianDuoi -= 0.5;
+    while (rongDuoi() > 216 && coDuoi > 11) coDuoi -= 1;
+    chuGian(x, duoi, 0, 30, gianDuoi, 'center');
     x.restore();
 
     // Cuong ve
