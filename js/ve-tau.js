@@ -24,6 +24,8 @@ window.XL_VE = (function () {
   // Toa do doc phan dau ve (22-11-2026, tieu de 2 dong): dong "GA XOM LEO", dau may (ti le + dinh),
   // co chu tieu de, duong chan dong 1 + khoang cach 2 dong, dong chu viet tay, vach trang tri
   const YD = { dau: 176, tau: 3.4, tauY: 192, co: 80, td: 356, cach: 98, tay: 520, vach: 552 };
+  // Con dau do "Chua xac nhan": tam (x, y) va ti le phong so voi khung goc 256x104
+  const DAU = { x: 800, y: 612, to: 1.3 };
   const TAU = ['M3 15.5V7.6h5.5v7.9', 'M2.2 7.6h7.1', 'M4.5 9.2h2.6v2.5H4.5z', 'M8.5 10.6h9.2a1.8 1.8 0 0 1 1.8 1.8v3.1', 'M15.1 10.6V7.4h2.5v3.2', 'M14.5 7.4h3.7', 'M2.4 15.5h18.3l1.3 2.1', 'M17.6 5.2a1.4 1.4 0 0 1 2.4-1.3 1.2 1.2 0 0 1 1.6 1.6'];
 
   const bo = (x, l, t, w, h, r) => {
@@ -133,8 +135,8 @@ window.XL_VE = (function () {
     const nhan = (s, px, py) => { x.fillStyle = MAU.dong; x.font = '700 21px ' + SANS; chuGian(x, s, px, py, 5, 'left'); };
     const C1 = 170, C2 = 600;
     nhan(en ? t('GUEST') : 'HÀNH KHÁCH', C1, 600);
-    // Toi da 500px: con dau do "Chua xac nhan" nam ben phai tu x ~710 (ten dai 20 ky tu tung cham dau)
-    const ten = vua(x, o.ten || '—', '600 {c}px ' + SANS, 56, 500, 32);
+    // Toi da 440px: con dau do "Chua xac nhan" (phong to 22-11-2026) nam ben phai tu x ~635 o ngang dong ten
+    const ten = vua(x, o.ten || '—', '600 {c}px ' + SANS, 56, 440, 32);
     x.fillStyle = MAU.muc; x.textAlign = 'left'; x.fillText(ten, C1, 664);
     const dip = o.dip && !/^(không có|none)$/i.test(o.dip) ? o.dip : '';
     if (dip) { x.fillStyle = MAU.tem; x.font = '600 26px ' + SANS; x.fillText((en ? t('Occasion: ') : 'Dịp: ') + dip, C1, 708); }
@@ -152,9 +154,10 @@ window.XL_VE = (function () {
     x.fillText(hh ? (en ? t('about ') : 'khoảng ') + XL_HOANG_HON.hm(hh.lan) : '—', C2, 940);
 
     // Dau do: chua phai xac nhan. Tu 22-11-2026 ghi thang "CHUA XAC NHAN" (truoc la "DA GUI" — trung voi
-    // tieu de moi, va khong noi ro la chua co ban).
+    // tieu de moi, va khong noi ro la chua co ban); cung ngay chu site bao "con dau to hon" -> phong
+    // DAU.to lan, tam dich sang trai cho goc phai khong lo ra ngoai mep giay.
     x.save();
-    x.translate(R - 150, 606); x.rotate(-0.17);
+    x.translate(DAU.x, DAU.y); x.rotate(-0.17); x.scale(DAU.to, DAU.to);
     x.strokeStyle = MAU.tem; x.fillStyle = MAU.tem; x.globalAlpha = 0.86;
     x.lineWidth = 4; bo(x, -128, -52, 256, 104, 10); x.stroke();
     x.lineWidth = 1.5; bo(x, -118, -42, 236, 84, 6); x.stroke();
