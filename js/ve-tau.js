@@ -9,6 +9,8 @@
 // nen ve dong dau "Da gui · cho goi xac nhan" de khong ai tuong da chac cho.
 // Tieu de "Yeu cau dat ban" (29-10-2026): truoc la "Ve dat ban" — chu to nhat tren phieu, khach doc
 // thanh "da co ve, da dat xong" ma bo qua con dau nho o goc.
+// 22-11-2026 (chu site, xem anh khach chup): "Yeu cau dat ban" van bi doc thanh dat xong -> tieu de 2 dong
+// "Yeu cau dat ban / da duoc gui", con dau "Da gui · cho goi xac nhan" -> "Chua xac nhan · cho quan goi lai".
 window.XL_VE = (function () {
   const W = 1080, H = 1350;
   // Theo giao dien 10-10-2026 ("go + giay da", style.css NANG CAP 9) tu 29-10-2026: tieu de + so = Oswald
@@ -19,6 +21,9 @@ window.XL_VE = (function () {
   const SANS = 'Signika, "Signika Fallback", "Segoe UI", sans-serif';
   const MAU = { nen: '#1A120C', giay: '#E9D6AF', muc: '#2B1C10', nau: '#574026', dong: '#7A4A1E', dongSang: '#D9A45C', ke: '#B89565', tem: '#9B2C1F' };
   // Dau may hoi nuoc: cung bo net voi icon trang Trai nghiem (24x24)
+  // Toa do doc phan dau ve (22-11-2026, tieu de 2 dong): dong "GA XOM LEO", dau may (ti le + dinh),
+  // co chu tieu de, duong chan dong 1 + khoang cach 2 dong, dong chu viet tay, vach trang tri
+  const YD = { dau: 176, tau: 3.4, tauY: 192, co: 80, td: 356, cach: 98, tay: 520, vach: 552 };
   const TAU = ['M3 15.5V7.6h5.5v7.9', 'M2.2 7.6h7.1', 'M4.5 9.2h2.6v2.5H4.5z', 'M8.5 10.6h9.2a1.8 1.8 0 0 1 1.8 1.8v3.1', 'M15.1 10.6V7.4h2.5v3.2', 'M14.5 7.4h3.7', 'M2.4 15.5h18.3l1.3 2.1', 'M17.6 5.2a1.4 1.4 0 0 1 2.4-1.3 1.2 1.2 0 0 1 1.6 1.6'];
 
   const bo = (x, l, t, w, h, r) => {
@@ -54,7 +59,7 @@ window.XL_VE = (function () {
     const en = !!o.en;
     try {
       await Promise.all([
-        document.fonts.load('600 92px Oswald', 'YÊU CẦU ĐẶT BÀN BOOKING REQUEST 0123456789/: 113 Huỳnh Tấn Phát'),
+        document.fonts.load('600 92px Oswald', 'YÊU CẦU ĐẶT BÀN ĐÃ ĐƯỢC GỬI CHƯA XÁC NHẬN BOOKING REQUEST 0123456789/: 113 Huỳnh Tấn Phát'),
         document.fonts.load('400 44px "Dancing Script Chu"', 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt'),
         document.fonts.load('700 24px Signika', 'ĐÀ LẠT GA XÓM LÈO'),
         document.fonts.load('600 52px Signika', o.ten || 'a'),
@@ -99,29 +104,36 @@ window.XL_VE = (function () {
     // Dau ve
     x.fillStyle = MAU.dong; x.font = '700 24px ' + SANS;
     // 1922 nhu huy hieu "XOM LEO STATION · DA LAT 1922" cua giao dien (style.css NANG CAP 8, khop menu in)
-    chuGian(x, en ? t('XOM LEO STATION · DA LAT 1922') : 'GA XÓM LÈO · ĐÀ LẠT 1922', W / 2, 196, 7, 'center');
+    chuGian(x, en ? t('XOM LEO STATION · DA LAT 1922') : 'GA XÓM LÈO · ĐÀ LẠT 1922', W / 2, YD.dau, 7, 'center');
     x.save();
-    x.translate(W / 2 - 50, 218); x.scale(4.2, 4.2);
+    x.translate(W / 2 - 11.9 * YD.tau, YD.tauY); x.scale(YD.tau, YD.tau);
     x.strokeStyle = MAU.muc; x.lineWidth = 1.45; x.lineCap = 'round'; x.lineJoin = 'round';
     TAU.forEach((p) => x.stroke(new Path2D(p)));
     [6, 11.2, 16.4].forEach((cx) => { x.beginPath(); x.arc(cx, 18.1, 1.8, 0, Math.PI * 2); x.stroke(); });
     x.restore();
-    // In hoa nhu tieu de tren site ("DAT BAN"); ban dich dai hon (vd tieng Nga) thi nho chu dan cho vua khung
-    const tieuDe = vua(x, (en ? t('Booking Request') : 'Yêu cầu đặt bàn').toLocaleUpperCase(document.documentElement.lang || 'vi'), '600 {c}px ' + HOA, 96, 780, 60);
+    // Tieu de 2 dong "YEU CAU DAT BAN / DA DUOC GUI" (chu site 22-11-2026): mot dong "Yeu cau dat ban"
+    // khach van doc thanh da dat ban thanh cong. In hoa nhu tieu de tren site; hai dong cung co chu,
+    // ban dich dai hon (vd tieng Nga) thi nho dan cho vua khung.
+    const hoa = (s) => s.toLocaleUpperCase(document.documentElement.lang || 'vi');
+    const dongTD = [hoa(en ? t('Booking Request') : 'Yêu cầu đặt bàn'), hoa(en ? t('has been sent') : 'đã được gửi')];
+    let coTD = YD.co;
+    const rongTD = (n) => { x.font = '600 ' + n + 'px ' + HOA; return Math.max(...dongTD.map((s) => x.measureText(s).width)); };
+    while (coTD > 56 && rongTD(coTD) > 780) coTD -= 2;
     x.fillStyle = MAU.muc; x.textAlign = 'center';
-    x.fillText(tieuDe, W / 2, 424);
+    dongTD.forEach((s, i) => x.fillText(vua(x, s, '600 {c}px ' + HOA, coTD, 780, coTD), W / 2, YD.td + i * YD.cach));
     x.fillStyle = MAU.dong;
-    x.fillText(vua(x, en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', '400 {c}px ' + TAY, 42, 760, 28), W / 2, 482);
+    x.fillText(vua(x, en ? t('Xom Leo Grill & Chill · Da Lat') : 'Tiệm Nướng & Chill Xóm Lèo · Đà Lạt', '400 {c}px ' + TAY, 42, 760, 28), W / 2, YD.tay);
     // Vach trang tri: hai vach + mat thoi
+    const yv = YD.vach;
     x.strokeStyle = MAU.dong; x.lineWidth = 2;
-    x.beginPath(); x.moveTo(W / 2 - 150, 522); x.lineTo(W / 2 - 22, 522); x.moveTo(W / 2 + 22, 522); x.lineTo(W / 2 + 150, 522); x.stroke();
-    x.fillStyle = MAU.dong; x.beginPath(); x.moveTo(W / 2, 512); x.lineTo(W / 2 + 10, 522); x.lineTo(W / 2, 532); x.lineTo(W / 2 - 10, 522); x.closePath(); x.fill();
+    x.beginPath(); x.moveTo(W / 2 - 150, yv); x.lineTo(W / 2 - 22, yv); x.moveTo(W / 2 + 22, yv); x.lineTo(W / 2 + 150, yv); x.stroke();
+    x.fillStyle = MAU.dong; x.beginPath(); x.moveTo(W / 2, yv - 10); x.lineTo(W / 2 + 10, yv); x.lineTo(W / 2, yv + 10); x.lineTo(W / 2 - 10, yv); x.closePath(); x.fill();
 
     // Cac truong
     const nhan = (s, px, py) => { x.fillStyle = MAU.dong; x.font = '700 21px ' + SANS; chuGian(x, s, px, py, 5, 'left'); };
     const C1 = 170, C2 = 600;
     nhan(en ? t('GUEST') : 'HÀNH KHÁCH', C1, 600);
-    // Toi da 500px: con dau do "Da gui" nam ben phai tu x ~720 (ten dai 20 ky tu tung cham dau)
+    // Toi da 500px: con dau do "Chua xac nhan" nam ben phai tu x ~710 (ten dai 20 ky tu tung cham dau)
     const ten = vua(x, o.ten || '—', '600 {c}px ' + SANS, 56, 500, 32);
     x.fillStyle = MAU.muc; x.textAlign = 'left'; x.fillText(ten, C1, 664);
     const dip = o.dip && !/^(không có|none)$/i.test(o.dip) ? o.dip : '';
@@ -139,15 +151,16 @@ window.XL_VE = (function () {
     x.fillText(String(o.khach || '—') + (en ? t(' guests') : ' người'), C1, 940);
     x.fillText(hh ? (en ? t('about ') : 'khoảng ') + XL_HOANG_HON.hm(hh.lan) : '—', C2, 940);
 
-    // Dau do: chua phai xac nhan
+    // Dau do: chua phai xac nhan. Tu 22-11-2026 ghi thang "CHUA XAC NHAN" (truoc la "DA GUI" — trung voi
+    // tieu de moi, va khong noi ro la chua co ban).
     x.save();
     x.translate(R - 150, 606); x.rotate(-0.17);
     x.strokeStyle = MAU.tem; x.fillStyle = MAU.tem; x.globalAlpha = 0.86;
-    x.lineWidth = 4; bo(x, -118, -52, 236, 104, 10); x.stroke();
-    x.lineWidth = 1.5; bo(x, -108, -42, 216, 84, 6); x.stroke();
+    x.lineWidth = 4; bo(x, -128, -52, 256, 104, 10); x.stroke();
+    x.lineWidth = 1.5; bo(x, -118, -42, 236, 84, 6); x.stroke();
     x.textAlign = 'center';
-    x.font = '600 38px ' + HOA; x.fillText(en ? t('SENT') : 'ĐÃ GỬI', 0, 4);
-    x.font = '700 15px ' + SANS; chuGian(x, en ? t('AWAITING CALL-BACK') : 'CHỜ GỌI XÁC NHẬN', 0, 30, en ? 1.5 : 3, 'center');
+    x.fillText(vua(x, en ? t('NOT CONFIRMED') : 'CHƯA XÁC NHẬN', '600 {c}px ' + HOA, 36, 216, 24), 0, 4);
+    x.font = '700 15px ' + SANS; chuGian(x, en ? t('AWAITING CALL-BACK') : 'CHỜ QUÁN GỌI LẠI', 0, 30, en ? 1.5 : 3, 'center');
     x.restore();
 
     // Cuong ve
