@@ -408,7 +408,8 @@
       "yDinh": "Chon quan nuong o Da Lat — nguoi tim 'quan nuong da lat', 'bo nuong da lat'... chua biet ten quan (cum quan-nuong-chung + mon-nuong trong cum-chu-de.json)",
       "loiThe": "Bai bac C cho cum dang do ve trang chu bac A (vai-tro-trang bao lech bac tu 29-10). Du kien chua trang nao co: 5 kieu quan nuong o Da Lat, duong chim bay 6 km vs duong xe 9 km, 6 cau hoi dung cho moi quan, bang gia theo mon",
       "ruiRoTrung": "Khong xep hang quan. Khong chep lai 'hop voi ai' cua 2 trang P (link sang). Tieu de khong trung 5 chu dau voi trang chu / bai nhom dong / bai view xe lua.",
-      "ghiChuMua": "Ngoai ke hoach 19 bai: dang 03-11-2026 theo lenh 'fix' cua chu site (viec 4 cua phien 29-10). Khong doi lich cac bai con lai."
+      "ghiChuMua": "Ngoai ke hoach 19 bai: dang 03-11-2026 theo lenh 'fix' cua chu site (viec 4 cua phien 29-10). Khong doi lich cac bai con lai.",
+      "ghiChuNang": "26-11-2026 chu site: 'lam 1 bai ve tu khoa quan nuong hoac tiem nuong ngon Da Lat' -> hoi lai, chu chon NANG BAI NAY thay vi mo URL moi (cum quan-nuong-chung da tro ve day; trang 1 Google toan listicle). Google Ads VN: quan nuong ngon da lat 480/thang, quan nuong ngon o da lat 260, tiem nuong ngon da lat 110. Title/H1 them 'ngon', muc #the-nao-la-ngon (thit, than, nuoc cham, anh khach chup), 1 FAQ moi, du kien bep chu chot 26-11 (than hoa, thit uop tai quan moi ngay, nuoc cham tu pha), cau dat ban theo quy dinh 17-11. AP TU 02-12 (sau D+7 core update xong 24-11): .claude/cho-day muc 4."
     },
     {
       "nhom": "dip",
