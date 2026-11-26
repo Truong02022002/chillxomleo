@@ -12,9 +12,9 @@
       "ten": "November 2026 core update",
       "loai": "core",
       "batDau": "2026-11-10",
-      "xong": null,
+      "xong": "2026-11-24",
       "nguon": "https://status.search.google.com/incidents/WLxcJyC6jMWMfryxsKMc",
-      "ghiChu": "10-11 10:06 PST: 'Released the November 2026 core update, which applies globally and to all languages. The rollout may take up to 2 weeks to complete.' Kiem lai 11-11-2026: chua bao xong."
+      "ghiChu": "10-11 10:06 PST: 'Released the November 2026 core update, which applies globally and to all languages. The rollout may take up to 2 weeks to complete.' 24-11 06:03 PST: 'The rollout was complete as of November 24, 2026.' (soat dashboard 26-11-2026). Giu yen site toi het 01-12; ky sau 25-11 -> 01-12, xuat GSC tu 04-12."
     },
     {
       "key": "2026-09-spam",

@@ -37,7 +37,7 @@ trang đang nhắc tới nó (VI, EN, 5 bản dịch, JSON-LD, bản lưu hang-d
 | Giá | Trung bình **250.000–300.000đ/người** cho bữa đầy đủ, ăn gọn 150.000–180.000đ. Giá in trên thực đơn **đã gồm VAT**; 68 món, 12.000–320.000đ; lẩu 300.000–320.000đ cho 4–6 người. **Không phụ thu cuối tuần, lễ.** Không combo / set menu theo đầu người. |
 | Tết | Phụ thu **8%** từ mùng 2 đến mùng 10. Tết Đinh Mùi 2027: **nghỉ 23 tháng Chạp (T7 30/1) đến hết mùng 1 (T7 6/2)**, mở lại mùng 2 (CN 7/2) đúng 15:00–23:00. Lịch này nằm ở 5 nơi — xem mục 4. |
 | Noel | Mùa Noel 2026: **góc check-in Noel riêng ở khu ngoài trời**, nhìn xuống thung lũng nhà kính — cây thông Noel, đèn trang trí sáng buổi tối, hộp quà / tuần lộc / ông già Noel, thêm bảng phấn + hoa trên bàn. Đang có, **gỡ sau 1/1/2027**; **chỉ dành cho khách ăn tại quán**. Đêm 24/12 như ngày thường (cùng thực đơn, giá, giờ). Bảng phấn "Noel no Anh No Money" trong ảnh chỉ là khẩu hiệu, không phải ưu đãi. Chưa có ảnh chụp chính góc Noel (chủ chốt 17-11-2026, bài `/check-in-noel-da-lat-xom-leo/`). |
-| Bếp, bàn | Nướng than tại bàn, **mỗi bàn đơn một bếp than rời**; ghép bàn thì bấy nhiêu bếp. Bàn gỗ dài kèm băng ghế. |
+| Bếp, bàn | Nướng than tại bàn, **mỗi bàn đơn một bếp than rời**; ghép bàn thì bấy nhiêu bếp. Bàn gỗ dài kèm băng ghế. Bếp đốt **than hoa (than củi)**; **thịt ướp tại quán mỗi ngày**, không mua thịt ướp sẵn; **nước chấm bếp quán tự pha** (chủ chốt 26-11-2026). Chưa xác nhận, đừng viết: nhân viên nướng giúp khách; "ướp thảo mộc địa phương", "sốt độc quyền" (câu cũ ở trang chủ, /about/). |
 | Khu ngồi | Khu trong nhà + khu mái che ngoài trời, cùng nhìn xuống thung lũng nhà kính Trại Mát. Ngoài trời **lạnh nhanh từ khoảng 19:00**; có mền và trà nóng. |
 | Đậu xe | Bãi trong khuôn viên **khoảng 15 ô tô**, xe máy miễn phí, lối vào đủ cho xe 16–29 chỗ quay đầu. |
 | Đoàn | Tối đa **60 người**; từ 10 người gọi trước. **Có đặt cọc**, mức không cố định (theo số người và có đặt món trước hay không). Trang trí sinh nhật / liên hoan **miễn phí**, báo lúc đặt bàn. Hoá đơn VAT: viết "hỏi và cung cấp thông tin lúc đặt bàn", chủ site không trả lời thêm. |
@@ -139,7 +139,10 @@ playwright-cli (từ cwd scratchpad) ở 1280px và 390px: console 0 lỗi, bả
 **Dịch (tools/dich):** `tach.mjs` → `chia-viec.mjs` (**xoá cả `viec/`** — sao lưu trước, đổi
 số gói mới, chép gói cũ lại; hoặc viết tay `viec/viec-NN.json` từ `nguon.json`) → dịch vào
 `ban-dich/<ma>/viec-NN.json` → `kiem-ban-dich.mjs <ma> viec-NN` → `gop.mjs` → `dung.mjs` →
-`csp-hash.mjs --write` → `kiem-sitemap.mjs --sua`. Trang thiếu đoạn thì dung bỏ qua, không dựng.
+`csp-hash.mjs --write` → `kiem-sitemap.mjs --sua`. Trang thiếu đoạn thì dung bỏ qua, không dựng — **và gỡ
+hreflang + URL sitemap của trang đó dù bản dịch cũ còn trên đĩa** (26-11: thẻ /blog/ 3 bài Noel/countdown đăng
+bằng cron chưa dịch → chạy dung làm sitemap 356 → 306). Luôn `dung.mjs --kiem` trước; trang đã có bản dịch mà
+thiếu đoạn thì dịch đoạn đó trước (`.claude/cho-day/goi-thieu.mjs`).
 
 **Lịch Tết nằm ở 5 nơi:** bài `quan-an-da-lat-mo-cua-tet` VI/EN + 5 bản dịch; JSON-LD
 OpeningHoursSpecification ở `index.html` + `en/index.html`; `js/mua-le.js` `LICH_TET` + nhãn
@@ -249,8 +252,9 @@ sửa hàng loạt.
   Reddit / Foody / Lemon8. Không seed cộng đồng, không đăng bài lên Medium / LinkedIn / Substack để lấy hạng.
 - Không có số liệu đối thủ kiểu Ahrefs (DR, referring domain, tốc độ backlink): connector chưa
   cấp quyền; site quán địa phương không chạy chỉ tiêu "N backlink/tháng".
-- **November 2026 core update** (bắt đầu 10-11 giờ Pacific, tối đa 2 tuần; kiểm 11-11: chưa xong):
-  giữ yên site tới hết 7 ngày sau khi xong (mục 4). Chủ: xuất GSC kỳ trước 03–09/11 (từ 12-11), thêm
+- **November 2026 core update** (bắt đầu 10-11, **xong 24-11** giờ Pacific — dashboard soát 26-11):
+  giữ yên site tới hết 7 ngày sau khi xong (mục 4) = **hết 01-12**; việc "sau D+7" bên dưới áp từ 02-12,
+  xuất GSC kỳ sau 25/11–01/12 từ 04-12. Chủ: xuất GSC kỳ trước 03–09/11 (từ 12-11), thêm
   ghi chú ngày 10-11 trên biểu đồ Hiệu suất. Dashboard báo xong ngày D → điền `xong` vào
   `tools/dot-cap-nhat-google.json`; kỳ sau D+1 → D+7, **xuất từ D+10** (kỳ sau + file 6 tháng), chạy
   `doi-chieu-cap-nhat` (quy trình: `tools/do-luong.md` mục 13). Kỳ trước chưa sạch (site đổi 321/333
@@ -275,10 +279,17 @@ sửa hàng loạt.
   vai-tro-trang 0×5, kiem-do-luong 41/41, 390/1280px không tràn, clip tên mới tải được. Áp xong thì bỏ câu
   "trang đang chạy còn bút danh cũ" ở dòng Tác giả mục 2. Còn treo: /about/ "Năm trải nghiệm riêng ở
   Xóm Lèo" / EN "unique to Xom Leo" trong khi Trạm Dừng Chill sát vách cũng thấy tàu — chờ chủ.
-- Việc 12-11 soạn sẵn, **chưa áp**, chạy **sau D+7** cùng đợt trên: mô tả meta `/chon-quan-nuong-da-lat-en/`
-  208 → 152 ký tự (Google đang cắt mất "six questions to ask") — `.claude/cho-day/` mục 3, script
-  `2026-11-12-meta-en-chon-quan-nuong.mjs --write` (11 chỗ, gồm hang-doi → chép sang `noi-dung`). Bản VI
-  176 ký tự để nguyên. Thử tại chỗ rồi khôi phục: diff 5/5, kiem-schema 0/0, vai-tro-trang 0×5.
+- ~~Việc 12-11: mô tả meta `/chon-quan-nuong-da-lat-en/` 208 → 152 ký tự~~ — gộp vào việc 26-11 dưới
+  (đừng chạy `2026-11-12-meta-en-chon-quan-nuong.mjs` nữa).
+- Việc 26-11 soạn sẵn, **chưa áp**, chạy **từ 02-12**: nâng `/chon-quan-nuong-da-lat/` (+ `-en/`) cho cụm
+  "quán nướng ngon Đà Lạt" (480/tháng) / "quán nướng ngon ở Đà Lạt" (260) / "tiệm nướng ngon Đà Lạt" (110) —
+  chủ chọn nâng bài cũ thay vì mở URL mới (một ý định một URL; trang 1 toàn listicle). Title / H1 / mô tả
+  thêm "ngon", mục mới `#the-nao-la-ngon` (thịt, than, nước chấm, ảnh khách chụp), 1 FAQ mới, dữ kiện bếp
+  26-11 (mục 2) và câu đặt bàn theo quy định 17-11. `.claude/cho-day/` mục 4, script
+  `2026-11-26-quan-nuong-ngon.mjs --write` (tự chặn trước 02-12); bản dịch 33 đoạn × 5 tiếng (`viec-102`) + thẻ
+  /blog/ 3 bài Noel/countdown (`viec-103`, 12 đoạn — thiếu là dung gỡ hreflang 10 trang) đã gộp sẵn vào
+  `tools/dich/kho/`. Thử worktree 26-11 trọn chuỗi gồm dung: kiem-schema 0/0, audit-links 0, vai-tro-trang 0×5,
+  kiem-do-luong 41/41, mua-le 377, sitemap 356 URL, VI/EN 1280/390px không tràn, console 0.
 - `sao-bai.yml` vẫn chạy mỗi sáng trong cửa sổ đợt: trang đủ 5 phiếu sẽ hiện điểm + schema (`/menu/`
   đang 3/5). Công cụ đối chiếu tự đánh dấu trang bật điểm sao; chủ quyết có tắt tạm workflow tới D+7
   để giữ `/menu/` làm đối chứng sạch không.

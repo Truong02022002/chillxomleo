@@ -363,13 +363,14 @@
       "mau": "(quan|tiem|nha hang|lang|chon)? ?(do )?nuong|bbq|nuong (chill|ngon)|chill nuong|an toi|quan an toi|lau nuong",
       "bac": "C",
       "nguoi": "Du khách sắp hoặc đang ở Đà Lạt, chọn quán nướng cho bữa tối — chưa biết tên quán nào",
-      "canBiet": "Quán nào hợp (view, không khí, giá), có xa trung tâm không, có bị chặt chém không",
+      "canBiet": "Quán nào hợp (view, không khí, giá), quán nào ngon thật (thịt, than, nước chấm, ảnh khách chụp), có xa trung tâm không, có bị chặt chém không",
       "bangChung": "Ảnh không gian thật, giá in đã gồm VAT, khoảng cách ~8 km nói thẳng, điểm Google Maps hiển thị",
       "cta": [
         "dat-ban",
         "goi"
       ],
-      "kpi": "generate_lead + nhấp sang /menu/, /#booking, tel: từ lượt vào không thương hiệu (GSC cụm này + GA4 content_group 2-choose)"
+      "kpi": "generate_lead + nhấp sang /menu/, /#booking, tel: từ lượt vào không thương hiệu (GSC cụm này + GA4 content_group 2-choose)",
+      "ghiChu": "Google Ads 26-11-2026 (VN, tiếng Việt, TB 11/2025–10/2026): quán nướng đà lạt 2.900 (đỉnh tháng 2: 4.400), tiệm nướng đà lạt 1.600, quán nướng ngon đà lạt 480 (đỉnh tháng 8: 880), quán nướng ngon ở đà lạt 260, quán nướng ở đà lạt 210, tiệm nướng ngon đà lạt 110, quán nướng đà lạt ngon rẻ 110, quán nướng ngon nhất đà lạt 40. Trang 1 cụm 'ngon' là listicle (Vietnam Airlines, Vinpearl, VinWonders, mia.vn) — site không viết listicle; chủ chọn 26-11 nâng /chon-quan-nuong-da-lat/ (title/H1 'Chọn quán nướng ngon…', mục #the-nao-la-ngon) thay vì mở URL mới — áp từ 02-12 (.claude/cho-day mục 4)."
     },
     {
       "key": "noel-da-lat",
